@@ -22,7 +22,7 @@ class AjaxUsuarios
     public function ajaxEditarUsuario()
     {
 
-        $item = "id";
+        $item = "id_usuario";
         $valor = $this->idUsuario;
 
         $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
@@ -46,7 +46,7 @@ class AjaxUsuarios
         $item1 = "estado";
         $valor1 = $this->activarUsuario;
 
-        $item2 = "id";
+        $item2 = "id_usuario";
         $valor2 = $this->activarId;
 
         $respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
@@ -111,4 +111,38 @@ if (isset($_POST["nombre"])) {
 $crearUsuario = new ControladorUsuarios();
 $crearUsuario->ctrCrearUsuario();
 
+}else{
+
+    $item = null;
+    $valor = null;
+    $mostrarUsuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+    
+    $tablaUsuarios = array();
+    
+    foreach ($mostrarUsuarios as $key => $usuario) {
+        
+        $fila = array(
+            'id_usuario' => $usuario['id_usuario'],
+            'nombre_usuario' => $usuario['nombre_usuario'],
+            'id_doc' => $usuario['id_doc'],
+            'numero_documento' => $usuario['numero_documento'],
+            'direccion' => $usuario['direccion'],
+            'telefono' => $usuario['telefono'],
+            'correo' => $usuario['correo'],
+            'usuario' => $usuario['usuario'],
+            'contrasena' => $usuario['contrasena'],
+            'imagen_usuario' => $usuario['imagen_usuario'],
+            'estado' => $usuario['estado']
+        );
+    
+        
+        $tablaUsuarios[] = $fila;
+    }
+    
+    
+    echo json_encode($tablaUsuarios);
 }
+
+
+?>
+

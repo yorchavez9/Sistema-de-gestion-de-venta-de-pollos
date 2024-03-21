@@ -63,35 +63,44 @@ class ControladorUsuarios
 	static public function ctrCrearUsuario()
 	{
 
-		
-		// Verifica si se ha enviado un archivo
-		if(isset($_FILES['imagen'])){
-			$directorio_destino = "vistas/img/usuarios/";
-		
-			// Verifica si el directorio destino existe, si no, intenta crearlo
+
+		if (isset($_FILES['imagen'])) {
+
+			$directorio_destino = "../vistas/img/usuarios/";
+
 			if (!file_exists($directorio_destino)) {
-				// Intenta crear el directorio
+
 				if (!mkdir($directorio_destino, 0777, true)) {
-					// Si la creación del directorio falla, muestra un mensaje de error
+
 					die("Error al crear el directorio destino");
+
 				}
 			}
-		
-			// Genera un nombre único para el archivo basado en la fecha y la hora actual
-			$nombre_archivo = date('Ymd_His') . '_' . $_FILES['imagen']['name'];
-		
+
+			$extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+
+			$nombre_archivo = date('ymd_His') . '.' . $extension;
+
 			$ruta_archivo = $directorio_destino . $nombre_archivo;
-		
+
 			if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_archivo)) {
-				echo "La imagen se ha cargado y guardado correctamente.";
+
+				/* echo "La imagen se ha cargado y guardado correctamente."; */
+				
+
 			} else {
-				echo "Error al mover el archivo.";
+
+				/* echo "Error al mover el archivo."; */
+
 			}
 		} else {
-			echo "No se ha enviado ninguna imagen.";
+
+			/* echo "No se ha enviado ninguna imagen."; */
+
 		}
-		
-		
+
+
+
 
 
 
@@ -117,7 +126,7 @@ class ControladorUsuarios
 		if ($respuesta == "ok") {
 
 			echo json_encode("ok");
-		}else{
+		} else {
 			echo json_encode("error");
 		}
 	}

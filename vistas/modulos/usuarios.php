@@ -42,159 +42,22 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table  datanew">
+                    <table class="table  datanew" id="tabla_usuarios">
                         <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
-                                <th>Profile</th>
-                                <th>First name </th>
-                                <th>Last name </th>
-                                <th>User name </th>
-                                <th>Phone</th>
-                                <th>email</th>
-                                <th>Status</th>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                                <th>N° documento</th>
+                                <th>Dirección</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                                <th>Usuario</th>
+                                <th>estado</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img">
-                                        <img src="vistas/dist/assets/img/customer/customer1.jpg" alt="product">
-                                    </a>
-                                </td>
-                                <td>Thomas</td>
-                                <td>Thomas </td>
-                                <td>Thomas21 </td>
-                                <td>+12163547758 </td>
-                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f">[email&#160;protected]</a>
-                                </td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user1" class="check">
-                                        <label for="user1" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a class="me-3" href="edituser.html">
-                                        <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                        <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img">
-                                        <img src="vistas/dist/assets/img/customer/customer2.jpg" alt="product">
-                                    </a>
-                                </td>
-                                <td>Benjamin</td>
-                                <td>Franklin </td>
-                                <td>504Benjamin </td>
-                                <td>123-456-888</td>
-                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e685939592898b8394a6839e878b968a83c885898b">[email&#160;protected]</a>
-                                </td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user2" class="check" checked="">
-                                        <label for="user2" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a class="me-3" href="edituser.html">
-                                        <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                        <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img">
-                                        <img src="vistas/dist/assets/img/customer/customer3.jpg" alt="product">
-                                    </a>
-                                </td>
-                                <td>James</td>
-                                <td>James </td>
-                                <td>James 524 </td>
-                                <td>+12163547758 </td>
-                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ef4fff3fbeddefbe6fff3eef2fbb0fdf1f3">[email&#160;protected]</a>
-                                </td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user3" class="check" checked="">
-                                        <label for="user3" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a class="me-3" href="edituser.html">
-                                        <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                        <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img">
-                                        <img src="vistas/dist/assets/img/customer/customer4.jpg" alt="product">
-                                    </a>
-                                </td>
-                                <td>Bruklin</td>
-                                <td>Bruklin </td>
-                                <td>Bruklin2022</td>
-                                <td>123-456-888</td>
-                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781a0a0d13141116381d00191508141d561b1715">[email&#160;protected]</a>
-                                </td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user4" class="check" checked="">
-                                        <label for="user4" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a class="me-3" href="edituser.html">
-                                        <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                        <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                            </tr>
-
+                        <tbody id="dataUsuarios">
+                            
                         </tbody>
                     </table>
                 </div>
@@ -213,7 +76,7 @@
                 <h5 class="modal-title">Crear nuevo usuario</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data">
+            <form enctype="multipart/form-data" id="nuevoUsuario">
                 <div class="modal-body">
 
                     <!-- INGRESO DE NOMBRE -->
@@ -268,7 +131,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="correo" class="form-label">Ingrese el correo electrónico (<span class="text-danger">*</span>)</label>
+                                <label for="correo" class="form-label">Ingrese el correo electrónico(<span class="text-danger">*</span>)</label>
                                 <input type="email" id="correo" class="form-control" placeholder="Ingrese el correo electrónico">
                                 <small id="errorCorreoUsuario"></small>
                             </div>
