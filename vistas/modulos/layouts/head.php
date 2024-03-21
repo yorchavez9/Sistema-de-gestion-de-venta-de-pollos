@@ -9,7 +9,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dreams Pos admin template</title>
+    <title>Apuuray</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="vistas/dist/assets/img/favicon.png">
 
@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="vistas/dist/assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="vistas/dist/assets/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="vistas/dist/assets/plugins/select2/css/select2.min.css">
 
     <link rel="stylesheet" href="vistas/dist/assets/css/style.css">
 

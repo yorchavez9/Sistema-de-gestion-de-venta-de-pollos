@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+
+
+
   $("#button_submit_login").click(function () {
     let ingUsuario = $("#ingUsuario").val();
     let ingPassword = $("#ingPassword").val();
@@ -20,6 +24,5 @@ $(document).ready(function () {
         .css("color", "red");
       valido = false;
     }
-
   });
 });

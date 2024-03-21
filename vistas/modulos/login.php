@@ -4,7 +4,7 @@
             <div class="login-content">
                 <div class="login-userset">
                     <div class="login-logo text-center ">
-                        <img src="vistas/dist/assets/img/logo.png" class="text-center" alt="img">
+                        <!-- <img src="vistas/dist/assets/img/logo.png" class="text-center" alt="img"> -->
                     </div>
                     <div class="login-userheading text-center ">
                         <h3>Iniciar sesión</h3>

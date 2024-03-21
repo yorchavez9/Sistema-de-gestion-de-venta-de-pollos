@@ -15,6 +15,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
         <?php include "modulos/header.php" ?>
 
         <?php include "modulos/sidebar.php"; ?>
+
         <?php
         if (isset($_GET["ruta"])) {
 
@@ -40,7 +41,10 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
             include "modulos/inicio.php";
         }
+
+
         ?>
+
 
     <?php echo '</div>'; ?>
 <?php
