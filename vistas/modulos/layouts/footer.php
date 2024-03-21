@@ -17,7 +17,7 @@
     <!-- ===================================
     SCRIPT DE MODULOS
     =================================== -->
-    <script src="vistas/js/login.js"></script>
+    <script src="vistas/js/script-login.js"></script>
 </body>
 
 </html>

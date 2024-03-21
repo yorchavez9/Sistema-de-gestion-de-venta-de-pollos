@@ -28,23 +28,31 @@ class ControladorUsuarios{
 						$_SESSION["iniciarSesion"] = "ok";
 						$_SESSION["id_usuario"] = $respuesta["id_usuario"];
 						$_SESSION["nombre_usuario"] = $respuesta["nombre_usuario"];
+						$_SESSION["id_doc"] = $respuesta["id_doc"];
+						$_SESSION["numero_documento"] = $respuesta["numero_documento"];
+						$_SESSION["direccion"] = $respuesta["direccion"];
+						$_SESSION["telefono"] = $respuesta["telefono"];
+						$_SESSION["correo"] = $respuesta["correo"];
 						$_SESSION["usuario"] = $respuesta["usuario"];
 						$_SESSION["imagen_usuario"] = $respuesta["imagen_usuario"];
 
-                        $respuesta = "OK";
-						echo json_encode($respuesta);
-									
+						
+						echo '<script>
+							window.location = "inicio"
+						</script>';
 						
 					}else{
 
-						echo '<br>
-							<div class="alert alert-danger">El usuario aún no está activado</div>';
+						echo json_encode("El usuario aún no está activado");
+	
 
 					}		
 
 				}else{
 
-					echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+
+					$mensajeError = "Error al ingresar, vuelve a intentarlo";
+					echo json_encode($mensajeError);
 
 				}
 

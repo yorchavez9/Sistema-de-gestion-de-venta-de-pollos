@@ -12,14 +12,14 @@
                     </div>
 
 
-                    <form id="login_form">
+                    <form id="login_form" method="POST">
 
                         <!-- INGRESO DE CORREO O CONTRASEÑA -->
 
                         <div class="form-login">
                             <label>Ingrese su correo o usuario</label>
                             <div class="form-addons">
-                                <input type="text" id="ingUsuario" placeholder="Ingrese su correo o usuario">
+                                <input type="text" id="ingUsuario" name="ingUsuario" placeholder="Ingrese su correo o usuario">
                                 <img src="vistas/dist/assets/img/icons/mail.svg" alt="img">
                             </div>
                             <div id="errorIngUsuario"></div>
@@ -30,7 +30,7 @@
                         <div class="form-login">
                             <label>Ingrese su contraseña</label>
                             <div class="pass-group">
-                                <input type="password" id="ingPassword" class="pass-input" placeholder="Ingrese su contraseña">
+                                <input type="password" id="ingPassword" name="ingPassword" class="pass-input" placeholder="Ingrese su contraseña">
                                 <span class="fas toggle-password fa-eye-slash"></span>
                             </div>
                             <div id="errorIngPassword"></div>
@@ -48,8 +48,13 @@
                         <!-- BOTON PARA INGRESAR -->
 
                         <div class="form-login">
-                            <button type="button" id="button_submit_login" class="btn btn-login rounded-3">Iniciar sesión</button>
+                            <button type="submit" id="button_submit_login" class="btn btn-login rounded-3">Iniciar sesión</button>
                         </div>
+
+                        <?php
+                        $ingresousuario = new ControladorUsuarios();
+                        $ingresousuario->ctrIngresoUsuario();
+                        ?>
 
                     </form>
 
@@ -73,7 +78,9 @@
                                 <a href="javascript:void(0);">
                                     <img src="vistas/dist/assets/img/icons/facebook.png" class="me-2" alt="google">
                                     Regístrate usando Facebook
+                                    
                                 </a>
+                        
                             </li>
                         </ul>
                     </div>

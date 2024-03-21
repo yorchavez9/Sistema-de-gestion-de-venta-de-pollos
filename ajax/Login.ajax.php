@@ -1,7 +1,7 @@
 <?php
 
-require_once "../controladores/Usuarios.controlador.php";
-require_once "../modelos/usuarios.modelo.php";
+require_once "../controladores/Usuario.controlador.php";
+require_once "../modelos/Usuario.modelo.php";
 
 class AjaxUsuarios
 {
@@ -102,10 +102,3 @@ if (isset($_POST["validarUsuario"])) {
     $valUsuario->validarUsuario = $_POST["validarUsuario"];
     $valUsuario->ajaxValidarUsuario();
 }
-
-/* =======================================
-INGRESO DE LOGIN
-======================================= */
-
-$crearUsuario = new ControladorUsuarios();
-$crearUsuario->ctrIngresoUsuario();

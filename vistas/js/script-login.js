@@ -21,26 +21,5 @@ $(document).ready(function () {
       valido = false;
     }
 
-    if (valido) {
-      let datos = new FormData();
-
-      datos.append("ingUsuario", ingUsuario);
-      datos.append("ingPassword", ingPassword);
-
-      $.ajax({
-        url: "ajax/Login.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (respuesta) {
-          console.log(respuesta);
-        },
-      });
-    }
   });
-
-
 });

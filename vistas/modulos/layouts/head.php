@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="vistas/dist/assets/css/style.css">
 
     <script src="vistas/dist/jquery/jquery-3.7.1.min.js"></script>
+
+    <!-- ALERTA -->
+    <link rel="stylesheet" href="vistas/dist/alert/sweetalert2.min.css">
+    <script src="vistas/dist/alert/sweetalert2.min.js"></script>
 </head>
 
 <body>
