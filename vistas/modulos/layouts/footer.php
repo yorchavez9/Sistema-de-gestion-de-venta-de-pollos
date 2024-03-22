@@ -19,7 +19,7 @@
     SCRIPT DE MODULOS
     =================================== -->
     <script src="vistas/js/login.js"></script>
-    <script src="vistas/js/usuario.js"></script>
+    <script src="vistas/js/script-usuario.js"></script>
 </body>
 
 </html>

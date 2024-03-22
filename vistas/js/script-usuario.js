@@ -66,7 +66,7 @@ $(document).ready(function () {
     var isValid = true;
 
     var nombre = $("#nombre_usuario").val();
-    var tipoDocumento = $(".select").val();
+    var tipoDocumento = $("#id_doc").val();
     var numeroDocumento = $("#numero_documento").val();
     var direccion = $("#direccion").val();
     var telefono = $("#telefono").val();
@@ -207,44 +207,50 @@ $(document).ready(function () {
       type: "GET",
       dataType: "json",
       success: function (usuarios) {
-
         var tbody = $("#dataUsuarios");
-
 
         tbody.empty();
 
-
         usuarios.forEach(function (usuario) {
-          
           usuario.imagen_usuario = usuario.imagen_usuario.substring(3);
           var fila = `
                     <tr>
                         <td>
                             <a href="javascript:void(0);" class="product-img">
-                                <img src="${usuario.imagen_usuario}" alt="product">
+                                <img src="${
+                                  usuario.imagen_usuario
+                                }" alt="product">
                             </a>
                         </td>
-                        <td class="productimgname">${usuario.nombre_usuario}</td>
+                        <td class="productimgname">${
+                          usuario.nombre_usuario
+                        }</td>
                         <td>${usuario.id_doc}${usuario.numero_documento}</td>
                         <td>${usuario.direccion}</td>
                         <td>${usuario.telefono}</td>
                         <td>${usuario.correo}</td>
                         <td>${usuario.usuario}</td>
                         <td>
-                            ${usuario.estado != 0 ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="0">Activado</button>' : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'}
+                            ${
+                              usuario.estado != 0
+                                ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' +
+                                  usuario.id_usuario +
+                                  '" estadoUsuario="0">Activado</button>'
+                                : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' +
+                                  usuario.id_usuario +
+                                  '" estadoUsuario="1">Desactivado</button>'
+                            }
                         </td>
                         <td>
-                            <a class="me-3" href="edituser.html">
+                            <a href="#" class="me-3 btnEditarUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
                                 <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
                             </a>
-                            <a class="me-3 confirm-text" href="javascript:void(0);">
+                            <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${usuario.id_usuario}" fotoUsuario="${usuario.imagen_usuario}" usuario="${usuario.usuario}">
                                 <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
                             </a>
                         </td>
                     </tr>
                 `;
-
-
 
           // Agregar la fila al tbody
           tbody.append(fila);
@@ -257,66 +263,94 @@ $(document).ready(function () {
   }
   mostrarUsuarios();
 
+  /*=============================================
+  ACTIVAR USUARIO
+  =============================================*/
+  $("#tabla_usuarios").on("click", ".btnActivar", function () {
+    var idUsuario = $(this).attr("idUsuario");
+    var estadoUsuario = $(this).attr("estadoUsuario");
 
- /*=============================================
-ACTIVAR USUARIO
-=============================================*/
-$("#tabla_usuarios").on("click", ".btnActivar", function(){
+    var datos = new FormData();
+    datos.append("activarId", idUsuario);
+    datos.append("activarUsuario", estadoUsuario);
 
-	var idUsuario = $(this).attr("idUsuario");
-	var estadoUsuario = $(this).attr("estadoUsuario");
-
-	var datos = new FormData();
- 	datos.append("activarId", idUsuario);
-  	datos.append("activarUsuario", estadoUsuario);
-
-  	$.ajax({
-
-	  url:"ajax/Usuario.ajax.php",
-	  method: "POST",
-	  data: datos,
-	  cache: false,
+    $.ajax({
+      url: "ajax/Usuario.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
       contentType: false,
       processData: false,
-      success: function(respuesta){
+      success: function (respuesta) {
+        if (window.matchMedia("(max-width:767px)").matches) {
+          swal({
+            title: "El usuario ha sido actualizado",
+            type: "success",
+            confirmButtonText: "¡Cerrar!",
+          }).then(function (result) {
+            if (result.value) {
+              window.location = "usuarios";
+            }
+          });
+        }
+      },
+    });
 
-      		if(window.matchMedia("(max-width:767px)").matches){
+    if (estadoUsuario == 0) {
+      $(this).removeClass("btn-success");
+      $(this).addClass("btn-danger");
+      $(this).html("Desactivado");
+      $(this).attr("estadoUsuario", 1);
+    } else {
+      $(this).addClass("btn-success");
+      $(this).removeClass("btn-danger");
+      $(this).html("Activado");
+      $(this).attr("estadoUsuario", 0);
+    }
+  });
 
-	      		 swal({
-			      title: "El usuario ha sido actualizado",
-			      type: "success",
-			      confirmButtonText: "¡Cerrar!"
-			    }).then(function(result) {
-			        if (result.value) {
-
-			        	window.location = "usuarios";
-
-			        }
+  /*=============================================
+  EDITAR USUARIO
+  =============================================*/
+  $("#tabla_usuarios").on("click", ".btnEditarUsuario", function () {
 
 
-				});
+    var idUsuario = $(this).attr("idUsuario");
 
-	      	}
+    console.log(idUsuario);
 
-      }
+    var datos = new FormData();
+    datos.append("idUsuario", idUsuario);
 
-  	})
+    $.ajax({
+      url: "ajax/Usuario.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+        $("#editIdUsuario").val(respuesta["id_usuario"]);
+        $("#edit_nombre_usuario").val(respuesta["nombre_usuario"]);
+        $("#edit_id_doc").val(respuesta["id_doc"]);
+        $("#edit_id_doc").text(respuesta["nombre_doc"]);
+        $("#editarUsuario").val(respuesta["usuario"]);
+        $("#editarPerfil").html(respuesta["perfil"]);
+        $("#editarPerfil").val(respuesta["perfil"]);
+        $("#fotoActual").val(respuesta["foto"]);
 
-  	if(estadoUsuario == 0){
+        $("#passwordActual").val(respuesta["password"]);
 
-  		$(this).removeClass('btn-success');
-  		$(this).addClass('btn-danger');
-  		$(this).html('Desactivado');
-  		$(this).attr('estadoUsuario',1);
-
-  	}else{
-
-  		$(this).addClass('btn-success');
-  		$(this).removeClass('btn-danger');
-  		$(this).html('Activado');
-  		$(this).attr('estadoUsuario',0);
-
-  	}
-
-})
+        if (respuesta["foto"] != "") {
+          $(".previsualizarEditar").attr("src", respuesta["foto"]);
+        } else {
+          $(".previsualizarEditar").attr(
+            "src",
+            "vistas/img/usuarios/default/anonymous.png"
+          );
+        }
+      },
+    });
+  });
 });

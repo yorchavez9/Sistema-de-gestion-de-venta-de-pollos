@@ -78,35 +78,18 @@ if (isset($_POST["idUsuario"])) {
     $editar = new AjaxUsuarios();
     $editar->idUsuario = $_POST["idUsuario"];
     $editar->ajaxEditarUsuario();
-}
-
-/*=============================================
-ACTIVAR USUARIO
-=============================================*/
-
-if (isset($_POST["activarUsuario"])) {
+}elseif (isset($_POST["activarUsuario"])) {
 
     $activarUsuario = new AjaxUsuarios();
     $activarUsuario->activarUsuario = $_POST["activarUsuario"];
     $activarUsuario->activarId = $_POST["activarId"];
     $activarUsuario->ajaxActivarUsuario();
-}
-
-/*=============================================
-VALIDAR NO REPETIR USUARIO
-=============================================*/
-
-if (isset($_POST["validarUsuario"])) {
+}elseif (isset($_POST["validarUsuario"])) {
 
     $valUsuario = new AjaxUsuarios();
     $valUsuario->validarUsuario = $_POST["validarUsuario"];
     $valUsuario->ajaxValidarUsuario();
-}
-
-/* =========================================
-NUEVO USUARIO
-========================================= */
-if (isset($_POST["nombre"])) {
+}elseif (isset($_POST["nombre"])) {
 
 $crearUsuario = new ControladorUsuarios();
 $crearUsuario->ctrCrearUsuario();

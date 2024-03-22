@@ -16,12 +16,14 @@ class ControladorUsuarios
 
 				$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
-				$tabla = "usuarios";
+
+				$tablaDoc = "tipo_documentos";
+				$tablaUser = "usuarios";
 
 				$item = "usuario";
 				$valor = $_POST["ingUsuario"];
 
-				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
+				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor);
 
 				if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["contrasena"] == $encriptar) {
 
@@ -138,9 +140,10 @@ class ControladorUsuarios
 	static public function ctrMostrarUsuarios($item, $valor)
 	{
 
-		$tabla = "usuarios";
+		$tablaDoc = "tipo_documentos";
+		$tablaUser = "usuarios";
 
-		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
+		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor);
 
 		return $respuesta;
 	}

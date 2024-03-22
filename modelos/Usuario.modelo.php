@@ -8,11 +8,11 @@ class ModeloUsuarios{
 	MOSTRAR USUARIOS
 	=============================================*/
 
-	static public function mdlMostrarUsuarios($tabla, $item, $valor){
+	static public function mdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor){
 
 		if($item != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc WHERE $item = :$item");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -22,7 +22,7 @@ class ModeloUsuarios{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc");
 
 			$stmt -> execute();
 
