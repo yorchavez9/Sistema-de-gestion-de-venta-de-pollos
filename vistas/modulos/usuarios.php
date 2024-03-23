@@ -90,11 +90,22 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Selecione el tipo de documento (<span class="text-danger">*</span>)</label>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
+                            ?>
                             <select class="select" id="id_doc">
                                 <option disabled selected>Seleccione</option>
-                                <option value="1">DNI</option>
-                                <option value="2">RUC</option>
+                                <?php
+                                foreach ($tiposDocumentos as $key => $value) {
+                                ?>
+                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                <?php
+                                }
+                                ?>
                             </select>
+
                             <small id="errorTipoDocumento"></small>
                         </div>
                         <div class="col-md-6">
@@ -187,7 +198,7 @@
                 <h5 class="modal-title">Crear nuevo usuario</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="nuevoUsuario">
+            <form enctype="multipart/form-data" id="formEditUsuario">
                 <div class="modal-body">
 
                     <!-- ID --> 
@@ -197,24 +208,33 @@
                     <div class="form-group">
                         <label>Ingrese el nombre completo (<span class="text-danger">*</span>)</label>
                         <input type="text" id="edit_nombre_usuario" >
-                        <small id="errorNombreUsuario"></small>
+                        <small id="editerrorNombreUsuario"></small>
                     </div>
 
                     <!-- INGRESO DE TIPO DE DOCUMENTO Y NUMERO DOCUMENTO -->
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Selecione el tipo de documento (<span class="text-danger">*</span>)</label>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
+                            ?>
                             <select class="select" id="edit_id_doc">
-                                <option value=""></option>
-                                <option value="1">DNI</option>
-                                <option value="2">RUC</option>
+                                <?php
+                                foreach ($tiposDocumentos as $key => $value) {
+                                ?>
+                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                <?php
+                                }
+                                ?>
                             </select>
-                            <small id="errorTipoDocumento"></small>
+                            <small id="editerrorTipoDocumento"></small>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="numero_documento" class="form-label">Ingrese el número de documento (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="numero_documento" placeholder="Ingrese el número de documento">
+                                <input type="text" id="edit_numero_documento" placeholder="Ingrese el número de documento">
                                 <small id="errorNumeroDocumento"></small>
                             </div>
 
@@ -226,16 +246,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="direccion" class="form-label">Ingrese la dirección </label>
-                                <input type="text" id="direccion" placeholder="Ingrese la dirección">
-                                <small id="errorDireccionUsuario"></small>
+                                <input type="text" id="edit_direccion" placeholder="Ingrese la dirección">
+                                <small id="editerrorDireccionUsuario"></small>
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese teléfono (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="telefono" placeholder="Ingrese el teléfono">
-                                <small id="errorTelefonoUsuario"></small>
+                                <input type="text" id="edit_telefono" placeholder="Ingrese el teléfono">
+                                <small id="editerrorTelefonoUsuario"></small>
                             </div>
 
                         </div>
@@ -246,16 +266,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="correo" class="form-label">Ingrese el correo electrónico(<span class="text-danger">*</span>)</label>
-                                <input type="email" id="correo" class="form-control" placeholder="Ingrese el correo electrónico">
-                                <small id="errorCorreoUsuario"></small>
+                                <input type="email" id="edit_correo" class="form-control" placeholder="Ingrese el correo electrónico">
+                                <small id="editerrorCorreoUsuario"></small>
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usuario" class="form-label">Ingrese el usuario (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="usuario" placeholder="Ingrese el usuario">
-                                <small id="errorUsuario"></small>
+                                <input type="text" id="edit_usuario" placeholder="Ingrese el usuario">
+                                <small id="editerrorUsuario"></small>
                             </div>
 
                         </div>
@@ -266,26 +286,28 @@
                         <label for="contrasena" class="form-label">Ingrese la contraseña (<span class="text-danger">*</span>)</label>
 
                         <div class="pass-group">
-                            <input type="password" id="contrasena" name="contrasena" class="pass-input" placeholder="Ingrese la contraseña">
+                            <input type="password" id="edit_contrasena" name="contrasena" class="pass-input" placeholder="Ingrese la contraseña">
                             <span class="fas toggle-password fa-eye-slash"></span>
-                            <small id="errorContrasena"></small>
+
                         </div>
+                        <input type="text" id="passwordActual">
 
 
                     </div>
 
                     <div class="form-group">
                         <label for="imagen_usuario" class="form-label"></label>
-                        <input type="file" class="form-control" id="imagen_usuario" class="">
+                        <input type="file" class="form-control" id="edit_imagen_usuario" class="">
                         <div class="text-center mt-3">
-                            <img src="" class="vistaPreviaImagenUsuario img img-fluid rounded-circle" width="250" alt="">
+                            <img src="" class="editVistaPreviaImagenUsuario img img-fluid rounded-circle" width="250" alt="">
                         </div>
+                        <input type="text" id="imagenActualUsuario">
                     </div>
 
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="guardar_usuario" class="btn btn-primary mx-2">Guardar</button>
+                    <button type="button" id="actualizar_usuario" class="btn btn-primary mx-2">Actualizar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>

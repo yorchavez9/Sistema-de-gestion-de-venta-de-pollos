@@ -91,8 +91,18 @@ if (isset($_POST["idUsuario"])) {
     $valUsuario->ajaxValidarUsuario();
 }elseif (isset($_POST["nombre"])) {
 
-$crearUsuario = new ControladorUsuarios();
-$crearUsuario->ctrCrearUsuario();
+    $crearUsuario = new ControladorUsuarios();
+    $crearUsuario->ctrCrearUsuario();
+
+}elseif(isset($_POST["edit_idUsuario"])){
+
+    $editusuario = new ControladorUsuarios();
+    $editusuario->ctrEditarUsuario();
+
+}elseif(isset($_POST["deleteUserId"])){
+
+    $borrarUsuario = new ControladorUsuarios();
+    $borrarUsuario->ctrBorrarUsuario();
 
 }else{
 

@@ -66,45 +66,34 @@ class ControladorUsuarios
 	{
 
 
-		if (isset($_FILES['imagen'])) {
+		/* VALIDANDO IMAGEN */
 
-			$directorio_destino = "../vistas/img/usuarios/";
+		$ruta = "../vistas/img/usuarios/";
 
-			if (!file_exists($directorio_destino)) {
+		if (isset($_FILES["imagen"]["tmp_name"])) {
 
-				if (!mkdir($directorio_destino, 0777, true)) {
+			$extension = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
 
-					die("Error al crear el directorio destino");
+			$tipos_permitidos = array("jpg", "jpeg", "png", "gif");
 
+			if (in_array(strtolower($extension), $tipos_permitidos)) {
+
+				$nombre_imagen = date("YmdHis") . rand(1000, 9999);
+
+				$ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
+
+				if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $ruta_imagen)) {
+
+					/* echo "Imagen subida correctamente."; */
+				} else {
+
+					/* echo "Error al subir la imagen."; */
 				}
-			}
-
-			$extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-
-			$nombre_archivo = date('ymd_His') . '.' . $extension;
-
-			$ruta_archivo = $directorio_destino . $nombre_archivo;
-
-			if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_archivo)) {
-
-				/* echo "La imagen se ha cargado y guardado correctamente."; */
-				
-
 			} else {
 
-				/* echo "Error al mover el archivo."; */
-
+				/* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
 			}
-		} else {
-
-			/* echo "No se ha enviado ninguna imagen."; */
-
 		}
-
-
-
-
-
 
 
 		$tabla = "usuarios";
@@ -120,7 +109,7 @@ class ControladorUsuarios
 			"correo" => $_POST["correo"],
 			"usuario" => $_POST["usuario"],
 			"contrasena" => $encriptar,
-			"imagen_usuario" => $ruta_archivo
+			"imagen_usuario" => $ruta_imagen
 		);
 
 		$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla,	$datos);
@@ -154,166 +143,80 @@ class ControladorUsuarios
 
 	static public function ctrEditarUsuario()
 	{
+		if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["edit_nombre"])) {
 
-		if (isset($_POST["editarUsuario"])) {
+			/* ============================
+            VALIDANDO IMAGEN
+            ============================ */
 
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
+            $ruta = "../vistas/img/usuarios/";
 
-				/*=============================================
-				VALIDAR IMAGEN
-				=============================================*/
+            $ruta_imagen = $_POST["edit_imagenActualUsuario"];
 
-				$ruta = $_POST["fotoActual"];
+            if (isset($_FILES["edit_imagen"]["tmp_name"]) && !empty($_FILES["edit_imagen"]["tmp_name"])) {
 
-				if (isset($_FILES["editarFoto"]["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"])) {
+                if (file_exists($ruta_imagen)) {
+                    unlink($ruta_imagen);
+                }
 
-					list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
+                $extension = pathinfo($_FILES["edit_imagen"]["name"], PATHINFO_EXTENSION);
 
-					$nuevoAncho = 500;
-					$nuevoAlto = 500;
+                $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
 
-					/*=============================================
-					CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
-					=============================================*/
+                if (in_array(strtolower($extension), $tipos_permitidos)) {
 
-					$directorio = "vistas/img/usuarios/" . $_POST["editarUsuario"];
+                    $nombre_imagen = date("YmdHis") . rand(1000, 9999);
 
-					/*=============================================
-					PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD
-					=============================================*/
+                    $ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
 
-					if (!empty($_POST["fotoActual"])) {
+                    if (move_uploaded_file($_FILES["edit_imagen"]["tmp_name"], $ruta_imagen)) {
 
-						unlink($_POST["fotoActual"]);
-					} else {
+                        /* echo "Imagen subida correctamente."; */
+                    } else {
 
-						mkdir($directorio, 0755);
-					}
+                        /* echo "Error al subir la imagen."; */
+                    }
+                } else {
 
-					/*=============================================
-					DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-					=============================================*/
+                    /* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
+                }
+            }
 
-					if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
 
-						/*=============================================
-						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-						=============================================*/
 
-						$aleatorio = mt_rand(100, 999);
+			$tabla = "usuarios";
 
-						$ruta = "vistas/img/usuarios/" . $_POST["editarUsuario"] . "/" . $aleatorio . ".jpg";
+			if ($_POST["edit_contrasena"] != "") {
 
-						$origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagejpeg($destino, $ruta);
-					}
-
-					if ($_FILES["editarFoto"]["type"] == "image/png") {
-
-						/*=============================================
-						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-						=============================================*/
-
-						$aleatorio = mt_rand(100, 999);
-
-						$ruta = "vistas/img/usuarios/" . $_POST["editarUsuario"] . "/" . $aleatorio . ".png";
-
-						$origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagepng($destino, $ruta);
-					}
-				}
-
-				$tabla = "usuarios";
-
-				if ($_POST["editarPassword"] != "") {
-
-					if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])) {
-
-						$encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-					} else {
-
-						echo '<script>
-
-								swal({
-									  type: "error",
-									  title: "¡La contraseña no puede ir vacía o llevar caracteres especiales!",
-									  showConfirmButton: true,
-									  confirmButtonText: "Cerrar"
-									  }).then(function(result) {
-										if (result.value) {
-
-										window.location = "usuarios";
-
-										}
-									})
-
-						  	</script>';
-
-						return;
-					}
-				} else {
-
-					$encriptar = $_POST["passwordActual"];
-				}
-
-				$datos = array(
-					"nombre" => $_POST["editarNombre"],
-					"usuario" => $_POST["editarUsuario"],
-					"password" => $encriptar,
-					"perfil" => $_POST["editarPerfil"],
-					"foto" => $ruta
-				);
-
-				$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
-
-				if ($respuesta == "ok") {
-
-					echo '<script>
-
-					swal({
-						  type: "success",
-						  title: "El usuario ha sido editado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result) {
-									if (result.value) {
-
-									window.location = "usuarios";
-
-									}
-								})
-
-					</script>';
-				}
+				$encriptar = crypt($_POST["edit_contrasena"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 			} else {
 
-				echo '<script>
-
-					swal({
-						  type: "error",
-						  title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result) {
-							if (result.value) {
-
-							window.location = "usuarios";
-
-							}
-						})
-
-			  	</script>';
+				$encriptar = $_POST["edit_actualContrasena"];
 			}
+
+			$datos = array(
+				"id_usuario" => $_POST["edit_idUsuario"],
+				"nombre_usuario" => $_POST["edit_nombre"],
+				"id_doc" => $_POST["edit_tipoDocumento"],
+				"numero_documento" => $_POST["edit_numeroDocumento"],
+				"direccion" => $_POST["edit_direccion"],
+				"telefono" => $_POST["edit_telefono"],
+				"correo" => $_POST["edit_correo"],
+				"usuario" => $_POST["edit_usuario"],
+				"contrasena" => $encriptar,
+				"imagen_usuario" => $ruta_imagen
+			);
+
+			$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
+
+			if ($respuesta == "ok") {
+
+				echo json_encode("ok");
+			}
+
+		} else {
+
+			echo json_encode("ok");
 		}
 	}
 
@@ -324,38 +227,29 @@ class ControladorUsuarios
 	static public function ctrBorrarUsuario()
 	{
 
-		if (isset($_GET["idUsuario"])) {
+		if (isset($_POST["deleteUserId"])) {
 
 			$tabla = "usuarios";
-			$datos = $_GET["idUsuario"];
 
-			if ($_GET["fotoUsuario"] != "") {
+			$datos = $_POST["deleteUserId"];
 
-				unlink($_GET["fotoUsuario"]);
-				rmdir('vistas/img/usuarios/' . $_GET["usuario"]);
+			if ($_POST["deleteRutaUser"] != "") {
+				// Verificar si el archivo existe y eliminarlo
+				if (file_exists($_POST["deleteRutaUser"])) {
+					unlink($_POST["deleteRutaUser"]);
+				} else {
+					// El archivo no existe
+					echo "El archivo a eliminar no existe.";
+				}
 			}
+			
+			
 
 			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
 
 			if ($respuesta == "ok") {
 
-				echo '<script>
-
-				swal({
-					  type: "success",
-					  title: "El usuario ha sido borrado correctamente",
-					  showConfirmButton: true,
-					  confirmButtonText: "Cerrar",
-					  closeOnConfirm: false
-					  }).then(function(result) {
-								if (result.value) {
-
-								window.location = "usuarios";
-
-								}
-							})
-
-				</script>';
+				echo json_encode("ok");
 			}
 		}
 	}
