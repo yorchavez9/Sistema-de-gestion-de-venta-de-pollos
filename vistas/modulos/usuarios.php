@@ -204,8 +204,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Selecione el tipo de documento (<span class="text-danger">*</span>)</label>
-                            <select class="select">
-                                <option value="" id="edit_id_doc"></option>
+                            <select class="select" id="edit_id_doc">
+                                <option value=""></option>
                                 <option value="1">DNI</option>
                                 <option value="2">RUC</option>
                             </select>

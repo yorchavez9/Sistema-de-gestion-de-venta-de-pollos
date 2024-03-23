@@ -333,8 +333,10 @@ $(document).ready(function () {
       success: function (respuesta) {
         $("#editIdUsuario").val(respuesta["id_usuario"]);
         $("#edit_nombre_usuario").val(respuesta["nombre_usuario"]);
+
         $("#edit_id_doc").val(respuesta["id_doc"]);
-        $("#edit_id_doc").text(respuesta["nombre_doc"]);
+        $("#edit_id_doc option:selected").text(respuesta["nombre_doc"]);
+        
         $("#editarUsuario").val(respuesta["usuario"]);
         $("#editarPerfil").html(respuesta["perfil"]);
         $("#editarPerfil").val(respuesta["perfil"]);
@@ -354,3 +356,4 @@ $(document).ready(function () {
     });
   });
 });
+
