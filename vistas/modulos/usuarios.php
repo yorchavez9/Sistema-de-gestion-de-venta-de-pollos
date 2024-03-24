@@ -195,14 +195,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear nuevo usuario</h5>
+                <h5 class="modal-title">Editar usuario</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form enctype="multipart/form-data" id="formEditUsuario">
                 <div class="modal-body">
 
                     <!-- ID --> 
-                    <input type="text" id="editIdUsuario">
+                    <input type="hidden" id="editIdUsuario">
 
                     <!-- INGRESO DE NOMBRE -->
                     <div class="form-group">
@@ -290,7 +290,7 @@
                             <span class="fas toggle-password fa-eye-slash"></span>
 
                         </div>
-                        <input type="text" id="passwordActual">
+                        <input type="hidden" id="passwordActual">
 
 
                     </div>
@@ -301,7 +301,7 @@
                         <div class="text-center mt-3">
                             <img src="" class="editVistaPreviaImagenUsuario img img-fluid rounded-circle" width="250" alt="">
                         </div>
-                        <input type="text" id="imagenActualUsuario">
+                        <input type="hidden" id="imagenActualUsuario">
                     </div>
 
                 </div>
