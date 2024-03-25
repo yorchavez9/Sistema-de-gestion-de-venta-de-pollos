@@ -82,7 +82,7 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
                             Personas</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="tipoDocumento">Tipo documento</a></li>
+                        <li><a href="ipoDocumento">Tipo documento</a></li>
                         <li><a href="usuarios">Usuarios</a></li>
                         <li><a href="proveedores">Proveedores</a></li>
                         <li><a href="clientes">Clientes</a></li>

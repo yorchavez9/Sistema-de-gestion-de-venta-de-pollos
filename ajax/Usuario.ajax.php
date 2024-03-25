@@ -6,12 +6,6 @@ require_once "../modelos/Usuario.modelo.php";
 class AjaxUsuarios
 {
 
-
-
-    /*=============================================
-	INGRSO USUARIO
-	=============================================*/
-
     
     /*=============================================
 	EDITAR USUARIO
