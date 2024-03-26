@@ -168,54 +168,53 @@ $(document).ready(function () {
     =========================== */
     function mostrarProveedores() {
       $.ajax({
-        url: "ajax/Proveedor.ajax.php",
-        type: "GET",
-        dataType: "json",
-        success: function (proveedores) {
-
-          var tbody = $("#dataProveedores");
+          url: "ajax/Proveedor.ajax.php",
+          type: "GET",
+          dataType: "json",
+          success: function (proveedores) {
+              var tbody = $("#dataProveedores");
+              tbody.empty();
   
-          tbody.empty();
-  
-          proveedores.forEach(function (proveedores, index) {
-
-            var fila = `
+              proveedores.forEach(function (proveedor, index) {
+                  var fila = `
                       <tr>
-                          <td>${index++}</td>
-                          <td>${proveedores.razon_social}</td>
+                          <td>${index + 1}</td>
+                          <td>${proveedor.razon_social}</td>
                           <td class="text-center">
-                            <span>${proveedores.nombre_doc}:</span><br>
-                            <span>${proveedores.numero_documento}</span>
+                              <span>${proveedor.nombre_doc}:</span><br>
+                              <span>${proveedor.numero_documento}</span>
                           </td>
-                          <td>${proveedores.direccion}</td>
-                          <td>${proveedores.telefono}</td>
-                          <td>${proveedores.email}</td>
+                          <td>${proveedor.direccion}</td>
+                          <td>${proveedor.telefono}</td>
+                          <td>${proveedor.email}</td>
                           <td>
-                              ${proveedores.estado_persona != 0? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idProveedor="' + proveedores.id_persona + '" estadoProveedor="0">Activado</button>' : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idProveedor="' + proveedores.id_persona + '" estadoProveedor="1">Desactivado</button>'}
+                              ${proveedor.estado_persona != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idProveedor="' + proveedor.id_persona + '" estadoProveedor="0">Activado</button>' : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idProveedor="' + proveedor.id_persona + '" estadoProveedor="1">Desactivado</button>'}
                           </td>
-                          <td text-center align-middle>
-                              <a href="#" class="me-3 btnEditarProveedor" idProveedor="${proveedores.id_persona}" data-bs-toggle="modal" data-bs-target="#modalEditarProveedor">
-                                <i class="text-warning fas fa-edit fa-lg"></i>
+                          <td class="text-center">
+                              <a href="#" class="me-3 btnEditarProveedor" idProveedor="${proveedor.id_persona}" data-bs-toggle="modal" data-bs-target="#modalEditarProveedor">
+                                  <i class="text-warning fas fa-edit fa-lg"></i>
                               </a>
-                              <a href="#" class="me-3 btnVerProveedor" idProveedor="${proveedores.id_persona}" data-bs-toggle="modal" data-bs-target="#modalVerProveedor">
-                                <i class="text-primary fa fa-eye fa-lg"></i>
+                              <a href="#" class="me-3 btnVerProveedor" idProveedor="${proveedor.id_persona}" data-bs-toggle="modal" data-bs-target="#modalVerProveedor">
+                                  <i class="text-primary fa fa-eye fa-lg"></i>
                               </a>
-                              <a href="#" class="me-3 confirm-text btnEliminarProveedor" idProveedor="${proveedores.id_persona}">
-                                <i class="text-danger fa fa-trash fa-lg"></i>
+                              <a href="#" class="me-3 confirm-text btnEliminarProveedor" idProveedor="${proveedor.id_persona}">
+                                  <i class="text-danger fa fa-trash fa-lg"></i>
                               </a>
                           </td>
                       </tr>
                   `;
+                  tbody.append(fila);
+              });
   
-            // Agregar la fila al tbody
-            tbody.append(fila);
-          });
-        },
-        error: function (xhr, status, error) {
-          console.error("Error al recuperar los usuarios:", error);
-        },
+              // Inicializar DataTables después de cargar los datos
+              $('#tabla_proveedores').DataTable();
+          },
+          error: function (xhr, status, error) {
+              console.error("Error al recuperar los proveedores:", error);
+          },
       });
-    }
+  }
+  
   
     /*=============================================
     ACTIVAR PROVEEDOR

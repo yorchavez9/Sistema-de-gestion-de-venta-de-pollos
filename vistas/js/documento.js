@@ -88,6 +88,7 @@ $(document).ready(function () {
           // Agregar la fila al tbody
           tbody.append(fila);
         });
+        $('#tabla_tipo_documento').DataTable();
       },
       error: function (xhr, status, error) {
         console.error("Error al recuperar los usuarios:", error);

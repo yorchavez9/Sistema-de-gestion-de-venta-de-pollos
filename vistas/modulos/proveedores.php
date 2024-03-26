@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table  datanew" id="tabla_proveedores">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_proveedores">
                         <thead>
                             <tr>
                                 <th>N°</th>
@@ -477,3 +477,4 @@
         </div>
     </div>
 </div>
+

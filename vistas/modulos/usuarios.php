@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table  datanew" id="tabla_usuarios">
+                    <table class="table table-striped table-bordered" style="width:100%"  id="tabla_usuarios">
                         <thead>
                             <tr>
                                 <th>Foto</th>
