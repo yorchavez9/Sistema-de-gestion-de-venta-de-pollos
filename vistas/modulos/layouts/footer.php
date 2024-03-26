@@ -21,7 +21,7 @@
     <script src="vistas/js/login.js"></script>
     <script src="vistas/js/usuario.js"></script>
     <script src="vistas/js/tipo.documento.js"></script>
-    <script src="vistas/js/script-proveedor.js"></script>
+    <script src="vistas/js/proveedor.js"></script>
 </body>
 
 </html>

@@ -237,17 +237,17 @@
                 <h5 class="modal-title">Editar proveedor</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="nuevoProveedor">
+            <form enctype="multipart/form-data" id="formEditProveedor">
                 <div class="modal-body">
 
                     <!-- ID PROVEEDOR -->
-                    <input type="text" id="edit_id_proveedor">
+                    <input type="hidden" id="edit_id_proveedor">
 
                     <!-- INGRESO DE RAZÓN SOCIAL -->
                     <div class="form-group">
                         <label class="form-label">Ingrese la razón social (<span class="text-danger">*</span>)</label>
                         <input type="text" id="edit_razon_social_proveedor" placeholder="Ingrese la razon social">
-                        <small id="validate_razon_social_proveedor"></small>
+                        <small id="edit_error_rz"></small>
                     </div>
 
 
@@ -261,8 +261,8 @@
                             $valor = null;
                             $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
                             ?>
-                            <select class="select" id="edit_id_doc_proveedor">
-                                <option disabled selected>Seleccione</option>
+                            <select class="form-select form-select-sm" id="edit_id_doc_proveedor">
+
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
                                 ?>
@@ -272,7 +272,7 @@
                                 ?>
                             </select>
 
-                            <small id="validate_tipo_documento_proveedor"></small>
+                            <small id="edit_error_id_doc"></small>
                         </div>
 
                         <!-- INGRESO DE NUMERO DE DOCUMENTO -->
@@ -280,7 +280,7 @@
                             <div class="form-group">
                                 <label for="numero_documento" class="form-label">Ingrese el número de documento (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="edit_numero_documento_proveedor" placeholder="Ingrese el número de documento">
-                                <small id="validate_numero_documento_proveedor"></small>
+                                <small id="edit_error_nd"></small>
                             </div>
 
                         </div>
@@ -302,7 +302,7 @@
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese la ciudad (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="edit_ciudad_proveedor" placeholder="Ingrese la ciudad">
-                                <small id="validate_ciudad_proveedor"></small>
+                                <small id="edit_error_c"></small>
                             </div>
 
                         </div>
@@ -315,7 +315,6 @@
                             <div class="form-group">
                                 <label for="codigo_postal" class="form-label">Ingrese el codigo postal</label>
                                 <input type="text" id="edit_codigo_postal_proveedor" placeholder="Ingrese el código postal">
-                                <small id="validate_codigo_postal_proveedor"></small>
                             </div>
                         </div>
 
@@ -324,7 +323,7 @@
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese el telefono (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="edit_telefono_proveedor" placeholder="Ingrese el teléfono">
-                                <small id="validate_telefono_proveedor"></small>
+                                <small id="edit_error_t"></small>
                             </div>
 
                         </div>
@@ -335,7 +334,7 @@
                         <label for="correo" class="form-label">Ingrese el correo electrónico (<span class="text-danger">*</span>)</label>
                         <div class="pass-group">
                             <input type="text" id="edit_correo_proveedor" placeholder="Ingrese el correo electrónico">
-                            <small id="validate_correo_proveedor"></small>
+                            <small id="edit_error_c"></small>
                         </div>
                     </div>
 
@@ -351,7 +350,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tipo_banco" class="form-label">Selecione el tipo de banco</label>
-                                <select class="select" id="edit_tipo_banco_proveedor">
+                                <select class="form-select form-select-sm" id="edit_tipo_banco_proveedor">
                                     <option value="BCRP">Banco Central de Reserva del Perú</option>
                                     <option value="BCP">Banco de Crédito del Perú (BCP)</option>
                                     <option value="SBP">Scotiabank Perú</option>
@@ -361,7 +360,7 @@
                                     <option value="BN">Banco de la Nación</option>
                                     <option value="BF">Banco Falabella</option>
                                 </select>
-                                <small id="edit_tipo_banco_proveedor"></small>
+                                <small id="edit_validate_tipo_banco_proveedor"></small>
                             </div>
                         </div>
 
@@ -379,7 +378,7 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="guardar_proveedor" class="btn btn-primary mx-2"><i class="fas fa-sync"></i> Guardar</button>
+                    <button type="button" id="actualizar_proveedor" class="btn btn-primary mx-2"><i class="fas fa-sync"></i> Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>

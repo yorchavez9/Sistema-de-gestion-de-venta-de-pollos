@@ -41,83 +41,83 @@ $(document).ready(function () {
       }
       
       // Validar el nombre de usuario
-    if (id_doc === "" || id_doc == null){
-      $("#validate_tipo_documento_proveedor")
-        .html("Por favor, selecione el tipo de documento")
-        .addClass("text-danger");
-      isValid = false;
-    } else if (isNaN(id_doc)) {
-      $("#validate_tipo_documento_proveedor")
-        .html("El tipo de documento solo puede contener números")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#validate_tipo_documento_proveedor").html("").removeClass("text-danger");
-    }
+      if (id_doc === "" || id_doc == null){
+        $("#validate_tipo_documento_proveedor")
+          .html("Por favor, selecione el tipo de documento")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (isNaN(id_doc)) {
+        $("#validate_tipo_documento_proveedor")
+          .html("El tipo de documento solo puede contener números")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#validate_tipo_documento_proveedor").html("").removeClass("text-danger");
+      }
 
       
   
-    // Validar el número de documento
-    if (numero_documento === "") {
-        $("#validate_numero_documento_proveedor")
-        .html("Por favor, ingrese el número de documento")
-        .addClass("text-danger");
-        isValid = false;
-    } else if (!/^\d{1,11}$/.test(numero_documento)) {
-        $("#validate_numero_documento_proveedor")
-        .html("El número de documento debe contener solo 11 dígitos")
-        .addClass("text-danger");
-        isValid = false;
-    } else {
-        $("#validate_numero_documento_proveedor").html("").removeClass("text-danger");
-    }
+      // Validar el número de documento
+      if (numero_documento === "") {
+          $("#validate_numero_documento_proveedor")
+          .html("Por favor, ingrese el número de documento")
+          .addClass("text-danger");
+          isValid = false;
+      } else if (!/^\d{1,11}$/.test(numero_documento)) {
+          $("#validate_numero_documento_proveedor")
+          .html("El número de documento debe contener solo 11 dígitos")
+          .addClass("text-danger");
+          isValid = false;
+      } else {
+          $("#validate_numero_documento_proveedor").html("").removeClass("text-danger");
+      }
 
 
-    // Validar la ciudad
-    if (ciudad === "") {
-      $("#validate_ciudad_proveedor")
-        .html("Por favor, ingrese la ciudad")
-        .addClass("text-danger");
-      isValid = false;
-    } else if (/\d/.test(ciudad)) {
-      $("#validate_ciudad_proveedor")
-        .html("La ciudad no puede contener números")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#validate_ciudad_proveedor").html("").removeClass("text-danger");
-    }
+      // Validar la ciudad
+      if (ciudad === "") {
+        $("#validate_ciudad_proveedor")
+          .html("Por favor, ingrese la ciudad")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (/\d/.test(ciudad)) {
+        $("#validate_ciudad_proveedor")
+          .html("La ciudad no puede contener números")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#validate_ciudad_proveedor").html("").removeClass("text-danger");
+      }
       
   
       // Validar el teléfono
-    if (telefono === "") {
-      $("#validate_telefono_proveedor")
-        .html("Por favor, ingrese el teléfono")
-        .addClass("text-danger");
-      isValid = false;
-    } else if (!(/^\d{1,11}$/.test(telefono))) {
-      $("#validate_telefono_proveedor")
-        .html("El teléfono debe contener solo números y tener un máximo de 11 dígitos")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#validate_telefono_proveedor").html("").removeClass("text-danger");
-    }
+      if (telefono === "") {
+        $("#validate_telefono_proveedor")
+          .html("Por favor, ingrese el teléfono")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (!(/^\d{1,11}$/.test(telefono))) {
+        $("#validate_telefono_proveedor")
+          .html("El teléfono debe contener solo números y tener un máximo de 11 dígitos")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#validate_telefono_proveedor").html("").removeClass("text-danger");
+      }
   
-    //Validar el correo electrónico
-    if (email === "") {
-      $("#validate_correo_proveedor")
-        .html("Por favor, ingrese el correo electrónico")
-        .addClass("text-danger");
-      isValid = false;
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      $("#validate_correo_proveedor")
-        .html("Por favor, ingrese un correo electrónico válido")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#validate_correo_proveedor").html("").removeClass("text-danger");
-    }
+      //Validar el correo electrónico
+      if (email === "") {
+        $("#validate_correo_proveedor")
+          .html("Por favor, ingrese el correo electrónico")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        $("#validate_correo_proveedor")
+          .html("Por favor, ingrese un correo electrónico válido")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#validate_correo_proveedor").html("").removeClass("text-danger");
+      }
   
       // Si el formulario es válido, envíalo
       if (isValid) {
@@ -283,14 +283,10 @@ $(document).ready(function () {
 
           $("#edit_id_proveedor").val(respuesta["id_persona"]);
           $("#edit_razon_social_proveedor").val(respuesta["razon_social"]);
-  
-          $("#edit_id_doc_proveedor").append(
-            '<option value="' +
-              respuesta["id_doc"] +
-              '" selected>' +
-              respuesta["nombre_doc"] +
-              "</option>"
-          );
+
+
+          $("#edit_id_doc_proveedor").val(respuesta["id_doc"]);
+        
   
           $("#edit_numero_documento_proveedor").val(respuesta["numero_documento"]);
           $("#edit_direccion_proveedor").val(respuesta["direccion"]);
@@ -301,125 +297,139 @@ $(document).ready(function () {
           $("#edit_sitio_web_proveedor").val(respuesta["sitio_web"]);
 
 
+          $("#edit_tipo_banco_proveedor").val(respuesta["tipo_banco"]);
           
 
           $("#edit_numero_cuenta_proveedor").val(respuesta["numero_cuenta"]);
+
         },
       });
     });
+
+
+
   
     /*===========================================
-    ACTUALIZAR EL USUARIO
+    ACTUALIZAR PROVEEDOR
     =========================================== */
-    $("#actualizar_usuario").click(function (e) {
+    $("#actualizar_proveedor").click(function (e) {
+
       e.preventDefault();
+  
   
       var isValid = true;
   
-      var edit_idProveedor = $("#editIdProveedor").val();
-      var edit_nombre = $("#edit_nombre_usuario").val();
-      var edit_tipoDocumento = $("#edit_id_doc").val();
-      var edit_numeroDocumento = $("#edit_numero_documento").val();
-      var edit_direccion = $("#edit_direccion").val();
-      var edit_telefono = $("#edit_telefono").val();
-      var edit_correo = $("#edit_correo").val();
-      var edit_usuario = $("#edit_usuario").val();
+      var edit_id_proveedor = $("#edit_id_proveedor").val();
+      var edit_razon_social = $("#edit_razon_social_proveedor").val();
+      var edit_id_doc = $("#edit_id_doc_proveedor").val();
+      var edit_numero_documento = $("#edit_numero_documento_proveedor").val();
+      var edit_direccion = $("#edit_direccion_proveedor").val();
+      var edit_ciudad = $("#edit_ciudad_proveedor").val();
+      var edit_codigo_postal = $("#edit_codigo_postal_proveedor").val();
+      var edit_telefono = $("#edit_telefono_proveedor").val();
+      var edit_email = $("#edit_correo_proveedor").val();
+      var edit_sitio_web = $("#edit_sitio_web_proveedor").val();
+      var edit_tipo_banco = $("#edit_tipo_banco_proveedor").val();
+      var edit_numero_cuenta = $("#edit_numero_cuenta_proveedor").val();
   
-      var edit_contrasena = $("#edit_contrasena").val();
-      var edit_actualContrasena = $("#passwordActual").val();
-  
-      var edit_imagen = $("#edit_imagen_usuario").get(0).files[0];
-      var edit_imagenActualUsuario = $("#imagenActualUsuario").val();
-  
+
       // Validar el nombre de usuario
-      if (edit_nombre == "") {
-        $("#editerrorNombreUsuario")
-          .html("Por favor, ingrese el nombre completo")
+      if (edit_razon_social === "") {
+        $("#edit_error_rz")
+          .html("Por favor, ingrese la razón social")
           .addClass("text-danger");
-  
         isValid = false;
-      } else {
-        $("#editerrorNombreUsuario").html("").removeClass("text-danger");
-      }
-  
-      // Validar el tipo de documento
-      if (edit_tipoDocumento == null) {
-        $("#editerrorTipoDocumento")
-          .html("Por favor, seleccione el tipo de documento")
+      } else if (!isNaN(edit_razon_social)) {
+        $("#edit_error_rz")
+          .html("La razón social no puede contener números")
           .addClass("text-danger");
         isValid = false;
       } else {
-        $("#editerrorTipoDocumento").html("").removeClass("text-danger");
+        $("#edit_error_rz").html("").removeClass("text-danger");
       }
+      
+      // Validar el nombre de usuario
+      if (edit_id_doc === "" || edit_id_doc == null){
+        $("#edit_error_id_doc")
+          .html("Por favor, selecione el tipo de documento")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (isNaN(edit_id_doc)) {
+        $("#edit_error_id_doc")
+          .html("El tipo de documento solo puede contener números")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#edit_error_id_doc").html("").removeClass("text-danger");
+      }
+
+      
   
       // Validar el número de documento
-      if (edit_numeroDocumento == "") {
-        $("#errorNumeroDocumento")
+      if (edit_numero_documento === "") {
+          $("#edit_error_nd")
           .html("Por favor, ingrese el número de documento")
           .addClass("text-danger");
-        isValid = false;
-      } else {
-        $("#errorNumeroDocumento").html("").removeClass("text-danger");
-      }
-  
-      // Validar la dirección
-      if (edit_direccion == "") {
-        $("#editerrorDireccionUsuario")
-          .html("Por favor, ingrese la dirección")
+          isValid = false;
+      } else if (!/^\d{1,11}$/.test(edit_numero_documento)) {
+          $("#edit_error_nd")
+          .html("El número de documento debe contener solo 11 dígitos")
           .addClass("text-danger");
-        isValid = false;
+          isValid = false;
       } else {
-        $("#editerrorDireccionUsuario").html("").removeClass("text-danger");
+          $("#edit_error_nd").html("").removeClass("text-danger");
       }
+
+      
   
       // Validar el teléfono
-      if (edit_telefono == "") {
-        $("#editerrorTelefonoUsuario")
+      if (edit_telefono === "") {
+        $("#edit_error_t")
           .html("Por favor, ingrese el teléfono")
           .addClass("text-danger");
         isValid = false;
+      } else if (!(/^\d{1,11}$/.test(edit_telefono))) {
+        $("#edit_error_t")
+          .html("El teléfono debe contener solo números y tener un máximo de 11 dígitos")
+          .addClass("text-danger");
+        isValid = false;
       } else {
-        $("#editerrorTelefonoUsuario").html("").removeClass("text-danger");
+        $("#edit_error_t").html("").removeClass("text-danger");
       }
   
-      // Validar el correo electrónico
-      if (edit_correo == "") {
-        $("#editerrorCorreoUsuario")
+      //Validar el correo electrónico
+      if (edit_email === "") {
+        $("#edit_error_c")
           .html("Por favor, ingrese el correo electrónico")
           .addClass("text-danger");
         isValid = false;
-      } else {
-        $("#editerrorCorreoUsuario").html("").removeClass("text-danger");
-      }
-  
-      // Validar el usuario
-      if (edit_usuario == "") {
-        $("#editerrorUsuario")
-          .html("Por favor, ingrese el usuario")
+      } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(edit_email)) {
+        $("#edit_error_c")
+          .html("Por favor, ingrese un correo electrónico válido")
           .addClass("text-danger");
         isValid = false;
       } else {
-        $("#editerrorUsuario").html("").removeClass("text-danger");
+        $("#edit_error_c").html("").removeClass("text-danger");
       }
-  
-      // Si el formulario es válido, envíalo
+      
+
       if (isValid) {
         var datos = new FormData();
-        datos.append("edit_idProveedor", edit_idProveedor);
-        datos.append("edit_nombre", edit_nombre);
-        datos.append("edit_tipoDocumento", edit_tipoDocumento);
-        datos.append("edit_numeroDocumento", edit_numeroDocumento);
+        datos.append("edit_id_proveedor", edit_id_proveedor);
+        datos.append("edit_razon_social", edit_razon_social);
+        datos.append("edit_id_doc", edit_id_doc);
+        datos.append("edit_numero_documento", edit_numero_documento);
         datos.append("edit_direccion", edit_direccion);
+        datos.append("edit_ciudad", edit_ciudad);
+        datos.append("edit_codigo_postal", edit_codigo_postal);
         datos.append("edit_telefono", edit_telefono);
-        datos.append("edit_correo", edit_correo);
-        datos.append("edit_usuario", edit_usuario);
-        datos.append("edit_contrasena", edit_contrasena);
-        datos.append("edit_actualContrasena", edit_actualContrasena);
-        datos.append("edit_imagen", edit_imagen);
-        datos.append("edit_imagenActualUsuario", edit_imagenActualUsuario);
-  
+        datos.append("edit_email", edit_email);
+        datos.append("edit_sitio_web", edit_sitio_web);
+        datos.append("edit_tipo_banco", edit_tipo_banco);
+        datos.append("edit_numero_cuenta", edit_numero_cuenta);
+
         $.ajax({
-          url: "ajax/proveedores.ajax.php",
+          url: "ajax/Proveedor.ajax.php",
           method: "POST",
           data: datos,
           cache: false,
@@ -429,27 +439,25 @@ $(document).ready(function () {
             var res = JSON.parse(respuesta);
   
             if (res === "ok") {
-              $("#formEditUsuario")[0].reset();
-              $(".editVistaPreviaImagenUsuario").attr("src", "");
-              $("#modalEditarUsuario").modal("hide");
-  
+              $("#formEditProveedor")[0].reset();
+
+              $("#modalEditarProveedor").modal("hide");
               Swal.fire({
                 title: "¡Correcto!",
-                text: "El usuario ha sido actualizado con éxito",
+                text: "El proveedor ha sido actualizado",
                 icon: "success",
               });
-  
               mostrarProveedores();
             } else {
-              console.error("Error al actualizar los datos");
+              console.error("Error al cargar los datos.");
             }
-          },
+          }
         });
       }
     });
   
     /*=============================================
-      ELIMINAR USUARIO
+      ELIMINAR PROVEEDOR
       =============================================*/
     $("#tabla_proveedores").on("click",".btnEliminarUsuario",function (e) {
   
@@ -514,4 +522,7 @@ $(document).ready(function () {
   mostrarProveedores();
 
   });
+
+
+
   

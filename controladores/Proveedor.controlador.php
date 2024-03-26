@@ -62,30 +62,23 @@ class ControladorProveedores
 
 	static public function ctrEditarProveedor()
 	{
-		if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["edit_nombre"])) {
+		if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["edit_razon_social"])) {
 
-
-
-			$tabla = "usuarios";
-
-			if ($_POST["edit_contrasena"] != "") {
-
-				$encriptar = crypt($_POST["edit_contrasena"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-			} else {
-
-				$encriptar = $_POST["edit_actualContrasena"];
-			}
+			$tabla = "personas";
 
 			$datos = array(
-				"id_usuario" => $_POST["edit_idUsuario"],
-				"nombre_usuario" => $_POST["edit_nombre"],
-				"id_doc" => $_POST["edit_tipoDocumento"],
-				"numero_documento" => $_POST["edit_numeroDocumento"],
+				"id_persona" => $_POST["edit_id_proveedor"],
+				"razon_social" => $_POST["edit_razon_social"],
+				"id_doc" => $_POST["edit_id_doc"],
+				"numero_documento" => $_POST["edit_numero_documento"],
 				"direccion" => $_POST["edit_direccion"],
+				"ciudad" => $_POST["edit_ciudad"],
+				"codigo_postal" => $_POST["edit_codigo_postal"],
 				"telefono" => $_POST["edit_telefono"],
-				"correo" => $_POST["edit_correo"],
-				"usuario" => $_POST["edit_usuario"],
-				"contrasena" => $encriptar
+				"email" => $_POST["edit_email"],
+				"sitio_web" => $_POST["edit_sitio_web"],
+				"tipo_banco" => $_POST["edit_tipo_banco"],
+				"numero_cuenta" => $_POST["edit_numero_cuenta"]
 			);
 
 			$respuesta = ModeloProveedor::mdlEditarProveedor($tabla, $datos);

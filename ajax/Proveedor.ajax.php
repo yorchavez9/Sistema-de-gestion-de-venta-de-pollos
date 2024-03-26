@@ -46,26 +46,11 @@ class AjaxProveedores
         $respuesta = ModeloProveedor::mdlActualizarProveedor($tabla, $item1, $valor1, $item2, $valor2);
     }
 
-    /*=============================================
-	VALIDAR NO REPETIR USUARIO
-	=============================================*/
 
-    public $validarUsuario;
-
-    public function ajaxValidarUsuario()
-    {
-
-        $item = "usuario";
-        $valor = $this->validarUsuario;
-
-        $respuesta = ControladorProveedores::ctrMostrarProveedor($item, $valor);
-
-        echo json_encode($respuesta);
-    }
 }
 
 /*=============================================
-EDITAR USUARIO
+EDITAR PROVEEDOR
 =============================================*/
 if (isset($_POST["idProveedor"])) {
 
@@ -80,13 +65,6 @@ elseif (isset($_POST["activarProveedor"])) {
     $activarProveedor->activarId = $_POST["activarId"];
     $activarProveedor->ajaxActivarProveedor();
 }
-//VALIDAR REPETIR PROVEEDOR
-elseif (isset($_POST["validarUsuario"])) {
-
-    $valUsuario = new AjaxProveedores();
-    $valUsuario->validarUsuario = $_POST["validarUsuario"];
-    $valUsuario->ajaxValidarUsuario();
-}
 
 //GUARDAR PROVEEDOR
 elseif (isset($_POST["tipo_persona"])) {
@@ -97,10 +75,10 @@ elseif (isset($_POST["tipo_persona"])) {
 }
 
 //EDITAR PROVEEDOR
-elseif(isset($_POST["edit_idProveedor"])){
+elseif(isset($_POST["edit_id_proveedor"])){
 
-    $editusuario = new ControladorProveedores();
-    $editusuario->ctrEditarProveedor();
+    $editProveedor = new ControladorProveedores();
+    $editProveedor->ctrEditarProveedor();
 
 }
 
