@@ -197,10 +197,10 @@ $(document).ready(function () {
                               <a href="#" class="me-3 btnEditarProveedor" idProveedor="${proveedores.id_persona}" data-bs-toggle="modal" data-bs-target="#modalEditarProveedor">
                                 <i class="text-warning fas fa-edit fa-lg"></i>
                               </a>
-                              <a href="#" class="me-3 btnVerProveedor" idProveedor="${proveedores.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalVerUsuario">
+                              <a href="#" class="me-3 btnVerProveedor" idProveedor="${proveedores.id_persona}" data-bs-toggle="modal" data-bs-target="#modalVerProveedor">
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                               </a>
-                              <a href="#" class="me-3 confirm-text btnEliminarUsuario" idProveedor="${proveedores.id_usuario}" fotoUsuario="${proveedores.imagen_usuario}">
+                              <a href="#" class="me-3 confirm-text btnEliminarProveedor" idProveedor="${proveedores.id_persona}">
                                 <i class="text-danger fa fa-trash fa-lg"></i>
                               </a>
                           </td>
@@ -261,6 +261,8 @@ $(document).ready(function () {
     }
     });
   
+
+
     /*=============================================
     EDITAR EL PROVEEDOR
     =============================================*/
@@ -306,6 +308,44 @@ $(document).ready(function () {
       });
     });
 
+
+
+    /*=============================================
+    VER PROVEEDOR
+    =============================================*/
+    $("#tabla_proveedores").on("click", ".btnVerProveedor", function () {
+
+      let idVerProveedor = $(this).attr("idProveedor");
+  
+      let datos = new FormData();
+      datos.append("idVerProveedor", idVerProveedor);
+  
+      $.ajax({
+        url: "ajax/Proveedor.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+
+          $("#ver_razon_social_p").text(respuesta["razon_social"]);
+          $("#ver_tipo_documento_p").text(respuesta["nombre_doc"]);
+          $("#ver_numero_documento_p").text(respuesta["numero_documento"]);
+          $("#ver_direccion_p").text(respuesta["direccion"]);
+          $("#ver_ciudad_p").text(respuesta["ciudad"]);
+          $("#ver_codigo_postal_p").text(respuesta["codigo_postal"]);
+          $("#ver_telefono_p").text(respuesta["telefono"]);
+          $("#ver_correo_p").text(respuesta["email"]);
+          $("#ver_sitio_web_p").attr("href", respuesta["sitio_web"]).text("Visite el sitio web");
+          $("#ver_tipo_banco_p").val(respuesta["tipo_banco"]);
+          $("#ver_numero_cuenta_p").text(respuesta["numero_cuenta"]);
+          
+
+        },
+      });
+    });
 
 
   
@@ -459,32 +499,28 @@ $(document).ready(function () {
     /*=============================================
       ELIMINAR PROVEEDOR
       =============================================*/
-    $("#tabla_proveedores").on("click",".btnEliminarUsuario",function (e) {
+    $("#tabla_proveedores").on("click",".btnEliminarProveedor",function (e) {
   
         e.preventDefault();
   
-        var deleteUserId = $(this).attr("idProveedor");
-        var deletefotoUser = $(this).attr("fotoUsuario");
-        var deleteRutaUser = "../" + deletefotoUser;
-  
+        var deleteIdProveedor = $(this).attr("idProveedor");
   
         var datos = new FormData();
-        datos.append("deleteUserId", deleteUserId);
-        datos.append("deleteRutaUser", deleteRutaUser);
+        datos.append("deleteIdProveedor", deleteIdProveedor);
   
         Swal.fire({
-          title: "¿Está seguro de borrar el usuario?",
+          title: "¿Está seguro de borrar el proveedor?",
           text: "¡Si no lo está puede cancelar la accíón!",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#0084FF",
+          cancelButtonColor: "#F1666D",
           cancelButtonText: "Cancelar",
           confirmButtonText: "Si, borrar!",
         }).then(function (result) {
           if (result.value) {
             $.ajax({
-              url: "ajax/proveedores.ajax.php",
+              url: "ajax/Proveedor.ajax.php",
               method: "POST",
               data: datos,
               cache: false,
@@ -497,7 +533,7 @@ $(document).ready(function () {
                  
                   Swal.fire({
                     title: "¡Eliminado!",
-                    text: "El usuario ha sido eliminado",
+                    text: "El proveedor ha sido eliminado",
                     icon: "success",
                   });
       

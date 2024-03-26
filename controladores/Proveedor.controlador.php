@@ -101,21 +101,11 @@ class ControladorProveedores
 	static public function ctrBorraProveedor()
 	{
 
-		if (isset($_POST["deleteUserId"])) {
+		if (isset($_POST["deleteIdProveedor"])) {
 
-			$tabla = "usuarios";
+			$tabla = "personas";
 
-			$datos = $_POST["deleteUserId"];
-
-			if ($_POST["deleteRutaUser"] != "") {
-				// Verificar si el archivo existe y eliminarlo
-				if (file_exists($_POST["deleteRutaUser"])) {
-					unlink($_POST["deleteRutaUser"]);
-				} else {
-					// El archivo no existe
-					echo "El archivo a eliminar no existe.";
-				}
-			}
+			$datos = $_POST["deleteIdProveedor"];
 			
 			
 

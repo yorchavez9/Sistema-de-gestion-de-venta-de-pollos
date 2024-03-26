@@ -23,6 +23,23 @@ class AjaxProveedores
 
         echo json_encode($respuesta);
     }
+    
+    /*=============================================
+	VER PROVEEDOR
+	=============================================*/
+
+    public $idVerProveedor;
+
+    public function ajaxVerProveedor()
+    {
+
+        $item = "id_persona";
+        $valor = $this->idVerProveedor;
+
+        $respuesta = ControladorProveedores::ctrMostrarProveedor($item, $valor);
+
+        echo json_encode($respuesta);
+    }
 
     /*=============================================
 	ACTIVAR PROVEEDOR
@@ -58,6 +75,15 @@ if (isset($_POST["idProveedor"])) {
     $editar->idProveedor = $_POST["idProveedor"];
     $editar->ajaxEditarProveedor();
 }
+/*=============================================
+VER PROVEEDOR
+=============================================*/
+elseif(isset($_POST["idVerProveedor"])) {
+
+    $ver = new AjaxProveedores();
+    $ver->idVerProveedor = $_POST["idVerProveedor"];
+    $ver->ajaxVerProveedor();
+}
 //ACTIVAR PROVEEDOR
 elseif (isset($_POST["activarProveedor"])) {
     $activarProveedor = new AjaxProveedores();
@@ -83,10 +109,10 @@ elseif(isset($_POST["edit_id_proveedor"])){
 }
 
 //ELIMINAR PROVEEDOR
-elseif(isset($_POST["deleteUserId"])){
+elseif(isset($_POST["deleteIdProveedor"])){
 
-    $borrarUsuario = new ControladorProveedores();
-    $borrarUsuario->ctrBorraProveedor();
+    $borrarProveedor = new ControladorProveedores();
+    $borrarProveedor->ctrBorraProveedor();
 
 }
 

@@ -179,9 +179,9 @@ class ModeloProveedor{
 
 	static public function mdlBorrarProveedor($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_codigo_postal = :id_codigo_postal");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_persona = :id_persona");
 
-		$stmt -> bindParam(":id_codigo_postal", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":id_persona", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 

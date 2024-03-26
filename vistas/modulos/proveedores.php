@@ -106,7 +106,7 @@
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
                                 ?>
-                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                    <option value="<?php echo $value["id_doc"] ?>"><?php echo $value["nombre_doc"] ?></option>
                                 <?php
                                 }
                                 ?>
@@ -229,6 +229,98 @@
 </div>
 
 
+<!-- MODAL VER USUARIO -->
+<div class="modal fade" id="modalVerProveedor" tabindex="-1" aria-labelledby="modalVerProveedorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary"><i class="fas fa-info-circle"></i> Detalles del Proveedor</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form enctype="multipart/form-data">
+                <div class="modal-body">
+                    <fieldset>
+
+                        <div class="mb-3">
+                            <label class="form-label fs-6"><i class="fas fa-building text-danger"></i> Razón social:</label>
+                            <p id="ver_razon_social_p" class="text-muted fs-6"></p>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="far fa-id-card text-success"></i> Tipo de documento:</label>
+                                <p id="ver_tipo_documento_p" class="text-muted fs-6"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-id-card text-warning"></i> Número de documento:</label>
+                                <p id="ver_numero_documento_p" class="text-muted fs-6"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-map-marker-alt text-info"></i> Dirección:</label>
+                                <p id="ver_direccion_p" class="text-muted fs-6"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-city text-primary"></i> Ciudad:</label>
+                                <p id="ver_ciudad_p" class="text-muted fs-6"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-envelope text-danger"></i> Correo electrónico:</label>
+                                <p id="ver_correo_p" class="text-muted fs-6"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-phone text-success"></i> Teléfono:</label>
+                                <p id="ver_telefono_p" class="text-muted fs-6"></p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fs-6"><i class="fas fa-globe text-warning"></i> Sitio web:</label>
+                            <a href="#" id="ver_sitio_web_p" class="text-decoration-none text-muted fs-6"></a>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-university text-info"></i> Tipo de banco:</label>
+
+                                <div class="form-group">
+                                    <select class="form-select form-select-sm text-muted fs-6" id="ver_tipo_banco_p">
+                                        <option value="BCRP">Banco Central de Reserva del Perú</option>
+                                        <option value="BCP">Banco de Crédito del Perú (BCP)</option>
+                                        <option value="SBP">Scotiabank Perú</option>
+                                        <option value="IB">Interbank</option>
+                                        <option value="BBVA">BBVA Perú</option>
+                                        <option value="BR">Banco Rural</option>
+                                        <option value="BN">Banco de la Nación</option>
+                                        <option value="BF">Banco Falabella</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6"><i class="fas fa-credit-card text-primary"></i> Cuenta bancaria:</label>
+                                <p id="ver_numero_cuenta_p" class="text-muted fs-6"></p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="text-end mx-4 mb-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
 <!-- MODAL EDITAR USUARIO -->
 <div class="modal fade" id="modalEditarProveedor" tabindex="-1" aria-labelledby="modalEditarProveedorLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -266,7 +358,7 @@
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
                                 ?>
-                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                    <option value="<?php echo $value["id_doc"] ?>"><?php echo $value["nombre_doc"] ?></option>
                                 <?php
                                 }
                                 ?>
@@ -385,4 +477,3 @@
         </div>
     </div>
 </div>
-
