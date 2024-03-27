@@ -13,69 +13,69 @@
                         <li><a href="categorias">Categorias</a></li>
                         <li><a href="addproduct.html">Proveedor</a></li>
                         <li><a href="categorylist.html">Producto</a></li>
-                        <li><a href="addcategory.html">Add Category</a></li>
-                        <li><a href="subcategorylist.html">Sub Category List</a></li>
-                        <li><a href="subaddcategory.html">Add Sub Category</a></li>
-                        <li><a href="brandlist.html">Brand List</a></li>
-                        <li><a href="addbrand.html">Add Brand</a></li>
-                        <li><a href="importproduct.html">Import Products</a></li>
-                        <li><a href="barcode.html">Print Barcode</a></li>
+                        <li><a href="addcategory.html">añadir categoría</a></li>
+                        <li><a href="subcategorylist.html">Lista de subcategorías</a></li>
+                        <li><a href="subaddcategory.html">Agregar subcategoría</a></li>
+                        <li><a href="brandlist.html">Lista de marcas</a></li>
+                        <li><a href="addbrand.html">Agregar marca</a></li>
+                        <li><a href="importproduct.html">Importar productos</a></li>
+                        <li><a href="barcode.html">Imprimir código de barras</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/sales1.svg" alt="img"><span>
-                            Sales</span> <span class="menu-arrow"></span></a>
+                            Ventas</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="saleslist.html">Sales List</a></li>
-                        <li><a href="pos.html">POS</a></li>
-                        <li><a href="pos.html">New Sales</a></li>
-                        <li><a href="salesreturnlists.html">Sales Return List</a></li>
-                        <li><a href="createsalesreturns.html">New Sales Return</a></li>
+                        <li><a href="saleslist.html">Lista de ventas</a></li>
+                        <li><a href="pos.html">punto de venta</a></li>
+                        <li><a href="pos.html">Nuevas Ventas</a></li>
+                        <li><a href="salesreturnlists.html">Lista de devoluciones de ventas</a></li>
+                        <li><a href="createsalesreturns.html">Nueva devolución de ventas</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/purchase1.svg" alt="img"><span>
-                            Purchase</span> <span class="menu-arrow"></span></a>
+                            Compra</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="purchaselist.html">Purchase List</a></li>
-                        <li><a href="addpurchase.html">Add Purchase</a></li>
-                        <li><a href="importpurchase.html">Import Purchase</a></li>
+                        <li><a href="purchaselist.html">Lista de compras</a></li>
+                        <li><a href="addpurchase.html">Agregar compra</a></li>
+                        <li><a href="importpurchase.html">Compra de importación</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/expense1.svg" alt="img"><span>
-                            Expense</span> <span class="menu-arrow"></span></a>
+                            Gastos</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="expenselist.html">Expense List</a></li>
-                        <li><a href="createexpense.html">Add Expense</a></li>
-                        <li><a href="expensecategory.html">Expense Category</a></li>
+                        <li><a href="expenselist.html">Lista de gastos</a></li>
+                        <li><a href="createexpense.html">Agregar gastos</a></li>
+                        <li><a href="expensecategory.html">Categoría de gastos</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/quotation1.svg" alt="img"><span>
-                            Quotation</span> <span class="menu-arrow"></span></a>
+                            Cotización</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="quotationList.html">Quotation List</a></li>
-                        <li><a href="addquotation.html">Add Quotation</a></li>
+                        <li><a href="quotationList.html">Lista de cotizaciones</a></li>
+                        <li><a href="addquotation.html">Agregar cotización</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/transfer1.svg" alt="img"><span>
-                            Transfer</span> <span class="menu-arrow"></span></a>
+                            Transferir</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="transferlist.html">Transfer List</a></li>
-                        <li><a href="addtransfer.html">Add Transfer </a></li>
-                        <li><a href="importtransfer.html">Import Transfer </a></li>
+                        <li><a href="transferlist.html">Lista de transferencia</a></li>
+                        <li><a href="addtransfer.html">Agregar transferencia</a></li>
+                        <li><a href="importtransfer.html">Transferencia de importación </a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/return1.svg" alt="img"><span>
-                            Return</span> <span class="menu-arrow"></span></a>
+                            Devolución</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="salesreturnlist.html">Sales Return List</a></li>
-                        <li><a href="createsalesreturn.html">Add Sales Return </a></li>
-                        <li><a href="purchasereturnlist.html">Purchase Return List</a></li>
-                        <li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
+                        <li><a href="salesreturnlist.html">Lista de devoluciones de ventas</a></li>
+                        <li><a href="createsalesreturn.html">Agregar devolución de ventas</a></li>
+                        <li><a href="purchasereturnlist.html">Lista de devoluciones de compras</a></li>
+                        <li><a href="createpurchasereturn.html">Agregar devolución de compra</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -88,138 +88,39 @@
                         <li><a href="clientes">Clientes</a></li>
                     </ul>
                 </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/places.svg" alt="img"><span>
-                            Places</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="newcountry.html">New Country</a></li>
-                        <li><a href="countrieslist.html">Countries list</a></li>
-                        <li><a href="newstate.html">New State </a></li>
-                        <li><a href="statelist.html">State list</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="components.html"><i data-feather="layers"></i><span> Components</span> </a>
-                </li>
-                <li>
-                    <a href="blankpage.html"><i data-feather="file"></i><span> Blank Page</span> </a>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="alert-octagon"></i> <span> Error Pages
-                        </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="error-404.html">404 Error </a></li>
-                        <li><a href="error-500.html">500 Error </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="box"></i> <span>Elements </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="sweetalerts.html">Sweet Alerts</a></li>
-                        <li><a href="tooltip.html">Tooltip</a></li>
-                        <li><a href="popover.html">Popover</a></li>
-                        <li><a href="ribbon.html">Ribbon</a></li>
-                        <li><a href="clipboard.html">Clipboard</a></li>
-                        <li><a href="drag-drop.html">Drag & Drop</a></li>
-                        <li><a href="rangeslider.html">Range Slider</a></li>
-                        <li><a href="rating.html">Rating</a></li>
-                        <li><a href="toastr.html">Toastr</a></li>
-                        <li><a href="text-editor.html">Text Editor</a></li>
-                        <li><a href="counter.html">Counter</a></li>
-                        <li><a href="scrollbar.html">Scrollbar</a></li>
-                        <li><a href="spinner.html">Spinner</a></li>
-                        <li><a href="notification.html">Notification</a></li>
-                        <li><a href="lightbox.html">Lightbox</a></li>
-                        <li><a href="stickynote.html">Sticky Note</a></li>
-                        <li><a href="timeline.html">Timeline</a></li>
-                        <li><a href="form-wizard.html">Form Wizard</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="bar-chart-2"></i> <span> Charts </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="chart-apex.html">Apex Charts</a></li>
-                        <li><a href="chart-js.html">Chart Js</a></li>
-                        <li><a href="chart-morris.html">Morris Charts</a></li>
-                        <li><a href="chart-flot.html">Flot Charts</a></li>
-                        <li><a href="chart-peity.html">Peity Charts</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="award"></i><span> Icons </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
-                        <li><a href="icon-feather.html">Feather Icons</a></li>
-                        <li><a href="icon-ionic.html">Ionic Icons</a></li>
-                        <li><a href="icon-material.html">Material Icons</a></li>
-                        <li><a href="icon-pe7.html">Pe7 Icons</a></li>
-                        <li><a href="icon-simpleline.html">Simpleline Icons</a></li>
-                        <li><a href="icon-themify.html">Themify Icons</a></li>
-                        <li><a href="icon-weather.html">Weather Icons</a></li>
-                        <li><a href="icon-typicon.html">Typicon Icons</a></li>
-                        <li><a href="icon-flag.html">Flag Icons</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-                        <li><a href="form-input-groups.html">Input Groups </a></li>
-                        <li><a href="form-horizontal.html">Horizontal Form </a></li>
-                        <li><a href="form-vertical.html"> Vertical Form </a></li>
-                        <li><a href="form-mask.html">Form Mask </a></li>
-                        <li><a href="form-validation.html">Form Validation </a></li>
-                        <li><a href="form-select2.html">Form Select2 </a></li>
-                        <li><a href="form-fileupload.html">File Upload </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="layout"></i> <span> Table </span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="tables-basic.html">Basic Tables </a></li>
-                        <li><a href="data-tables.html">Data Table </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/product.svg" alt="img"><span>
-                            Application</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="chat.html">Chat</a></li>
-                        <li><a href="calendar.html">Calendar</a></li>
-                        <li><a href="email.html">Email</a></li>
-                    </ul>
-                </li>
+         
+
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/time.svg" alt="img"><span>
-                            Report</span> <span class="menu-arrow"></span></a>
+                            Reporte</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="purchaseorderreport.html">Purchase order report</a></li>
-                        <li><a href="inventoryreport.html">Inventory Report</a></li>
-                        <li><a href="salesreport.html">Sales Report</a></li>
-                        <li><a href="invoicereport.html">Invoice Report</a></li>
-                        <li><a href="purchasereport.html">Purchase Report</a></li>
-                        <li><a href="supplierreport.html">Supplier Report</a></li>
-                        <li><a href="customerreport.html">Customer Report</a></li>
+                        <li><a href="purchaseorderreport.html">Informe de orden de compra</a></li>
+                        <li><a href="inventoryreport.html">Reporte de inventario</a></li>
+                        <li><a href="salesreport.html">Reporte de ventas</a></li>
+                        <li><a href="invoicereport.html">Informe de factura</a></li>
+                        <li><a href="purchasereport.html">Informe de compra</a></li>
+                        <li><a href="supplierreport.html">Informe de proveedor</a></li>
+                        <li><a href="customerreport.html">Informe del cliente</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
-                            Users</span> <span class="menu-arrow"></span></a>
+                    Usuarios</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="newuser.html">New User </a></li>
-                        <li><a href="userlists.html">Users List</a></li>
+                        <li><a href="newuser.html">Nuevo Usuario </a></li>
+                        <li><a href="userlists.html">Lista de usuarios</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/settings.svg" alt="img"><span>
-                            Settings</span> <span class="menu-arrow"></span></a>
+                            Ajustes</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="generalsettings.html">General Settings</a></li>
-                        <li><a href="emailsettings.html">Email Settings</a></li>
-                        <li><a href="paymentsettings.html">Payment Settings</a></li>
-                        <li><a href="currencysettings.html">Currency Settings</a></li>
-                        <li><a href="grouppermissions.html">Group Permissions</a></li>
-                        <li><a href="taxrates.html">Tax Rates</a></li>
+                        <li><a href="generalsettings.html">Configuración general</a></li>
+                        <li><a href="emailsettings.html">Ajustes del correo electrónico</a></li>
+                        <li><a href="paymentsettings.html">Configuración de pago</a></li>
+                        <li><a href="currencysettings.html">Configuración de moneda</a></li>
+                        <li><a href="grouppermissions.html">Permisos de grupo</a></li>
+                        <li><a href="taxrates.html">Las tasas de impuestos</a></li>
                     </ul>
                 </li>
             </ul>
