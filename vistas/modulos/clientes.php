@@ -2,11 +2,11 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Lista de proveedores</h4>
-                <h6>Administrar proveedores</h6>
+                <h4>Lista de clientes</h4>
+                <h6>Administrar clientes</h6>
             </div>
             <div class="page-btn">
-                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoProveedor"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Agregar proveedor</a>
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Agregar cliente</a>
             </div>
         </div>
 
@@ -42,11 +42,11 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_proveedores">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_clientes">
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>Razon social</th>
+                                <th>Nombre</th>
                                 <th>Documento</th>
                                 <th>Dirección</th>
                                 <th>telefono</th>
@@ -55,7 +55,7 @@
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
-                        <tbody id="dataProveedores">
+                        <tbody id="dataClientes">
 
                         </tbody>
                     </table>
@@ -67,27 +67,28 @@
 </div>
 
 
-<!-- MODAL NUEVO PROVEEDORES -->
-<div class="modal fade" id="modalNuevoProveedor" tabindex="-1" aria-labelledby="modalNuevoProveedorLabel" aria-hidden="true">
+<!-- MODAL NUEVO CLIENTE -->
+<div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalNuevoClienteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear nuevo proveedor</h5>
+                <h5 class="modal-title">Crear nuevo cliente</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="nuevoProveedor">
+            <form enctype="multipart/form-data" id="form_nuevo_cliente">
+
                 <div class="modal-body">
 
-                    <!-- INGRESO TIPO DE PROVEEDOR -->
+                    <!-- INGRESO TIPO DE PERSONA -->
                     <div class="form-group">
-                        <input type="hidden" id="tipo_persona_proveedor" value="proveedor">
+                        <input type="hidden" id="tipo_personas_c" value="cliente">
                     </div>
 
-                    <!-- INGRESO DE RAZÓN SOCIAL -->
+                    <!-- INGRESO NOMBRE -->
                     <div class="form-group">
-                        <label class="form-label">Ingrese la razón social (<span class="text-danger">*</span>)</label>
-                        <input type="text" id="razon_social_proveedor" placeholder="Ingrese la razon social">
-                        <small id="validate_razon_social_proveedor"></small>
+                        <label class="form-label">Ingrese el nombre (<span class="text-danger">*</span>)</label>
+                        <input type="text" id="razon_social_c" placeholder="Ingrese el nombre completo">
+                        <small id="error_razon_social_c"></small>
                     </div>
 
 
@@ -101,7 +102,7 @@
                             $valor = null;
                             $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
                             ?>
-                            <select class="select" id="id_doc_proveedor">
+                            <select class="select" id="id_doc_c">
                                 <option disabled selected>Seleccione</option>
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
@@ -112,15 +113,15 @@
                                 ?>
                             </select>
 
-                            <small id="validate_tipo_documento_proveedor"></small>
+                            <small id="error_id_doc_c"></small>
                         </div>
 
                         <!-- INGRESO DE NUMERO DE DOCUMENTO -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="numero_documento" class="form-label">Ingrese el número de documento (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="numero_documento_proveedor" placeholder="Ingrese el número de documento">
-                                <small id="validate_numero_documento_proveedor"></small>
+                                <input type="text" id="numero_documento_c" placeholder="Ingrese el número de documento">
+                                <small id="error_numero_documento_c"></small>
                             </div>
 
                         </div>
@@ -133,7 +134,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="direccion" class="form-label">Ingrese la dirección </label>
-                                <input type="text" id="direccion_proveedor" placeholder="Ingrese la dirección">
+                                <input type="text" id="direccion_c" placeholder="Ingrese la dirección">
                             </div>
                         </div>
 
@@ -141,8 +142,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese la ciudad (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="ciudad_proveedor" placeholder="Ingrese la ciudad">
-                                <small id="validate_ciudad_proveedor"></small>
+                                <input type="text" id="ciudad_c" placeholder="Ingrese la ciudad">
+                                <small id="error_ciudad_c"></small>
                             </div>
 
                         </div>
@@ -154,8 +155,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="codigo_postal" class="form-label">Ingrese el codigo postal</label>
-                                <input type="text" id="codigo_postal_proveedor" placeholder="Ingrese el código postal">
-                                <small id="validate_codigo_postal_proveedor"></small>
+                                <input type="text" id="codigo_postal_c" placeholder="Ingrese el código postal">
+                                <small id="error_codigo_postal_c"></small>
                             </div>
                         </div>
 
@@ -163,8 +164,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese el telefono (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="telefono_proveedor" placeholder="Ingrese el teléfono">
-                                <small id="validate_telefono_proveedor"></small>
+                                <input type="text" id="telefono_c" placeholder="Ingrese el teléfono">
+                                <small id="error_telefono_c"></small>
                             </div>
 
                         </div>
@@ -174,15 +175,15 @@
                     <div class="form-group">
                         <label for="correo" class="form-label">Ingrese el correo electrónico (<span class="text-danger">*</span>)</label>
                         <div class="pass-group">
-                            <input type="text" id="correo_proveedor" placeholder="Ingrese el correo electrónico">
-                            <small id="validate_correo_proveedor"></small>
+                            <input type="text" id="correo_c" placeholder="Ingrese el correo electrónico">
+                            <small id="error_correo_c"></small>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="sitio_web" class="form-label">Ingrese el sitio web</label>
-                        <input type="text" id="sitio_web_proveedor" placeholder="Ingrese el link del sitio web">
-                        <small id="validate_sitio_web_proveedor"></small>
+                        <input type="text" id="sitio_web_c" placeholder="Ingrese el link del sitio web">
+                        <small id="error_sitio_web_c"></small>
                     </div>
 
                     <div class="row">
@@ -191,7 +192,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tipo_banco" class="form-label">Selecione el tipo de banco</label>
-                                <select class="select" id="tipo_banco_proveedor">
+                                <select class="select" id="tipo_banco_c">
                                     <option disabled selected>Selecione</option>
                                     <option value="BCRP">Banco Central de Reserva del Perú</option>
                                     <option value="BCP">Banco de Crédito del Perú (BCP)</option>
@@ -202,7 +203,7 @@
                                     <option value="BN">Banco de la Nación</option>
                                     <option value="BF">Banco Falabella</option>
                                 </select>
-                                <small id="tipo_banco_proveedor"></small>
+                                <small id="error_tipo_banco_c"></small>
                             </div>
                         </div>
 
@@ -210,8 +211,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="numero_cuenta" class="form-label">Ingrese la cuenta bancaria</label>
-                                <input type="text" id="numero_cuenta_proveedor" placeholder="Ingrese el numero de cuenta bancaria">
-                                <small id="validate_numero_bancaria_proveedor"></small>
+                                <input type="text" id="numero_cuenta_c" placeholder="Ingrese el numero de cuenta bancaria">
+                                <small id="error_numero_cuenta_c"></small>
                             </div>
 
                         </div>
@@ -220,7 +221,7 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="guardar_proveedor" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" id="btn_guardar_cliente" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>
@@ -229,8 +230,8 @@
 </div>
 
 
-<!-- MODAL VER PROVEEDORES -->
-<div class="modal fade" id="modalVerProveedor" tabindex="-1" aria-labelledby="modalVerProveedorLabel" aria-hidden="true">
+<!-- MODAL VER CLIENTE -->
+<div class="modal fade" id="modalVerCliente" tabindex="-1" aria-labelledby="modalVerClienteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -321,25 +322,25 @@
 </div>
 
 
-<!-- MODAL EDITAR PROVEEDORES -->
-<div class="modal fade" id="modalEditarProveedor" tabindex="-1" aria-labelledby="modalEditarProveedorLabel" aria-hidden="true">
+<!-- MODAL EDITAR CLIENTE -->
+<div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar proveedor</h5>
+                <h5 class="modal-title">Editar Cliente</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="formEditProveedor">
+            <form enctype="multipart/form-data" id="form_edit_cliente">
                 <div class="modal-body">
 
                     <!-- ID PROVEEDOR -->
-                    <input type="hidden" id="edit_id_proveedor">
+                    <input type="hidden" id="edit_id_c">
 
                     <!-- INGRESO DE RAZÓN SOCIAL -->
                     <div class="form-group">
                         <label class="form-label">Ingrese la razón social (<span class="text-danger">*</span>)</label>
-                        <input type="text" id="edit_razon_social_proveedor" placeholder="Ingrese la razon social">
-                        <small id="edit_error_rz"></small>
+                        <input type="text" id="edit_razon_social_c" placeholder="Ingrese la razon social">
+                        <small id="edit_error_rz_c"></small>
                     </div>
 
 
@@ -353,7 +354,7 @@
                             $valor = null;
                             $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
                             ?>
-                            <select class="form-select form-select-sm" id="edit_id_doc_proveedor">
+                            <select class="form-select form-select-sm" id="edit_id_doc_c">
 
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
@@ -364,15 +365,15 @@
                                 ?>
                             </select>
 
-                            <small id="edit_error_id_doc"></small>
+                            <small id="edit_error_id_doc_c"></small>
                         </div>
 
                         <!-- INGRESO DE NUMERO DE DOCUMENTO -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="numero_documento" class="form-label">Ingrese el número de documento (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="edit_numero_documento_proveedor" placeholder="Ingrese el número de documento">
-                                <small id="edit_error_nd"></small>
+                                <input type="text" id="edit_numero_documento_c" placeholder="Ingrese el número de documento">
+                                <small id="edit_error_nd_c"></small>
                             </div>
 
                         </div>
@@ -385,7 +386,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="direccion" class="form-label">Ingrese la dirección </label>
-                                <input type="text" id="edit_direccion_proveedor" placeholder="Ingrese la dirección">
+                                <input type="text" id="edit_direccion_c" placeholder="Ingrese la dirección">
                             </div>
                         </div>
 
@@ -393,8 +394,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese la ciudad (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="edit_ciudad_proveedor" placeholder="Ingrese la ciudad">
-                                <small id="edit_error_c"></small>
+                                <input type="text" id="edit_ciudad_c" placeholder="Ingrese la ciudad">
+                                <small id="edit_error_c_c"></small>
                             </div>
 
                         </div>
@@ -406,7 +407,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="codigo_postal" class="form-label">Ingrese el codigo postal</label>
-                                <input type="text" id="edit_codigo_postal_proveedor" placeholder="Ingrese el código postal">
+                                <input type="text" id="edit_codigo_postal_c" placeholder="Ingrese el código postal">
+                                <small id="edit_error_cp_c"></small>
                             </div>
                         </div>
 
@@ -414,8 +416,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefono" class="form-label">Ingrese el telefono (<span class="text-danger">*</span>)</label>
-                                <input type="text" id="edit_telefono_proveedor" placeholder="Ingrese el teléfono">
-                                <small id="edit_error_t"></small>
+                                <input type="text" id="edit_telefono_c" placeholder="Ingrese el teléfono">
+                                <small id="edit_error_t_c"></small>
                             </div>
 
                         </div>
@@ -425,15 +427,15 @@
                     <div class="form-group">
                         <label for="correo" class="form-label">Ingrese el correo electrónico (<span class="text-danger">*</span>)</label>
                         <div class="pass-group">
-                            <input type="text" id="edit_correo_proveedor" placeholder="Ingrese el correo electrónico">
-                            <small id="edit_error_c"></small>
+                            <input type="text" id="edit_correo_c" placeholder="Ingrese el correo electrónico">
+                            <small id="edit_error_c_c"></small>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="sitio_web" class="form-label">Ingrese el sitio web</label>
-                        <input type="text" id="edit_sitio_web_proveedor" placeholder="Ingrese el link del sitio web">
-                        <small id="edit_validate_sitio_web_proveedor"></small>
+                        <input type="text" id="edit_sitio_web_c" placeholder="Ingrese el link del sitio web">
+                        <small id="edit_error_sitio_web_c"></small>
                     </div>
 
                     <div class="row">
@@ -442,7 +444,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tipo_banco" class="form-label">Selecione el tipo de banco</label>
-                                <select class="form-select form-select-sm" id="edit_tipo_banco_proveedor">
+                                <select class="form-select form-select-sm" id="edit_tipo_banco_c">
                                     <option value="BCRP">Banco Central de Reserva del Perú</option>
                                     <option value="BCP">Banco de Crédito del Perú (BCP)</option>
                                     <option value="SBP">Scotiabank Perú</option>
@@ -452,7 +454,7 @@
                                     <option value="BN">Banco de la Nación</option>
                                     <option value="BF">Banco Falabella</option>
                                 </select>
-                                <small id="edit_validate_tipo_banco_proveedor"></small>
+                                <small id="edit_error_tipo_banco_c"></small>
                             </div>
                         </div>
 
@@ -460,8 +462,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="numero_cuenta" class="form-label">Ingrese la cuenta bancaria</label>
-                                <input type="text" id="edit_numero_cuenta_proveedor" placeholder="Ingrese el numero de cuenta bancaria">
-                                <small id="edit_validate_numero_bancaria_proveedor"></small>
+                                <input type="text" id="edit_numero_cuenta_c" placeholder="Ingrese el numero de cuenta bancaria">
+                                <small id="edit_error_numero_bancaria_c"></small>
                             </div>
 
                         </div>
@@ -470,7 +472,7 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="actualizar_proveedor" class="btn btn-primary mx-2"><i class="fas fa-sync"></i> Guardar</button>
+                    <button type="button" id="btn_actualizar_cliente" class="btn btn-primary mx-2"><i class="fas fa-sync"></i> Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>

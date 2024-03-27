@@ -2,13 +2,13 @@
 
 require_once "Conexion.php";
 
-class ModeloProveedor{
+class ModeloCliente{
 
 	/*=============================================
-	MOSTRAR PROVEEDOR
+	MOSTRAR CLIENTE
 	=============================================*/
 
-	static public function mdlMostrarProveedor($tablaDoc, $tablaPer, $item, $valor){
+	static public function mdlMostrarCliente($tablaDoc, $tablaPer, $item, $valor){
 
 		if($item != null){
 
@@ -22,7 +22,7 @@ class ModeloProveedor{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaPer as p on doc.id_doc = p.id_doc WHERE p.tipo_persona = 'proveedor'");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaPer as p on doc.id_doc = p.id_doc WHERE p.tipo_persona = 'cliente'");
 
 			$stmt -> execute();
 
@@ -37,10 +37,10 @@ class ModeloProveedor{
 	}
 
 	/*=============================================
-	REGISTRAR PROVEEDOR
+	REGISTRAR CLIENTE
 	=============================================*/
 
-	static public function mdlIngresarProveedor($tabla, $datos){
+	static public function mdlIngresarCliente($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
                                                                     tipo_persona, 
@@ -100,10 +100,10 @@ class ModeloProveedor{
 	}
 
 	/*=============================================
-	EDITAR PROVEEDOR
+	EDITAR CLIENTE
 	=============================================*/
 
-	static public function mdlEditarProveedor($tabla, $datos){
+	static public function mdlEditarCliente($tabla, $datos){
 	
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
 																razon_social = :razon_social, 
@@ -148,10 +148,10 @@ class ModeloProveedor{
 	}
 
 	/*=============================================
-	ACTUALIZAR PROVEEDOR
+	ACTUALIZAR CLIENTE
 	=============================================*/
 
-	static public function mdlActualizarProveedor($tabla, $item1, $valor1, $item2, $valor2){
+	static public function mdlActualizarCliente($tabla, $item1, $valor1, $item2, $valor2){
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
 
@@ -174,10 +174,10 @@ class ModeloProveedor{
 	}
 
 	/*=============================================
-	BORRAR PROVEEDOR
+	BORRAR CLIENTE
 	=============================================*/
 
-	static public function mdlBorrarProveedor($tabla, $datos){
+	static public function mdlBorrarCliente($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_persona = :id_persona");
 
