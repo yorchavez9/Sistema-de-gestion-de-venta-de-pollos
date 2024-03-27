@@ -33,8 +33,9 @@
     <link rel="stylesheet" href="vistas/dist/alert/sweetalert2.min.css">
     <script src="vistas/dist/alert/sweetalert2.min.js"></script>
 
-    <script src="vistas/dist/assets/js/jquery.dataTables.min.js"></script>
+    <script src="vistas/dist/assets/js/script-jquery.dataTables.min.js"></script>
     <script src="vistas/dist/assets/js/dataTables.bootstrap4.min.js"></script>
+
 </head>
 
 <body>
