@@ -22,7 +22,7 @@ class ModeloCliente{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaPer as p on doc.id_doc = p.id_doc WHERE p.tipo_persona = 'cliente'");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaPer as p on doc.id_doc = p.id_doc WHERE p.tipo_persona = 'cliente' ORDER BY P.id_persona DESC");
 
 			$stmt -> execute();
 
