@@ -27,6 +27,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
                 $_GET["ruta"] == "clientes" ||
                 $_GET["ruta"] == "productos" ||
                 $_GET["ruta"] == "clientes" ||
+                $_GET["ruta"] == "categorias" ||
                 $_GET["ruta"] == "ventas" ||
                 $_GET["ruta"] == "crear-venta" ||
                 $_GET["ruta"] == "editar-venta" ||

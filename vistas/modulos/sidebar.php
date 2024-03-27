@@ -10,7 +10,7 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/product.svg" alt="img"><span>
                             Inventario</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="productlist.html">Categoria</a></li>
+                        <li><a href="categorias">Categorias</a></li>
                         <li><a href="addproduct.html">Proveedor</a></li>
                         <li><a href="categorylist.html">Producto</a></li>
                         <li><a href="addcategory.html">Add Category</a></li>
@@ -86,12 +86,6 @@
                         <li><a href="usuarios">Usuarios</a></li>
                         <li><a href="proveedores">Proveedores</a></li>
                         <li><a href="clientes">Clientes</a></li>
-                        <li><a href="addcustomer.html">Add Customer </a></li>
-                        <li><a href="addsupplier.html">Add Supplier </a></li>
-                        <li><a href="userlist.html">User List</a></li>
-                        <li><a href="adduser.html">Add User</a></li>
-                        <li><a href="storelist.html">Store List</a></li>
-                        <li><a href="addstore.html">Add Store</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
