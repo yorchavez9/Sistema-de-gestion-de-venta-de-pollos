@@ -19,12 +19,13 @@
     =================================== -->
     <script src="vistas/js/script.js"></script>
     <script src="vistas/js/login.js"></script>
-    <script src="vistas/js/script-usuario.js"></script>
+    <script src="vistas/js/usuarios.js"></script>
     <script src="vistas/js/documento.js"></script>
     <script src="vistas/js/script-proveedor.js"></script>
     <script src="vistas/js/cliente.js"></script>
     <script src="vistas/js/categoria.js"></script>
     <script src="vistas/js/roles.js"></script>
+    <script src="vistas/js/permisos.js"></script>
 </body>
 
 </html>
