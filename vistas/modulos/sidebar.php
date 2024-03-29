@@ -83,6 +83,7 @@
                             Personas</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="tipoDocumento">Tipo documento</a></li>
+                        <li><a href="roles">Roles</a></li>
                         <li><a href="usuarios">Usuarios</a></li>
                         <li><a href="proveedores">Proveedores</a></li>
                         <li><a href="clientes">Clientes</a></li>
