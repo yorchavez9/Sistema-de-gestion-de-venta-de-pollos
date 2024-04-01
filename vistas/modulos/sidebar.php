@@ -11,14 +11,9 @@
                             Inventario</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="categorias">Categorias</a></li>
-                        <li><a href="addproduct.html">Proveedor</a></li>
-                        <li><a href="categorylist.html">Producto</a></li>
-                        <li><a href="addcategory.html">añadir categoría</a></li>
-                        <li><a href="subcategorylist.html">Lista de subcategorías</a></li>
-                        <li><a href="subaddcategory.html">Agregar subcategoría</a></li>
-                        <li><a href="brandlist.html">Lista de marcas</a></li>
-                        <li><a href="addbrand.html">Agregar marca</a></li>
-                        <li><a href="importproduct.html">Importar productos</a></li>
+                        <li><a href="proveedores">Proveedor</a></li>
+                        <li><a href="productos">Producto</a></li>
+                        <li><a href="addbrand.html">Marca</a></li>
                         <li><a href="barcode.html">Imprimir código de barras</a></li>
                     </ul>
                 </li>
@@ -83,9 +78,7 @@
                             Personas</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="tipoDocumento">Tipo documento</a></li>
-                        <li><a href="roles">Roles</a></li>
                         <li><a href="usuarios">Usuarios</a></li>
-                        <li><a href="permisos">Permisos</a></li>
                         <li><a href="proveedores">Proveedores</a></li>
                         <li><a href="clientes">Clientes</a></li>
                     </ul>
