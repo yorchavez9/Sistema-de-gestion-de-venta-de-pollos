@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-    
     /* ===========================================
     GUARDAR PERMISO
     =========================================== */
@@ -110,10 +109,10 @@ $(document).ready(function () {
                             <td>${permiso.nombre_usuario}</td>
                             <td>${rolesUsuario}</td>
                             <td class="text-center">
-                                <a href="#" class="me-3 btnEditarusuarioPermiso" idUsuarioPermiso="${permiso.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuarioPermiso">
+                                <a href="#" class="me-3 btnEditarUsuarioPermiso" idPermiso="${permiso.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuarioPermiso">
                                     <i class="text-warning fas fa-edit fa-lg"></i>
                                 </a>
-                                <a href="#" class="me-3 confirm-text btnEliminarUsuarioPermiso" idUsuarioPermiso="${permiso.id_usuario}">
+                                <a href="#" class="me-3 confirm-text btnEliminarUsuarioPermiso" idPermiso="${permiso.id_usuario}">
                                     <i class="text-danger fa fa-trash fa-lg"></i>
                                 </a>
                             </td>
@@ -136,14 +135,17 @@ $(document).ready(function () {
 
 
     /*=============================================
-    EDITAR EL ROL
+    EDITAR USUARIO PERMISO
     =============================================*/
-    $("#tabla_rol").on("click", ".btnEditarRol", function () {
+    $("#tabla_permiso").on("click", ".btnEditarUsuarioPermiso", function () {
 
-      var idRol = $(this).attr("idRol");
+
+      var idPermiso = $(this).attr("idPermiso");
+
   
       var datos = new FormData();
-      datos.append("idRol", idRol);
+      datos.append("idPermiso", idPermiso);
+
   
       $.ajax({
         url: "ajax/Usuario.permiso.ajax.php",
@@ -155,8 +157,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (respuesta) {
 
-          $("#edit_id_rol").val(respuesta["id_rol"]);
-          $("#edit_nombre_rol").val(respuesta["nombre_rol"]);
+          console.log(respuesta);
 
         },
       });
@@ -164,7 +165,7 @@ $(document).ready(function () {
 
   
     /*===========================================
-    ACTUALIZAR CATEGORIA
+    ACTUALIZAR USUARIO PERMISO
     =========================================== */
     $("#btn_actualizar_rol").click(function (e) {
 
@@ -234,19 +235,19 @@ $(document).ready(function () {
     });
   
     /*=============================================
-      ELIMINAR ROL
+      ELIMINAR USUARIO PERMISO
       =============================================*/
-    $("#tabla_rol").on("click",".btnEliminarRol",function (e) {
+    $("#tabla_permiso").on("click",".btnEliminarUsuarioPermiso",function (e) {
   
         e.preventDefault();
   
-        var deleteIdRol = $(this).attr("idRol");
+        var idDeletePermiso = $(this).attr("idPermiso");
   
         var datos = new FormData();
-        datos.append("deleteIdRol", deleteIdRol);
+        datos.append("idDeletePermiso", idDeletePermiso);
   
         Swal.fire({
-          title: "¿Está seguro de borrar el rol?",
+          title: "¿Está seguro de borrar el los permisos?",
           text: "¡Si no lo está puede cancelar la accíón!",
           icon: "warning",
           showCancelButton: true,
@@ -270,7 +271,7 @@ $(document).ready(function () {
                  
                   Swal.fire({
                     title: "¡Eliminado!",
-                    text: "El rol ha sido eliminado",
+                    text: "Los permisos han sido eliminados",
                     icon: "success",
                   });
       
@@ -294,8 +295,6 @@ $(document).ready(function () {
     ===================================== */
     mostrarPermisos();
 
-  });
+});
 
 
-
-  

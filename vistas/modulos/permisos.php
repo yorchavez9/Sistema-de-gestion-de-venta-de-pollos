@@ -135,7 +135,7 @@
                 <div class="modal-body">
 
                     <!-- ID ROL -->
-                    <input type="hidden" name="edit_id_rol" id="edit_id_rol">
+                    <input type="text" name="edit_id_permiso" id="edit_id_permiso">
 
                     <!-- INGRESO NOMBRE -->
                     <div class="form-group">

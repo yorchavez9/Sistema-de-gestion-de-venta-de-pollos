@@ -13,7 +13,7 @@ class ModeloUsuarioPermiso
 
 		if($item != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaUsuario JOIN $tablaPermiso ON $tablaUsuario.id_usuario = $tablaPermiso.id_usuario JOIN $tablaRol ON $tablaPermiso.id_rol = $tablaRol.id_rol WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPermiso WHERE $item = :$item");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -124,9 +124,12 @@ class ModeloUsuarioPermiso
 
 	static public function mdlBorrarUsuarioPermiso($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_rol = :id_rol");
+		
 
-		$stmt -> bindParam(":id_rol", $datos, PDO::PARAM_INT);
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_usuario = :id_usuario");
+
+		$stmt -> bindParam(":id_usuario", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 

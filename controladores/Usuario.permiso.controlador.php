@@ -101,11 +101,11 @@ class ControladorPermisoUsuario
 	static public function ctrBorraPermisoUsuario()
 	{
 
-		if (isset($_POST["deleteIdRol"])) {
+		if (isset($_POST["idDeletePermiso"])) {
 
-			$tabla = "roles";
+			$tabla = "roles_usuario";
 
-			$datos = $_POST["deleteIdRol"];
+			$datos = $_POST["idDeletePermiso"];
 
 			$respuesta = ModeloUsuarioPermiso::mdlBorrarUsuarioPermiso($tabla, $datos);
 

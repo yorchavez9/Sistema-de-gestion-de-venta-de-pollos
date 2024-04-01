@@ -33,9 +33,7 @@ EDITAR USUARIO PERMISO
 =============================================*/
 if (isset($_POST["idPermiso"])) {
 
-    $editar = new AjaxUsuarioPermiso();
-    $editar->idPermiso = $_POST["idPermiso"];
-    $editar->ajaxEditarUsuarioPermiso();
+    echo "idPermiso";
 }
 
 
@@ -56,10 +54,10 @@ elseif(isset($_POST["edit_id_rol"])){
 }
 
 //ELIMINAR CATEGORIA
-elseif(isset($_POST["deleteIdPermiso"])){
+elseif(isset($_POST["idDeletePermiso"])){
 
-    $borrarRol = new ControladorPermisoUsuario();
-    $borrarRol->ctrBorraPermisoUsuario();
+    $idDeletePermiso = new ControladorPermisoUsuario();
+    $idDeletePermiso->ctrBorraPermisoUsuario();
 
 }
 
