@@ -208,7 +208,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Editar usuario</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button" class="btn_modal_editar_close_usuario close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form enctype="multipart/form-data" id="formEditUsuario">
                 <div class="modal-body">
@@ -331,7 +331,7 @@
 
                 <div class="text-end mx-4 mb-2">
                     <button type="button" id="actualizar_usuario" class="btn btn-primary mx-2">Actualizar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn_modal_editar_close_usuario btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>
         </div>
@@ -344,7 +344,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Detalles del usuario</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button" class="close btn_modal_ver_close_usuario" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form enctype="multipart/form-data" id="formVerUsuario">
                 <div class="modal-body">
@@ -434,7 +434,7 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar</button>
+                    <button type="button" class="btn btn-secondary btn_modal_ver_close_usuario" data-bs-dismiss="modal"> Cerrar</button>
                 </div>
             </form>
 

@@ -666,6 +666,20 @@ $(document).ready(function () {
     }
   );
 
+/*   ==========================================
+  LIMPIAR MODALES
+  ========================================== */
+
+  $(".btn_modal_ver_close_usuario").click(function() {
+
+    $("#mostrar_data_roles").text('');
+  });
+
+  $(".btn_modal_editar_close_usuario").click(function() {
+
+    $("#formEditUsuario")[0].reset();
+  });
+
 /* =====================================
 MSOTRANDO DATOS
 ===================================== */
