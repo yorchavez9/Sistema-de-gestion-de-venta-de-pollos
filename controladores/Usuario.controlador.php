@@ -109,7 +109,8 @@ class ControladorUsuarios
 			"correo" => $_POST["correo"],
 			"usuario" => $_POST["usuario"],
 			"contrasena" => $encriptar,
-			"imagen_usuario" => $ruta_imagen
+			"imagen_usuario" => $ruta_imagen,
+			"roles" => $_POST["data_roles"]
 		);
 
 		$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla,	$datos);
@@ -204,7 +205,8 @@ class ControladorUsuarios
 				"correo" => $_POST["edit_correo"],
 				"usuario" => $_POST["edit_usuario"],
 				"contrasena" => $encriptar,
-				"imagen_usuario" => $ruta_imagen
+				"imagen_usuario" => $ruta_imagen,
+				"roles" => $_POST["data_roles"]
 			);
 
 			$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);

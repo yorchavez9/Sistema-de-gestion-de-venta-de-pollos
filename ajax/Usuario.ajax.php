@@ -23,6 +23,23 @@ class AjaxUsuarios
 
         echo json_encode($respuesta);
     }
+    
+    /*=============================================
+	MOSTRAR DETALLE USUARIO
+	=============================================*/
+
+    public $idUsuarioVer;
+
+    public function ajaxVerUsuario()
+    {
+
+        $item = "id_usuario";
+        $valor = $this->idUsuarioVer;
+
+        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+
+        echo json_encode($respuesta);
+    }
 
     /*=============================================
 	ACTIVAR USUARIO
@@ -72,33 +89,62 @@ if (isset($_POST["idUsuario"])) {
     $editar = new AjaxUsuarios();
     $editar->idUsuario = $_POST["idUsuario"];
     $editar->ajaxEditarUsuario();
-}elseif (isset($_POST["activarUsuario"])) {
+
+}
+
+/* VER DETALLE USUARIO */
+elseif (isset($_POST["idUsuarioVer"])) {
+
+    $verDetalle = new AjaxUsuarios();
+    $verDetalle->idUsuarioVer = $_POST["idUsuarioVer"];
+    $verDetalle->ajaxVerUsuario();
+}
+
+/* ACTIVAR USUARIO */
+elseif (isset($_POST["activarUsuario"])) {
 
     $activarUsuario = new AjaxUsuarios();
     $activarUsuario->activarUsuario = $_POST["activarUsuario"];
     $activarUsuario->activarId = $_POST["activarId"];
     $activarUsuario->ajaxActivarUsuario();
-}elseif (isset($_POST["validarUsuario"])) {
+
+}
+
+/* VALIDAR USUARIO */
+elseif (isset($_POST["validarUsuario"])) {
 
     $valUsuario = new AjaxUsuarios();
     $valUsuario->validarUsuario = $_POST["validarUsuario"];
     $valUsuario->ajaxValidarUsuario();
-}elseif (isset($_POST["nombre"])) {
+    
+}
+
+/* GUARDAR USUARIO */
+elseif (isset($_POST["nombre"])) {
 
     $crearUsuario = new ControladorUsuarios();
     $crearUsuario->ctrCrearUsuario();
 
-}elseif(isset($_POST["edit_idUsuario"])){
+}
+
+/* ACTUALIZAR USUARIO */
+elseif(isset($_POST["edit_idUsuario"])){
 
     $editusuario = new ControladorUsuarios();
     $editusuario->ctrEditarUsuario();
 
-}elseif(isset($_POST["deleteUserId"])){
+}
+
+/* BORRAR USUARIO */
+elseif(isset($_POST["deleteUserId"])){
 
     $borrarUsuario = new ControladorUsuarios();
     $borrarUsuario->ctrBorrarUsuario();
 
-}else{
+}
+
+/* MOSTRAR USUARIO EN LA TABLA */
+else{
 
     $item = null;
     $valor = null;
@@ -112,6 +158,7 @@ if (isset($_POST["idUsuario"])) {
             'id_usuario' => $usuario['id_usuario'],
             'nombre_usuario' => $usuario['nombre_usuario'],
             'id_doc' => $usuario['id_doc'],
+            'nombre_doc' => $usuario['nombre_doc'],
             'numero_documento' => $usuario['numero_documento'],
             'direccion' => $usuario['direccion'],
             'telefono' => $usuario['telefono'],
@@ -119,7 +166,9 @@ if (isset($_POST["idUsuario"])) {
             'usuario' => $usuario['usuario'],
             'contrasena' => $usuario['contrasena'],
             'imagen_usuario' => $usuario['imagen_usuario'],
-            'estado' => $usuario['estado']
+            'estado' => $usuario['estado'],
+            'fecha_usuario' => $usuario['fecha_usuario'],
+            'roles' => $usuario['roles']
         );
     
         

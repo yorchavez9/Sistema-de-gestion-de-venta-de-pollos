@@ -42,18 +42,18 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%"  id="tabla_usuarios">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_usuarios">
                         <thead>
                             <tr>
                                 <th>Foto</th>
                                 <th>Nombre</th>
+                                <th>Usuario</th>
                                 <th>N° documento</th>
                                 <th>Dirección</th>
                                 <th>Telefono</th>
                                 <th>Correo</th>
-                                <th>Usuario</th>
-                                <th>estado</th>
-                                <th>Action</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acción</th>
                             </tr>
                         </thead>
                         <tbody id="dataUsuarios">
@@ -100,7 +100,7 @@
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
                                 ?>
-                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                    <option value="<?php echo $value["id_doc"] ?>"><?php echo $value["nombre_doc"] ?></option>
                                 <?php
                                 }
                                 ?>
@@ -171,11 +171,23 @@
 
                     </div>
 
+                    <!-- INGRESO DE IMAGEN DEL USUARIO -->
                     <div class="form-group">
                         <label for="imagen_usuario" class="form-label"></label>
                         <input type="file" class="form-control" id="imagen_usuario" class="">
                         <div class="text-center mt-3">
                             <img src="" class="vistaPreviaImagenUsuario img img-fluid rounded-circle" width="250" alt="">
+                        </div>
+                    </div>
+
+                    <!-- ROLES -->
+
+                    <div class="form-group">
+                        <h5 class="fw-bold mb-2">Roles</h5>
+                        <div id="data_roles">
+                            <input type="checkbox" class="data_rol mx-2 " id="rol_administrador" value="administrador"><small>Administrador</small>
+                            <input type="checkbox" class="data_rol mx-2 " id="rol_cajero" value="cajero"><small>Cajero</small>
+                            <input type="checkbox" class="data_rol mx-2 " id="rol_ayudante" value="ayudante"><small>Ayudante</small>
                         </div>
                     </div>
 
@@ -190,7 +202,7 @@
     </div>
 </div>
 
-<!-- MODAL NUEVO USUARIO -->
+<!-- MODAL EDITAR   USUARIO -->
 <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="modalEditarUsuarioLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -201,13 +213,13 @@
             <form enctype="multipart/form-data" id="formEditUsuario">
                 <div class="modal-body">
 
-                    <!-- ID --> 
+                    <!-- ID -->
                     <input type="hidden" id="editIdUsuario">
 
                     <!-- INGRESO DE NOMBRE -->
                     <div class="form-group">
                         <label>Ingrese el nombre completo (<span class="text-danger">*</span>)</label>
-                        <input type="text" id="edit_nombre_usuario" >
+                        <input type="text" id="edit_nombre_usuario">
                         <small id="editerrorNombreUsuario"></small>
                     </div>
 
@@ -224,7 +236,7 @@
                                 <?php
                                 foreach ($tiposDocumentos as $key => $value) {
                                 ?>
-                                <option value="<?php echo $value["id_doc"]?>"><?php echo $value["nombre_doc"]?></option>
+                                    <option value="<?php echo $value["id_doc"] ?>"><?php echo $value["nombre_doc"] ?></option>
                                 <?php
                                 }
                                 ?>
@@ -304,6 +316,17 @@
                         <input type="hidden" id="imagenActualUsuario">
                     </div>
 
+                    <!-- ROLES -->
+
+                    <div class="form-group">
+                        <h5 class="fw-bold mb-2">Editar roles</h5>
+                        <div id="edit_data_roles">
+                            <input type="checkbox" class="edit_data_rol mx-2 " id="edit_rol_administrador" value="administrador"><small>Administrador</small>
+                            <input type="checkbox" class="edit_data_rol mx-2 " id="edit_rol_cajero" value="cajero"><small>Cajero</small>
+                            <input type="checkbox" class="edit_data_rol mx-2 " id="edit_rol_ayudante" value="ayudante"><small>Ayudante</small>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="text-end mx-4 mb-2">
@@ -311,6 +334,110 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL VER   USUARIO -->
+<div class="modal fade" id="modalVerUsuario" tabindex="-1" aria-labelledby="modalVerUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles del usuario</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form enctype="multipart/form-data" id="formVerUsuario">
+                <div class="modal-body">
+
+                    <!-- MOSTRANDO NOMBRE DEL USUARIO -->
+                    <div class="form-group">
+                        <label><i class="fas fa-user text-primary"></i> Nombre de usuario:</label>
+                        <p id="mostrar_nombre_usuario"></p>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- MOSTRANDO TIPO DE DOCUMENTO -->
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fas fa-id-card-alt text-danger"></i> Tipo de documento:</label>
+                            <p id="mostrar_tipo_documento"></p>
+                        </div>
+
+                        <!-- MOSTRANDO NUMERO DE DOCUMENTO -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="numero_documento" class="form-label"><i class="fas fa-address-card text-success"></i> Número de documento:</label>
+                                <p id="mostrar_numero_documento_usuario"></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <!-- MOSTRAR LA DIRECCION DEL USUARIO -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="direccion" class="form-label"><i class="fas fa-map-marker-alt text-warning"></i> Dirección:</label>
+                                <p id="mostrar_direccion_usuario"></p>
+                            </div>
+                        </div>
+
+                        <!-- MOSTRAR TELEFONO DE USUARIO -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="telefono" class="form-label"><i class="fas fa-phone text-info"></i> Teléfono:</label>
+                                <P id="mostrar_telefono_usuario"></P>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <!-- MOSTRAR CORREO USUARIO -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="correo" class="form-label"><i class="fas fa-envelope text-primary"></i> Correo:</label>
+                                <p id="mostrar_correo_usuario"></p>
+                            </div>
+                        </div>
+
+                        <!-- MOSTRAR USUARIO -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="usuario" class="form-label"><i class="fas fa-user-circle text-danger"></i> Usuario:</label>
+                                <P id="mostrar_usuario"></P>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- MOSTRAR IMAGEN DEL USUARIO -->
+                    <div class="form-group">
+                        <label for="imagen_usuario" class="form-label"><i class="fas fa-image text-success"></i> FOTO:</label>
+                        <div class="text-center mt-3">
+                            <img src="" class="mostrarFotoUsuario img img-fluid rounded-circle" width="250" alt="">
+                        </div>
+                    </div>
+
+
+                    <!-- ROLES -->
+                    <div class="form-group">
+                        <h5 class="fw-bold mb-2"><i class="fas fa-users text-warning"></i> Roles:</h5>
+                        <div id="mostrar_data_roles">
+                            <!-- Aquí puedes mostrar los roles -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-end mx-4 mb-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>

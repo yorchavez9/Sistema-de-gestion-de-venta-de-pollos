@@ -22,7 +22,7 @@ class ModeloUsuarios{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc ORDER BY u.id_usuario DESC");
 
 			$stmt -> execute();
 
@@ -42,8 +42,8 @@ class ModeloUsuarios{
 
 	static public function mdlIngresarUsuario($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre_usuario, id_doc, numero_documento, direccion, telefono, correo, usuario, contrasena, imagen_usuario) 
-		                                                  VALUES (:nombre_usuario, :id_doc, :numero_documento, :direccion, :telefono, :correo, :usuario, :contrasena, :imagen_usuario)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre_usuario, id_doc, numero_documento, direccion, telefono, correo, usuario, contrasena, imagen_usuario, roles) 
+		                                                  VALUES (:nombre_usuario, :id_doc, :numero_documento, :direccion, :telefono, :correo, :usuario, :contrasena, :imagen_usuario, :roles)");
 
 		$stmt->bindParam(":nombre_usuario", $datos["nombre_usuario"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_doc", $datos["id_doc"], PDO::PARAM_INT);
@@ -54,6 +54,7 @@ class ModeloUsuarios{
 		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt->bindParam(":contrasena", $datos["contrasena"], PDO::PARAM_STR);
 		$stmt->bindParam(":imagen_usuario", $datos["imagen_usuario"], PDO::PARAM_STR);
+		$stmt->bindParam(":roles", $datos["roles"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
@@ -85,7 +86,8 @@ class ModeloUsuarios{
 																correo = :correo, 
 																usuario = :usuario, 
 																contrasena = :contrasena, 
-																imagen_usuario = :imagen_usuario
+																imagen_usuario = :imagen_usuario,
+																roles = :roles
 																WHERE id_usuario = :id_usuario");
 
 		$stmt -> bindParam(":nombre_usuario", $datos["nombre_usuario"], PDO::PARAM_STR);
@@ -97,6 +99,7 @@ class ModeloUsuarios{
 		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt -> bindParam(":contrasena", $datos["contrasena"], PDO::PARAM_STR);
 		$stmt -> bindParam(":imagen_usuario", $datos["imagen_usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":roles", $datos["roles"], PDO::PARAM_STR);
 		$stmt -> bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
 
 		if($stmt -> execute()){

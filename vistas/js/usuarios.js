@@ -81,6 +81,7 @@ $(document).ready(function () {
   GUARDAR USUARIO
   =========================================== */
   $("#guardar_usuario").click(function () {
+
     var isValid = true;
 
     var nombre = $("#nombre_usuario").val();
@@ -92,6 +93,15 @@ $(document).ready(function () {
     var usuario = $("#usuario").val();
     var contrasena = $("#contrasena").val();
     var imagen = $("#imagen_usuario").get(0).files[0];
+
+    var roles = [];
+
+    $('.data_rol:checked').each(function() {
+      roles.push($(this).val());
+    });
+
+    var data_roles = JSON.stringify(roles);
+
 
     // Validar el nombre de usuario
     if (nombre == "") {
@@ -186,6 +196,7 @@ $(document).ready(function () {
       datos.append("usuario", usuario);
       datos.append("contrasena", contrasena);
       datos.append("imagen", imagen);
+      datos.append("data_roles", data_roles);
 
       $.ajax({
         url: "ajax/Usuario.ajax.php",
@@ -229,45 +240,44 @@ $(document).ready(function () {
         tbody.empty();
 
         usuarios.forEach(function (usuario) {
+
           usuario.imagen_usuario = usuario.imagen_usuario.substring(3);
+
           var fila = `
-                    <tr>
-                        <td>
-                            <a href="javascript:void(0);" class="product-img">
-                                <img src="${usuario.imagen_usuario}" alt="${
-            usuario.nombre_usuario
-          }">
-                            </a>
-                        </td>
-                        <td>${usuario.nombre_usuario}</td>
-                        <td>
-                          <span>${usuario.numero_documento}</span>
-                        </td>
-                        <td>${usuario.direccion}</td>
-                        <td>${usuario.telefono}</td>
-                        <td>${usuario.correo}</td>
-                        <td>${usuario.usuario}</td>
-                        <td>
-                            ${
-                              usuario.estado != 0
-                                ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' +
-                                  usuario.id_usuario +
-                                  '" estadoUsuario="0">Activado</button>'
-                                : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' +
-                                  usuario.id_usuario +
-                                  '" estadoUsuario="1">Desactivado</button>'
-                            }
-                        </td>
-                        <td>
-                            <a href="#" class="me-3 btnEditarUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
-                                <img src="vistas/dist/assets/img/icons/edit.svg" alt="img">
-                            </a>
-                            <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${usuario.id_usuario}" fotoUsuario="${usuario.imagen_usuario}">
-                                <img src="vistas/dist/assets/img/icons/delete.svg" alt="img">
-                            </a>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td>
+                        <a href="javascript:void(0);" class="product-img">
+                            <img src="${usuario.imagen_usuario}" alt="${usuario.nombre_usuario}">
+                        </a>
+                    </td>
+                    <td>${usuario.nombre_usuario}</td>
+                    <td>${usuario.usuario}</td>
+                    <td>
+                        <span>${usuario.nombre_doc}: </span>
+                        <span>${usuario.numero_documento}</span>
+                    </td>
+                    <td>${usuario.direccion}</td>
+                    <td>${usuario.telefono}</td>
+                    <td>${usuario.correo}</td>
+                    <td>
+                        ${
+                            usuario.estado != 0 ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario +'" estadoUsuario="0">Activado</button>' : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
+                        }
+                    </td>
+                    
+                    <td>
+                        <a href="#" class="me-3 btnEditarUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
+                            <i class="text-warning fas fa-edit fa-lg"></i>
+                        </a>
+                        <a href="#" class="me-3 btnVerUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalVerUsuario">
+                            <i class="text-primary fa fa-eye fa-lg"></i>
+                        </a>
+                        <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${usuario.id_usuario}" fotoUsuario="${usuario.imagen_usuario}">
+                            <i class="text-danger fa fa-trash fa-lg"></i>
+                        </a>
+                    </td>
+                </tr>`;
+
 
           // Agregar la fila al tbody
           tbody.append(fila);
@@ -377,6 +387,70 @@ $(document).ready(function () {
         }
 
         $("#imagenActualUsuario").val(respuesta["imagen_usuario"]);
+
+        data_roles = JSON.parse(respuesta["roles"])
+
+        data_roles.forEach(function(rol) {
+          // Concatena "edit_rol_" con el nombre del rol para obtener el ID del checkbox
+          var checkboxId = "edit_rol_" + rol;
+          // Busca el checkbox por su ID y márcalo
+          document.getElementById(checkboxId).checked = true;
+      });
+
+      },
+    });
+  });
+
+  /*=============================================
+  MOSTRAR DETALLE DEL USUARIO
+  =============================================*/
+  $("#tabla_usuarios").on("click", ".btnVerUsuario", function () {
+
+    var idUsuarioVer = $(this).attr("idUsuario");
+
+
+    var datos = new FormData();
+    datos.append("idUsuarioVer", idUsuarioVer);
+
+    $.ajax({
+      url: "ajax/Usuario.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+        $("#mostrar_nombre_usuario").text(respuesta["nombre_usuario"]);
+        $("#mostrar_tipo_documento").text(respuesta["nombre_doc"]);
+        $("#mostrar_numero_documento_usuario").text(respuesta["numero_documento"]);
+        $("#mostrar_direccion_usuario").text(respuesta["direccion"]);
+        $("#mostrar_telefono_usuario").text(respuesta["telefono"]);
+        $("#mostrar_correo_usuario").text(respuesta["correo"]);
+        $("#mostrar_usuario").text(respuesta["usuario"]);
+
+        var imagenUsuario = respuesta["imagen_usuario"].substring(3);
+
+        if (respuesta["imagen_usuario"] != "") {
+          $(".mostrarFotoUsuario").attr("src", imagenUsuario);
+        } else {
+          $(".mostrarFotoUsuario").attr(
+            "src",
+            "vistas/img/usuarios/default/anonymous.png"
+          );
+        }
+
+        var data_roles = JSON.parse(respuesta["roles"])
+
+        var rolesContainer = document.getElementById("mostrar_data_roles");
+
+        data_roles.forEach(role => {
+            var roleSpan = document.createElement("span");
+            roleSpan.textContent = role;
+            roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
+            rolesContainer.appendChild(roleSpan);
+        });
+
       },
     });
   });
@@ -403,6 +477,16 @@ $(document).ready(function () {
 
     var edit_imagen = $("#edit_imagen_usuario").get(0).files[0];
     var edit_imagenActualUsuario = $("#imagenActualUsuario").val();
+
+    var roles = [];
+
+    $('.edit_data_rol:checked').each(function() {
+      roles.push($(this).val());
+    });
+
+    var data_roles = JSON.stringify(roles);
+
+
 
     // Validar el nombre de usuario
     if (edit_nombre == "") {
@@ -490,6 +574,7 @@ $(document).ready(function () {
       datos.append("edit_actualContrasena", edit_actualContrasena);
       datos.append("edit_imagen", edit_imagen);
       datos.append("edit_imagenActualUsuario", edit_imagenActualUsuario);
+      datos.append("data_roles", data_roles);
 
       $.ajax({
         url: "ajax/Usuario.ajax.php",
