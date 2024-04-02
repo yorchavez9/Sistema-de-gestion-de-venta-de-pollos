@@ -28,13 +28,13 @@ class AjaxProducto
 	MOSTRAR DETALLE PRODUCTO
 	=============================================*/
 
-    public $idUsuarioVer;
+    public $idProductoVer;
 
-    public function ajaxVerUsuario()
+    public function ajaxVerProducto()
     {
 
-        $item = "id_usuario";
-        $valor = $this->idUsuarioVer;
+        $item = "id_producto";
+        $valor = $this->idProductoVer;
 
         $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
 
@@ -93,11 +93,11 @@ if (isset($_POST["idProducto"])) {
 }
 
 /* VER DETALLE PRODUCTO */
-elseif (isset($_POST["idUsuarioVer"])) {
+elseif (isset($_POST["idProductoVer"])) {
 
     $verDetalle = new AjaxProducto();
-    $verDetalle->idUsuarioVer = $_POST["idUsuarioVer"];
-    $verDetalle->ajaxVerUsuario();
+    $verDetalle->idProductoVer = $_POST["idProductoVer"];
+    $verDetalle->ajaxVerProducto();
 }
 
 /* ACTIVAR PRODUCTO */

@@ -77,6 +77,15 @@ $(document).ready(function () {
       }
     });
   
+
+   /*  LIMPIADO EL VALOR DE FOCUS */
+   $("#stock_producto").focus(function () {
+     // Eliminar el valor por defecto si es igual a cero
+     if ($(this).val() == "0") {
+       $(this).val("");
+     }
+   });
+
     /* ===========================================
     GUARDAR PRODUCTO
     =========================================== */
@@ -359,7 +368,7 @@ $(document).ready(function () {
     /*=============================================
     MOSTRAR DETALLE DEL PRODUCTO
     =============================================*/
-    $("#tabla_productos").on("click", ".btnVerUsuario", function () {
+    $("#tabla_productos").on("click", ".btnVerProducto", function () {
   
       var idProductoVer = $(this).attr("idProducto");
   
@@ -376,20 +385,45 @@ $(document).ready(function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-          $("#mostrar_nombre_usuario").text(respuesta["nombre_usuario"]);
-          $("#mostrar_tipo_documento").text(respuesta["nombre_doc"]);
-          $("#mostrar_numero_documento_usuario").text(respuesta["numero_documento"]);
-          $("#mostrar_direccion_usuario").text(respuesta["direccion"]);
-          $("#mostrar_telefono_usuario").text(respuesta["telefono"]);
-          $("#mostrar_correo_usuario").text(respuesta["correo"]);
-          $("#mostrar_usuario").text(respuesta["usuario"]);
+          $("#mostrar_nombre_categoria").text(respuesta["nombre_categoria"]);
+          $("#mostrar_codigo_producto").text(respuesta["codigo_producto"]);
+          $("#mostrar_nombre_producto").text(respuesta["nombre_producto"]);
+          $("#mostrar_stock_producto").text(respuesta["stock_producto"]);
+          $("#mostrar_descripcion_producto").text(respuesta["descripcion_producto"]);
+
+          if(respuesta["estado_producto"] == 1){
+            $("#mostrar_estado_producto").html("<button class='btn btn-sm mt-2' style='background: #28C76F; color: white'>Activado</button>");
+
+          }else{
+            $("#mostrar_estado_producto").html("<button class='btn btn-sm' style='background: #FF4D4D; color: white'>Desactivado</button>");
+
+          }
+
+          var fechaProducto = new Date(respuesta["fecha_producto"]);
+
+          // Formatear la fecha en el formato deseado
+          var options = {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          };
+          var fechaFormateada = fechaProducto.toLocaleDateString(
+            "es-ES",
+            options
+          );
+
+          // Asignar la fecha formateada al texto del elemento
+          $("#mostrar_fecha_producto").text(fechaFormateada);
   
-          var imagenUsuario = respuesta["imagen_usuario"].substring(3);
+          var imagenUsuario = respuesta["imagen_producto"].substring(3);
   
-          if (respuesta["imagen_usuario"] != "") {
-            $(".mostrarFotoUsuario").attr("src", imagenUsuario);
+          if (respuesta["imagen_producto"] != "") {
+            $(".mostrarImagenProducto").attr("src", imagenUsuario);
           } else {
-            $(".mostrarFotoUsuario").attr(
+            $(".mostrarImagenProducto").attr(
               "src",
               "vistas/img/usuarios/default/anonymous.png"
             );

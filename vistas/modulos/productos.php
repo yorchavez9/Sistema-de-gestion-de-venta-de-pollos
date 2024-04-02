@@ -135,7 +135,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="stock" class="form-label">Ingrese el stock (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="stock_producto" placeholder="Ingrese el stock" value="0" class="form-control form-control-sm">
+                                <input type="number" id="stock_producto" placeholder="Ingrese el stock" value="0" class="form-control">
                                 <small id="error_stock_p"></small>
                             </div>
 
@@ -273,31 +273,31 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detalles del usuario</h5>
+                <h5 class="modal-title">Detalles del producto</h5>
                 <button type="button" class="close btn_modal_ver_close_usuario" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form enctype="multipart/form-data" id="formVerUsuario">
                 <div class="modal-body">
 
-                    <!-- MOSTRANDO NOMBRE DEL USUARIO -->
+                    <!-- MOSTRANDO NOMBRE DE LA CATEGORIA -->
                     <div class="form-group">
-                        <label><i class="fas fa-user text-primary"></i> Nombre de usuario:</label>
-                        <p id="mostrar_nombre_usuario"></p>
+                        <label><i class="fas fa-user text-primary"></i> Categoría del producto:</label>
+                        <p id="mostrar_nombre_categoria"></p>
                     </div>
 
                     <div class="row">
 
-                        <!-- MOSTRANDO TIPO DE DOCUMENTO -->
+                        <!-- MOSTRANDO CODIGO DEL PRODUCTO -->
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-id-card-alt text-danger"></i> Tipo de documento:</label>
-                            <p id="mostrar_tipo_documento"></p>
+                            <label class="form-label"><i class="fas fa-barcode text-danger"></i> Código del producto:</label>
+                            <p id="mostrar_codigo_producto"></p>
                         </div>
 
-                        <!-- MOSTRANDO NUMERO DE DOCUMENTO -->
+                        <!-- MOSTRANDO NOMBRE DEL PRODUCTO -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="numero_documento" class="form-label"><i class="fas fa-address-card text-success"></i> Número de documento:</label>
-                                <p id="mostrar_numero_documento_usuario"></p>
+                                <label for="nombre_producto" class="form-label"><i class="fas fa-tag text-success"></i> Nombre del producto:</label>
+                                <p id="mostrar_nombre_producto"></p>
                             </div>
                         </div>
 
@@ -305,59 +305,45 @@
 
                     <div class="row">
 
-                        <!-- MOSTRAR LA DIRECCION DEL USUARIO -->
+                        <!-- MOSTRAR EL STOCK DEL PRODUCTO -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="direccion" class="form-label"><i class="fas fa-map-marker-alt text-warning"></i> Dirección:</label>
-                                <p id="mostrar_direccion_usuario"></p>
+                                <label for="stock_producto" class="form-label"><i class="fas fa-box text-warning"></i> Stock del producto:</label>
+                                <p id="mostrar_stock_producto"></p>
                             </div>
                         </div>
 
-                        <!-- MOSTRAR TELEFONO DE USUARIO -->
+                        <!-- MOSTRAR LA DESCRIPCION DEL PRODUCTO -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="telefono" class="form-label"><i class="fas fa-phone text-info"></i> Teléfono:</label>
-                                <P id="mostrar_telefono_usuario"></P>
+                                <label for="descripcion" class="form-label"><i class="fas fa-info-circle text-info"></i> Descripción del producto:</label>
+                                <p id="mostrar_descripcion_producto"></p>
                             </div>
                         </div>
 
                     </div>
-
 
                     <div class="row">
+                        <!-- MOSTRANDO EL ESTADO DEL PRODUCTO -->
+                        <div class="form-group col-md-6">
+                            <label class="form-label"><i class="fas fa-check-circle text-warning"></i> Estado del producto:</label>
+                            <div id="mostrar_estado_producto" class="mx-2">
 
-                        <!-- MOSTRAR CORREO USUARIO -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="correo" class="form-label"><i class="fas fa-envelope text-primary"></i> Correo:</label>
-                                <p id="mostrar_correo_usuario"></p>
                             </div>
                         </div>
 
-                        <!-- MOSTRAR USUARIO -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="usuario" class="form-label"><i class="fas fa-user-circle text-danger"></i> Usuario:</label>
-                                <P id="mostrar_usuario"></P>
-                            </div>
+                        <!-- MOSTRANDO LA FECHA DEL PRODUCTO -->
+                        <div class="form-group col-md-6">
+                            <label class="form-label"><i class="fas fa-calendar-alt text-warning"></i> Fecha de registro del producto:</label>
+                            <p id="mostrar_fecha_producto"></p>
                         </div>
                     </div>
 
-
-                    <!-- MOSTRAR IMAGEN DEL USUARIO -->
-                    <div class="form-group">
-                        <label for="imagen_usuario" class="form-label"><i class="fas fa-image text-success"></i> FOTO:</label>
+                    <!-- MOSTRAR IMAGEN DEL PRODUCTO -->
+                    <div class="form-group text-center">
+                        <label for="imagen_usuario" class="form-label"><i class="fas fa-image text-success"></i> Imagen del producto:</label>
                         <div class="text-center mt-3">
-                            <img src="" class="mostrarFotoUsuario img img-fluid rounded-circle" width="250" alt="">
-                        </div>
-                    </div>
-
-
-                    <!-- ROLES -->
-                    <div class="form-group">
-                        <h5 class="fw-bold mb-2"><i class="fas fa-users text-warning"></i> Roles:</h5>
-                        <div id="mostrar_data_roles">
-                            <!-- Aquí puedes mostrar los roles -->
+                            <img src="" class="mostrarImagenProducto img img-fluid" width="250" alt="">
                         </div>
                     </div>
 
@@ -367,6 +353,7 @@
                     <button type="button" class="btn btn-secondary btn_modal_ver_close_usuario" data-bs-dismiss="modal"> Cerrar</button>
                 </div>
             </form>
+
 
         </div>
     </div>
