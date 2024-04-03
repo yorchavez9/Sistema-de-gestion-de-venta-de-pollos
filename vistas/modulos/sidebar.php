@@ -7,6 +7,16 @@
                             Panel</span> </a>
                 </li>
                 <li class="submenu">
+                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
+                            Personas</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="tipoDocumento">Tipo documento</a></li>
+                        <li><a href="usuarios">Usuarios</a></li>
+                        <li><a href="proveedores">Proveedores</a></li>
+                        <li><a href="clientes">Clientes</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/product.svg" alt="img"><span>
                             Inventario</span> <span class="menu-arrow"></span></a>
                     <ul>
@@ -21,20 +31,21 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/sales1.svg" alt="img"><span>
                             Ventas</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="saleslist.html">Lista de ventas</a></li>
-                        <li><a href="pos.html">punto de venta</a></li>
-                        <li><a href="pos.html">Nuevas Ventas</a></li>
-                        <li><a href="salesreturnlists.html">Lista de devoluciones de ventas</a></li>
+                        <li><a href="clientes">Clientes</a></li>
+                        <li><a href="pos">punto de venta</a></li>
+                        <li><a href="ventas">Nuevas Ventas</a></li>
+                        <li><a href="devoluciones">Devoluciones</a></li>
                         <li><a href="createsalesreturns.html">Nueva devolución de ventas</a></li>
+                        <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/purchase1.svg" alt="img"><span>
-                            Compra</span> <span class="menu-arrow"></span></a>
+                            Compras</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="purchaselist.html">Lista de compras</a></li>
-                        <li><a href="addpurchase.html">Agregar compra</a></li>
-                        <li><a href="importpurchase.html">Compra de importación</a></li>
+                        <li><a href="proveedores">Proveedor</a></li>
+                        <li><a href="compras">Compra</a></li>
+                        <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -73,17 +84,6 @@
                         <li><a href="createpurchasereturn.html">Agregar devolución de compra</a></li>
                     </ul>
                 </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
-                            Personas</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="tipoDocumento">Tipo documento</a></li>
-                        <li><a href="usuarios">Usuarios</a></li>
-                        <li><a href="proveedores">Proveedores</a></li>
-                        <li><a href="clientes">Clientes</a></li>
-                    </ul>
-                </li>
-         
 
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/time.svg" alt="img"><span>

@@ -1,7 +1,20 @@
 $(document).ready(function () {
+
+
+  /* SELECIONADO LA FECHA AUTOMATICAMENTE */
+  var today = new Date();
+
+  var formattedDate = today.toISOString().substr(0, 10);
+
+  $("#fecha_egre").val(formattedDate);
+
+  
+
+
+
   /* =====================================
-  VISTA PREVIA DE LA IMAGEN DEL USUARIO
-  ===================================== */
+    VISTA PREVIA DE LA IMAGEN DEL USUARIO
+    ===================================== */
   $("#imagen_usuario").change(function () {
     const file = this.files[0];
 
@@ -19,8 +32,8 @@ $(document).ready(function () {
   });
 
   /* =====================================
-  VISTA PREVIA DE LA IMAGEN DEL USUARIO
-  ===================================== */
+    VISTA PREVIA DE LA IMAGEN DEL USUARIO
+    ===================================== */
   $("#edit_imagen_usuario").change(function () {
     const file = this.files[0];
 
@@ -38,8 +51,8 @@ $(document).ready(function () {
   });
 
   /* =====================================
-   VALIDANDO IMAGEN DEL USUARIO
-  ===================================== */
+     VALIDANDO IMAGEN DEL USUARIO
+    ===================================== */
   $("#imagen_usuario").change(function () {
     var imagen = $(this).get(0).files[0];
 
@@ -71,17 +84,15 @@ $(document).ready(function () {
 
         return;
       }
-
     } else {
       alert("Por favor, seleccione una imagen.");
     }
   });
 
   /* ===========================================
-  GUARDAR USUARIO
-  =========================================== */
+    GUARDAR USUARIO
+    =========================================== */
   $("#guardar_usuario").click(function () {
-
     var isValid = true;
 
     var nombre = $("#nombre_usuario").val();
@@ -96,12 +107,11 @@ $(document).ready(function () {
 
     var roles = [];
 
-    $('.data_rol:checked').each(function() {
+    $(".data_rol:checked").each(function () {
       roles.push($(this).val());
     });
 
     var data_roles = JSON.stringify(roles);
-
 
     // Validar el nombre de usuario
     if (nombre == "") {
@@ -227,8 +237,8 @@ $(document).ready(function () {
   });
 
   /* ===========================
-  MOSTRANDO USUARIOS
-  =========================== */
+    MOSTRANDO USUARIOS
+    =========================== */
   function mostrarUsuarios() {
     $.ajax({
       url: "ajax/Usuario.ajax.php",
@@ -240,50 +250,62 @@ $(document).ready(function () {
         tbody.empty();
 
         usuarios.forEach(function (usuario) {
-
           usuario.imagen_usuario = usuario.imagen_usuario.substring(3);
 
           var fila = `
-                <tr>
-                    <td>
-                        <a href="javascript:void(0);" class="product-img">
-                            <img src="${usuario.imagen_usuario}" alt="${usuario.nombre_usuario}">
-                        </a>
-                    </td>
-                    <td>${usuario.nombre_usuario}</td>
-                    <td>${usuario.usuario}</td>
-                    <td>
-                        <span>${usuario.nombre_doc}: </span>
-                        <span>${usuario.numero_documento}</span>
-                    </td>
-                    <td>${usuario.direccion}</td>
-                    <td>${usuario.telefono}</td>
-                    <td>${usuario.correo}</td>
-                    <td>
-                        ${
-                            usuario.estado != 0 ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario +'" estadoUsuario="0">Activado</button>' : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
-                        }
-                    </td>
-                    
-                    <td>
-                        <a href="#" class="me-3 btnEditarUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
-                            <i class="text-warning fas fa-edit fa-lg"></i>
-                        </a>
-                        <a href="#" class="me-3 btnVerUsuario" idUsuario="${usuario.id_usuario}" data-bs-toggle="modal" data-bs-target="#modalVerUsuario">
-                            <i class="text-primary fa fa-eye fa-lg"></i>
-                        </a>
-                        <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${usuario.id_usuario}" fotoUsuario="${usuario.imagen_usuario}">
-                            <i class="text-danger fa fa-trash fa-lg"></i>
-                        </a>
-                    </td>
-                </tr>`;
-
+                  <tr>
+                      <td>
+                          <a href="javascript:void(0);" class="product-img">
+                              <img src="${usuario.imagen_usuario}" alt="${
+            usuario.nombre_usuario
+          }">
+                          </a>
+                      </td>
+                      <td>${usuario.nombre_usuario}</td>
+                      <td>${usuario.usuario}</td>
+                      <td>
+                          <span>${usuario.nombre_doc}: </span>
+                          <span>${usuario.numero_documento}</span>
+                      </td>
+                      <td>${usuario.direccion}</td>
+                      <td>${usuario.telefono}</td>
+                      <td>${usuario.correo}</td>
+                      <td>
+                          ${
+                            usuario.estado != 0
+                              ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' +
+                                usuario.id_usuario +
+                                '" estadoUsuario="0">Activado</button>'
+                              : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' +
+                                usuario.id_usuario +
+                                '" estadoUsuario="1">Desactivado</button>'
+                          }
+                      </td>
+                      
+                      <td>
+                          <a href="#" class="me-3 btnEditarUsuario" idUsuario="${
+                            usuario.id_usuario
+                          }" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
+                              <i class="text-warning fas fa-edit fa-lg"></i>
+                          </a>
+                          <a href="#" class="me-3 btnVerUsuario" idUsuario="${
+                            usuario.id_usuario
+                          }" data-bs-toggle="modal" data-bs-target="#modalVerUsuario">
+                              <i class="text-primary fa fa-eye fa-lg"></i>
+                          </a>
+                          <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${
+                            usuario.id_usuario
+                          }" fotoUsuario="${usuario.imagen_usuario}">
+                              <i class="text-danger fa fa-trash fa-lg"></i>
+                          </a>
+                      </td>
+                  </tr>`;
 
           // Agregar la fila al tbody
           tbody.append(fila);
         });
         // Inicializar DataTables después de cargar los datos
-        $('#tabla_usuarios').DataTable();
+        $("#tabla_usuarios").DataTable();
       },
       error: function (xhr, status, error) {
         console.error("Error al recuperar los usuarios:", error);
@@ -292,8 +314,8 @@ $(document).ready(function () {
   }
 
   /*=============================================
-  ACTIVAR USUARIO
-  =============================================*/
+    ACTIVAR USUARIO
+    =============================================*/
   $("#tabla_usuarios").on("click", ".btnActivar", function () {
     var idUsuario = $(this).attr("idUsuario");
     var estadoUsuario = $(this).attr("estadoUsuario");
@@ -338,8 +360,8 @@ $(document).ready(function () {
   });
 
   /*=============================================
-  EDITAR EL USUARIO
-  =============================================*/
+    EDITAR EL USUARIO
+    =============================================*/
   $("#tabla_usuarios").on("click", ".btnEditarUsuario", function () {
     var idUsuario = $(this).attr("idUsuario");
 
@@ -388,26 +410,23 @@ $(document).ready(function () {
 
         $("#imagenActualUsuario").val(respuesta["imagen_usuario"]);
 
-        data_roles = JSON.parse(respuesta["roles"])
+        data_roles = JSON.parse(respuesta["roles"]);
 
-        data_roles.forEach(function(rol) {
+        data_roles.forEach(function (rol) {
           // Concatena "edit_rol_" con el nombre del rol para obtener el ID del checkbox
           var checkboxId = "edit_rol_" + rol;
           // Busca el checkbox por su ID y márcalo
           document.getElementById(checkboxId).checked = true;
-      });
-
+        });
       },
     });
   });
 
   /*=============================================
-  MOSTRAR DETALLE DEL USUARIO
-  =============================================*/
+    MOSTRAR DETALLE DEL USUARIO
+    =============================================*/
   $("#tabla_usuarios").on("click", ".btnVerUsuario", function () {
-
     var idUsuarioVer = $(this).attr("idUsuario");
-
 
     var datos = new FormData();
     datos.append("idUsuarioVer", idUsuarioVer);
@@ -423,7 +442,9 @@ $(document).ready(function () {
       success: function (respuesta) {
         $("#mostrar_nombre_usuario").text(respuesta["nombre_usuario"]);
         $("#mostrar_tipo_documento").text(respuesta["nombre_doc"]);
-        $("#mostrar_numero_documento_usuario").text(respuesta["numero_documento"]);
+        $("#mostrar_numero_documento_usuario").text(
+          respuesta["numero_documento"]
+        );
         $("#mostrar_direccion_usuario").text(respuesta["direccion"]);
         $("#mostrar_telefono_usuario").text(respuesta["telefono"]);
         $("#mostrar_correo_usuario").text(respuesta["correo"]);
@@ -440,24 +461,23 @@ $(document).ready(function () {
           );
         }
 
-        var data_roles = JSON.parse(respuesta["roles"])
+        var data_roles = JSON.parse(respuesta["roles"]);
 
         var rolesContainer = document.getElementById("mostrar_data_roles");
 
-        data_roles.forEach(role => {
-            var roleSpan = document.createElement("span");
-            roleSpan.textContent = role;
-            roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
-            rolesContainer.appendChild(roleSpan);
+        data_roles.forEach((role) => {
+          var roleSpan = document.createElement("span");
+          roleSpan.textContent = role;
+          roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
+          rolesContainer.appendChild(roleSpan);
         });
-
       },
     });
   });
 
   /*===========================================
-  ACTUALIZAR EL USUARIO
-  =========================================== */
+    ACTUALIZAR EL USUARIO
+    =========================================== */
   $("#actualizar_usuario").click(function (e) {
     e.preventDefault();
 
@@ -480,13 +500,11 @@ $(document).ready(function () {
 
     var roles = [];
 
-    $('.edit_data_rol:checked').each(function() {
+    $(".edit_data_rol:checked").each(function () {
       roles.push($(this).val());
     });
 
     var data_roles = JSON.stringify(roles);
-
-
 
     // Validar el nombre de usuario
     if (edit_nombre == "") {
@@ -607,81 +625,72 @@ $(document).ready(function () {
   });
 
   /*=============================================
-    ELIMINAR USUARIO
-    =============================================*/
-  $("#tabla_usuarios").on("click",".btnEliminarUsuario",function (e) {
+      ELIMINAR USUARIO
+      =============================================*/
+  $("#tabla_usuarios").on("click", ".btnEliminarUsuario", function (e) {
+    e.preventDefault();
 
-      e.preventDefault();
+    var deleteUserId = $(this).attr("idUsuario");
+    var deletefotoUser = $(this).attr("fotoUsuario");
+    var deleteRutaUser = "../" + deletefotoUser;
 
-      var deleteUserId = $(this).attr("idUsuario");
-      var deletefotoUser = $(this).attr("fotoUsuario");
-      var deleteRutaUser = "../" + deletefotoUser;
+    var datos = new FormData();
+    datos.append("deleteUserId", deleteUserId);
+    datos.append("deleteRutaUser", deleteRutaUser);
 
+    Swal.fire({
+      title: "¿Está seguro de borrar el usuario?",
+      text: "¡Si no lo está puede cancelar la accíón!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, borrar!",
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          url: "ajax/Usuario.ajax.php",
+          method: "POST",
+          data: datos,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (respuesta) {
+            var res = JSON.parse(respuesta);
 
-      var datos = new FormData();
-      datos.append("deleteUserId", deleteUserId);
-      datos.append("deleteRutaUser", deleteRutaUser);
+            if (res === "ok") {
+              Swal.fire({
+                title: "¡Eliminado!",
+                text: "El usuario ha sido eliminado",
+                icon: "success",
+              });
 
-      Swal.fire({
-        title: "¿Está seguro de borrar el usuario?",
-        text: "¡Si no lo está puede cancelar la accíón!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Si, borrar!",
-      }).then(function (result) {
-        if (result.value) {
-          $.ajax({
-            url: "ajax/Usuario.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (respuesta) {
-              var res = JSON.parse(respuesta);
-        
-              if (res === "ok") {
-               
-                Swal.fire({
-                  title: "¡Eliminado!",
-                  text: "El usuario ha sido eliminado",
-                  icon: "success",
-                });
-    
-                mostrarUsuarios();
-
-              } else {
-
-                console.error("Error al eliminar los datos");
-
-              }
+              mostrarUsuarios();
+            } else {
+              console.error("Error al eliminar los datos");
             }
+          },
         });
-        
-        }
-      });
-    }
-  );
-
-/*   ==========================================
-  LIMPIAR MODALES
-  ========================================== */
-
-  $(".btn_modal_ver_close_usuario").click(function() {
-
-    $("#mostrar_data_roles").text('');
+      }
+    });
   });
 
-  $(".btn_modal_editar_close_usuario").click(function() {
+  /*   ==========================================
+    LIMPIAR MODALES
+    ========================================== */
 
+  $(".btn_modal_ver_close_usuario").click(function () {
+    $("#mostrar_data_roles").text("");
+  });
+
+  $(".btn_modal_editar_close_usuario").click(function () {
     $("#formEditUsuario")[0].reset();
   });
 
-/* =====================================
-MSOTRANDO DATOS
-===================================== */
-mostrarUsuarios();
+  /* =====================================
+  MSOTRANDO DATOS
+  ===================================== */
+  mostrarUsuarios();
 });
+  
