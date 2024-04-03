@@ -426,7 +426,7 @@
                     <!-- ROLES -->
                     <div class="form-group">
                         <h5 class="fw-bold mb-2"><i class="fas fa-users text-warning"></i> Roles:</h5>
-                        <div id="mostrar_data_roles">
+                        <div id="mostrar_roles">
                             <!-- Aquí puedes mostrar los roles -->
                         </div>
                     </div>

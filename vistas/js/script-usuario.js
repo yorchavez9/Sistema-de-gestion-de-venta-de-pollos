@@ -261,7 +261,8 @@ $(document).ready(function () {
                     <td>${usuario.correo}</td>
                     <td>
                         ${
-                            usuario.estado != 0 ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario +'" estadoUsuario="0">Activado</button>' : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
+                            usuario.estado != 0 ? '<button class="btn btn-success btn-sm btnActivar" idUsuario="' + usuario.id_usuario +'" estadoUsuario="0">Activado</button>' 
+                            : '<button class="btn btn-danger btn-sm btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
                         }
                     </td>
                     
@@ -273,7 +274,7 @@ $(document).ready(function () {
                             <i class="text-primary fa fa-eye fa-lg"></i>
                         </a>
                         <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${usuario.id_usuario}" fotoUsuario="${usuario.imagen_usuario}">
-                            <i class="text-danger fa fa-trash fa-lg"></i>
+                            <i class="fa fa-trash fa-lg" style="color: #F52E2F"></i>
                         </a>
                     </td>
                 </tr>`;
@@ -294,48 +295,64 @@ $(document).ready(function () {
   /*=============================================
   ACTIVAR USUARIO
   =============================================*/
-  $("#tabla_usuarios").on("click", ".btnActivar", function () {
+  $(".tabla_usuarios").on("click", ".btnActivar", function(){
+
     var idUsuario = $(this).attr("idUsuario");
     var estadoUsuario = $(this).attr("estadoUsuario");
 
     var datos = new FormData();
     datos.append("activarId", idUsuario);
-    datos.append("activarUsuario", estadoUsuario);
+      datos.append("activarUsuario", estadoUsuario);
 
-    $.ajax({
-      url: "ajax/Usuario.ajax.php",
+      $.ajax({
+
+      url:"ajax/Usuario.ajax.php",
       method: "POST",
       data: datos,
       cache: false,
-      contentType: false,
-      processData: false,
-      success: function (respuesta) {
-        if (window.matchMedia("(max-width:767px)").matches) {
-          swal({
-            title: "El usuario ha sido actualizado",
-            type: "success",
-            confirmButtonText: "¡Cerrar!",
-          }).then(function (result) {
-            if (result.value) {
-              window.location = "usuarios";
-            }
-          });
-        }
-      },
-    });
+        contentType: false,
+        processData: false,
+        success: function(respuesta){
 
-    if (estadoUsuario == 0) {
-      $(this).removeClass("btn-success");
-      $(this).addClass("btn-danger");
-      $(this).html("Desactivado");
-      $(this).attr("estadoUsuario", 1);
-    } else {
-      $(this).addClass("btn-success");
-      $(this).removeClass("btn-danger");
-      $(this).html("Activado");
-      $(this).attr("estadoUsuario", 0);
-    }
-  });
+            if(window.matchMedia("(max-width:767px)").matches){
+
+              swal({
+              title: "El usuario ha sido actualizado",
+              type: "success",
+              confirmButtonText: "¡Cerrar!"
+            }).then(function(result) {
+                if (result.value) {
+
+                  window.location = "usuarios";
+
+                }
+
+
+          });
+
+            }
+
+        }
+
+      })
+
+      if(estadoUsuario == 0){
+
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn-danger');
+        $(this).html('Desactivado');
+        $(this).attr('estadoUsuario',1);
+
+      }else{
+
+        $(this).addClass('btn-success');
+        $(this).removeClass('btn-danger');
+        $(this).html('Activado');
+        $(this).attr('estadoUsuario',0);
+
+      }
+
+  })
 
   /*=============================================
   EDITAR EL USUARIO
@@ -442,7 +459,7 @@ $(document).ready(function () {
 
         var data_roles = JSON.parse(respuesta["roles"])
 
-        var rolesContainer = document.getElementById("mostrar_data_roles");
+        var rolesContainer = document.getElementById("mostrar_roles");
 
         data_roles.forEach(role => {
             var roleSpan = document.createElement("span");
@@ -672,7 +689,7 @@ $(document).ready(function () {
 
   $(".btn_modal_ver_close_usuario").click(function() {
 
-    $("#mostrar_data_roles").text('');
+    $("#mostrar_roles").text('');
   });
 
   $(".btn_modal_editar_close_usuario").click(function() {
