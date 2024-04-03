@@ -52,11 +52,11 @@
                             <tr>
                                 <th class="text-center">N°</th>
                                 <th>Código</th>
-                                <th>Imagen</th>
+                                <th class="text-center">Imagen</th>
                                 <th>Categoría</th>
                                 <th>Nombre</th>
                                 <th>Stock</th>
-                                <th>Fecha</th>
+                                <th>Fecha v.</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -123,7 +123,7 @@
                     <div class="row">
 
                         <!-- INGRESO DE NOMBRE  -->
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="direccion" class="form-label">Ingrese el nombre del producto (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="nombre_producto" placeholder="Ingrese el nombre del producto">
@@ -132,13 +132,22 @@
                         </div>
 
                         <!-- INGRESO DE STOCK -->
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="stock" class="form-label">Ingrese el stock (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="stock_producto" placeholder="Ingrese el stock" value="0" class="form-control">
+                                <label for="stock" class="form-label">Stock (<span class="text-danger">*</span>)</label>
+                                <input type="number" id="stock_producto" value="0" class="form-control">
                                 <small id="error_stock_p"></small>
                             </div>
 
+                        </div>
+
+                        <!-- INGRESO DE FECHA DE VENCIMIENTO -->
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="fecha_vencimiento" class="form-label">Ingrese la fecha de vencimiento</label>
+                                <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control">
+                                <small id="error_fecha_vencimiento_p"></small>
+                            </div>
                         </div>
                     </div>
 
@@ -221,7 +230,7 @@
                     <div class="row">
 
                         <!-- INGRESO DE NOMBRE  -->
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="direccion" class="form-label">Ingrese el nombre del producto (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="edit_nombre_producto" placeholder="Ingrese el nombre del producto">
@@ -230,14 +239,23 @@
                         </div>
 
                         <!-- INGRESO DE STOCK -->
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="stock" class="form-label">Ingrese el stock (<span class="text-danger">*</span>)</label>
+                                <label for="stock" class="form-label">Stock (<span class="text-danger">*</span>)</label>
                                 <input type="number" id="edit_stock_producto" value="0" class="form-control form-control">
                                 <small id="edit_error_stock_p"></small>
                             </div>
-
                         </div>
+
+                        <!-- INGRESO DE FECHA DE VENCIMIENTO -->
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="fecha_vencimiento" class="form-label">Ingrese la fecha de vencimiento</label>
+                                <input type="date" id="edit_fecha_vencimiento" name="edit_fecha_vencimiento" class="form-control">
+                                <small id="edit_error_fecha_vencimiento_p"></small>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">

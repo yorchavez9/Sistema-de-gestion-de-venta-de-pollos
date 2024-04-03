@@ -24,7 +24,7 @@
     <script src="vistas/js/script-proveedor.js"></script>
     <script src="vistas/js/cliente.js"></script>
     <script src="vistas/js/categoria.js"></script>
-    <script src="vistas/js/productos.js"></script>
+    <script src="vistas/js/script-productos.js"></script>
     <script src="vistas/js/compra.js"></script>
 
 </body>

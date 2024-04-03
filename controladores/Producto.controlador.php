@@ -50,6 +50,7 @@ class ControladorProducto
 			"codigo_producto" => $_POST["codigo_producto"],
 			"nombre_producto" => $_POST["nombre_producto"],
 			"stock_producto" => $_POST["stock_producto"],
+			"fecha_vencimiento" => $_POST["fecha_vencimiento"],
 			"descripcion_producto" => $_POST["descripcion_producto"],
 			"imagen_producto" => $ruta_imagen
 		);
@@ -148,6 +149,7 @@ class ControladorProducto
 				"codigo_producto" => $_POST["edit_codigo_producto"],
 				"nombre_producto" => $_POST["edit_nombre_producto"],
 				"stock_producto" => $_POST["edit_stock_producto"],
+				"fecha_vencimiento" => $_POST["edit_fecha_vencimiento"],
 				"descripcion_producto" => $_POST["edit_descripcion_producto"],
 				"imagen_producto" => $ruta_imagen
 			);

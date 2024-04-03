@@ -161,6 +161,7 @@ else{
             'codigo_producto' => $usuario['codigo_producto'],
             'nombre_producto' => $usuario['nombre_producto'],
             'stock_producto' => $usuario['stock_producto'],
+            'fecha_vencimiento' => $usuario['fecha_vencimiento'],
             'descripcion_producto' => $usuario['descripcion_producto'],
             'imagen_producto' => $usuario['imagen_producto'],
             'estado_producto' => $usuario['estado_producto'],

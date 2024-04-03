@@ -97,6 +97,7 @@ $(document).ready(function () {
       var codigo_producto = $("#codigo_producto").val();
       var nombre_producto = $("#nombre_producto").val();
       var stock_producto = $("#stock_producto").val();
+      var fecha_vencimiento = $("#fecha_vencimiento").val();
       var descripcion_producto = $("#descripcion_producto").val();
       var imagen_producto = $("#imagen_producto").get(0).files[0];
   
@@ -150,10 +151,12 @@ $(document).ready(function () {
         datos.append("codigo_producto", codigo_producto);
         datos.append("nombre_producto", nombre_producto);
         datos.append("stock_producto", stock_producto);
+        datos.append("fecha_vencimiento", fecha_vencimiento);
         datos.append("descripcion_producto", descripcion_producto);
         datos.append("imagen_producto", imagen_producto);
 
       
+     
   
         $.ajax({
           url: "ajax/Producto.ajax.php",
@@ -189,6 +192,11 @@ $(document).ready(function () {
                   });
             }
           },
+          error: function (xhr, status, error) {
+            console.error(xhr);
+            console.error(status);
+            console.error(error);
+          },
         });
 
 
@@ -212,12 +220,13 @@ $(document).ready(function () {
           productos.forEach(function (producto, index) {
   
             producto.imagen_producto = producto.imagen_producto.substring(3);
-  
+
+
             var fila = `
                         <tr>
                             <td>${index + 1}</td>
                             <td>${producto.codigo_producto}</td>
-                            <td>
+                            <td class="text-center">
                                 <a href="javascript:void(0);" class="product-img">
                                     <img src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
                                 </a>
@@ -225,7 +234,7 @@ $(document).ready(function () {
                             <td>${producto.nombre_categoria}</td>
                             <td>${producto.nombre_producto}</td>
                             <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
-                            <td>${producto.fecha_producto}</td>
+                            <td>${producto.fecha_vencimiento}</td>
                             <td>
                                 ${
                                 producto.estado_producto != 0 ? '<button class="btn btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="0" style="background: #28C76F; color:white;">Activado</button>' 
@@ -233,7 +242,7 @@ $(document).ready(function () {
                                 }
                             </td>
                             
-                            <td>
+                            <td class="text-center">
                                 <a href="#" class="me-3 btnEditarProducto" idProducto="${producto.id_producto}" data-bs-toggle="modal" data-bs-target="#modalEditarProducto">
                                     <i class="text-warning fas fa-edit fa-lg"></i>
                                 </a>
@@ -346,6 +355,7 @@ $(document).ready(function () {
           $("#edit_codigo_producto").val(respuesta["codigo_producto"]);
           $("#edit_nombre_producto").val(respuesta["nombre_producto"]);
           $("#edit_stock_producto").val(respuesta["stock_producto"]);
+          $("#edit_fecha_vencimiento").val(respuesta["fecha_vencimiento"]);
           $("#edit_descripcion_producto").val(respuesta["descripcion_producto"]);
           $("#edit_imagen_actual_p").val(respuesta["imagen_producto"]);
   
@@ -399,24 +409,18 @@ $(document).ready(function () {
 
           }
 
-          var fechaProducto = new Date(respuesta["fecha_producto"]);
+   
+          var fecha = respuesta["fecha_vencimiento"];
 
-          // Formatear la fecha en el formato deseado
-          var options = {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-          };
-          var fechaFormateada = fechaProducto.toLocaleDateString(
-            "es-ES",
-            options
-          );
+          var fecha_obj = new Date(fecha);
 
-          // Asignar la fecha formateada al texto del elemento
-          $("#mostrar_fecha_producto").text(fechaFormateada);
+          var opciones = { year: 'numeric', month: 'long', day: '2-digit' };
+
+          var fecha_formateada = fecha_obj.toLocaleDateString('es-ES', opciones);
+
+          $("#mostrar_fecha_producto").text(fecha_formateada);
+
+
   
           var imagenUsuario = respuesta["imagen_producto"].substring(3);
   
@@ -458,6 +462,7 @@ $(document).ready(function () {
       var edit_codigo_producto = $("#edit_codigo_producto").val();
       var edit_nombre_producto = $("#edit_nombre_producto").val();
       var edit_stock_producto = $("#edit_stock_producto").val();
+      var edit_fecha_vencimiento = $("#edit_fecha_vencimiento").val();
       var edit_descripcion_producto = $("#edit_descripcion_producto").val();
 
 
@@ -517,6 +522,7 @@ $(document).ready(function () {
         datos.append("edit_codigo_producto", edit_codigo_producto);
         datos.append("edit_nombre_producto", edit_nombre_producto);
         datos.append("edit_stock_producto", edit_stock_producto);
+        datos.append("edit_fecha_vencimiento", edit_fecha_vencimiento);
         datos.append("edit_descripcion_producto", edit_descripcion_producto);
         datos.append("edit_imagen_producto", edit_imagen_producto);
         datos.append("edit_imagen_actual_p", edit_imagen_actual_p);
