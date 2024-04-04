@@ -3,6 +3,9 @@
 require_once "../controladores/Producto.controlador.php";
 require_once "../modelos/Producto.modelo.php";
 
+require_once "../modelos/Compra.modelo.php";
+require_once "../controladores/Compra.controlador.php";
+
 class AjaxProductoAdd
 {
 
@@ -119,11 +122,11 @@ elseif (isset($_POST["validarUsuario"])) {
     
 }
 
-/* GUARDAR PRODUCTO */
-elseif (isset($_POST["id_categoria_P"])) {
+/* GUARDAR COMPRA PRODUCTO */
+elseif (isset($_POST["id_proveedor_egreso"])) {
 
-    $crearProducto = new ControladorProducto();
-    $crearProducto->ctrCrearProducto();
+    $crearEgreso = new ControladorCompra();
+    $crearEgreso->ctrCrearCompra();
 
 }
 

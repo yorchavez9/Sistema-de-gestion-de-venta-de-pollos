@@ -3,6 +3,34 @@
 class ControladorCompra
 {
 
+    /*=============================================
+	MOSTRAR COMPRA
+	=============================================*/
+
+	static public function ctrMostrarCompras($item, $valor)
+	{
+
+		$tablaE = "egresos";
+		$tablaDE = "detalle_egreso";
+
+		$respuesta = ModeloCompra::mdlMostrarCompra($tablaE, $tablaDE, $item, $valor);
+
+		return $respuesta;
+	}
+
+    /*=============================================
+	MOSTRAR COMPRA
+	=============================================*/
+
+	static public function ctrMostrarEgreso($item, $valor)
+	{
+
+		$tabla = "egresos";
+
+		$respuesta = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
+
+		return $respuesta;
+	}
 
 	/*=============================================
 	REGISTRO DE COMPRA
@@ -12,86 +40,50 @@ class ControladorCompra
 	{
 
 
-		/* VALIDANDO IMAGEN */
 
-		$ruta = "../vistas/img/productos/";
-
-		if (isset($_FILES["imagen_producto"]["tmp_name"])) {
-
-			$extension = pathinfo($_FILES["imagen_producto"]["name"], PATHINFO_EXTENSION);
-
-			$tipos_permitidos = array("jpg", "jpeg", "png", "gif");
-
-			if (in_array(strtolower($extension), $tipos_permitidos)) {
-
-				$nombre_imagen = date("YmdHis") . rand(1000, 9999);
-
-				$ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
-
-				if (move_uploaded_file($_FILES["imagen_producto"]["tmp_name"], $ruta_imagen)) {
-
-					/* echo "Imagen subida correctamente."; */
-				} else {
-
-					/* echo "Error al subir la imagen."; */
-				}
-			} else {
-
-				/* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
-			}
-		}
-
-
-		$tabla = "productos";
+		$tabla = "egresos";
 
 
 		$datos = array(
-			"id_categoria" => $_POST["id_categoria_P"],
-			"codigo_producto" => $_POST["codigo_producto"],
-			"nombre_producto" => $_POST["nombre_producto"],
-			"stock_producto" => $_POST["stock_producto"],
-			"fecha_vencimiento" => $_POST["fecha_vencimiento"],
-			"descripcion_producto" => $_POST["descripcion_producto"],
-			"imagen_producto" => $ruta_imagen
+			"id_persona" => $_POST["id_proveedor_egreso"],
+			"id_usuario" => $_POST["id_usuario_egreso"],
+			"fecha_egre" => $_POST["fecha_egreso"],
+			"tipo_comprobante" => $_POST["tipo_comprobante_egreso"],
+			"serie_comprobante" => $_POST["serie_comprobante"],
+			"num_comprobante" => $_POST["num_comprobante"],
+			"impuesto" => $_POST["impuesto_egreso"],
+			"total_compra" => $_POST["total"],
+			"subTotal" => $_POST["subtotal"],
+			"igv" => $_POST["igv"],
+			"tipo_pago" => $_POST["tipo_pago"],
+			"estado_pago" => $_POST["estado_pago"],
+			"pago_e_y" => $_POST["pago_e_y"]
 		);
 
         $respuesta = ModeloCompra::mdlIngresarCompra($tabla, $datos);
 
-        if ($respuesta == "ok") {
 
-            $response = array(
-                "mensaje" => "Producto guardado correctamente",
-                "estado" => "ok"
-            );
+        $tabla = "egresos";
 
-            echo json_encode($response);
+        $item = null;
 
-        } else {
+        $valor = null;
 
-            $response = array(
-                "mensaje" => "Error al guardar el producto",
-                "estado" => "error"
-            );
+        $respuestaDetalleEgreso = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
 
-            echo json_encode($response);
-
+        foreach ($respuestaDetalleEgreso as $value) {
+            
+            $id_egreso = $value["id_egreso"];
         }
+
+        
+    
+
+        echo json_encode($id_egreso);
+
+
+
     }
-
-	/*=============================================
-	MOSTRAR COMPRA
-	=============================================*/
-
-	static public function ctrMostrarCompras($item, $valor)
-	{
-
-		$tablaC = "categorias";
-		$tablaP = "productos";
-
-		$respuesta = ModeloCompra::mdlMostrarCompra($tablaC, $tablaP, $item, $valor);
-
-		return $respuesta;
-	}
 
 	/*=============================================
 	EDITAR COMPRA

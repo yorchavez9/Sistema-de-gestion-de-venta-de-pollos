@@ -1,144 +1,24 @@
 $(document).ready(function () {
 
 
-  /* ===========================================
-  GUARDAR PRODUCTO
-  =========================================== */
-  $("#btn_guardar_producto").click(function () {
-    
-    var isValid = true;
+ // Obtener todos los elementos <a> con la clase "paymentmethod"
+  var paymentMethodLinks = document.querySelectorAll('a.paymentmethod');
 
-    var id_categoria_P = $("#id_categoria_P").val();
-    var codigo_producto = $("#codigo_producto").val();
-    var nombre_producto = $("#nombre_producto").val();
-    var stock_producto = $("#stock_producto").val();
-    var fecha_vencimiento = $("#fecha_vencimiento").val();
-    var descripcion_producto = $("#descripcion_producto").val();
-    var imagen_producto = $("#imagen_producto").get(0).files[0];
+  // Iterar sobre cada elemento <a>
+  paymentMethodLinks.forEach(function(link) {
+      // Añadir un evento de clic a cada elemento <a>
+      link.addEventListener('click', function() {
+          // Obtener el radio button dentro del elemento <a> actual
+          var radioButton = this.querySelector('.tipo_pago_egreso');
 
-
-
-    // Validar la categoria
-    if (id_categoria_P == "" || id_categoria_P == null) {
-
-      $("#error_id_categoria_p").html("Por favor, selecione la cateogría").addClass("text-danger");
-
-      isValid = false;
-
-    } else {
-
-      $("#error_id_categoria_p").html("").removeClass("text-danger");
-
-    }
-
-
-    // Validar el codigo de producto
-    if (codigo_producto == "") {
-
-      $("#error_codigo_p").html("Por favor, ingrese el código del producto").addClass("text-danger");
-
-      isValid = false;
-
-    } else {
-
-      $("#error_codigo_p").html("").removeClass("text-danger");
-
-    }
-
-
-    // Validar el nombre del producto
-    if (nombre_producto == "") {
-
-      $("#error_nombre_p").html("Por favor, ingrese el stock").addClass("text-danger");
-
-      isValid = false;
-
-    } else {
-
-      $("#error_nombre_p").html("").removeClass("text-danger");
-
-    }
-
-    // Validar el stock del producto
-    if (
-      stock_producto === "" ||
-      stock_producto === null ||
-      isNaN(stock_producto) ||
-      parseInt(stock_producto) !== parseFloat(stock_producto) ||
-      parseInt(stock_producto) <= 0
-    ) {
-
-      $("#error_stock_p").html("Por favor, ingrese un número entero positivo para el stock").addClass("text-danger");
-
-      isValid = false;
-
-    } else {
-
-      $("#error_stock_p").html("").removeClass("text-danger");
-
-    }
-
-
-    if (isValid) {
-
-      var datos = new FormData();
-
-      datos.append("id_categoria_P", id_categoria_P);
-      datos.append("codigo_producto", codigo_producto);
-      datos.append("nombre_producto", nombre_producto);
-      datos.append("stock_producto", stock_producto);
-      datos.append("fecha_vencimiento", fecha_vencimiento);
-      datos.append("descripcion_producto", descripcion_producto);
-      datos.append("imagen_producto", imagen_producto);
-
-      $.ajax({
-        url: "ajax/Producto.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (respuesta) {
-
-          var res = JSON.parse(respuesta);
-
-          if (res.estado === "ok") {
-
-            $("#form_nuevo_producto")[0].reset();
-
-            $(".vistaPreviaImagenProducto").attr("src", "");
-
-            $("#modalNuevoProducto").modal("hide");
-
-            Swal.fire({
-              title: "¡Correcto!",
-              text: res.mensaje,
-              icon: "success",
-            });
-
-            mostrarProductos();
-
-          } else {
-
-            Swal.fire({
-              title: "¡Error!",
-              text: res.mensaje,
-              icon: "error",
-            });
-
+          // Verificar si el radio button no está marcado
+          if (!radioButton.checked) {
+              // Marcar el radio button
+              radioButton.checked = true;
           }
-        },
-        error: function (xhr, status, error) {
-
-          console.error(xhr);
-          console.error(status);
-          console.error(error);
-
-        }
-
       });
-    }
   });
+
 
   /*=============================================
   MOSTRAR PRODUCTOS
@@ -215,6 +95,8 @@ $(document).ready(function () {
 
   }
 
+
+
   /*=============================================
   EDITAR EL PRODUCTO
   =============================================*/
@@ -266,6 +148,8 @@ $(document).ready(function () {
     });
 
   });
+
+
 
   /*=============================================
   MOSTRAR DETALLE DEL PRODUCTO
@@ -348,6 +232,8 @@ $(document).ready(function () {
     });
 
   });
+
+
 
   /*===========================================
   ACTUALIZAR EL PRODUCTO
@@ -488,6 +374,8 @@ $(document).ready(function () {
     }
   });
 
+
+
   /*=============================================
     ELIMINAR PRODUCTO
     =============================================*/
@@ -565,7 +453,7 @@ $(document).ready(function () {
 
 
   /* ====================================
-  MOSTRAR DATOS AL DETALLE COMPRA
+  AGREGAR PRODUCTO A LA TABLA DETALLE
   ===================================== */
 
   $("#tabla_add_producto").on("click", ".btnAddProducto", function (e) {
@@ -591,13 +479,16 @@ $(document).ready(function () {
 
         var nuevaFila = `
               <tr>
+                  
+                    <input type="hidden" class="id_producto_egreso" value="${respuesta.id_producto}">
+                  
                   <th class="text-center align-middle d-none d-md-table-cell">
                       <a href="#" class="me-3 confirm-text btnEliminarAddProducto" idAddProducto="${respuesta.id_producto}" fotoUsuario="${respuesta.imagen_producto}">
                           <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
                       </a>
                   </th>
                   <td>
-                      <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="80">
+                      <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="50">
                   </td>
                   <td>${respuesta.nombre_producto}</td>
                   <td>
@@ -613,7 +504,7 @@ $(document).ready(function () {
                       <input type="number" class="form-control form-control-sm precio_venta" value="0">
                   </td>
                   <td style="text-align: right;">
-                      <p class="price precio_sub_total">0</p>
+                      <p class="price">S/ <span class="precio_sub_total">0.00</span></p>
                   </td>
               </tr>`;
 
@@ -627,13 +518,25 @@ $(document).ready(function () {
           var cantidad_kg = parseFloat(fila.find(".cantidad_kg").val());
 
           var precio_compra = parseFloat(fila.find(".precio_compra").val());
+      
+          // Verificar si cantidad_kg o precio_compra son NaN y asignar 0 en su lugar
+          if (isNaN(cantidad_kg)) {
 
+              cantidad_kg = 0;
+
+          }
+          if (isNaN(precio_compra)) {
+
+              precio_compra = 0;
+
+          }
+      
           var subtotal = cantidad_kg * precio_compra;
 
           var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
 
           fila.find(".precio_sub_total").text(formateadoSubTotal);
-
+      
           // Calcular y mostrar el total
           calcularTotal();
 
@@ -697,7 +600,6 @@ $(document).ready(function () {
   }
 
   function calcularTotal() {
-
     var subtotalTotal = 0;
     
     var impuesto = parseFloat($("#impuesto_egreso").val());
@@ -705,9 +607,18 @@ $(document).ready(function () {
     // Recorrer todas las filas para sumar los subtotales
     $("#detalle_egreso_producto tr").each(function () {
 
-      var subtotal = parseFloat($(this).find(".precio_sub_total").text().replace("S/ ", ""));
+        var subtotalString = $(this).find(".precio_sub_total").text().replace("S/ ", "").replace(",", "");
 
-      subtotalTotal += subtotal;
+        var subtotal = parseFloat(subtotalString);
+
+        // Si subtotal no es un número válido, asignar 0
+        if (isNaN(subtotal)) {
+
+            subtotal = 0;
+
+        }
+
+        subtotalTotal += subtotal;
 
     });
 
@@ -716,6 +627,11 @@ $(document).ready(function () {
 
     // Calcular el total
     var total = subtotalTotal + igv;
+
+    // Verificar si el resultado es NaN y mostrar "0.00" en su lugar
+    if (isNaN(total)) {
+        total = 0;
+    }
 
     // Formatear los resultados
     var subtotalFormateado = formateoPrecio(subtotalTotal.toFixed(2));
@@ -726,8 +642,194 @@ $(document).ready(function () {
     $("#subtotal_egreso").text(subtotalFormateado);
     $("#igv_egreso").text(igvFormateado);
     $("#total_precio_egreso").text(totalFormateado);
-
   }
+
+
+
+  /* ===========================================
+  GUARDAR PRODUCTO
+  =========================================== */
+  $("#btn_crear_venta").click(function (e) {
+    
+    e.preventDefault();
+
+    var isValid = true;
+
+    var id_usuario_egreso = $("#id_usuario_egreso").val();
+    var id_proveedor_egreso = $("#id_proveedor_egreso").val();
+    var fecha_egreso = $("#fecha_egreso").val();
+    var tipo_comprobante_egreso = $("#tipo_comprobante_egreso").val();
+    var serie_comprobante = $("#serie_comprobante").val();
+    var num_comprobante = $("#num_comprobante").val();
+    var impuesto_egreso = $("#impuesto_egreso").val();
+
+
+
+
+    // Validar la categoria
+    if (id_proveedor_egreso == "" || id_proveedor_egreso == null) {
+
+      $("#error_egreso_proveedor").html("Por favor, selecione el proveedor").addClass("text-danger");
+
+      isValid = false;
+
+    } else {
+
+      $("#error_egreso_proveedor").html("").removeClass("text-danger");
+
+    }
+
+
+    // Validar el codigo de producto
+    if (fecha_egreso == "") {
+
+      $("#error_egreso_fecha").html("Por favor, ingrese ingrese la fecha").addClass("text-danger");
+
+      isValid = false;
+
+    } else {
+
+      $("#error_egreso_fecha").html("").removeClass("text-danger");
+
+    }
+
+
+    // Validar el nombre del producto
+    if (tipo_comprobante_egreso == "" || tipo_comprobante_egreso == null) {
+
+      $("#error_compra_comprobante").html("Por favor, ingrese el tipo de comprobante").addClass("text-danger");
+
+      isValid = false;
+
+    } else {
+
+      $("#error_compra_comprobante").html("").removeClass("text-danger");
+
+    }
+
+    // Array para almacenar los valores de los productos
+    var valoresProductos = [];
+
+    // Iterar sobre cada fila de producto
+    $("#detalle_egreso_producto tr").each(function () {
+        var fila = $(this);
+
+        // Obtener los valores de cada campo en la fila
+        var idProductoEgreso = fila.find(".id_producto_egreso").val();
+        var cantidadU = fila.find(".cantidad_u").val();
+        var cantidadKg = fila.find(".cantidad_kg").val();
+        var precioCompra = fila.find(".precio_compra").val();
+        var precioVenta = fila.find(".precio_venta").val();
+        var precioSubTotal = fila.find(".precio_sub_total").text();
+
+        // Crear un objeto con los valores y agregarlo al array
+        var producto = {
+            
+            idProductoEgreso: idProductoEgreso,
+            cantidad_u: cantidadU,
+            cantidad_kg: cantidadKg,
+            precio_compra: precioCompra,
+            precio_venta: precioVenta,
+            precio_sub_total: precioSubTotal
+        };
+
+        valoresProductos.push(producto);
+    });
+
+
+    var subtotal = $("#subtotal_egreso").text().replace(/,/g, '');
+
+    var igv = $("#igv_egreso").text().replace(/,/g, '');
+
+    var total = $("#total_precio_egreso").text().replace(/,/g, '');
+
+
+
+
+
+
+    // Captura el valor del tipo de pago (contado o crédito)
+    var tipo_pago = $("input[name='forma_pago']:checked").val();
+
+    // Variable para almacenar el estado
+    var estado_pago;
+
+    // Verifica el tipo de pago seleccionado
+    if (tipo_pago == "contado") {
+        estado_pago = "completado";
+    } else {
+      estado_pago = "pendiente";
+    }
+
+
+
+
+    // Captura el valor del tipo de pago (contado o crédito)
+    var pago_tipo = $("input[name='pago_tipo']:checked").val();
+
+    // Variable para almacenar el estado
+    var pago_e_y ;
+
+    // Verifica el tipo de pago seleccionado
+    if (pago_tipo == "efectivo") {
+
+      pago_e_y = "efectivo";
+
+    } else {
+
+      pago_e_y = "yape";
+    }
+
+
+
+
+    if (isValid) {
+
+      var datos = new FormData();
+
+      
+      datos.append("id_proveedor_egreso", id_proveedor_egreso);
+      datos.append("id_usuario_egreso", id_usuario_egreso);
+      datos.append("fecha_egreso", fecha_egreso);
+      datos.append("tipo_comprobante_egreso", tipo_comprobante_egreso);
+      datos.append("serie_comprobante", serie_comprobante);
+      datos.append("num_comprobante", num_comprobante);
+      datos.append("impuesto_egreso", impuesto_egreso);
+
+      datos.append("valoresProductos", valoresProductos);
+
+      datos.append("subtotal", subtotal);
+      datos.append("igv", igv);
+      datos.append("total", total);
+      datos.append("tipo_pago", tipo_pago);
+      datos.append("estado_pago", estado_pago);
+      datos.append("pago_e_y", pago_e_y);
+
+
+      $.ajax({
+        url: "ajax/Compra.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (respuesta) {
+
+          console.log(respuesta)
+
+        },
+        error: function (xhr, status, error) {
+
+          console.error(xhr);
+          console.error(status);
+          console.error(error);
+
+        }
+
+      });
+    }
+  });
+
 
 
   /* ==========================================
@@ -745,6 +847,8 @@ $(document).ready(function () {
     $("#formEditUsuario")[0].reset();
 
   });
+
+
 
   /* =====================================
   MSOTRANDO DATOS

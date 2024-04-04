@@ -43,9 +43,15 @@
                 <!--======================================
                 FORMULARIO DE COMPRA DE PRODUCTO
                 ======================================-->
-                <form >
+                <form id="form_compra_producto">
+
+                    <!-- INGRESO DE ID DEL USUARIO -->
+                    <input type="text" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"]?>">
+
+
                     <div class="row">
 
+                        
                         <!-- INGRESO DE CLIENTE -->
                         <div class="col-md-5">
                             <div class="form-group">
@@ -56,8 +62,8 @@
 
                                 $proveedores = ControladorProveedores::ctrMostrarProveedor($item, $valor);
                                 ?>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Selecione el cliente</option>
+                                <select name="" id="id_proveedor_egreso" class="form-select">
+                                    <option value="">Selecione el proveedor</option>
                                     <?php
                                     foreach ($proveedores as $key => $proveedor) {
                                         if ($proveedor["tipo_persona"] == "proveedor") {
@@ -68,6 +74,7 @@
                                     }
                                     ?>
                                 </select>
+                                <small id="error_egreso_proveedor"></small>
                             </div>
                         </div>
 
@@ -82,7 +89,8 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="fecha_egre" class="form-label">Selecione la fecha(<span class="text-danger">*</span>):</label>
-                                <input type="date" id="fecha_egre" class="form-control" name="fecha_egre" placeholder="Ingrese la fecha">
+                                <input type="date" id="fecha_egreso" class="form-control" name="fecha_egre" placeholder="Ingrese la fecha">
+                                <small id="error_egreso_fecha"></small>
                             </div>
                         </div>
 
@@ -92,12 +100,13 @@
                         <!-- INGRESO DE TIPO DE COMPROBANTE -->
                         <div class="col-md-5">
                             <label for="tipo_comprobante" class="form-label">Tipo de comprobante(<span class="text-danger">*</span>):</label>
-                            <select name="tipo_comprobante" id="tipo_comprobante" class="form-control">
+                            <select name="tipo_comprobante" id="tipo_comprobante_egreso" class="form-control">
                                 <option value="" selected disabled>Selecione el comprobante</option>
                                 <option value="boleta">Boleta</option>
                                 <option value="factura">Factura</option>
                                 <option value="ticket">Ticket</option>
                             </select>
+                            <small id="error_compra_comprobante"></small>
                         </div>
 
                         <!-- INGRESO DE LA SERIE -->
@@ -126,6 +135,7 @@
 
 
                     </div>
+
                     <div class="row">
                         <div class="col-md-3">
                         </div>
@@ -135,6 +145,7 @@
                         <div class="col-md-3">
                         </div>
                     </div>
+
                     <div class="row">
                         <table class="table table-responsive" width="100%">
                             <thead>
@@ -155,13 +166,14 @@
                         </table>
 
                     </div>
+
                     <div class="row">
                         <div class="col-md-7">
 
                         </div>
                         <div class="col-md-5">
                             <div class="pt-3 pb-2">
-
+                                    
                                 <div class="flex-container">
                                     <ul>
                                         <li>
@@ -183,7 +195,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="forma_pago" id="al_contado" value="contado" checked>
+                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="contado" checked>
                                             <label class="form-check-label" for="contado">
                                                 Al contado
                                             </label>
@@ -191,7 +203,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="forma_pago" id="al_credito" value="credito">
+                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="credito">
                                             <label class="form-check-label" for="credito">
                                                 Al crédito
                                             </label>
@@ -206,13 +218,19 @@
                                             <li>
                                                 <a href="javascript:void(0);" class="paymentmethod">
                                                     <img src="vistas/dist/assets/img/icons/cash.svg" alt="img" class="me-2">
-                                                    <span id="efectivo">Efectivo</span>
+                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="efectivo">
+                                                    <label class="form-check-label" for="credito">
+                                                        Efectivo
+                                                    </label>
                                                 </a>
                                             </li>
                                             <li style="float: right;">
                                                 <a href="javascript:void(0);" class="paymentmethod">
                                                     <img src="vistas/dist/assets/img/icons/scan.svg" alt="img" class="me-2">
-                                                    <span id="yape">Yape</span>
+                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="yape">
+                                                    <label class="form-check-label" for="credito">
+                                                        Yape
+                                                    </label>
                                                 </a>
                                             </li>
                                         </ul>
