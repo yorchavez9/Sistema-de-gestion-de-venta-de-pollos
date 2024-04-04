@@ -121,11 +121,11 @@ else{
 
     $item = null;
     $valor = null;
-    $mostrarUsuarios = ControladorProveedores::ctrMostrarProveedor($item, $valor);
+    $mostrarProveedores = ControladorProveedores::ctrMostrarProveedor($item, $valor);
     
     $tablaUsuarios = array();
     
-    foreach ($mostrarUsuarios as $key => $usuario) {
+    foreach ($mostrarProveedores as $key => $usuario) {
         
         $fila = array(
             'id_persona' => $usuario['id_persona'],

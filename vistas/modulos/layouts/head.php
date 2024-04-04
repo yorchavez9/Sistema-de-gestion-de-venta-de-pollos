@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="vistas/dist/assets/plugins/select2/css/select2.min.css">
 
-    <link rel="stylesheet" href="vistas/dist/assets/css/style.css">
+    <link rel="stylesheet" href="vistas/dist/assets/css/estilos.css">
 
 
     <script src="vistas/dist/assets/js/jquery-3.6.0.min.js"></script>

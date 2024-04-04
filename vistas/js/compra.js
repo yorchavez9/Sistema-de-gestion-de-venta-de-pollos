@@ -1,377 +1,234 @@
 $(document).ready(function () {
 
 
-  /* SELECIONADO LA FECHA AUTOMATICAMENTE */
-  var today = new Date();
-
-  var formattedDate = today.toISOString().substr(0, 10);
-
-  $("#fecha_egre").val(formattedDate);
-
-  
-
-
-
-  /* =====================================
-    VISTA PREVIA DE LA IMAGEN DEL USUARIO
-    ===================================== */
-  $("#imagen_usuario").change(function () {
-    const file = this.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        $(".vistaPreviaImagenUsuario").attr("src", e.target.result);
-
-        $(".vistaPreviaImagenUsuario").show();
-      };
-
-      reader.readAsDataURL(file);
-    }
-  });
-
-  /* =====================================
-    VISTA PREVIA DE LA IMAGEN DEL USUARIO
-    ===================================== */
-  $("#edit_imagen_usuario").change(function () {
-    const file = this.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        $(".editVistaPreviaImagenUsuario").attr("src", e.target.result);
-
-        $(".editVistaPreviaImagenUsuario").show();
-      };
-
-      reader.readAsDataURL(file);
-    }
-  });
-
-  /* =====================================
-     VALIDANDO IMAGEN DEL USUARIO
-    ===================================== */
-  $("#imagen_usuario").change(function () {
-    var imagen = $(this).get(0).files[0];
-
-    if (imagen) {
-      var maxSize = 5 * 1024 * 1024;
-
-      if (imagen.size > maxSize) {
-        Swal.fire({
-          title: "¡Error!",
-          text: "El tamaño de la imagen es demasiado grande. Por favor, seleccione una imagen más pequeña.",
-          icon: "error",
-        });
-
-        $(this).val("");
-
-        return;
-      }
-
-      var allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
-
-      if (allowedTypes.indexOf(imagen.type) === -1) {
-        Swal.fire({
-          title: "¡Error!",
-          text: "El tipo de archivo seleccionado no es válido. Por favor, seleccione una imagen en formato JPEG, PNG, GIF o JPG.",
-          icon: "error",
-        });
-
-        $(this).val("");
-
-        return;
-      }
-    } else {
-      alert("Por favor, seleccione una imagen.");
-    }
-  });
-
   /* ===========================================
-    GUARDAR USUARIO
-    =========================================== */
-  $("#guardar_usuario").click(function () {
+  GUARDAR PRODUCTO
+  =========================================== */
+  $("#btn_guardar_producto").click(function () {
+    
     var isValid = true;
 
-    var nombre = $("#nombre_usuario").val();
-    var tipoDocumento = $("#id_doc").val();
-    var numeroDocumento = $("#numero_documento").val();
-    var direccion = $("#direccion").val();
-    var telefono = $("#telefono").val();
-    var correo = $("#correo").val();
-    var usuario = $("#usuario").val();
-    var contrasena = $("#contrasena").val();
-    var imagen = $("#imagen_usuario").get(0).files[0];
+    var id_categoria_P = $("#id_categoria_P").val();
+    var codigo_producto = $("#codigo_producto").val();
+    var nombre_producto = $("#nombre_producto").val();
+    var stock_producto = $("#stock_producto").val();
+    var fecha_vencimiento = $("#fecha_vencimiento").val();
+    var descripcion_producto = $("#descripcion_producto").val();
+    var imagen_producto = $("#imagen_producto").get(0).files[0];
 
-    var roles = [];
 
-    $(".data_rol:checked").each(function () {
-      roles.push($(this).val());
-    });
 
-    var data_roles = JSON.stringify(roles);
+    // Validar la categoria
+    if (id_categoria_P == "" || id_categoria_P == null) {
 
-    // Validar el nombre de usuario
-    if (nombre == "") {
-      $("#errorNombreUsuario")
-        .html("Por favor, ingrese el nombre completo")
-        .addClass("text-danger");
+      $("#error_id_categoria_p").html("Por favor, selecione la cateogría").addClass("text-danger");
 
       isValid = false;
+
     } else {
-      $("#errorNombreUsuario").html("").removeClass("text-danger");
+
+      $("#error_id_categoria_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el tipo de documento
-    if (tipoDocumento == null) {
-      $("#errorTipoDocumento")
-        .html("Por favor, seleccione el tipo de documento")
-        .addClass("text-danger");
+
+    // Validar el codigo de producto
+    if (codigo_producto == "") {
+
+      $("#error_codigo_p").html("Por favor, ingrese el código del producto").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#errorTipoDocumento").html("").removeClass("text-danger");
+
+      $("#error_codigo_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el número de documento
-    if (numeroDocumento == "") {
-      $("#errorNumeroDocumento")
-        .html("Por favor, ingrese el número de documento")
-        .addClass("text-danger");
+
+    // Validar el nombre del producto
+    if (nombre_producto == "") {
+
+      $("#error_nombre_p").html("Por favor, ingrese el stock").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#errorNumeroDocumento").html("").removeClass("text-danger");
+
+      $("#error_nombre_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar la dirección
-    if (direccion == "") {
-      $("#errorDireccionUsuario")
-        .html("Por favor, ingrese la dirección")
-        .addClass("text-danger");
+    // Validar el stock del producto
+    if (
+      stock_producto === "" ||
+      stock_producto === null ||
+      isNaN(stock_producto) ||
+      parseInt(stock_producto) !== parseFloat(stock_producto) ||
+      parseInt(stock_producto) <= 0
+    ) {
+
+      $("#error_stock_p").html("Por favor, ingrese un número entero positivo para el stock").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#errorDireccionUsuario").html("").removeClass("text-danger");
+
+      $("#error_stock_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el teléfono
-    if (telefono == "") {
-      $("#errorTelefonoUsuario")
-        .html("Por favor, ingrese el teléfono")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#errorTelefonoUsuario").html("").removeClass("text-danger");
-    }
 
-    // Validar el correo electrónico
-    if (correo == "") {
-      $("#errorCorreoUsuario")
-        .html("Por favor, ingrese el correo electrónico")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#errorCorreoUsuario").html("").removeClass("text-danger");
-    }
-
-    // Validar el usuario
-    if (usuario == "") {
-      $("#errorUsuario")
-        .html("Por favor, ingrese el usuario")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#errorUsuario").html("").removeClass("text-danger");
-    }
-
-    // Validar la contraseña
-    if (contrasena == "") {
-      $("#errorContrasena")
-        .html("Por favor, ingrese la contraseña")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#errorContrasena").html("").removeClass("text-danger");
-    }
-
-    // Si el formulario es válido, envíalo
     if (isValid) {
+
       var datos = new FormData();
-      datos.append("nombre", nombre);
-      datos.append("tipoDocumento", tipoDocumento);
-      datos.append("numeroDocumento", numeroDocumento);
-      datos.append("direccion", direccion);
-      datos.append("telefono", telefono);
-      datos.append("correo", correo);
-      datos.append("usuario", usuario);
-      datos.append("contrasena", contrasena);
-      datos.append("imagen", imagen);
-      datos.append("data_roles", data_roles);
+
+      datos.append("id_categoria_P", id_categoria_P);
+      datos.append("codigo_producto", codigo_producto);
+      datos.append("nombre_producto", nombre_producto);
+      datos.append("stock_producto", stock_producto);
+      datos.append("fecha_vencimiento", fecha_vencimiento);
+      datos.append("descripcion_producto", descripcion_producto);
+      datos.append("imagen_producto", imagen_producto);
 
       $.ajax({
-        url: "ajax/Usuario.ajax.php",
+        url: "ajax/Producto.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
         contentType: false,
         processData: false,
         success: function (respuesta) {
+
           var res = JSON.parse(respuesta);
 
-          if (res === "ok") {
-            $("#nuevoUsuario")[0].reset();
-            $(".vistaPreviaImagenUsuario").attr("src", "");
-            $("#modalNuevoUsuario").modal("hide");
+          if (res.estado === "ok") {
+
+            $("#form_nuevo_producto")[0].reset();
+
+            $(".vistaPreviaImagenProducto").attr("src", "");
+
+            $("#modalNuevoProducto").modal("hide");
+
             Swal.fire({
               title: "¡Correcto!",
-              text: "El usuario ha sido guardado",
+              text: res.mensaje,
               icon: "success",
             });
-            mostrarUsuarios();
+
+            mostrarProductos();
+
           } else {
-            console.error("La carga y guardado de la imagen ha fallado.");
+
+            Swal.fire({
+              title: "¡Error!",
+              text: res.mensaje,
+              icon: "error",
+            });
+
           }
         },
+        error: function (xhr, status, error) {
+
+          console.error(xhr);
+          console.error(status);
+          console.error(error);
+
+        }
+
       });
     }
   });
 
-  /* ===========================
-    MOSTRANDO USUARIOS
-    =========================== */
-  function mostrarUsuarios() {
+  /*=============================================
+  MOSTRAR PRODUCTOS
+  =============================================*/
+  function mostrarProductos() {
     $.ajax({
-      url: "ajax/Usuario.ajax.php",
+      url: "ajax/Producto.ajax.php",
       type: "GET",
       dataType: "json",
-      success: function (usuarios) {
-        var tbody = $("#dataUsuarios");
+      success: function (productos) {
+
+        var tbody = $("#data_productos_detalle");
 
         tbody.empty();
 
-        usuarios.forEach(function (usuario) {
-          usuario.imagen_usuario = usuario.imagen_usuario.substring(3);
+        productos.forEach(function (producto, index) {
+
+          producto.imagen_producto = producto.imagen_producto.substring(3);
 
           var fila = `
-                  <tr>
-                      <td>
-                          <a href="javascript:void(0);" class="product-img">
-                              <img src="${usuario.imagen_usuario}" alt="${
-            usuario.nombre_usuario
-          }">
-                          </a>
-                      </td>
-                      <td>${usuario.nombre_usuario}</td>
-                      <td>${usuario.usuario}</td>
-                      <td>
-                          <span>${usuario.nombre_doc}: </span>
-                          <span>${usuario.numero_documento}</span>
-                      </td>
-                      <td>${usuario.direccion}</td>
-                      <td>${usuario.telefono}</td>
-                      <td>${usuario.correo}</td>
-                      <td>
-                          ${
-                            usuario.estado != 0
-                              ? '<button class="btn btn-success btn-sm rounded btnActivar" idUsuario="' +
-                                usuario.id_usuario +
-                                '" estadoUsuario="0">Activado</button>'
-                              : '<button class="btn btn-danger btn-sm rounded btnActivar" idUsuario="' +
-                                usuario.id_usuario +
-                                '" estadoUsuario="1">Desactivado</button>'
-                          }
-                      </td>
-                      
-                      <td>
-                          <a href="#" class="me-3 btnEditarUsuario" idUsuario="${
-                            usuario.id_usuario
-                          }" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
-                              <i class="text-warning fas fa-edit fa-lg"></i>
-                          </a>
-                          <a href="#" class="me-3 btnVerUsuario" idUsuario="${
-                            usuario.id_usuario
-                          }" data-bs-toggle="modal" data-bs-target="#modalVerUsuario">
-                              <i class="text-primary fa fa-eye fa-lg"></i>
-                          </a>
-                          <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${
-                            usuario.id_usuario
-                          }" fotoUsuario="${usuario.imagen_usuario}">
-                              <i class="text-danger fa fa-trash fa-lg"></i>
-                          </a>
-                      </td>
-                  </tr>`;
+                      <tr>
+                          <td class="text-center">
+                            <a href="#" id="btnAddProducto" class="btn btn-sm me-3 btnAddProducto" idProductoAdd="${producto.id_producto}" style="background: #7367F0">
+                                <i class="text-white fas fa-plus fa-lg"></i>
+                            </a>
+                          </td>
+                          <td>${producto.codigo_producto}</td>
+                          <td class="text-center">
+                              <a href="javascript:void(0);" class="product-img">
+                                  <img src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
+                              </a>
+                          </td>
+                          <td>${producto.nombre_categoria}</td>
+                          <td>${producto.nombre_producto}</td>
+                          <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
+                          <td>${producto.fecha_vencimiento}</td>
 
-          // Agregar la fila al tbody
+                      </tr>`;
+
+          function getButtonStyles(stock) {
+
+            if (stock > 20) {
+
+              return "background-color: #28C76F; color: white; border: none;";
+
+            } else if (stock >= 10 && stock <= 20) {
+
+              return "background-color: #FF9F43; color: white; border: none;";
+
+            } else {
+
+              return "background-color: #FF4D4D; color: white; border: none;";
+
+            }
+
+          }
+
+
           tbody.append(fila);
+
         });
-        // Inicializar DataTables después de cargar los datos
-        $("#tabla_usuarios").DataTable();
+
+
+        $("#tabla_add_producto").DataTable();
+
       },
       error: function (xhr, status, error) {
-        console.error("Error al recuperar los usuarios:", error);
+
+        console.error("Error al recuperar los usuarios:", error.mensaje);
+
       },
+
     });
+
   }
 
   /*=============================================
-    ACTIVAR USUARIO
-    =============================================*/
-  $("#tabla_usuarios").on("click", ".btnActivar", function () {
-    var idUsuario = $(this).attr("idUsuario");
-    var estadoUsuario = $(this).attr("estadoUsuario");
+  EDITAR EL PRODUCTO
+  =============================================*/
+  $("#tabla_productos").on("click", ".btnEditarProducto", function (e) {
+
+    e.preventDefault();
+
+    var idProducto = $(this).attr("idProducto");
 
     var datos = new FormData();
-    datos.append("activarId", idUsuario);
-    datos.append("activarUsuario", estadoUsuario);
+    datos.append("idProducto", idProducto);
 
     $.ajax({
-      url: "ajax/Usuario.ajax.php",
-      method: "POST",
-      data: datos,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (respuesta) {
-        if (window.matchMedia("(max-width:767px)").matches) {
-          swal({
-            title: "El usuario ha sido actualizado",
-            type: "success",
-            confirmButtonText: "¡Cerrar!",
-          }).then(function (result) {
-            if (result.value) {
-              window.location = "usuarios";
-            }
-          });
-        }
-      },
-    });
-
-    if (estadoUsuario == 0) {
-      $(this).removeClass("btn-success");
-      $(this).addClass("btn-danger");
-      $(this).html("Desactivado");
-      $(this).attr("estadoUsuario", 1);
-    } else {
-      $(this).addClass("btn-success");
-      $(this).removeClass("btn-danger");
-      $(this).html("Activado");
-      $(this).attr("estadoUsuario", 0);
-    }
-  });
-
-  /*=============================================
-    EDITAR EL USUARIO
-    =============================================*/
-  $("#tabla_usuarios").on("click", ".btnEditarUsuario", function () {
-    var idUsuario = $(this).attr("idUsuario");
-
-    console.log(idUsuario);
-
-    var datos = new FormData();
-    datos.append("idUsuario", idUsuario);
-
-    $.ajax({
-      url: "ajax/Usuario.ajax.php",
+      url: "ajax/Producto.ajax.php",
       method: "POST",
       data: datos,
       cache: false,
@@ -379,60 +236,51 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (respuesta) {
-        $("#editIdUsuario").val(respuesta["id_usuario"]);
-        $("#edit_nombre_usuario").val(respuesta["nombre_usuario"]);
 
-        $("#edit_id_doc").append(
-          '<option value="' +
-            respuesta["id_doc"] +
-            '" selected>' +
-            respuesta["nombre_doc"] +
-            "</option>"
-        );
+        $("#edit_id_producto").val(respuesta["id_producto"]);
+        $("#edit_id_categoria_p").val(respuesta["id_categoria"]);
 
-        $("#edit_numero_documento").val(respuesta["numero_documento"]);
-        $("#edit_direccion").val(respuesta["direccion"]);
-        $("#edit_telefono").val(respuesta["telefono"]);
-        $("#edit_correo").val(respuesta["correo"]);
-        $("#edit_usuario").val(respuesta["usuario"]);
-        $("#passwordActual").val(respuesta["contrasena"]);
+        $("#edit_codigo_producto").val(respuesta["codigo_producto"]);
+        $("#edit_nombre_producto").val(respuesta["nombre_producto"]);
+        $("#edit_stock_producto").val(respuesta["stock_producto"]);
+        $("#edit_fecha_vencimiento").val(respuesta["fecha_vencimiento"]);
+        $("#edit_descripcion_producto").val(respuesta["descripcion_producto"]);
+        $("#edit_imagen_actual_p").val(respuesta["imagen_producto"]);
 
-        var imagenUsuario = respuesta["imagen_usuario"].substring(3);
+        var imagenUsuario = respuesta["imagen_producto"].substring(3);
 
-        if (respuesta["imagen_usuario"] != "") {
-          $(".editVistaPreviaImagenUsuario").attr("src", imagenUsuario);
+        if (respuesta["imagen_producto"] != "") {
+
+          $(".edit_vista_previa_imagen_p").attr("src", imagenUsuario);
+
         } else {
-          $(".editVistaPreviaImagenUsuario").attr(
-            "src",
-            "vistas/img/usuarios/default/anonymous.png"
+
+          $(".edit_vista_previa_imagen_p").attr("src","vistas/img/usuarios/default/anonymous.png"
+
           );
+
         }
 
-        $("#imagenActualUsuario").val(respuesta["imagen_usuario"]);
-
-        data_roles = JSON.parse(respuesta["roles"]);
-
-        data_roles.forEach(function (rol) {
-          // Concatena "edit_rol_" con el nombre del rol para obtener el ID del checkbox
-          var checkboxId = "edit_rol_" + rol;
-          // Busca el checkbox por su ID y márcalo
-          document.getElementById(checkboxId).checked = true;
-        });
       },
+
     });
+
   });
 
   /*=============================================
-    MOSTRAR DETALLE DEL USUARIO
-    =============================================*/
-  $("#tabla_usuarios").on("click", ".btnVerUsuario", function () {
-    var idUsuarioVer = $(this).attr("idUsuario");
+  MOSTRAR DETALLE DEL PRODUCTO
+  =============================================*/
+  $("#tabla_productos").on("click", ".btnVerProducto", function (e) {
+
+    e.preventDefault();
+
+    var idProductoVer = $(this).attr("idProducto");
 
     var datos = new FormData();
-    datos.append("idUsuarioVer", idUsuarioVer);
+    datos.append("idProductoVer", idProductoVer);
 
     $.ajax({
-      url: "ajax/Usuario.ajax.php",
+      url: "ajax/Producto.ajax.php",
       method: "POST",
       data: datos,
       cache: false,
@@ -440,25 +288,43 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (respuesta) {
-        $("#mostrar_nombre_usuario").text(respuesta["nombre_usuario"]);
-        $("#mostrar_tipo_documento").text(respuesta["nombre_doc"]);
-        $("#mostrar_numero_documento_usuario").text(
-          respuesta["numero_documento"]
-        );
-        $("#mostrar_direccion_usuario").text(respuesta["direccion"]);
-        $("#mostrar_telefono_usuario").text(respuesta["telefono"]);
-        $("#mostrar_correo_usuario").text(respuesta["correo"]);
-        $("#mostrar_usuario").text(respuesta["usuario"]);
 
-        var imagenUsuario = respuesta["imagen_usuario"].substring(3);
+        $("#mostrar_nombre_categoria").text(respuesta["nombre_categoria"]);
+        $("#mostrar_codigo_producto").text(respuesta["codigo_producto"]);
+        $("#mostrar_nombre_producto").text(respuesta["nombre_producto"]);
+        $("#mostrar_stock_producto").text(respuesta["stock_producto"]);
+        $("#mostrar_descripcion_producto").text(respuesta["descripcion_producto"]);
 
-        if (respuesta["imagen_usuario"] != "") {
-          $(".mostrarFotoUsuario").attr("src", imagenUsuario);
+        if (respuesta["estado_producto"] == 1) {
+
+          $("#mostrar_estado_producto").html("<button class='btn btn-sm mt-2' style='background: #28C76F; color: white'>Activado</button>");
+
         } else {
-          $(".mostrarFotoUsuario").attr(
-            "src",
-            "vistas/img/usuarios/default/anonymous.png"
-          );
+
+          $("#mostrar_estado_producto").html("<button class='btn btn-sm' style='background: #FF4D4D; color: white'>Desactivado</button>" );
+
+        }
+
+        var fecha = respuesta["fecha_vencimiento"];
+
+        var fecha_obj = new Date(fecha);
+
+        var opciones = { year: "numeric", month: "long", day: "2-digit" };
+
+        var fecha_formateada = fecha_obj.toLocaleDateString("es-ES", opciones);
+
+        $("#mostrar_fecha_producto").text(fecha_formateada);
+
+        var imagenUsuario = respuesta["imagen_producto"].substring(3);
+
+        if (respuesta["imagen_producto"] != "") {
+
+          $(".mostrarImagenProducto").attr("src", imagenUsuario);
+
+        } else {
+
+          $(".mostrarImagenProducto").attr("src","vistas/img/usuarios/default/anonymous.png");
+
         }
 
         var data_roles = JSON.parse(respuesta["roles"]);
@@ -466,231 +332,423 @@ $(document).ready(function () {
         var rolesContainer = document.getElementById("mostrar_data_roles");
 
         data_roles.forEach((role) => {
+
           var roleSpan = document.createElement("span");
+
           roleSpan.textContent = role;
-          roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
+
+          roleSpan.classList.add("badge", "bg-primary", "me-2");
+
           rolesContainer.appendChild(roleSpan);
+
         });
-      },
+
+      }
+
     });
+
   });
 
   /*===========================================
-    ACTUALIZAR EL USUARIO
-    =========================================== */
-  $("#actualizar_usuario").click(function (e) {
+  ACTUALIZAR EL PRODUCTO
+  =========================================== */
+  $("#btn_actualizar_producto").click(function (e) {
+
     e.preventDefault();
 
     var isValid = true;
 
-    var edit_idUsuario = $("#editIdUsuario").val();
-    var edit_nombre = $("#edit_nombre_usuario").val();
-    var edit_tipoDocumento = $("#edit_id_doc").val();
-    var edit_numeroDocumento = $("#edit_numero_documento").val();
-    var edit_direccion = $("#edit_direccion").val();
-    var edit_telefono = $("#edit_telefono").val();
-    var edit_correo = $("#edit_correo").val();
-    var edit_usuario = $("#edit_usuario").val();
+    var edit_id_producto = $("#edit_id_producto").val();
+    var edit_id_categoria_p = $("#edit_id_categoria_p").val();
+    var edit_codigo_producto = $("#edit_codigo_producto").val();
+    var edit_nombre_producto = $("#edit_nombre_producto").val();
+    var edit_stock_producto = $("#edit_stock_producto").val();
+    var edit_fecha_vencimiento = $("#edit_fecha_vencimiento").val();
+    var edit_descripcion_producto = $("#edit_descripcion_producto").val();
 
-    var edit_contrasena = $("#edit_contrasena").val();
-    var edit_actualContrasena = $("#passwordActual").val();
+    var edit_imagen_producto = $("#edit_imagen_producto").get(0).files[0];
+    var edit_imagen_actual_p = $("#edit_imagen_actual_p").val();
 
-    var edit_imagen = $("#edit_imagen_usuario").get(0).files[0];
-    var edit_imagenActualUsuario = $("#imagenActualUsuario").val();
 
-    var roles = [];
+    // Validar la categoria
+    if (edit_id_categoria_p == "" || edit_id_categoria_p == null) {
 
-    $(".edit_data_rol:checked").each(function () {
-      roles.push($(this).val());
-    });
-
-    var data_roles = JSON.stringify(roles);
-
-    // Validar el nombre de usuario
-    if (edit_nombre == "") {
-      $("#editerrorNombreUsuario")
-        .html("Por favor, ingrese el nombre completo")
-        .addClass("text-danger");
+      $("#edit_error_id_categoria_p").html("Por favor, selecione la cateogría").addClass("text-danger");
 
       isValid = false;
+
     } else {
-      $("#editerrorNombreUsuario").html("").removeClass("text-danger");
+
+      $("#edit_error_id_categoria_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el tipo de documento
-    if (edit_tipoDocumento == null) {
-      $("#editerrorTipoDocumento")
-        .html("Por favor, seleccione el tipo de documento")
-        .addClass("text-danger");
+
+    // Validar el codigo de producto
+    if (edit_codigo_producto == "") {
+
+      $("#edit_error_codigo_p").html("Por favor, ingrese el código del producto").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#editerrorTipoDocumento").html("").removeClass("text-danger");
+
+      $("#edit_error_codigo_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el número de documento
-    if (edit_numeroDocumento == "") {
-      $("#errorNumeroDocumento")
-        .html("Por favor, ingrese el número de documento")
-        .addClass("text-danger");
+
+    // Validar el nombre del producto
+    if (edit_nombre_producto == "") {
+
+      $("#edit_error_nombre_p").html("Por favor, ingrese el stock").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#errorNumeroDocumento").html("").removeClass("text-danger");
+
+      $("#edit_error_nombre_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar la dirección
-    if (edit_direccion == "") {
-      $("#editerrorDireccionUsuario")
-        .html("Por favor, ingrese la dirección")
-        .addClass("text-danger");
+
+    // Validar el stock del producto
+    if (
+      edit_stock_producto === "" ||
+      edit_stock_producto === null ||
+      isNaN(edit_stock_producto) ||
+      parseInt(edit_stock_producto) !== parseFloat(edit_stock_producto) ||
+      parseInt(edit_stock_producto) <= 0
+    ) {
+
+      $("#edit_error_stock_p").html("Por favor, ingrese un número entero positivo para el stock").addClass("text-danger");
+
       isValid = false;
+
     } else {
-      $("#editerrorDireccionUsuario").html("").removeClass("text-danger");
+
+      $("#edit_error_stock_p").html("").removeClass("text-danger");
+
     }
 
-    // Validar el teléfono
-    if (edit_telefono == "") {
-      $("#editerrorTelefonoUsuario")
-        .html("Por favor, ingrese el teléfono")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#editerrorTelefonoUsuario").html("").removeClass("text-danger");
-    }
 
-    // Validar el correo electrónico
-    if (edit_correo == "") {
-      $("#editerrorCorreoUsuario")
-        .html("Por favor, ingrese el correo electrónico")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#editerrorCorreoUsuario").html("").removeClass("text-danger");
-    }
-
-    // Validar el usuario
-    if (edit_usuario == "") {
-      $("#editerrorUsuario")
-        .html("Por favor, ingrese el usuario")
-        .addClass("text-danger");
-      isValid = false;
-    } else {
-      $("#editerrorUsuario").html("").removeClass("text-danger");
-    }
-
-    // Si el formulario es válido, envíalo
     if (isValid) {
       var datos = new FormData();
-      datos.append("edit_idUsuario", edit_idUsuario);
-      datos.append("edit_nombre", edit_nombre);
-      datos.append("edit_tipoDocumento", edit_tipoDocumento);
-      datos.append("edit_numeroDocumento", edit_numeroDocumento);
-      datos.append("edit_direccion", edit_direccion);
-      datos.append("edit_telefono", edit_telefono);
-      datos.append("edit_correo", edit_correo);
-      datos.append("edit_usuario", edit_usuario);
-      datos.append("edit_contrasena", edit_contrasena);
-      datos.append("edit_actualContrasena", edit_actualContrasena);
-      datos.append("edit_imagen", edit_imagen);
-      datos.append("edit_imagenActualUsuario", edit_imagenActualUsuario);
-      datos.append("data_roles", data_roles);
+      datos.append("edit_id_producto", edit_id_producto);
+      datos.append("edit_id_categoria_p", edit_id_categoria_p);
+      datos.append("edit_codigo_producto", edit_codigo_producto);
+      datos.append("edit_nombre_producto", edit_nombre_producto);
+      datos.append("edit_stock_producto", edit_stock_producto);
+      datos.append("edit_fecha_vencimiento", edit_fecha_vencimiento);
+      datos.append("edit_descripcion_producto", edit_descripcion_producto);
+      datos.append("edit_imagen_producto", edit_imagen_producto);
+      datos.append("edit_imagen_actual_p", edit_imagen_actual_p);
 
       $.ajax({
-        url: "ajax/Usuario.ajax.php",
+        url: "ajax/Producto.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
         contentType: false,
         processData: false,
         success: function (respuesta) {
+
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
-            $("#formEditUsuario")[0].reset();
-            $(".editVistaPreviaImagenUsuario").attr("src", "");
-            $("#modalEditarUsuario").modal("hide");
+
+            $("#form_editar_producto")[0].reset();
+
+            $(".edit_vista_previa_imagen_p").attr("src", "");
+
+            $("#modalEditarProducto").modal("hide");
 
             Swal.fire({
               title: "¡Correcto!",
-              text: "El usuario ha sido actualizado con éxito",
+              text: "El producto ha sido actualizado con éxito",
               icon: "success",
             });
 
-            mostrarUsuarios();
+            mostrarProductos();
+
           } else {
+
             console.error("Error al actualizar los datos");
+
           }
+        },
+        error: function (xhr, status, error) {
+
+          console.error("Error al recuperar los usuarios:", error);
+          console.error(xhr);
+          console.error(status);
+
         },
       });
     }
   });
 
   /*=============================================
-      ELIMINAR USUARIO
-      =============================================*/
-  $("#tabla_usuarios").on("click", ".btnEliminarUsuario", function (e) {
+    ELIMINAR PRODUCTO
+    =============================================*/
+  $("#tabla_productos").on("click", ".btnEliminarProducto", function (e) {
+
     e.preventDefault();
 
-    var deleteUserId = $(this).attr("idUsuario");
-    var deletefotoUser = $(this).attr("fotoUsuario");
-    var deleteRutaUser = "../" + deletefotoUser;
+    var idProductoDelete = $(this).attr("idProducto");
+    var imagenProductoDelete = $(this).attr("imagenProducto");
+    var deleteRutaImagenProducto = "../" + imagenProductoDelete;
 
     var datos = new FormData();
-    datos.append("deleteUserId", deleteUserId);
-    datos.append("deleteRutaUser", deleteRutaUser);
+    datos.append("idProductoDelete", idProductoDelete);
+    datos.append("deleteRutaImagenProducto", deleteRutaImagenProducto);
 
     Swal.fire({
-      title: "¿Está seguro de borrar el usuario?",
+      title: "¿Está seguro de borrar el producto?",
       text: "¡Si no lo está puede cancelar la accíón!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      cancelButtonColor: "#FF4D4D",
       cancelButtonText: "Cancelar",
       confirmButtonText: "Si, borrar!",
     }).then(function (result) {
+
       if (result.value) {
+
         $.ajax({
-          url: "ajax/Usuario.ajax.php",
+          url: "ajax/Producto.ajax.php",
           method: "POST",
           data: datos,
           cache: false,
           contentType: false,
           processData: false,
           success: function (respuesta) {
+
             var res = JSON.parse(respuesta);
 
             if (res === "ok") {
+
               Swal.fire({
                 title: "¡Eliminado!",
-                text: "El usuario ha sido eliminado",
+                text: "El producto ha sido eliminado",
                 icon: "success",
               });
 
-              mostrarUsuarios();
+              mostrarProductos();
+
             } else {
+
               console.error("Error al eliminar los datos");
+
             }
-          },
+          }
         });
       }
     });
   });
 
-  /*   ==========================================
-    LIMPIAR MODALES
-    ========================================== */
+
+
+  /* ====================================
+  BOTON GREGAR PRODUCTO
+  ===================================== */
+
+  $("#tabla_add_producto").on("mouseenter", ".btnAddProducto", function () {
+
+      $(this).css("background", "#28C76F");
+
+  }).on("mouseleave", ".btnAddProducto", function () {
+
+      $(this).css("background", "#7367F0");
+  });
+
+
+  /* ====================================
+  MOSTRAR DATOS AL DETALLE COMPRA
+  ===================================== */
+
+  $("#tabla_add_producto").on("click", ".btnAddProducto", function (e) {
+
+    e.preventDefault();
+
+    var idProductoAdd = $(this).attr("idProductoAdd");
+
+    var datos = new FormData();
+    datos.append("idProductoAdd", idProductoAdd);
+
+    $.ajax({
+      url: "ajax/Compra.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+
+        respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
+
+        var nuevaFila = `
+              <tr>
+                  <th class="text-center align-middle d-none d-md-table-cell">
+                      <a href="#" class="me-3 confirm-text btnEliminarAddProducto" idAddProducto="${respuesta.id_producto}" fotoUsuario="${respuesta.imagen_producto}">
+                          <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
+                      </a>
+                  </th>
+                  <td>
+                      <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="80">
+                  </td>
+                  <td>${respuesta.nombre_producto}</td>
+                  <td>
+                      <input type="number" class="form-control form-control-sm cantidad_u" value="0">
+                  </td>
+                  <td>
+                      <input type="number" class="form-control form-control-sm cantidad_kg" value="0">
+                  </td>
+                  <td>
+                      <input type="number" class="form-control form-control-sm precio_compra" value="0">
+                  </td>
+                  <td>
+                      <input type="number" class="form-control form-control-sm precio_venta" value="0">
+                  </td>
+                  <td style="text-align: right;">
+                      <p class="price precio_sub_total">0</p>
+                  </td>
+              </tr>`;
+
+        $("#detalle_egreso_producto").append(nuevaFila);
+
+        // Agregar evento para calcular el subtotal al cambiar la cantidad_kg o el precio_compra
+        $(".cantidad_kg, .precio_compra").on("input", function () {
+
+          var fila = $(this).closest("tr");
+
+          var cantidad_kg = parseFloat(fila.find(".cantidad_kg").val());
+
+          var precio_compra = parseFloat(fila.find(".precio_compra").val());
+
+          var subtotal = cantidad_kg * precio_compra;
+
+          var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
+
+          fila.find(".precio_sub_total").text(formateadoSubTotal);
+
+          // Calcular y mostrar el total
+          calcularTotal();
+
+        });
+
+      },
+
+    });
+
+    calcularTotal();
+
+    $(document).ready(function () {
+
+      calcularTotal();
+
+    });
+
+  });
+
+
+
+  /* =============================================
+  ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
+  ============================================= */
+
+  $(document).on("click", ".btnEliminarAddProducto", function (e) {
+
+    e.preventDefault();
+
+    var idProductoEliminar = $(this).attr("idAddProducto");
+
+    // Encuentra la fila que corresponde al producto a eliminar y elimínala
+    $("#detalle_egreso_producto").find("tr").each(function () {
+
+        var idProducto = $(this).find(".btnEliminarAddProducto").attr("idAddProducto");
+
+        if (idProducto == idProductoEliminar) {
+
+          $(this).remove();
+
+          // Una vez eliminada la fila, recalcular el total
+          calcularTotal();
+
+          return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
+
+        }
+      });
+
+  });
+
+
+
+  /*============================================
+  FORMATEAR LOS PRECIOS
+  ============================================ */
+
+  function formateoPrecio(numero) {
+
+    return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  }
+
+  function calcularTotal() {
+
+    var subtotalTotal = 0;
+    
+    var impuesto = parseFloat($("#impuesto_egreso").val());
+
+    // Recorrer todas las filas para sumar los subtotales
+    $("#detalle_egreso_producto tr").each(function () {
+
+      var subtotal = parseFloat($(this).find(".precio_sub_total").text().replace("S/ ", ""));
+
+      subtotalTotal += subtotal;
+
+    });
+
+    // Calcular el impuesto
+    var igv = subtotalTotal * (impuesto / 100);
+
+    // Calcular el total
+    var total = subtotalTotal + igv;
+
+    // Formatear los resultados
+    var subtotalFormateado = formateoPrecio(subtotalTotal.toFixed(2));
+    var igvFormateado = formateoPrecio(igv.toFixed(2));
+    var totalFormateado = formateoPrecio(total.toFixed(2));
+
+    // Mostrar los resultados en el HTML
+    $("#subtotal_egreso").text(subtotalFormateado);
+    $("#igv_egreso").text(igvFormateado);
+    $("#total_precio_egreso").text(totalFormateado);
+
+  }
+
+
+  /* ==========================================
+  LIMPIAR MODALES
+  ========================================== */
 
   $(".btn_modal_ver_close_usuario").click(function () {
+
     $("#mostrar_data_roles").text("");
+
   });
 
   $(".btn_modal_editar_close_usuario").click(function () {
+
     $("#formEditUsuario")[0].reset();
+
   });
 
   /* =====================================
   MSOTRANDO DATOS
   ===================================== */
-  mostrarUsuarios();
+  mostrarProductos();
+
 });
-  
