@@ -720,7 +720,6 @@ $(document).ready(function () {
         var cantidadKg = fila.find(".cantidad_kg").val();
         var precioCompra = fila.find(".precio_compra").val();
         var precioVenta = fila.find(".precio_venta").val();
-        var precioSubTotal = fila.find(".precio_sub_total").text();
 
         // Crear un objeto con los valores y agregarlo al array
         var producto = {
@@ -729,13 +728,14 @@ $(document).ready(function () {
             cantidad_u: cantidadU,
             cantidad_kg: cantidadKg,
             precio_compra: precioCompra,
-            precio_venta: precioVenta,
-            precio_sub_total: precioSubTotal
+            precio_venta: precioVenta
         };
 
         valoresProductos.push(producto);
     });
 
+    var productoAddEgreso = JSON.stringify(valoresProductos);
+    
 
     var subtotal = $("#subtotal_egreso").text().replace(/,/g, '');
 
@@ -796,7 +796,7 @@ $(document).ready(function () {
       datos.append("num_comprobante", num_comprobante);
       datos.append("impuesto_egreso", impuesto_egreso);
 
-      datos.append("valoresProductos", valoresProductos);
+      datos.append("productoAddEgreso", productoAddEgreso);
 
       datos.append("subtotal", subtotal);
       datos.append("igv", igv);
@@ -805,6 +805,7 @@ $(document).ready(function () {
       datos.append("estado_pago", estado_pago);
       datos.append("pago_e_y", pago_e_y);
 
+   
 
       $.ajax({
         url: "ajax/Compra.ajax.php",
@@ -815,8 +816,44 @@ $(document).ready(function () {
         processData: false,
         success: function (respuesta) {
 
-          console.log(respuesta)
+          var res = JSON.parse(respuesta);
 
+            if (res.estado === "ok") {
+
+              $("#form_compra_producto")[0].reset();
+              $("#detalle_egreso_producto").empty();
+              $("#subtotal_egreso").text("00.00");
+              $("#igv_egreso").text("00.00");
+              $("#total_precio_egreso").text("00.00");
+
+
+              Swal.fire({
+                title: "¿Quiere imprimir comprobante?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#28C76F",
+                cancelButtonColor: "#F52E2F",
+                confirmButtonText: "¡Sí, imprimir!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: "¡Imprimiendo!",
+                    text: "Su comprobante se está imprimiento.",
+                    icon: "success"
+                  });
+                }
+              });
+
+              mostrarProductos();
+
+            } else {
+                Swal.fire({
+                    title: "¡Error!",
+                    text: res.mensaje,
+                    icon: "error",
+                  });
+            }
         },
         error: function (xhr, status, error) {
 

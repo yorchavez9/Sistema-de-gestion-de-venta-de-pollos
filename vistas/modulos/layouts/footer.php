@@ -25,7 +25,7 @@
     <script src="vistas/js/cliente.js"></script>
     <script src="vistas/js/categoria.js"></script>
     <script src="vistas/js/script-productos.js"></script>
-    <script src="vistas/js/compra.js"></script>
+    <script src="vistas/js/egreso.js"></script>
 
 </body>
 

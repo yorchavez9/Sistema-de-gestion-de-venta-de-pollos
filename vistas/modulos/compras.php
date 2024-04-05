@@ -35,7 +35,7 @@
                 <div class="table-top">
 
                     <div class="wordset">
-                        <h3 class="fw-bold">Crear venta <i class="fas fa-shopping-cart" style="color: #FF9F43"></i></h3>
+                        <h3 class="fw-bold">Crear venta <i class="fas fa-shopping-cart" style="color: #5645ED"></i></h3>
                     </div>
                 </div>
 
@@ -46,12 +46,12 @@
                 <form id="form_compra_producto">
 
                     <!-- INGRESO DE ID DEL USUARIO -->
-                    <input type="text" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"]?>">
+                    <input type="hidden" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"] ?>">
 
 
                     <div class="row">
 
-                        
+
                         <!-- INGRESO DE CLIENTE -->
                         <div class="col-md-5">
                             <div class="form-group">
@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="pt-3 pb-2">
-                                    
+
                                 <div class="flex-container">
                                     <ul>
                                         <li>
@@ -498,7 +498,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
 
-           
+
             <form enctype="multipart/form-data" id="nuevoProveedor">
 
 
@@ -668,4 +668,9 @@
         }
 
     });
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // Asignar la fecha actual al campo de entrada de fecha
+    document.getElementById('fecha_egreso').value = today;
 </script>

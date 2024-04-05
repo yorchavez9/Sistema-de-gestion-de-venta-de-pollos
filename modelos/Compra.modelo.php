@@ -139,47 +139,26 @@ class ModeloCompra{
 	static public function mdlIngresarDetalleCompra($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
-                                                                id_persona,
-                                                                id_usuario, 
-                                                                fecha_egre, 
-                                                                tipo_comprobante, 
-                                                                serie_comprobante, 
-                                                                num_comprobante, 
-                                                                impuesto,
-                                                                total_compra,
-                                                                subTotal,
-                                                                igv,
-                                                                tipo_pago,
-                                                                estado_pago,
-                                                                pago_e_y) 
+                                                                id_egreso,
+                                                                id_producto, 
+                                                                precio_compra, 
+                                                                precio_venta, 
+                                                                cantidad_u, 
+                                                                cantidad_kg) 
                                                                 VALUES (
-                                                                :id_persona, 
-                                                                :id_usuario, 
-                                                                :fecha_egre, 
-                                                                :tipo_comprobante, 
-                                                                :serie_comprobante, 
-                                                                :num_comprobante, 
-                                                                :impuesto,
-                                                                :total_compra,
-                                                                :subTotal,
-                                                                :igv,
-                                                                :tipo_pago,
-                                                                :estado_pago,
-                                                                :pago_e_y)");
+                                                                :id_egreso, 
+                                                                :id_producto, 
+                                                                :precio_compra, 
+                                                                :precio_venta, 
+                                                                :cantidad_u, 
+                                                                :cantidad_kg)");
 
-		$stmt->bindParam(":id_persona", $datos["id_persona"], PDO::PARAM_INT);
-		$stmt->bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
-		$stmt->bindParam(":fecha_egre", $datos["fecha_egre"], PDO::PARAM_STR);
-		$stmt->bindParam(":tipo_comprobante", $datos["tipo_comprobante"], PDO::PARAM_STR);
-		$stmt->bindParam(":serie_comprobante", $datos["serie_comprobante"], PDO::PARAM_STR);
-		$stmt->bindParam(":num_comprobante", $datos["num_comprobante"], PDO::PARAM_STR);
-		$stmt->bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
-		$stmt->bindParam(":total_compra", $datos["total_compra"], PDO::PARAM_STR);
-		$stmt->bindParam(":subTotal", $datos["subTotal"], PDO::PARAM_STR);
-		$stmt->bindParam(":igv", $datos["igv"], PDO::PARAM_STR);
-		$stmt->bindParam(":tipo_pago", $datos["tipo_pago"], PDO::PARAM_STR);
-		$stmt->bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
-		$stmt->bindParam(":pago_e_y", $datos["pago_e_y"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_egreso", $datos["id_egreso"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_producto", $datos["id_producto"], PDO::PARAM_INT);
+		$stmt->bindParam(":precio_compra", $datos["precio_compra"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
+		$stmt->bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_STR);
+		$stmt->bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 

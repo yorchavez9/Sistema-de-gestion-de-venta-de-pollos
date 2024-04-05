@@ -3,7 +3,7 @@
 class ControladorCompra
 {
 
-    /*=============================================
+	/*=============================================
 	MOSTRAR COMPRA
 	=============================================*/
 
@@ -18,7 +18,7 @@ class ControladorCompra
 		return $respuesta;
 	}
 
-    /*=============================================
+	/*=============================================
 	MOSTRAR COMPRA
 	=============================================*/
 
@@ -60,30 +60,78 @@ class ControladorCompra
 			"pago_e_y" => $_POST["pago_e_y"]
 		);
 
-        $respuesta = ModeloCompra::mdlIngresarCompra($tabla, $datos);
+
+		$respuesta = ModeloCompra::mdlIngresarCompra($tabla, $datos);
 
 
-        $tabla = "egresos";
+		/* MOSTRANDO EL ULTIMO ID INGRESADO */
 
-        $item = null;
+		$tabla = "egresos";
 
-        $valor = null;
+		$item = null;
 
-        $respuestaDetalleEgreso = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
+		$valor = null;
 
-        foreach ($respuestaDetalleEgreso as $value) {
-            
-            $id_egreso = $value["id_egreso"];
+		$respuestaDetalleEgreso = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
+
+		foreach ($respuestaDetalleEgreso as $value) {
+
+			$id_egreso_ultimo = $value["id_egreso"];
+		}
+
+
+
+		// TABLA DETALLE_EGRESO
+		$tablaDetalleEgreso = "detalle_egreso";
+
+		// Decodificar los datos JSON en un array asociativo de PHP
+		$datos_decodificados = json_decode($_POST["productoAddEgreso"], true);
+
+		// Inicializar un nuevo array vacío para almacenar los datos
+		$datos = array();
+
+		// Recorrer los datos decodificados y guardarlos en el nuevo array
+		foreach ($datos_decodificados as $dato) {
+			$nuevo_dato = array(
+				'id_egreso' => $id_egreso_ultimo,
+				'id_producto' => $dato['idProductoEgreso'],
+				'precio_compra' => $dato['precio_compra'],
+				'precio_venta' => $dato['precio_venta'],
+				'cantidad_u' => $dato['cantidad_u'],
+				'cantidad_kg' => $dato['cantidad_kg']
+			);
+
+			// Agregar el nuevo dato al array principal
+			$datos[] = $nuevo_dato;
+
+			 // INSERTAR EL REGISTRO EN LA TABLA DETALLE_EGRESO
+			 $respuestaDatos = ModeloCompra::mdlIngresarDetalleCompra($tablaDetalleEgreso, $nuevo_dato);
+
+		}
+
+		if ($respuestaDatos == "ok") {
+
+            $response = array(
+                "mensaje" => "Producto guardado correctamente",
+                "estado" => "ok"
+            );
+
+            echo json_encode($response);
+
+        } else {
+
+            $response = array(
+                "mensaje" => "Error al guardar el producto",
+                "estado" => "error"
+            );
+
+            echo json_encode($response);
+
         }
 
-        
-    
 
-        echo json_encode($id_egreso);
-
-
-
-    }
+		
+	}
 
 	/*=============================================
 	EDITAR COMPRA
@@ -97,38 +145,38 @@ class ControladorCompra
             VALIDANDO IMAGEN
             ============================ */
 
-            $ruta = "../vistas/img/productos/";
+			$ruta = "../vistas/img/productos/";
 
-            $ruta_imagen = $_POST["edit_imagen_actual_p"];
+			$ruta_imagen = $_POST["edit_imagen_actual_p"];
 
-            if (isset($_FILES["edit_imagen_producto"]["tmp_name"]) && !empty($_FILES["edit_imagen_producto"]["tmp_name"])) {
+			if (isset($_FILES["edit_imagen_producto"]["tmp_name"]) && !empty($_FILES["edit_imagen_producto"]["tmp_name"])) {
 
-                if (file_exists($ruta_imagen)) {
-                    unlink($ruta_imagen);
-                }
+				if (file_exists($ruta_imagen)) {
+					unlink($ruta_imagen);
+				}
 
-                $extension = pathinfo($_FILES["edit_imagen_producto"]["name"], PATHINFO_EXTENSION);
+				$extension = pathinfo($_FILES["edit_imagen_producto"]["name"], PATHINFO_EXTENSION);
 
-                $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+				$tipos_permitidos = array("jpg", "jpeg", "png", "gif");
 
-                if (in_array(strtolower($extension), $tipos_permitidos)) {
+				if (in_array(strtolower($extension), $tipos_permitidos)) {
 
-                    $nombre_imagen = date("YmdHis") . rand(1000, 9999);
+					$nombre_imagen = date("YmdHis") . rand(1000, 9999);
 
-                    $ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
+					$ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
 
-                    if (move_uploaded_file($_FILES["edit_imagen_producto"]["tmp_name"], $ruta_imagen)) {
+					if (move_uploaded_file($_FILES["edit_imagen_producto"]["tmp_name"], $ruta_imagen)) {
 
-                        /* echo "Imagen subida correctamente."; */
-                    } else {
+						/* echo "Imagen subida correctamente."; */
+					} else {
 
-                        /* echo "Error al subir la imagen."; */
-                    }
-                } else {
+						/* echo "Error al subir la imagen."; */
+					}
+				} else {
 
-                    /* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
-                }
-            }
+					/* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
+				}
+			}
 
 
 
@@ -152,7 +200,6 @@ class ControladorCompra
 
 				echo json_encode("ok");
 			}
-
 		} else {
 
 			echo json_encode("error");
@@ -181,8 +228,8 @@ class ControladorCompra
 					echo "El archivo a eliminar no existe.";
 				}
 			}
-			
-			
+
+
 
 			$respuesta = ModeloCompra::mdlBorrarCompra($tabla, $datos);
 
