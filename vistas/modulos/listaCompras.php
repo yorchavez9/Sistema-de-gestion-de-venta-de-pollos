@@ -47,21 +47,22 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_productos">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_lista_agreso">
                         <thead>
                             <tr>
                                 <th class="text-center">N°</th>
-                                <th>Código</th>
-                                <th class="text-center">Imagen</th>
-                                <th>Categoría</th>
-                                <th>Nombre</th>
-                                <th>Stock</th>
-                                <th>Fecha v.</th>
-                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Proveedor</th>
+                                <th>Serie</th>
+                                <th>Número</th>
+                                <th>Tipo pago</th>
+                                <th>Total compra</th>
+                                <th>Total restante</th>
+                                <th class="text-center">Estado pago</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
-                        <tbody id="data_productos">
+                        <tbody id="data_lista_egresos">
 
                         </tbody>
                     </table>

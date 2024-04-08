@@ -1,39 +1,38 @@
 $(document).ready(function () {
+  /* ===================================
+  SELECCION DE TIPO DE PAGO
+  =================================== */
+  function tipoPago() {
+    // Obtener todos los elementos <a> con la clase "paymentmethod"
+    var paymentMethodLinks = document.querySelectorAll("a.paymentmethod");
 
-
-  // Obtener todos los elementos <a> con la clase "paymentmethod"
-  var paymentMethodLinks = document.querySelectorAll('a.paymentmethod');
-
-  // Iterar sobre cada elemento <a>
-  paymentMethodLinks.forEach(function(link) {
+    // Iterar sobre cada elemento <a>
+    paymentMethodLinks.forEach(function (link) {
       // Añadir un evento de clic a cada elemento <a>
-      link.addEventListener('click', function() {
-          // Obtener el radio button dentro del elemento <a> actual
-          var radioButton = this.querySelector('.tipo_pago_egreso');
+      link.addEventListener("click", function () {
+        // Obtener el radio button dentro del elemento <a> actual
+        var radioButton = this.querySelector(".tipo_pago_egreso");
 
-          // Verificar si el radio button no está marcado
-          if (!radioButton.checked) {
-              // Marcar el radio button
-              radioButton.checked = true;
-          }
+        // Verificar si el radio button no está marcado
+        if (!radioButton.checked) {
+          // Marcar el radio button
+          radioButton.checked = true;
+        }
       });
-  });
+    });
+  }
 
-
+  tipoPago();
 
   /*=============================================
   SELECION DE FECHA AUTOMATICO
   =============================================*/
-
-  function seleccionFecha(){
-
-    const today = new Date().toISOString().split('T')[0];
+  function seleccionFecha() {
+    const today = new Date().toISOString().split("T")[0];
 
     // Asignar la fecha actual al campo de entrada de fecha
-    document.getElementById('fecha_egreso').value = today;
-
+    document.getElementById("fecha_egreso").value = today;
   }
-
 
   /*=============================================
   MOSTRAR PRODUCTOS
@@ -44,64 +43,52 @@ $(document).ready(function () {
       type: "GET",
       dataType: "json",
       success: function (productos) {
-
         var tbody = $("#data_productos_detalle");
 
         tbody.empty();
 
         productos.forEach(function (producto, index) {
-
           producto.imagen_producto = producto.imagen_producto.substring(3);
 
           var fila = `
                       <tr>
                          
                           <td class="text-center">
-                              <a href="#" id="btnAddProducto" class=" hover_img_a btnAddProducto" idProductoAdd="${producto.id_producto}">
-                                  <img class="hover_img" src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
+                              <a href="#" id="btnAddProducto" class=" hover_img_a btnAddProducto" idProductoAdd="${
+                                producto.id_producto
+                              }">
+                                  <img class="hover_img" src="${
+                                    producto.imagen_producto
+                                  }" alt="${producto.imagen_producto}">
                               </a>
                           </td>
                           <td>${producto.nombre_categoria}</td>
                           <td>${producto.nombre_producto}</td>
-                          <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
+                          <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(
+                            producto.stock_producto
+                          )}">${producto.stock_producto}</button></td>
 
                       </tr>`;
 
           function getButtonStyles(stock) {
-
             if (stock > 20) {
-
               return "background-color: #28C76F; color: white; border: none;";
-
             } else if (stock >= 10 && stock <= 20) {
-
               return "background-color: #FF9F43; color: white; border: none;";
-
             } else {
-
               return "background-color: #FF4D4D; color: white; border: none;";
-
             }
-
           }
 
-
           tbody.append(fila);
-
         });
 
-
         $("#tabla_add_producto").DataTable();
-
       },
       error: function (xhr, status, error) {
-
         console.error("Error al recuperar los usuarios:", error.mensaje);
-
       },
-
     });
-
   }
 
   /* ============================================
@@ -109,46 +96,48 @@ $(document).ready(function () {
   ============================================ */
 
   function mostrarSerieNumero() {
-      $.ajax({
-          url: "ajax/SerieNumero.ajax.php",
-          type: "GET",
-          dataType: "json",
-          success: function (respuesta) {
-              respuesta.forEach(data => {
+    $.ajax({
+      url: "ajax/SerieNumero.ajax.php",
+      type: "GET",
+      dataType: "json",
+      success: function (respuesta) {
 
-                  var serie = parseInt(data.serie_comprobante.match(/\d+/)[0]);
-                  var numero = parseInt(data.num_comprobante.match(/\d+/)[0]);
+        if(respuesta == "" || respuesta == null){
+          $("#serie_comprobante").val("T0001");
+          $("#num_comprobante").val("0001");
+        }
 
-                  // Sumar 1 a los números
-                  serie += 1;
-                  numero += 1;
+        respuesta.forEach((data) => {
+          var serie = parseInt(data.serie_comprobante.match(/\d+/)[0]);
+          var numero = parseInt(data.num_comprobante.match(/\d+/)[0]);
 
-                  // Formatear serie con ceros a la izquierda
-                  var seriComprobante = 'T' + serie.toString().padStart(4, '0');
-                  // Formatear número con ceros a la izquierda, calculando la longitud dinámicamente
-                  var numeroComprobante = numero.toString().padStart(data.num_comprobante.length, '0');
+          // Sumar 1 a los números
+          serie += 1;
+          numero += 1;
 
-                  $("#serie_comprobante").val(seriComprobante);
-                  $("#num_comprobante").val(numeroComprobante);
-                  
-                 
-              });
-          },
-          error: function (xhr, status, error) {
-              console.error(xhr);
-              console.error(status);
-              console.error(error);
-          }
-      });
+          // Formatear serie con ceros a la izquierda
+          var seriComprobante = "T" + serie.toString().padStart(4, "0");
+          // Formatear número con ceros a la izquierda, calculando la longitud dinámicamente
+          var numeroComprobante = numero.toString().padStart(data.num_comprobante.length, "0");
+
+          $("#serie_comprobante").val(seriComprobante);
+          $("#num_comprobante").val(numeroComprobante);
+
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error(xhr);
+        console.error(status);
+        console.error(error);
+      },
+    });
   }
-
 
   /* ====================================
   AGREGAR PRODUCTO A LA TABLA DETALLE
   ===================================== */
 
   $("#tabla_add_producto").on("click", ".btnAddProducto", function (e) {
-
     e.preventDefault();
 
     var idProductoAdd = $(this).attr("idProductoAdd");
@@ -165,7 +154,6 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (respuesta) {
-
         respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
 
         var nuevaFila = `
@@ -203,114 +191,96 @@ $(document).ready(function () {
 
         // Agregar evento para calcular el subtotal al cambiar la cantidad_kg o el precio_compra
         $(".cantidad_kg, .precio_compra").on("input", function () {
-
           var fila = $(this).closest("tr");
 
           var cantidad_kg = parseFloat(fila.find(".cantidad_kg").val());
 
           var precio_compra = parseFloat(fila.find(".precio_compra").val());
-      
+
           // Verificar si cantidad_kg o precio_compra son NaN y asignar 0 en su lugar
           if (isNaN(cantidad_kg)) {
-
-              cantidad_kg = 0;
-
+            cantidad_kg = 0;
           }
           if (isNaN(precio_compra)) {
-
-              precio_compra = 0;
-
+            precio_compra = 0;
           }
-      
+
           var subtotal = cantidad_kg * precio_compra;
 
           var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
 
           fila.find(".precio_sub_total").text(formateadoSubTotal);
-      
+
           // Calcular y mostrar el total
           calcularTotal();
-
         });
-
       },
-
     });
 
     calcularTotal();
 
     $(document).ready(function () {
-
       calcularTotal();
-
     });
-
   });
-
-
 
   /* =============================================
   ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
   ============================================= */
 
   $(document).on("click", ".btnEliminarAddProducto", function (e) {
-
     e.preventDefault();
 
     var idProductoEliminar = $(this).attr("idAddProducto");
 
     // Encuentra la fila que corresponde al producto a eliminar y elimínala
-    $("#detalle_egreso_producto").find("tr").each(function () {
-
-        var idProducto = $(this).find(".btnEliminarAddProducto").attr("idAddProducto");
+    $("#detalle_egreso_producto")
+      .find("tr")
+      .each(function () {
+        var idProducto = $(this)
+          .find(".btnEliminarAddProducto")
+          .attr("idAddProducto");
 
         if (idProducto == idProductoEliminar) {
-
           $(this).remove();
 
           // Una vez eliminada la fila, recalcular el total
           calcularTotal();
 
           return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
-
         }
       });
-
   });
-
-
 
   /*============================================
   FORMATEAR LOS PRECIOS
   ============================================ */
 
   function formateoPrecio(numero) {
-
     return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
   }
 
   function calcularTotal() {
     var subtotalTotal = 0;
-    
+
     var impuesto = parseFloat($("#impuesto_egreso").val());
 
     // Recorrer todas las filas para sumar los subtotales
     $("#detalle_egreso_producto tr").each(function () {
+      var subtotalString = $(this)
+        .find(".precio_sub_total")
+        .text()
+        .replace("S/ ", "")
+        .replace(",", "");
 
-        var subtotalString = $(this).find(".precio_sub_total").text().replace("S/ ", "").replace(",", "");
+      var subtotal = parseFloat(subtotalString);
 
-        var subtotal = parseFloat(subtotalString);
+      // Si subtotal no es un número válido, asignar 0
+      if (isNaN(subtotal)) {
+        subtotal = 0;
+      }
 
-        // Si subtotal no es un número válido, asignar 0
-        if (isNaN(subtotal)) {
-
-            subtotal = 0;
-
-        }
-
-        subtotalTotal += subtotal;
-
+      subtotalTotal += subtotal;
     });
 
     // Calcular el impuesto
@@ -321,7 +291,7 @@ $(document).ready(function () {
 
     // Verificar si el resultado es NaN y mostrar "0.00" en su lugar
     if (isNaN(total)) {
-        total = 0;
+      total = 0;
     }
 
     // Formatear los resultados
@@ -335,13 +305,10 @@ $(document).ready(function () {
     $("#total_precio_egreso").text(totalFormateado);
   }
 
-
-
   /* ===========================================
   CREAR VENTA EGRESO
   =========================================== */
   $("#btn_crear_venta").click(function (e) {
-    
     e.preventDefault();
 
     var isValid = true;
@@ -354,48 +321,37 @@ $(document).ready(function () {
     var num_comprobante = $("#num_comprobante").val();
     var impuesto_egreso = $("#impuesto_egreso").val();
 
-
-
-
     // Validar la categoria
     if (id_proveedor_egreso == "" || id_proveedor_egreso == null) {
-
-      $("#error_egreso_proveedor").html("Por favor, selecione el proveedor").addClass("text-danger");
+      $("#error_egreso_proveedor")
+        .html("Por favor, selecione el proveedor")
+        .addClass("text-danger");
 
       isValid = false;
-
     } else {
-
       $("#error_egreso_proveedor").html("").removeClass("text-danger");
-
     }
-
 
     // Validar el codigo de producto
     if (fecha_egreso == "") {
-
-      $("#error_egreso_fecha").html("Por favor, ingrese ingrese la fecha").addClass("text-danger");
+      $("#error_egreso_fecha")
+        .html("Por favor, ingrese ingrese la fecha")
+        .addClass("text-danger");
 
       isValid = false;
-
     } else {
-
       $("#error_egreso_fecha").html("").removeClass("text-danger");
-
     }
-
 
     // Validar el nombre del producto
     if (tipo_comprobante_egreso == "" || tipo_comprobante_egreso == null) {
-
-      $("#error_compra_comprobante").html("Por favor, ingrese el tipo de comprobante").addClass("text-danger");
+      $("#error_compra_comprobante")
+        .html("Por favor, ingrese el tipo de comprobante")
+        .addClass("text-danger");
 
       isValid = false;
-
     } else {
-
       $("#error_compra_comprobante").html("").removeClass("text-danger");
-
     }
 
     // Array para almacenar los valores de los productos
@@ -403,41 +359,34 @@ $(document).ready(function () {
 
     // Iterar sobre cada fila de producto
     $("#detalle_egreso_producto tr").each(function () {
-        var fila = $(this);
+      var fila = $(this);
 
-        // Obtener los valores de cada campo en la fila
-        var idProductoEgreso = fila.find(".id_producto_egreso").val();
-        var cantidadU = fila.find(".cantidad_u").val();
-        var cantidadKg = fila.find(".cantidad_kg").val();
-        var precioCompra = fila.find(".precio_compra").val();
-        var precioVenta = fila.find(".precio_venta").val();
+      // Obtener los valores de cada campo en la fila
+      var idProductoEgreso = fila.find(".id_producto_egreso").val();
+      var cantidadU = fila.find(".cantidad_u").val();
+      var cantidadKg = fila.find(".cantidad_kg").val();
+      var precioCompra = fila.find(".precio_compra").val();
+      var precioVenta = fila.find(".precio_venta").val();
 
-        // Crear un objeto con los valores y agregarlo al array
-        var producto = {
-            
-            idProductoEgreso: idProductoEgreso,
-            cantidad_u: cantidadU,
-            cantidad_kg: cantidadKg,
-            precio_compra: precioCompra,
-            precio_venta: precioVenta
-        };
+      // Crear un objeto con los valores y agregarlo al array
+      var producto = {
+        idProductoEgreso: idProductoEgreso,
+        cantidad_u: cantidadU,
+        cantidad_kg: cantidadKg,
+        precio_compra: precioCompra,
+        precio_venta: precioVenta,
+      };
 
-        valoresProductos.push(producto);
+      valoresProductos.push(producto);
     });
 
     var productoAddEgreso = JSON.stringify(valoresProductos);
-    
 
-    var subtotal = $("#subtotal_egreso").text().replace(/,/g, '');
+    var subtotal = $("#subtotal_egreso").text().replace(/,/g, "");
 
-    var igv = $("#igv_egreso").text().replace(/,/g, '');
+    var igv = $("#igv_egreso").text().replace(/,/g, "");
 
-    var total = $("#total_precio_egreso").text().replace(/,/g, '');
-
-
-
-
-
+    var total = $("#total_precio_egreso").text().replace(/,/g, "");
 
     // Captura el valor del tipo de pago (contado o crédito)
     var tipo_pago = $("input[name='forma_pago']:checked").val();
@@ -447,38 +396,27 @@ $(document).ready(function () {
 
     // Verifica el tipo de pago seleccionado
     if (tipo_pago == "contado") {
-        estado_pago = "completado";
+      estado_pago = "completado";
     } else {
       estado_pago = "pendiente";
     }
-
-
-
 
     // Captura el valor del tipo de pago (contado o crédito)
     var pago_tipo = $("input[name='pago_tipo']:checked").val();
 
     // Variable para almacenar el estado
-    var pago_e_y ;
+    var pago_e_y;
 
     // Verifica el tipo de pago seleccionado
     if (pago_tipo == "efectivo") {
-
       pago_e_y = "efectivo";
-
     } else {
-
       pago_e_y = "yape";
     }
 
-
-
-
     if (isValid) {
-
       var datos = new FormData();
 
-      
       datos.append("id_proveedor_egreso", id_proveedor_egreso);
       datos.append("id_usuario_egreso", id_usuario_egreso);
       datos.append("fecha_egreso", fecha_egreso);
@@ -496,8 +434,6 @@ $(document).ready(function () {
       datos.append("estado_pago", estado_pago);
       datos.append("pago_e_y", pago_e_y);
 
-   
-
       $.ajax({
         url: "ajax/Compra.ajax.php",
         method: "POST",
@@ -506,7 +442,6 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
-
           var res = JSON.parse(respuesta);
 
           if (res.estado === "ok") {
@@ -544,52 +479,40 @@ $(document).ready(function () {
               icon: "error",
             });
           }
-
-  
-          
         },
         error: function (xhr, status, error) {
-
           console.error(xhr);
           console.error(status);
           console.error(error);
-
-        }
-
+        },
       });
     }
-
-   
   });
-
-
 
   /* ==========================================
   LIMPIAR MODALES
   ========================================== */
+  function limpiarModales(){
+    
+    $(".btn_modal_ver_close_usuario").click(function () {
+      $("#mostrar_data_roles").text("");
+    });
 
-  $(".btn_modal_ver_close_usuario").click(function () {
+    $(".btn_modal_editar_close_usuario").click(function () {
+      $("#formEditUsuario")[0].reset();
+    });
 
-    $("#mostrar_data_roles").text("");
+    // Cuando el mouse entra en la imagen
+    $(".hover_img").mouseenter(function () {
+      $(this).css("transform", "scale(1.2)"); // Agranda la imagen
+    });
+    // Cuando el mouse sale de la imagen
+    $(".hover_img").mouseleave(function () {
+      $(this).css("transform", "scale(1)"); // Restaura el tamaño original
+    });
+  }
 
-  });
-
-  $(".btn_modal_editar_close_usuario").click(function () {
-
-    $("#formEditUsuario")[0].reset();
-
-  });
-
-
-
-  // Cuando el mouse entra en la imagen
-  $('.hover_img').mouseenter(function(){
-    $(this).css('transform', 'scale(1.2)'); // Agranda la imagen
-  });
-  // Cuando el mouse sale de la imagen
-  $('.hover_img').mouseleave(function(){
-      $(this).css('transform', 'scale(1)'); // Restaura el tamaño original
-  });
+  limpiarModales();
 
   /* =====================================
   MSOTRANDO DATOS
@@ -597,6 +520,4 @@ $(document).ready(function () {
   mostrarProductos();
   seleccionFecha();
   mostrarSerieNumero();
-  
-
 });

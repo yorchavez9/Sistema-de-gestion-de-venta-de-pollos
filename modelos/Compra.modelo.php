@@ -99,6 +99,7 @@ class ModeloCompra{
                                                                 num_comprobante, 
                                                                 impuesto,
                                                                 total_compra,
+                                                                total_pago,
                                                                 subTotal,
                                                                 igv,
                                                                 tipo_pago,
@@ -113,6 +114,7 @@ class ModeloCompra{
                                                                 :num_comprobante, 
                                                                 :impuesto,
                                                                 :total_compra,
+                                                                :total_pago,
                                                                 :subTotal,
                                                                 :igv,
                                                                 :tipo_pago,
@@ -127,6 +129,7 @@ class ModeloCompra{
 		$stmt->bindParam(":num_comprobante", $datos["num_comprobante"], PDO::PARAM_STR);
 		$stmt->bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
 		$stmt->bindParam(":total_compra", $datos["total_compra"], PDO::PARAM_STR);
+		$stmt->bindParam(":total_pago", $datos["total_pago"], PDO::PARAM_STR);
 		$stmt->bindParam(":subTotal", $datos["subTotal"], PDO::PARAM_STR);
 		$stmt->bindParam(":igv", $datos["igv"], PDO::PARAM_STR);
 		$stmt->bindParam(":tipo_pago", $datos["tipo_pago"], PDO::PARAM_STR);

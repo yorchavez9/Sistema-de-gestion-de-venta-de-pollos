@@ -59,6 +59,18 @@ class ControladorCompra
 
 		$tabla = "egresos";
 
+		$pago_total = 0;
+
+		if($_POST["tipo_pago"] == "contado"){
+
+			$pago_total = $_POST["total"];
+
+		}else{
+			$pago_total = 0;
+		}
+
+		
+
 
 		$datos = array(
 			"id_persona" => $_POST["id_proveedor_egreso"],
@@ -69,6 +81,7 @@ class ControladorCompra
 			"num_comprobante" => $_POST["num_comprobante"],
 			"impuesto" => $_POST["impuesto_egreso"],
 			"total_compra" => $_POST["total"],
+			"total_pago" => $pago_total,
 			"subTotal" => $_POST["subtotal"],
 			"igv" => $_POST["igv"],
 			"tipo_pago" => $_POST["tipo_pago"],
