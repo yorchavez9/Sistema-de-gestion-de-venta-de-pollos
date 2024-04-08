@@ -23,6 +23,20 @@
         font-size: 1.5rem;
         color: #7367F0;
     }
+
+    .hover_img {
+        width: 100px;
+        /* Tamaño original de la imagen */
+        height: auto;
+        transition: all 0.3s ease;
+        /* Transición suave */
+    }
+
+    /* Estilo de la imagen cuando se agranda */
+    .hover_img:hover {
+        transform: scale(1.2);
+        /* Aumenta el tamaño en un 20% */
+    }
 </style>
 
 
@@ -32,226 +46,242 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="table-top">
-
-                    <div class="wordset">
-                        <h3 class="fw-bold">Crear venta <i class="fas fa-shopping-cart" style="color: #5645ED"></i></h3>
+                <div class="page-header">
+                    <div class="">
+                        <h4 class="h2" style="font-size: 25px">Crear venta <i class="fas fa-shopping-cart" style="color: #5645ED"></i></h4>
+                    </div>
+                    <div class="page-btn">
+                        <a href="listaCompras" class="btn btn-added"><i class="fas fa-eye me-2"></i>Ver compras</a>
                     </div>
                 </div>
 
 
-                <!--======================================
-                FORMULARIO DE COMPRA DE PRODUCTO
-                ======================================-->
-                <form id="form_compra_producto">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!--======================================
+                        FORMULARIO DE COMPRA DE PRODUCTO
+                        ======================================-->
+                        <form id="form_compra_producto">
 
-                    <!-- INGRESO DE ID DEL USUARIO -->
-                    <input type="hidden" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"] ?>">
-
-
-                    <div class="row">
-
-
-                        <!-- INGRESO DE CLIENTE -->
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="id_cliente" class="form-label">Selecione el proveedor(<span class="text-danger">*</span>):</label>
-                                <?php
-                                $item = null;
-                                $valor = null;
-
-                                $proveedores = ControladorProveedores::ctrMostrarProveedor($item, $valor);
-                                ?>
-                                <select name="" id="id_proveedor_egreso" class="form-select">
-                                    <option value="">Selecione el proveedor</option>
-                                    <?php
-                                    foreach ($proveedores as $key => $proveedor) {
-                                        if ($proveedor["tipo_persona"] == "proveedor") {
-                                    ?>
-                                            <option value="<?php echo $proveedor["id_persona"] ?>"><?php echo $proveedor["razon_social"] ?></option>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                                <small id="error_egreso_proveedor"></small>
-                            </div>
-                        </div>
-
-                        <!-- BOTON PARA AGREGAR CLIENTE -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <a href="#" class="btn btn-sm btn-adds mt-4" id="btn_add_cliente" data-bs-toggle="modal" data-bs-target="#modalNuevoProveedor"><i class="fa fa-user-plus me-2"></i>Agregar</a>
-                            </div>
-                        </div>
-
-                        <!-- INGRESO DE LA FECHA -->
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="fecha_egre" class="form-label">Selecione la fecha(<span class="text-danger">*</span>):</label>
-                                <input type="date" id="fecha_egreso" class="form-control" name="fecha_egre" placeholder="Ingrese la fecha">
-                                <small id="error_egreso_fecha"></small>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-
-                        <!-- INGRESO DE TIPO DE COMPROBANTE -->
-                        <div class="col-md-5">
-                            <label for="tipo_comprobante" class="form-label">Tipo de comprobante(<span class="text-danger">*</span>):</label>
-                            <select name="tipo_comprobante" id="tipo_comprobante_egreso" class="form-control">
-                                <option value="" selected disabled>Selecione el comprobante</option>
-                                <option value="boleta">Boleta</option>
-                                <option value="factura">Factura</option>
-                                <option value="ticket">Ticket</option>
-                            </select>
-                            <small id="error_compra_comprobante"></small>
-                        </div>
-
-                        <!-- INGRESO DE LA SERIE -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="serie_comprobante" class="form-label">Serie:</label>
-                                <input type="text" id="serie_comprobante" name="serie_comprobante" placeholder="Ingrese la serie">
-                            </div>
-                        </div>
-
-                        <!-- INGRESO DE NÚMERO -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="num_comprobante" class="form-label">Número:</label>
-                                <input type="text" id="num_comprobante" name="num_comprobante" placeholder="Ingrese el número">
-                            </div>
-                        </div>
-
-                        <!-- INGRESO EL INPUESTO -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="impuesto" class="form-label">Impuesto (%):</label>
-                                <input type="text" id="impuesto_egreso" name="impuesto" value="0" min="0" placeholder="Ingrese el impuesto">
-                            </div>
-                        </div>
+                            <!-- INGRESO DE ID DEL USUARIO -->
+                            <input type="hidden" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"] ?>">
 
 
-                    </div>
+                            <div class="row">
 
-                    <div class="row">
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-6">
-                            <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal" data-bs-target="#modalMostrarProductos"><i class="fa fa-plus me-2"></i>Agregar producto</a>
-                        </div>
-                        <div class="col-md-3">
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <table class="table table-responsive" width="100%">
-                            <thead>
-                                <tr style="background: #28C76F;">
-                                    <th scope="col" class="text-white">Opciones</th>
-                                    <th scope="col" class="text-white">Imagen</th>
-                                    <th scope="col" class="text-white">Producto</th>
-                                    <th scope="col" class="text-white">Cantidad U.</th>
-                                    <th scope="col" class="text-white">Cantidad KG.</th>
-                                    <th scope="col" class="text-white">Precio compra</th>
-                                    <th scope="col" class="text-white">Precio venta.</th>
-                                    <th scope="col" class="text-white">Sub total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="detalle_egreso_producto">
+                                <!-- INGRESO DE CLIENTE -->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="id_cliente" class="form-label">Selecione el proveedor(<span class="text-danger">*</span>):</label>
+                                        <?php
+                                        $item = null;
+                                        $valor = null;
 
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-7">
-
-                        </div>
-                        <div class="col-md-5">
-                            <div class="pt-3 pb-2">
-
-                                <div class="flex-container">
-                                    <ul>
-                                        <li>
-                                            <p>Subtotal</p>
-                                            <p class="price">S/ <span id="subtotal_egreso">00.00</span></p>
-                                        </li>
-                                        <li>
-                                            <p>IGV (%)</p>
-                                            <p class="price">S/ <span id="igv_egreso">00.00</span></p>
-                                        </li>
-                                        <li class="total-value">
-                                            <p class="fw-bold">Total</p>
-                                            <p class="price">S/ <span id="total_precio_egreso">00.00</span></p>
-                                        </li>
-                                    </ul>
+                                        $proveedores = ControladorProveedores::ctrMostrarProveedor($item, $valor);
+                                        ?>
+                                        <select name="" id="id_proveedor_egreso" class="form-select small-select">
+                                            <option value="">Selecione el proveedor</option>
+                                            <?php
+                                            foreach ($proveedores as $key => $proveedor) {
+                                                if ($proveedor["tipo_persona"] == "proveedor") {
+                                            ?>
+                                                    <option value="<?php echo $proveedor["id_persona"] ?>"><?php echo $proveedor["razon_social"] ?></option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                        <small id="error_egreso_proveedor"></small>
+                                    </div>
                                 </div>
 
-                                <!-- SECTION DE VENTA AL CONTADO O AL CRÉDITO -->
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="form-check">
-                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="contado" checked>
-                                            <label class="form-check-label" for="contado">
-                                                Al contado
-                                            </label>
+                                <!-- BOTON PARA AGREGAR CLIENTE -->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <a href="#" class="btn btn-sm btn-adds mt-4" id="btn_add_cliente" data-bs-toggle="modal" data-bs-target="#modalNuevoProveedor"><i class="fa fa-user-plus me-2"></i></a>
+                                    </div>
+                                </div>
+
+                                <!-- INGRESO DE LA FECHA -->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="fecha_egre" class="form-label">Selecione la fecha(<span class="text-danger">*</span>):</label>
+                                        <input type="date" id="fecha_egreso" class="form-control" name="fecha_egre" placeholder="Ingrese la fecha">
+                                        <small id="error_egreso_fecha"></small>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <!-- INGRESO DE TIPO DE COMPROBANTE -->
+                                <div class="col-md-4">
+                                    <label for="tipo_comprobante" class="form-label">Tipo de comprobante(<span class="text-danger">*</span>):</label>
+                                    <select name="tipo_comprobante" id="tipo_comprobante_egreso" class="form-control">
+                                        <option value="" selected disabled>Selecionar</option>
+                                        <option value="boleta">Boleta</option>
+                                        <option value="factura">Factura</option>
+                                        <option value="ticket">Ticket</option>
+                                    </select>
+                                    <small id="error_compra_comprobante"></small>
+                                </div>
+
+                                <!-- INGRESO DE LA SERIE -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="serie_comprobante" class="form-label">Serie:</label>
+                                        <input type="text" id="serie_comprobante" name="serie_comprobante" placeholder="Ingrese la serie">
+                                    </div>
+                                </div>
+
+                                <!-- INGRESO DE NÚMERO -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="num_comprobante" class="form-label">Número:</label>
+                                        <input type="text" id="num_comprobante" name="num_comprobante" placeholder="Ingrese el número">
+                                    </div>
+                                </div>
+
+                                <!-- INGRESO EL INPUESTO -->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="impuesto" class="form-label">Impuesto (%):</label>
+                                        <input type="text" id="impuesto_egreso" name="impuesto" value="0" min="0" placeholder="Ingrese el impuesto">
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table" width="100%">
+                                        <thead>
+                                            <tr style="background: #28C76F;">
+                                                <th scope="col" class="text-white">Opciones</th>
+                                                <th scope="col" class="text-white">Imagen</th>
+                                                <th scope="col" class="text-white">Producto</th>
+                                                <th scope="col" class="text-white">Cantidad U.</th>
+                                                <th scope="col" class="text-white">Cantidad KG.</th>
+                                                <th scope="col" class="text-white">Precio compra</th>
+                                                <th scope="col" class="text-white">Precio venta.</th>
+                                                <th scope="col" class="text-white">Sub total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="detalle_egreso_producto">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pt-3 pb-2">
+
+                                        <div class="flex-container">
+                                            <ul>
+                                                <li>
+                                                    <p>Subtotal</p>
+                                                    <p class="price">S/ <span id="subtotal_egreso">00.00</span></p>
+                                                </li>
+                                                <li>
+                                                    <p>IGV (%)</p>
+                                                    <p class="price">S/ <span id="igv_egreso">00.00</span></p>
+                                                </li>
+                                                <li class="total-value">
+                                                    <p class="fw-bold">Total</p>
+                                                    <p class="price">S/ <span id="total_precio_egreso">00.00</span></p>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-check">
-                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="credito">
-                                            <label class="form-check-label" for="credito">
-                                                Al crédito
-                                            </label>
+
+                                        <!-- SECTION DE VENTA AL CONTADO O AL CRÉDITO -->
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="contado" checked>
+                                                    <label class="form-check-label" for="contado">
+                                                        Al contado
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="forma_pago" value="credito">
+                                                    <label class="form-check-label" for="credito">
+                                                        Al crédito
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <!-- SECCION DE PAGO AL CONTADO -->
+                                        <div id="venta_al_contado">
+                                            <div class="setvaluecash">
+                                                <ul style="list-style-type: none;">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="paymentmethod">
+                                                            <img src="vistas/dist/assets/img/icons/cash.svg" alt="img" class="me-2">
+                                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="efectivo">
+                                                            <label class="form-check-label" for="credito">
+                                                                Efectivo
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                    <li style="float: right;">
+                                                        <a href="javascript:void(0);" class="paymentmethod">
+                                                            <img src="vistas/dist/assets/img/icons/scan.svg" alt="img" class="me-2">
+                                                            <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="yape">
+                                                            <label class="form-check-label" for="credito">
+                                                                Yape
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+
+
+                                        <!-- SECCION DE CREAR VENTA -->
+                                        <div class="row mb-3">
+                                            <button type="button" id="btn_crear_venta" class="btn btn-block" style="background:#7367F0; color:white">
+                                                <h5><i class="fa fa-plus fa-lg text-white me-2"></i> Crear compra</h5>
+                                            </button>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
-
-                                <!-- SECCION DE PAGO AL CONTADO -->
-                                <div id="venta_al_contado">
-                                    <div class="setvaluecash">
-                                        <ul style="list-style-type: none;">
-                                            <li>
-                                                <a href="javascript:void(0);" class="paymentmethod">
-                                                    <img src="vistas/dist/assets/img/icons/cash.svg" alt="img" class="me-2">
-                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="efectivo">
-                                                    <label class="form-check-label" for="credito">
-                                                        Efectivo
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li style="float: right;">
-                                                <a href="javascript:void(0);" class="paymentmethod">
-                                                    <img src="vistas/dist/assets/img/icons/scan.svg" alt="img" class="me-2">
-                                                    <input class="form-check-input tipo_pago_egreso" type="radio" name="pago_tipo" value="yape">
-                                                    <label class="form-check-label" for="credito">
-                                                        Yape
-                                                    </label>
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- SECCION DE CREAR VENTA -->
-                                <div class="row mb-3">
-                                    <button type="button" id="btn_crear_venta" class="btn btn-block" style="background:#7367F0; color:white">
-                                        <h5><i class="fa fa-plus fa-lg text-white me-2"></i> Crear compra</h5>
-                                    </button>
-                                </div>
-
-
-
                             </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" style="width:100%" id="tabla_add_producto">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Imagen</th>
+                                        <th>Categoría</th>
+                                        <th>Nombre</th>
+                                        <th>Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="data_productos_detalle">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </form>
+                </div>
 
             </div>
         </div>
@@ -260,41 +290,6 @@
 </div>
 
 
-<!-- MODAL MOSTRAR PRODUCTOS -->
-<div class="modal fade" id="modalMostrarProductos" tabindex="-1" aria-labelledby="modalNuevoProductoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Selecione el producto </h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="card">
-                <div class="card-body">
-
-
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" style="width:100%" id="tabla_add_producto">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">N°</th>
-                                    <th>Código</th>
-                                    <th>Imagen</th>
-                                    <th>Categoría</th>
-                                    <th>Nombre</th>
-                                    <th>Stock</th>
-                                    <th>Fecha v.</th>
-                                </tr>
-                            </thead>
-                            <tbody id="data_productos_detalle">
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- MODAL EDITAR PRODUCTO -->

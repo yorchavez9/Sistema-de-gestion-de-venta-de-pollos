@@ -4532,10 +4532,6 @@ span.select2-container.select2-container--default.select2-container--open {
     display: none !important
 }
 
-.dataTables_length label:before {
-    content: "Show  per page :";
-    margin-right: 5px
-}
 
 .dataTables_length {
     float: left;

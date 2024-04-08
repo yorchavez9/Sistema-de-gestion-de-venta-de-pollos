@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+  console.log("Alertar")
 
  // Obtener todos los elementos <a> con la clase "paymentmethod"
   var paymentMethodLinks = document.querySelectorAll('a.paymentmethod');
@@ -40,21 +41,15 @@ $(document).ready(function () {
 
           var fila = `
                       <tr>
+                         
                           <td class="text-center">
-                            <a href="#" id="btnAddProducto" class="btn btn-sm me-3 btnAddProducto" idProductoAdd="${producto.id_producto}" style="background: #7367F0">
-                                <i class="text-white fas fa-plus fa-lg"></i>
-                            </a>
-                          </td>
-                          <td>${producto.codigo_producto}</td>
-                          <td class="text-center">
-                              <a href="javascript:void(0);" class="product-img">
-                                  <img src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
+                              <a href="#" id="btnAddProducto" class=" hover_img_a btnAddProducto" idProductoAdd="${producto.id_producto}">
+                                  <img class="hover_img" src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
                               </a>
                           </td>
                           <td>${producto.nombre_categoria}</td>
                           <td>${producto.nombre_producto}</td>
                           <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
-                          <td>${producto.fecha_vencimiento}</td>
 
                       </tr>`;
 
@@ -438,19 +433,8 @@ $(document).ready(function () {
 
 
 
-  /* ====================================
-  BOTON GREGAR PRODUCTO
-  ===================================== */
 
-  $("#tabla_add_producto").on("mouseenter", ".btnAddProducto", function () {
-
-      $(this).css("background", "#28C76F");
-
-  }).on("mouseleave", ".btnAddProducto", function () {
-
-      $(this).css("background", "#7367F0");
-  });
-
+ 
 
   /* ====================================
   AGREGAR PRODUCTO A LA TABLA DETALLE
@@ -886,6 +870,15 @@ $(document).ready(function () {
   });
 
 
+
+  // Cuando el mouse entra en la imagen
+  $('.hover_img').mouseenter(function(){
+    $(this).css('transform', 'scale(1.2)'); // Agranda la imagen
+  });
+  // Cuando el mouse sale de la imagen
+  $('.hover_img').mouseleave(function(){
+      $(this).css('transform', 'scale(1)'); // Restaura el tamaño original
+  });
 
   /* =====================================
   MSOTRANDO DATOS

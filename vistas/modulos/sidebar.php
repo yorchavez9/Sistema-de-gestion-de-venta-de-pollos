@@ -45,6 +45,7 @@
                     <ul>
                         <li><a href="proveedores">Proveedor</a></li>
                         <li><a href="compras">Compra</a></li>
+                        <li><a href="listaCompras">Lista de compras</a></li>
                         <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
