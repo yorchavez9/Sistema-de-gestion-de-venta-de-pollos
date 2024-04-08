@@ -44,44 +44,6 @@ class AjaxProductoAdd
         echo json_encode($respuesta);
     }
 
-    /*=============================================
-	ACTIVAR PRODUCTO
-	=============================================*/
-
-    public $activarProducto;
-    public $activarId;
-
-
-    public function ajaxActivarProducto()
-    {
-
-        $tabla = "productos";
-
-        $item1 = "estado_producto";
-        $valor1 = $this->activarProducto;
-
-        $item2 = "id_producto";
-        $valor2 = $this->activarId;
-
-        $respuesta = ModeloProducto::mdlActualizarProducto($tabla, $item1, $valor1, $item2, $valor2);
-    }
-
-    /*=============================================
-	VALIDAR NO REPETIR PRODUCTO
-	=============================================*/
-
-    public $validarUsuario;
-
-    public function ajaxValidarUsuario()
-    {
-
-        $item = "usuario";
-        $valor = $this->validarUsuario;
-
-        $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
-
-        echo json_encode($respuesta);
-    }
 }
 
 /*=============================================
@@ -103,24 +65,6 @@ elseif (isset($_POST["idProductoVer"])) {
     $verDetalle->ajaxVerProducto();
 }
 
-/* ACTIVAR PRODUCTO */
-elseif (isset($_POST["activarProducto"])) {
-
-    $activarProducto = new AjaxProductoAdd();
-    $activarProducto->activarProducto = $_POST["activarProducto"];
-    $activarProducto->activarId = $_POST["activarId"];
-    $activarProducto->ajaxActivarProducto();
-
-}
-
-/* VALIDAR PRODUCTO */
-elseif (isset($_POST["validarUsuario"])) {
-
-    $valUsuario = new AjaxProductoAdd();
-    $valUsuario->validarUsuario = $_POST["validarUsuario"];
-    $valUsuario->ajaxValidarUsuario();
-    
-}
 
 /* GUARDAR COMPRA PRODUCTO */
 elseif (isset($_POST["id_proveedor_egreso"])) {

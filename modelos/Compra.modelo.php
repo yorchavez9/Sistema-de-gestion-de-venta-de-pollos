@@ -258,6 +258,27 @@ class ModeloCompra{
 	}
 
 	/*=============================================
+	ACTUALIZAR STOCK PRODUCTO
+	=============================================*/
+
+	static public function mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad) {
+		
+		$stmt = Conexion::conectar()->prepare("UPDATE $tblProducto SET stock_producto = stock_producto + :cantidad WHERE id_producto = :id_producto");
+	
+		$stmt->bindParam(":cantidad", $cantidad, PDO::PARAM_INT);
+		$stmt->bindParam(":id_producto", $idProducto, PDO::PARAM_INT);
+	
+		if ($stmt->execute()) {
+			return "ok";
+		} else {
+			return "error";
+		}
+	
+		$stmt = null;
+	}
+
+
+	/*=============================================
 	BORRAR COMPRA
 	=============================================*/
 

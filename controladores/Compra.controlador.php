@@ -97,17 +97,16 @@ class ControladorCompra
 
 
 
-		// TABLA DETALLE_EGRESO
+		/* ==========================================
+		INGRESO DE DATOS AL DETALLE EGRESO
+		========================================== */
 		$tablaDetalleEgreso = "detalle_egreso";
 
-		// Decodificar los datos JSON en un array asociativo de PHP
-		$datos_decodificados = json_decode($_POST["productoAddEgreso"], true);
+		$productos = json_decode($_POST["productoAddEgreso"], true);
 
-		// Inicializar un nuevo array vacío para almacenar los datos
 		$datos = array();
 
-		// Recorrer los datos decodificados y guardarlos en el nuevo array
-		foreach ($datos_decodificados as $dato) {
+		foreach ($productos as $dato) {
 			$nuevo_dato = array(
 				'id_egreso' => $id_egreso_ultimo,
 				'id_producto' => $dato['idProductoEgreso'],
@@ -117,14 +116,33 @@ class ControladorCompra
 				'cantidad_kg' => $dato['cantidad_kg']
 			);
 
-			// Agregar el nuevo dato al array principal
 			$datos[] = $nuevo_dato;
 
-			 // INSERTAR EL REGISTRO EN LA TABLA DETALLE_EGRESO
 			 $respuestaDatos = ModeloCompra::mdlIngresarDetalleCompra($tablaDetalleEgreso, $nuevo_dato);
 
 		}
 
+		/* ==========================================
+		ACTUALIZANDO EL STOCK DEL PRODUCTO
+		========================================== */
+
+		$tblProducto = "productos";
+
+		$stocks = json_decode($_POST["productoAddEgreso"], true);
+
+		foreach ($stocks as $value) {
+			
+			$idProducto = $value['idProductoEgreso'];
+			$cantidad = $value['cantidad_u'];
+
+			// Actualizar el stock del producto
+			$respStock = ModeloCompra::mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad);
+		}
+
+
+
+
+		
 		if ($respuestaDatos == "ok") {
 
             $response = array(
