@@ -37,6 +37,22 @@ class ModeloCompra{
 	}
 
 	/*=============================================
+	MOSTRAR SERIE Y NUMERO DE COMPRA O EGRESO
+	=============================================*/
+
+	static public function mdlMostrarSerieNumero($tabla, $item, $valor){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id_egreso DESC LIMIT 1");
+		
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+
+		$stmt = null;
+
+	}
+
+	/*=============================================
 	MOSTRAR EGRESO
 	=============================================*/
 

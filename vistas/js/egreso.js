@@ -1,8 +1,7 @@
 $(document).ready(function () {
 
-  console.log("Alertar")
 
- // Obtener todos los elementos <a> con la clase "paymentmethod"
+  // Obtener todos los elementos <a> con la clase "paymentmethod"
   var paymentMethodLinks = document.querySelectorAll('a.paymentmethod');
 
   // Iterar sobre cada elemento <a>
@@ -19,6 +18,21 @@ $(document).ready(function () {
           }
       });
   });
+
+
+
+  /*=============================================
+  SELECION DE FECHA AUTOMATICO
+  =============================================*/
+
+  function seleccionFecha(){
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // Asignar la fecha actual al campo de entrada de fecha
+    document.getElementById('fecha_egreso').value = today;
+
+  }
 
 
   /*=============================================
@@ -88,6 +102,44 @@ $(document).ready(function () {
 
     });
 
+  }
+
+  /* ============================================
+  MOSTRAR SERIE Y NUMERO DE VENTA 
+  ============================================ */
+
+  function mostrarSerieNumero() {
+      $.ajax({
+          url: "ajax/SerieNumero.ajax.php",
+          type: "GET",
+          dataType: "json",
+          success: function (respuesta) {
+              respuesta.forEach(data => {
+
+                  var serie = parseInt(data.serie_comprobante.match(/\d+/)[0]);
+                  var numero = parseInt(data.num_comprobante.match(/\d+/)[0]);
+
+                  // Sumar 1 a los números
+                  serie += 1;
+                  numero += 1;
+
+                  // Formatear serie con ceros a la izquierda
+                  var seriComprobante = 'T' + serie.toString().padStart(4, '0');
+                  // Formatear número con ceros a la izquierda, calculando la longitud dinámicamente
+                  var numeroComprobante = numero.toString().padStart(data.num_comprobante.length, '0');
+
+                  $("#serie_comprobante").val(seriComprobante);
+                  $("#num_comprobante").val(numeroComprobante);
+                  
+                 
+              });
+          },
+          error: function (xhr, status, error) {
+              console.error(xhr);
+              console.error(status);
+              console.error(error);
+          }
+      });
   }
 
 
@@ -631,7 +683,7 @@ $(document).ready(function () {
 
 
   /* ===========================================
-  GUARDAR PRODUCTO
+  CREAR VENTA EGRESO
   =========================================== */
   $("#btn_crear_venta").click(function (e) {
     
@@ -802,42 +854,44 @@ $(document).ready(function () {
 
           var res = JSON.parse(respuesta);
 
-            if (res.estado === "ok") {
+          if (res.estado === "ok") {
+            $("#form_compra_producto")[0].reset();
+            $("#detalle_egreso_producto").empty();
+            $("#subtotal_egreso").text("00.00");
+            $("#igv_egreso").text("00.00");
+            $("#total_precio_egreso").text("00.00");
 
-              $("#form_compra_producto")[0].reset();
-              $("#detalle_egreso_producto").empty();
-              $("#subtotal_egreso").text("00.00");
-              $("#igv_egreso").text("00.00");
-              $("#total_precio_egreso").text("00.00");
-
-
-              Swal.fire({
-                title: "¿Quiere imprimir comprobante?",
-                text: "¡No podrás revertir esto!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#28C76F",
-                cancelButtonColor: "#F52E2F",
-                confirmButtonText: "¡Sí, imprimir!"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  Swal.fire({
-                    title: "¡Imprimiendo!",
-                    text: "Su comprobante se está imprimiento.",
-                    icon: "success"
-                  });
-                }
-              });
-
-              mostrarProductos();
-
-            } else {
+            Swal.fire({
+              title: "¿Quiere imprimir comprobante?",
+              text: "¡No podrás revertir esto!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#28C76F",
+              cancelButtonColor: "#F52E2F",
+              confirmButtonText: "¡Sí, imprimir!",
+            }).then((result) => {
+              if (result.isConfirmed) {
                 Swal.fire({
-                    title: "¡Error!",
-                    text: res.mensaje,
-                    icon: "error",
-                  });
-            }
+                  title: "¡Imprimiendo!",
+                  text: "Su comprobante se está imprimiento.",
+                  icon: "success",
+                });
+              }
+            });
+
+            mostrarProductos();
+            seleccionFecha();
+            mostrarSerieNumero();
+          } else {
+            Swal.fire({
+              title: "¡Error!",
+              text: res.mensaje,
+              icon: "error",
+            });
+          }
+
+  
+          
         },
         error: function (xhr, status, error) {
 
@@ -849,6 +903,8 @@ $(document).ready(function () {
 
       });
     }
+
+   
   });
 
 
@@ -884,5 +940,8 @@ $(document).ready(function () {
   MSOTRANDO DATOS
   ===================================== */
   mostrarProductos();
+  seleccionFecha();
+  mostrarSerieNumero();
+  
 
 });

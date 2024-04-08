@@ -33,6 +33,22 @@ class ControladorCompra
 	}
 
 	/*=============================================
+	MOSTRAR SERIE NUMERO COMPRA
+	=============================================*/
+
+	static public function ctrMostrarSerieNumero($item, $valor)
+	{
+
+		$tabla = "egresos";
+
+		$respuesta = ModeloCompra::mdlMostrarSerieNumero($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+
+
+	/*=============================================
 	REGISTRO DE COMPRA
 	=============================================*/
 

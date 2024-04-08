@@ -119,10 +119,9 @@
                                 <div class="col-md-4">
                                     <label for="tipo_comprobante" class="form-label">Tipo de comprobante(<span class="text-danger">*</span>):</label>
                                     <select name="tipo_comprobante" id="tipo_comprobante_egreso" class="form-control">
-                                        <option value="" selected disabled>Selecionar</option>
                                         <option value="boleta">Boleta</option>
                                         <option value="factura">Factura</option>
-                                        <option value="ticket">Ticket</option>
+                                        <option value="ticket" selected>Ticket</option>
                                     </select>
                                     <small id="error_compra_comprobante"></small>
                                 </div>
@@ -131,7 +130,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="serie_comprobante" class="form-label">Serie:</label>
-                                        <input type="text" id="serie_comprobante" name="serie_comprobante" placeholder="Ingrese la serie">
+                                        <input type="text" id="serie_comprobante" name="serie_comprobante" placeholder="Ingrese la serie" readonly>
                                     </div>
                                 </div>
 
@@ -139,7 +138,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="num_comprobante" class="form-label">Número:</label>
-                                        <input type="text" id="num_comprobante" name="num_comprobante" placeholder="Ingrese el número">
+                                        <input type="text" id="num_comprobante" name="num_comprobante" placeholder="Ingrese el número" readonly>
                                     </div>
                                 </div>
 
@@ -664,8 +663,5 @@
 
     });
 
-    const today = new Date().toISOString().split('T')[0];
 
-    // Asignar la fecha actual al campo de entrada de fecha
-    document.getElementById('fecha_egreso').value = today;
 </script>
