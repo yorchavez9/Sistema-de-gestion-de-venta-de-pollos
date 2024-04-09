@@ -1,0 +1,6 @@
+{
+    "files.insertFinalNewline": true,
+    "notebook.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.insertSpaces": true
+}

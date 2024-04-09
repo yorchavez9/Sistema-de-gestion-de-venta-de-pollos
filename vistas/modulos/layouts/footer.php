@@ -27,6 +27,7 @@
     <script src="vistas/js/script-productos.js"></script>
     <script src="vistas/js/egreso.js"></script>
     <script src="vistas/js/lista-egreso.js"></script>
+    <script src="vistas/js/ventas.js"></script>
 
 </body>
 

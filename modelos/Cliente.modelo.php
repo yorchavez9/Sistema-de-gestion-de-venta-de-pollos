@@ -159,7 +159,7 @@ class ModeloCliente{
 		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
 
 		if($stmt -> execute()){
-
+			
 			return "ok";
 		
 		}else{

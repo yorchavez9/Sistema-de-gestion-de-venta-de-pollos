@@ -32,8 +32,7 @@
                             Ventas</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="clientes">Clientes</a></li>
-                        <li><a href="pos">punto de venta</a></li>
-                        <li><a href="ventas">Nuevas Ventas</a></li>
+                        <li><a href="ventas">punto de venta</a></li>
                         <li><a href="devoluciones">Devoluciones</a></li>
                         <li><a href="createsalesreturns.html">Nueva devolución de ventas</a></li>
                         <li><a href="reportes">Reportes</a></li>
