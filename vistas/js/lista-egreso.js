@@ -100,7 +100,7 @@ $(document).ready(function () {
                 icon: "success",
               });
 
-              mostrarProductos();
+              mostrarEgresos();
 
             } else {
                 Swal.fire({
@@ -125,7 +125,7 @@ $(document).ready(function () {
     /* ===========================
     MOSTRANDO PRODUCTO
     =========================== */
-    function mostrarProductos() {
+    function mostrarEgresos() {
       $.ajax({
         url: "ajax/Lista.compra.ajax.php",
         type: "GET",
@@ -170,22 +170,24 @@ $(document).ready(function () {
                         </td>
                         
                         <td class="text-center">
-                            <a href="#" class="me-3 btnVerProducto" idProducto="${egreso.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
+
+                            <a href="#" class="me-3 btnPagarCompra" idEgreso="${egreso.id_egreso}" totalCompraEgreso=${totalCompra} pagoRestanteEgreso=${formateadoPagoRestante} data-bs-toggle="modal" data-bs-target="#modalPagarCompra">
                                 <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
                             </a>
-                            <a href="#" class="me-3 btnEditarProducto" idProducto="${egreso.id_producto}" data-bs-toggle="modal" data-bs-target="#modalEditarProducto">
+
+                            <a href="#" class="me-3 btnEditarProducto" idEgreso="${egreso.id_egreso}" data-bs-toggle="modal" data-bs-target="#modalEditarProducto">
                                 <i class="text-warning fas fa-edit fa-lg"></i>
                             </a>
-                            <a href="#" class="me-3 btnVerProducto" idProducto="${egreso.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
+                            <a href="#" class="me-3 btnVerProducto" idEgreso="${egreso.id_egreso}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                             </a>
-                            <a href="#" class="me-3 btnVerProducto" idProducto="${egreso.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
+                            <a href="#" class="me-3 btnVerProducto" idEgreso="${egreso.id_egreso}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
-                            <a href="#" class="me-3 btnVerProducto" idProducto="${egreso.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
+                            <a href="#" class="me-3 btnVerProducto" idEgreso="${egreso.id_egreso}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
-                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idProducto="${egreso.id_producto}" imagenProducto="${egreso.imagen_producto}">
+                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idEgreso="${egreso.id_egreso}" imagenProducto="${egreso.imagen_producto}">
                                 <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
                             </a>
                         </td>
@@ -208,6 +210,124 @@ $(document).ready(function () {
       });
     }
   
+    /*=============================================
+    MOSTRAR DEUDA A PAGAR
+    =============================================*/
+
+    $("#data_lista_egresos").on("click", ".btnPagarCompra", function(e){
+
+      e.preventDefault();
+      
+      let idEgreso = $(this).attr("idEgreso");
+      let totalCompraEgreso = $(this).attr("totalCompraEgreso");
+      let pagoRestanteEgreso = $(this).attr("pagoRestanteEgreso");
+
+      $("#id_egreso_pagar").val(idEgreso);
+      $("#total_compra_show").text("S/ "+totalCompraEgreso);
+      $("#total_restante_show").text("S/ "+pagoRestanteEgreso);
+
+    })
+
+    /*=============================================
+    PAGAR DEUDA
+    =============================================*/
+    $("#btn_pagar_deuda_egreso").click(function (e) {
+
+      e.preventDefault();
+
+      var isValid = true;
+  
+      var id_egreso_pagar = $("#id_egreso_pagar").val();
+
+      var monto_pagar_compra = $("#monto_pagar_compra").val();
+
+
+      var total_restante_texto = $("#total_restante_show").text();
+
+
+      var numero_decimal = parseFloat(
+        total_restante_texto.match(/-?\d+(\.\d+)?/)[0]
+      );
+
+      if (numero_decimal <= 0.0) {
+        Swal.fire({
+          title: "¡Aviso!",
+          text: "No tiene deudas",
+          icon: "warning",
+        });
+
+        $("#frm_pagar_deuda")[0].reset();
+
+        $("#modalPagarCompra").modal("hide");
+
+        return;
+      }
+
+
+
+      
+      // Validar el tipo de documento
+      if (monto_pagar_compra === "" || monto_pagar_compra == null){
+        $("#error_monto_pagar_egreso")
+          .html("Por favor, ingrese el monto")
+          .addClass("text-danger");
+        isValid = false;
+      } else if (isNaN(monto_pagar_compra)) {
+        $("#error_monto_pagar_egreso")
+          .html("El monto solo puede contener números")
+          .addClass("text-danger");
+        isValid = false;
+      } else {
+        $("#error_monto_pagar_egreso").html("").removeClass("text-danger");
+      }
+  
+      // Si el formulario es válido, envíalo
+      if (isValid) {
+
+        var datos = new FormData();
+        datos.append("id_egreso_pagar", id_egreso_pagar);
+        datos.append("monto_pagar_compra", monto_pagar_compra);
+  
+        $.ajax({
+          url: "ajax/Lista.compra.ajax.php",
+          method: "POST",
+          data: datos,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (respuesta) {
+
+            var res = JSON.parse(respuesta);
+  
+            if (res.estado === "ok") {
+
+              Swal.fire({
+                title: "¡Correcto!",
+                text: res.mensaje,
+                icon: "success",
+              });
+
+              $("#frm_pagar_deuda")[0].reset();
+
+              $("#modalPagarCompra").modal("hide");
+            } else {
+
+              Swal.fire({
+                title: res.estado,
+                text: res.mensaje,
+                icon: "error",
+              });
+
+            }
+            
+            mostrarEgresos();
+          },
+        });
+      }
+
+
+    });
+
     /*=============================================
     ACTIVAR PRODUCTO
     =============================================*/
@@ -482,7 +602,7 @@ $(document).ready(function () {
                 icon: "success",
               });
   
-              mostrarProductos();
+              mostrarEgresos();
 
             } else {
 
@@ -543,7 +663,7 @@ $(document).ready(function () {
                     icon: "success",
                   });
       
-                  mostrarProductos();
+                  mostrarEgresos();
   
                 } else {
   
@@ -575,6 +695,6 @@ $(document).ready(function () {
   /* =====================================
   MSOTRANDO DATOS
   ===================================== */
-  mostrarProductos();
+  mostrarEgresos();
   });
   

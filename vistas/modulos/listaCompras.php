@@ -6,7 +6,7 @@
                 <h6>Administrar compras</h6>
             </div>
             <div class="page-btn">
-                <a href="" class="btn btn-added"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Nueva compra</a>
+                <a href="compras" class="btn btn-added"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Nueva compra</a>
             </div>
         </div>
 
@@ -287,88 +287,52 @@
 
 
 
-<!-- MODAL VER PRODUCTO -->
-<div class="modal fade" id="modalVerProducto" tabindex="-1" aria-labelledby="modalVerProductoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<!-- MODAL PAGAR COMPRA -->
+<div class="modal fade" id="modalPagarCompra" tabindex="-1" aria-labelledby="modalPagarCompraLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detalles del producto</h5>
+                <h5 class="modal-title">Pagar deuda</h5>
                 <button type="button" class="close btn_modal_ver_close_usuario" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="formVerUsuario">
+            <form enctype="multipart/form-data" id="frm_pagar_deuda">
                 <div class="modal-body">
+                
+                    <input type="hidden" id="id_egreso_pagar" name="id_egreso_pagar">
 
-                    <!-- MOSTRANDO NOMBRE DE LA CATEGORIA -->
-                    <div class="form-group">
-                        <label><i class="fas fa-user text-primary"></i> Categoría del producto:</label>
-                        <p id="mostrar_nombre_categoria"></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- COMPRA TOTAL -->
+                            <div class="form-group">
+                                <label><i class="fas fa-money-bill" style="color: #28C76F"></i> Compra total:</label>
+                                <h3 class="fw-bold" id="total_compra_show"></h3>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><i class="fas fa-money-bill" style="color: #28C76F"></i> Total restante:</label>
+                                <h3 class="fw-bold text-warning" id="total_restante_show"></h3>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
 
-                        <!-- MOSTRANDO CODIGO DEL PRODUCTO -->
+                        <!-- FECHA DE PAGO -->
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-barcode text-danger"></i> Código del producto:</label>
-                            <p id="mostrar_codigo_producto"></p>
-                        </div>
-
-                        <!-- MOSTRANDO NOMBRE DEL PRODUCTO -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre_producto" class="form-label"><i class="fas fa-tag text-success"></i> Nombre del producto:</label>
-                                <p id="mostrar_nombre_producto"></p>
-                            </div>
+                            <label class="form-label"><i class="fas fa-barcode text-danger"></i> Monto a pagar:</label>
+                            <input type="text" id="monto_pagar_compra" name="monto_pagar_compra" class="form-control" placeholder="Ingrese el monto a pagar">
+                            <small id="error_monto_pagar_egreso"></small>
                         </div>
 
                     </div>
 
-                    <div class="row">
-
-                        <!-- MOSTRAR EL STOCK DEL PRODUCTO -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="stock_producto" class="form-label"><i class="fas fa-box text-warning"></i> Stock del producto:</label>
-                                <p id="mostrar_stock_producto"></p>
-                            </div>
-                        </div>
-
-                        <!-- MOSTRAR LA DESCRIPCION DEL PRODUCTO -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="descripcion" class="form-label"><i class="fas fa-info-circle text-info"></i> Descripción del producto:</label>
-                                <p id="mostrar_descripcion_producto"></p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <!-- MOSTRANDO EL ESTADO DEL PRODUCTO -->
-                        <div class="form-group col-md-6">
-                            <label class="form-label"><i class="fas fa-check-circle text-warning"></i> Estado del producto:</label>
-                            <div id="mostrar_estado_producto" class="mx-2">
-
-                            </div>
-                        </div>
-
-                        <!-- MOSTRANDO LA FECHA DEL PRODUCTO -->
-                        <div class="form-group col-md-6">
-                            <label class="form-label"><i class="fas fa-calendar-alt text-warning"></i> Fecha de registro del producto:</label>
-                            <p id="mostrar_fecha_producto"></p>
-                        </div>
-                    </div>
-
-                    <!-- MOSTRAR IMAGEN DEL PRODUCTO -->
-                    <div class="form-group text-center">
-                        <label for="imagen_usuario" class="form-label"><i class="fas fa-image text-success"></i> Imagen del producto:</label>
-                        <div class="text-center mt-3">
-                            <img src="" class="mostrarImagenProducto img img-fluid" width="250" alt="">
-                        </div>
-                    </div>
 
                 </div>
 
                 <div class="text-end mx-4 mb-2">
+                    <button type="button" class="btn btn-primary" id="btn_pagar_deuda_egreso"><i class="fa fa-save"></i> Pagar</button>
                     <button type="button" class="btn btn-secondary btn_modal_ver_close_usuario" data-bs-dismiss="modal"> Cerrar</button>
                 </div>
             </form>

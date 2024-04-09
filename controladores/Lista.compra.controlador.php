@@ -79,6 +79,34 @@ class ControladorListaCompra
     }
 
 	/*=============================================
+	ACTUALIZAR EL PAGO DE DEUDA EGRESO
+	=============================================*/
+	static public function ctrActualizarDeudaEgreso(){
+
+		$tabla = "egresos";
+
+		$totalPago = number_format($_POST["monto_pagar_compra"], 2, '.', '');
+
+		$datos = array(
+			"id_egreso" => $_POST["id_egreso_pagar"],
+			"total_pago" => $totalPago
+		);
+
+        $respuesta = ModeloListaCompra::mdlActualizarPagoPendiente($tabla, $datos);
+
+        if ($respuesta == "ok") {
+
+            echo json_encode($respuesta);
+
+        } else {
+
+            echo json_encode($respuesta);
+
+        }
+
+	}
+
+	/*=============================================
 	MOSTRAR EGRESO
 	=============================================*/
 

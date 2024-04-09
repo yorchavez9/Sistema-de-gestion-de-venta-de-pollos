@@ -104,6 +104,15 @@ elseif (isset($_POST["id_categoria_P"])) {
 
 }
 
+
+/* ACTUALIZAR PAGO DEUDA */
+elseif (isset($_POST["id_egreso_pagar"])) {
+
+    $pagoEgreso = new ControladorListaCompra();
+    $pagoEgreso->ctrActualizarDeudaEgreso();
+
+}
+
 /* ACTUALIZAR PRODUCTO */
 elseif(isset($_POST["edit_id_producto"])){
 
