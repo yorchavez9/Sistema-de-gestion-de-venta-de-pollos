@@ -66,7 +66,7 @@
                         <form id="form_compra_producto">
 
                             <!-- INGRESO DE ID DEL USUARIO -->
-                            <input type="hidden" id="id_usuario_egreso" value="<?php echo $_SESSION["id_usuario"] ?>">
+                            <input type="hidden" id="id_usuario_venta" value="<?php echo $_SESSION["id_usuario"] ?>">
 
 
                             <div class="row">
@@ -163,7 +163,7 @@
 
                                         <label for="serie_venta" class="form-label">Serie:</label>
 
-                                        <input type="text" id="serie_venta" name="serie_venta" placeholder="Ingrese la serie" readonly>
+                                        <input type="text" id="serie_venta" name="serie_venta" placeholder="Ingrese la serie" >
 
                                     </div>
 
@@ -176,7 +176,7 @@
 
                                         <label for="numero_venta" class="form-label">Número:</label>
 
-                                        <input type="text" id="numero_venta" name="numero_venta" placeholder="Ingrese el número" readonly>
+                                        <input type="text" id="numero_venta" name="numero_venta" placeholder="Ingrese el número" >
 
                                     </div>
 
@@ -373,7 +373,7 @@
 
                         <div class="table-responsive">
 
-                            <table class="table table-striped table-bordered" style="width:100%" id="tabla_add_producto">
+                            <table class="table table-striped table-bordered" style="width:100%" id="tabla_add_producto_venta">
 
                                 <thead>
                                     <tr>
@@ -384,7 +384,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody id="data_productos_detalle">
+                                <tbody id="data_productos_detalle_venta">
 
                                 </tbody>
 

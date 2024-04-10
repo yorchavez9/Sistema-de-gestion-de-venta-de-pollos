@@ -28,11 +28,16 @@ $(document).ready(function () {
   SELECION DE FECHA AUTOMATICO
   =============================================*/
   function seleccionFecha() {
-    const today = new Date().toISOString().split("T")[0];
-
-    // Asignar la fecha actual al campo de entrada de fecha
-    document.getElementById("fecha_egreso").value = today;
-  }
+    const fechaEgresoInput = document.getElementById("fecha_egreso");
+    
+    // Verificar si el elemento existe
+    if (fechaEgresoInput !== null) {
+        const today = new Date().toISOString().split("T")[0];
+        fechaEgresoInput.value = today;
+    } else {
+        console.log("El elemento con ID 'fecha_egreso' no existe.");
+    }
+}
 
   /*=============================================
   MOSTRAR PRODUCTOS
