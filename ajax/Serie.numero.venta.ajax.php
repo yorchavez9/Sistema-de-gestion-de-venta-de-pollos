@@ -8,14 +8,14 @@ $item = null;
 
 $valor = null;
 
-$SerieNumero = ControladorCompra::ctrMostrarSerieNumero($item, $valor);
+$SerieNumero = ControladorVenta::ctrMostrarSerieNumero($item, $valor);
 
 $datosSerieNumero = array();
 
 foreach ($SerieNumero as $key => $serieNumero) {
 
     $fila = array(
-        'id_egreso' => $serieNumero['id_egreso'],
+        'id_venta' => $serieNumero['id_venta'],
         'serie_comprobante' => $serieNumero['serie_comprobante'],
         'num_comprobante' => $serieNumero['num_comprobante']
     );

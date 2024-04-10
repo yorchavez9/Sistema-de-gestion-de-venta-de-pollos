@@ -13,24 +13,28 @@ class ControladorVenta
 		$tablaE = "egresos";
 		$tablaDE = "detalle_egreso";
 
-		$respuesta = ModeloCompra::mdlMostrarCompra($tablaE, $tablaDE, $item, $valor);
+		$respuesta = ModeloVenta::mdlMostrarVenta($tablaE, $tablaDE, $item, $valor);
 
 		return $respuesta;
 	}
 
 	/*=============================================
-	MOSTRAR VENTA
+	MOSTRAR LISTA VENTAS
 	=============================================*/
 
-	static public function ctrMostrarVenta($item, $valor)
+	static public function ctrMostrarListaVentas($item, $valor)
 	{
 
-		$tabla = "egresos";
+		$tablaD = "detalle_venta";
+		$tablaV = "ventas";
+		$tablaP = "personas";
 
-		$respuesta = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
+		$respuesta = ModeloVenta::mdlMostrarListaVenta($tablaD, $tablaV, $tablaP, $item, $valor);
 
 		return $respuesta;
 	}
+
+
 
 	/*=============================================
 	MOSTRAR SERIE NUMERO COMPRA
@@ -39,9 +43,9 @@ class ControladorVenta
 	static public function ctrMostrarSerieNumero($item, $valor)
 	{
 
-		$tabla = "egresos";
+		$tabla = "ventas";
 
-		$respuesta = ModeloCompra::mdlMostrarSerieNumero($tabla, $item, $valor);
+		$respuesta = ModeloVenta::mdlMostrarSerieNumero($tabla, $item, $valor);
 
 		return $respuesta;
 
@@ -57,7 +61,7 @@ class ControladorVenta
 
 
 
-		$tabla = "egresos";
+		$tabla = "ventas";
 
 		$pago_total = 0;
 
@@ -73,16 +77,16 @@ class ControladorVenta
 
 
 		$datos = array(
-			"id_persona" => $_POST["id_proveedor_egreso"],
-			"id_usuario" => $_POST["id_usuario_egreso"],
-			"fecha_egre" => $_POST["fecha_egreso"],
-			"tipo_comprobante" => $_POST["tipo_comprobante_egreso"],
-			"serie_comprobante" => $_POST["serie_comprobante"],
-			"num_comprobante" => $_POST["num_comprobante"],
-			"impuesto" => $_POST["impuesto_egreso"],
-			"total_compra" => $_POST["total"],
+			"id_persona" => $_POST["id_cliente_venta"],
+			"id_usuario" => $_POST["id_usuario_venta"],
+			"fecha_venta" => $_POST["fecha_venta"],
+			"tipo_comprobante" => $_POST["comprobante_venta"],
+			"serie_comprobante" => $_POST["serie_venta"],
+			"num_comprobante" => $_POST["numero_venta"],
+			"impuesto" => $_POST["igv_venta"],
+			"total_venta" => $_POST["total"],
 			"total_pago" => $pago_total,
-			"subTotal" => $_POST["subtotal"],
+			"sub_total" => $_POST["subtotal"],
 			"igv" => $_POST["igv"],
 			"tipo_pago" => $_POST["tipo_pago"],
 			"estado_pago" => $_POST["estado_pago"],
@@ -90,40 +94,39 @@ class ControladorVenta
 		);
 
 
-		$respuesta = ModeloCompra::mdlIngresarCompra($tabla, $datos);
+		$respuesta = ModeloVenta::mdlIngresarVenta($tabla, $datos);
 
 
 		/* MOSTRANDO EL ULTIMO ID INGRESADO */
 
-		$tabla = "egresos";
+		$tabla = "ventas";
 
 		$item = null;
 
 		$valor = null;
 
-		$respuestaDetalleEgreso = ModeloCompra::mdlMostrarEgreso($tabla, $item, $valor);
+		$respuestaDetalleVenta = ModeloVenta::mdlMostrarIdVenta($tabla, $item, $valor);
 
-		foreach ($respuestaDetalleEgreso as $value) {
+		foreach ($respuestaDetalleVenta as $value) {
 
-			$id_egreso_ultimo = $value["id_egreso"];
+			$id_venta_ultimo = $value["id_venta"];
 		}
 
 
 
 		/* ==========================================
-		INGRESO DE DATOS AL DETALLE EGRESO
+		INGRESO DE DATOS AL DETALLE VENTA
 		========================================== */
-		$tablaDetalleEgreso = "detalle_egreso";
+		$tblDetalleVenta = "detalle_venta";
 
-		$productos = json_decode($_POST["productoAddEgreso"], true);
+		$productos = json_decode($_POST["productoAddVenta"], true);
 
 		$datos = array();
 
 		foreach ($productos as $dato) {
 			$nuevo_dato = array(
-				'id_egreso' => $id_egreso_ultimo,
-				'id_producto' => $dato['idProductoEgreso'],
-				'precio_compra' => $dato['precio_compra'],
+				'id_venta' => $id_venta_ultimo,
+				'id_producto' => $dato['id_producto'],
 				'precio_venta' => $dato['precio_venta'],
 				'cantidad_u' => $dato['cantidad_u'],
 				'cantidad_kg' => $dato['cantidad_kg']
@@ -131,7 +134,7 @@ class ControladorVenta
 
 			$datos[] = $nuevo_dato;
 
-			 $respuestaDatos = ModeloCompra::mdlIngresarDetalleCompra($tablaDetalleEgreso, $nuevo_dato);
+			 $respuestaDatos = ModeloVenta::mdlIngresarDetalleVenta($tblDetalleVenta, $nuevo_dato);
 
 		}
 
@@ -141,15 +144,15 @@ class ControladorVenta
 
 		$tblProducto = "productos";
 
-		$stocks = json_decode($_POST["productoAddEgreso"], true);
+		$stocks = json_decode($_POST["productoAddVenta"], true);
 
 		foreach ($stocks as $value) {
 			
-			$idProducto = $value['idProductoEgreso'];
+			$idProducto = $value['id_producto'];
 			$cantidad = $value['cantidad_u'];
 
 			// Actualizar el stock del producto
-			$respStock = ModeloCompra::mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad);
+			$respStock = ModeloVenta::mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad);
 		}
 
 
@@ -159,7 +162,7 @@ class ControladorVenta
 		if ($respuestaDatos == "ok") {
 
             $response = array(
-                "mensaje" => "Producto guardado correctamente",
+                "mensaje" => "La venta se realizó con éxito",
                 "estado" => "ok"
             );
 
@@ -168,7 +171,7 @@ class ControladorVenta
         } else {
 
             $response = array(
-                "mensaje" => "Error al guardar el producto",
+                "mensaje" => "Error al realizar la venta",
                 "estado" => "error"
             );
 
@@ -241,7 +244,7 @@ class ControladorVenta
 				"imagen_producto" => $ruta_imagen
 			);
 
-			$respuesta = ModeloCompra::mdlEditarCompra($tabla, $datos);
+			$respuesta = ModeloVenta::mdlEditarVenta($tabla, $datos);
 
 			if ($respuesta == "ok") {
 
@@ -278,7 +281,7 @@ class ControladorVenta
 
 
 
-			$respuesta = ModeloCompra::mdlBorrarCompra($tabla, $datos);
+			$respuesta = ModeloVenta::mdlBorrarVenta($tabla, $datos);
 
 			if ($respuesta == "ok") {
 

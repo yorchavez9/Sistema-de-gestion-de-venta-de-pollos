@@ -23,8 +23,7 @@
                         <li><a href="categorias">Categorias</a></li>
                         <li><a href="proveedores">Proveedor</a></li>
                         <li><a href="productos">Producto</a></li>
-                        <li><a href="addbrand.html">Marca</a></li>
-                        <li><a href="barcode.html">Imprimir código de barras</a></li>
+                        <li><a href="codigoBarra">Imprimir código de barras</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -32,7 +31,7 @@
                             Ventas</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="clientes">Clientes</a></li>
-                        <li><a href="ventas">punto de venta</a></li>
+                        <li><a href="ventas">Crear venta</a></li>
                         <li><a href="devoluciones">Devoluciones</a></li>
                         <li><a href="createsalesreturns.html">Nueva devolución de ventas</a></li>
                         <li><a href="reportes">Reportes</a></li>

@@ -147,9 +147,10 @@ class ControladorCompra
 			
 			$idProducto = $value['idProductoEgreso'];
 			$cantidad = $value['cantidad_u'];
+			$precio = $value['precio_venta'];
 
 			// Actualizar el stock del producto
-			$respStock = ModeloCompra::mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad);
+			$respStock = ModeloCompra::mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad, $precio);
 		}
 
 

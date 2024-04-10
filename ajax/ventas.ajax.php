@@ -66,11 +66,11 @@ elseif (isset($_POST["idProductoVer"])) {
 }
 
 
-/* GUARDAR COMPRA PRODUCTO */
-elseif (isset($_POST["id_proveedor_egreso"])) {
+/* GUARDAR VENTA PRODUCTO */
+elseif (isset($_POST["id_cliente_venta"])) {
 
-    $crearEgreso = new ControladorCompra();
-    $crearEgreso->ctrCrearCompra();
+    $crearVenta = new ControladorVenta();
+    $crearVenta->ctrCrearVenta();
 
 }
 

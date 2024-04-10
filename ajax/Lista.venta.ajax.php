@@ -1,14 +1,14 @@
 <?php
 
-require_once "../controladores/Producto.controlador.php";
-require_once "../modelos/Producto.modelo.php";
+require_once "../controladores/Ventas.controlador.php";
+require_once "../modelos/Ventas.modelo.php";
 
-class AjaxProducto
+class AjaxListaVentas
 {
 
     
     /*=============================================
-	EDITAR PRODUCTO
+	EDITAR VENTA
 	=============================================*/
 
     public $idProducto;
@@ -25,7 +25,7 @@ class AjaxProducto
     }
     
     /*=============================================
-	MOSTRAR DETALLE PRODUCTO
+	MOSTRAR DETALLE VENTAS
 	=============================================*/
 
     public $idProductoVer;
@@ -42,7 +42,7 @@ class AjaxProducto
     }
 
     /*=============================================
-	ACTIVAR PRODUCTO
+	ACTIVAR VENTAS
 	=============================================*/
 
     public $activarProducto;
@@ -63,22 +63,7 @@ class AjaxProducto
         $respuesta = ModeloProducto::mdlActualizarProducto($tabla, $item1, $valor1, $item2, $valor2);
     }
 
-    /*=============================================
-	VALIDAR NO REPETIR PRODUCTO
-	=============================================*/
 
-    public $validarUsuario;
-
-    public function ajaxValidarUsuario()
-    {
-
-        $item = "usuario";
-        $valor = $this->validarUsuario;
-
-        $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
-
-        echo json_encode($respuesta);
-    }
 }
 
 /*=============================================
@@ -86,7 +71,7 @@ EDITAR PRODUCTO
 =============================================*/
 if (isset($_POST["idProducto"])) {
 
-    $editar = new AjaxProducto();
+    $editar = new AjaxListaVentas();
     $editar->idProducto = $_POST["idProducto"];
     $editar->ajaxEditarProducto();
 
@@ -95,7 +80,7 @@ if (isset($_POST["idProducto"])) {
 /* VER DETALLE PRODUCTO */
 elseif (isset($_POST["idProductoVer"])) {
 
-    $verDetalle = new AjaxProducto();
+    $verDetalle = new AjaxListaVentas();
     $verDetalle->idProductoVer = $_POST["idProductoVer"];
     $verDetalle->ajaxVerProducto();
 }
@@ -103,27 +88,28 @@ elseif (isset($_POST["idProductoVer"])) {
 /* ACTIVAR PRODUCTO */
 elseif (isset($_POST["activarProducto"])) {
 
-    $activarProducto = new AjaxProducto();
+    $activarProducto = new AjaxListaVentas();
     $activarProducto->activarProducto = $_POST["activarProducto"];
     $activarProducto->activarId = $_POST["activarId"];
     $activarProducto->ajaxActivarProducto();
 
 }
 
-/* VALIDAR PRODUCTO */
-elseif (isset($_POST["validarUsuario"])) {
-
-    $valUsuario = new AjaxProducto();
-    $valUsuario->validarUsuario = $_POST["validarUsuario"];
-    $valUsuario->ajaxValidarUsuario();
-    
-}
 
 /* GUARDAR PRODUCTO */
 elseif (isset($_POST["id_categoria_P"])) {
 
     $crearProducto = new ControladorProducto();
     $crearProducto->ctrCrearProducto();
+
+}
+
+
+/* ACTUALIZAR PAGO DEUDA */
+elseif (isset($_POST["id_egreso_pagar"])) {
+
+    $pagoEgreso = new ControladorListaCompra();
+    $pagoEgreso->ctrActualizarDeudaEgreso();
 
 }
 
@@ -148,33 +134,42 @@ else{
 
     $item = null;
     $valor = null;
-    $mostrarProductos = ControladorProducto::ctrMostrarProductos($item, $valor);
+    $mostrarVentas = ControladorVenta::ctrMostrarListaVentas($item, $valor);
     
-    $tablaProductos = array();
+    $tblVenta = array();
     
-    foreach ($mostrarProductos as $key => $usuario) {
+    foreach ($mostrarVentas as $key => $ventas) {
         
         $fila = array(
-            'id_producto' => $usuario['id_producto'],
-            'id_categoria' => $usuario['id_categoria'],
-            'nombre_categoria' => $usuario['nombre_categoria'],
-            'codigo_producto' => $usuario['codigo_producto'],
-            'nombre_producto' => $usuario['nombre_producto'],
-            'precio_producto' => $usuario['precio_producto'],
-            'stock_producto' => $usuario['stock_producto'],
-            'fecha_vencimiento' => $usuario['fecha_vencimiento'],
-            'descripcion_producto' => $usuario['descripcion_producto'],
-            'imagen_producto' => $usuario['imagen_producto'],
-            'estado_producto' => $usuario['estado_producto'],
-            'fecha_producto' => $usuario['fecha_producto']
+            'id_detalle_venta' => $ventas['id_detalle_venta'],
+            'id_venta' => $ventas['id_venta'],
+            'id_producto' => $ventas['id_producto'],
+            'id_persona' => $ventas['id_persona'],
+            'precio_venta' => $ventas['precio_venta'],
+            'cantidad_u' => $ventas['cantidad_u'],
+            'cantidad_kg' => $ventas['cantidad_kg'],
+            'id_usuario' => $ventas['id_usuario'],
+            'fecha_venta' => $ventas['fecha_venta'],
+            'tipo_comprobante' => $ventas['tipo_comprobante'],
+            'serie_comprobante' => $ventas['serie_comprobante'],
+            'num_comprobante' => $ventas['num_comprobante'],
+            'impuesto' => $ventas['impuesto'],
+            'total_venta' => $ventas['total_venta'],
+            'total_pago' => $ventas['total_pago'],
+            'sub_total' => $ventas['sub_total'],
+            'igv' => $ventas['igv'],
+            'tipo_pago' => $ventas['tipo_pago'],
+            'estado_pago' => $ventas['estado_pago'],
+            'pago_e_y' => $ventas['pago_e_y'],
+            'razon_social' => $ventas['razon_social']
         );
-    
         
-        $tablaProductos[] = $fila;
+        
+        $tblVenta[] = $fila;
     }
     
     
-    echo json_encode($tablaProductos);
+    echo json_encode($tblVenta);
 }
 
 

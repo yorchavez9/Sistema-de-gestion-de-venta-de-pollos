@@ -63,7 +63,7 @@
                         FORMULARIO DE COMPRA DE PRODUCTO
                         ======================================-->
 
-                        <form id="form_compra_producto">
+                        <form id="form_venta_producto">
 
                             <!-- INGRESO DE ID DEL USUARIO -->
                             <input type="hidden" id="id_usuario_venta" value="<?php echo $_SESSION["id_usuario"] ?>">
@@ -163,7 +163,7 @@
 
                                         <label for="serie_venta" class="form-label">Serie:</label>
 
-                                        <input type="text" id="serie_venta" name="serie_venta" placeholder="Ingrese la serie" >
+                                        <input type="text" id="serie_venta" name="serie_venta" placeholder="Ingrese la serie" readonly>
 
                                     </div>
 
@@ -176,7 +176,7 @@
 
                                         <label for="numero_venta" class="form-label">Número:</label>
 
-                                        <input type="text" id="numero_venta" name="numero_venta" placeholder="Ingrese el número" >
+                                        <input type="text" id="numero_venta" name="numero_venta" placeholder="Ingrese el número" readonly>
 
                                     </div>
 
@@ -250,7 +250,7 @@
 
                                                 <li>
                                                     <p>IGV (%)</p>
-                                                    <p class="price">S/ <span id="igv_venta">00.00</span></p>
+                                                    <p class="price">S/ <span id="igv_venta_show">00.00</span></p>
                                                 </li>
 
                                                 <li class="total-value">
@@ -269,7 +269,7 @@
 
                                                 <div class="form-check">
 
-                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago" value="contado" checked>
+                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago_v" value="contado" checked>
 
                                                     <label class="form-check-label" for="contado">
 
@@ -285,7 +285,7 @@
 
                                                 <div class="form-check">
 
-                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago" value="credito">
+                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago_v" value="credito">
 
                                                     <label class="form-check-label" for="credito">
 
@@ -307,11 +307,11 @@
                                                 <ul style="list-style-type: none;">
 
                                                     <li>
-                                                        <a href="javascript:void(0);" class="paymentmethod">
+                                                        <a href="javascript:void(0);" class="paymentmethod tipo_pago_e_y">
 
                                                             <img src="vistas/dist/assets/img/icons/cash.svg" alt="img" class="me-2">
 
-                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo" value="efectivo">
+                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo_v" value="efectivo">
 
                                                             <label class="form-check-label" for="credito">
                                                                 Efectivo
@@ -323,11 +323,11 @@
 
                                                     <li style="float: right;">
 
-                                                        <a href="javascript:void(0);" class="paymentmethod">
+                                                        <a href="javascript:void(0);" class="paymentmethod tipo_pago_e_y">
 
                                                             <img src="vistas/dist/assets/img/icons/scan.svg" alt="img" class="me-2">
 
-                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo" value="yape">
+                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo_v" value="yape">
 
                                                             <label class="form-check-label" for="credito">
                                                                 Yape
@@ -379,6 +379,7 @@
                                     <tr>
                                         <th class="text-center">Imagen</th>
                                         <th>Categoría</th>
+                                        <th>Precio</th>
                                         <th>Nombre</th>
                                         <th>Stock</th>
                                     </tr>
@@ -409,8 +410,8 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Lista de compras</h4>
-                <h6>Administrar compras</h6>
+                <h4>Lista de ventas</h4>
+                <h6>Administrar ventas</h6>
             </div>
             <div class="page-btn">
                 <a href="#" id="crear_venta" class="btn btn-added"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Crear venta</a>
@@ -454,12 +455,12 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_lista_agreso">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_lista_ventas">
                         <thead>
                             <tr>
                                 <th class="text-center">N°</th>
                                 <th>Fecha</th>
-                                <th>Proveedor</th>
+                                <th>Cliente</th>
                                 <th>Serie</th>
                                 <th>Número</th>
                                 <th>Tipo pago</th>
@@ -469,7 +470,7 @@
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
-                        <tbody id="data_lista_egresos">
+                        <tbody id="data_lista_ventas">
 
                         </tbody>
                     </table>

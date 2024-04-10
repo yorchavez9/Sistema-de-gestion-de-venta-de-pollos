@@ -28,8 +28,8 @@
     <script src="vistas/js/egreso.js"></script>
     <script src="vistas/js/lista-egreso.js"></script>
     <script src="vistas/js/ventas.js"></script>
+    <script src="vistas/js/lista-venta.js"></script>
 
 </body>
 
 </html>
-

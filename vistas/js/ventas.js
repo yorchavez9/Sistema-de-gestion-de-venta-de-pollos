@@ -1,14 +1,15 @@
 $(document).ready(function () {
 
+
   /* ===================================
     SELECCION DE TIPO DE PAGO
     =================================== */
 
-  function tipoPago() {
+  function tipoPagoYE() {
 
     // Obtener todos los elementos <a> con la clase "paymentmethod"
 
-    var paymentMethodLinks = document.querySelectorAll("a.paymentmethod");
+    var paymentMethodLinks = document.querySelectorAll("a.tipo_pago_e_y");
 
     // Iterar sobre cada elemento <a>
 
@@ -20,7 +21,7 @@ $(document).ready(function () {
 
         // Obtener el radio button dentro del elemento <a> actual
 
-        var radioButton = this.querySelector(".tipo_pago_egreso");
+        var radioButton = this.querySelector(".tipo_pago_venta");
       
 
         // Verificar si el radio button no está marcado
@@ -39,6 +40,10 @@ $(document).ready(function () {
 
   }
 
+
+
+
+
   /*=============================================
     SELECION DE FECHA AUTOMATICO
     =============================================*/
@@ -52,6 +57,9 @@ $(document).ready(function () {
     document.getElementById("fecha_venta").value = today;
 
   }
+
+
+
 
   /* ============================================
     MOSTRAR SERIE Y NUMERO DE VENTA 
@@ -70,9 +78,9 @@ $(document).ready(function () {
 
         if (respuesta == "" || respuesta == null) {
 
-          $("#serie_comprobante").val("T0001");
+          $("#serie_venta").val("T0001");
 
-          $("#num_comprobante").val("0001");
+          $("#numero_venta").val("0001");
 
         }
 
@@ -95,15 +103,15 @@ $(document).ready(function () {
             .padStart(data.num_comprobante.length, "0");
 
 
-          $("#serie_comprobante").val(seriComprobante);
+          $("#serie_venta").val(seriComprobante);
 
-          $("#num_comprobante").val(numeroComprobante);
+          $("#numero_venta").val(numeroComprobante);
 
         });
 
       },
 
-      /* error: function (xhr, status, error) {
+      error: function (xhr, status, error) {
 
         console.error(xhr);
 
@@ -111,11 +119,14 @@ $(document).ready(function () {
 
         console.error(error);
 
-      }, */
+      },
 
     });
 
   }
+
+
+
 
   /*=============================================
     MOSTRAR PRODUCTOS PARA LA VENTA
@@ -145,7 +156,7 @@ $(document).ready(function () {
                   <tr>
                       <td class="text-center">
 
-                          <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${producto.id_producto}">
+                          <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${producto.id_producto}" stockProducto="${producto.stock_producto}">
 
                               <img class="hover_img" src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
 
@@ -155,6 +166,7 @@ $(document).ready(function () {
 
                       <td>${producto.nombre_categoria}</td>
 
+                      <td class="fw-bold">S/ ${producto.precio_producto}</td>
                       <td>${producto.nombre_producto}</td>
 
                       <td class="text-center">
@@ -206,45 +218,8 @@ $(document).ready(function () {
 
   }
 
-  /* =============================================
-   ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
-   ============================================= */
 
-  $(document).on("click", ".btnEliminarAddProducto", function (e) {
 
-    e.preventDefault();
-
-    var idProductoEliminar = $(this).attr("idAddProducto");
-
-    // Encuentra la fila que corresponde al producto a eliminar y elimínala
-
-    $("#detalle_egreso_producto")
-
-      .find("tr")
-
-      .each(function () {
-
-        var idProducto = $(this)
-
-          .find(".btnEliminarAddProducto")
-
-          .attr("idAddProducto");
-
-        if (idProducto == idProductoEliminar) {
-
-          $(this).remove();
-
-          // Una vez eliminada la fila, recalcular el total
-
-          calcularTotal();
-
-          return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
-
-        }
-
-      });
-
-  });
 
   /*============================================
    FORMATEAR LOS PRECIOS
@@ -256,6 +231,9 @@ $(document).ready(function () {
 
   }
 
+
+
+
   /* ===========================================
    CALCULAR EL TOTAL DE PRECIO
    =========================================== */
@@ -263,15 +241,15 @@ $(document).ready(function () {
 
     var subtotalTotal = 0;
 
-    var impuesto = parseFloat($("#impuesto_egreso").val());
+    var impuesto = parseFloat($("#igv_venta").val());
 
     // Recorrer todas las filas para sumar los subtotales
 
-    $("#detalle_egreso_producto tr").each(function () {
+    $("#detalle_venta_producto tr").each(function () {
 
       var subtotalString = $(this)
 
-        .find(".precio_sub_total")
+        .find(".precio_sub_total_venta")
         .text()
         .replace("S/ ", "")
         .replace(",", "");
@@ -316,13 +294,17 @@ $(document).ready(function () {
 
     // Mostrar los resultados en el HTML
 
-    $("#subtotal_egreso").text(subtotalFormateado);
+    $("#subtotal_venta").text(subtotalFormateado);
 
-    $("#igv_egreso").text(igvFormateado);
+    $("#igv_venta_show").text(igvFormateado);
 
-    $("#total_precio_egreso").text(totalFormateado);
+    $("#total_precio_venta").text(totalFormateado);
 
   }
+
+
+
+
 
   /*====================================
    AGREGAR PRODUCTO A LA TABLA DETALLE
@@ -333,6 +315,27 @@ $(document).ready(function () {
     e.preventDefault();
 
     var idProductoAdd = $(this).attr("idProductoAdd");
+    var stockProducto = $(this).attr("stockProducto");
+
+    if(stockProducto <= 0){
+
+      Swal.fire({
+        title: "¡Alerta!",
+        text: "¡El stock de este producto se agotado!",
+        icon: "error"
+      });
+
+      return;
+
+    }else if(stockProducto > 0 && stockProducto < 10){
+
+      Swal.fire({
+        title: "¡Aviso!",
+        text: "¡El stock de este producto se está agotando!",
+        icon: "warning"
+      });
+
+    }
 
     var datos = new FormData();
 
@@ -353,10 +356,10 @@ $(document).ready(function () {
 
         var nuevaFila = `
                         <tr>
-                            <input type="hidden" class="id_producto_egreso" value="${respuesta.id_producto}">
+                            <input type="hidden" class="id_producto_venta" value="${respuesta.id_producto}">
 
                             <th class="text-center align-middle d-none d-md-table-cell">
-                                <a href="#" class="me-3 confirm-text btnEliminarAddProducto" idAddProducto="${respuesta.id_producto}" fotoUsuario="${respuesta.imagen_producto}">
+                                <a href="#" class="me-3 confirm-text btnEliminarAddProductoVenta" idAddProducto="${respuesta.id_producto}"">
                                     <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
                                 </a>
                             </th>
@@ -368,23 +371,19 @@ $(document).ready(function () {
                             <td>${respuesta.nombre_producto}</td>
 
                             <td>
-                                <input type="number" class="form-control form-control-sm cantidad_u" value="0">
+                                <input type="number" class="form-control form-control-sm cantidad_u_v" value="0">
                             </td>
 
                             <td>
-                                <input type="number" class="form-control form-control-sm cantidad_kg" value="0">
+                                <input type="number" class="form-control form-control-sm cantidad_kg_v" value="0">
                             </td>
 
                             <td>
-                                <input type="number" class="form-control form-control-sm precio_compra" value="0">
-                            </td>
-
-                            <td>
-                                <input type="number" class="form-control form-control-sm precio_venta" value="0">
+                                <input type="number" class="form-control form-control-sm precio_venta" value="${respuesta.precio_producto}">
                             </td>
 
                             <td style="text-align: right;">
-                                <p class="price">S/ <span class="precio_sub_total">0.00</span></p>
+                                <p class="price">S/ <span class="precio_sub_total_venta">0.00</span></p>
                             </td>
                             
                         </tr>`;
@@ -392,33 +391,41 @@ $(document).ready(function () {
 
         $("#detalle_venta_producto").append(nuevaFila);
 
-        // Agregar evento para calcular el subtotal al cambiar la cantidad_kg o el precio_compra
-        $(".cantidad_kg, .precio_compra").on("input", function () {
+        
+        $(".cantidad_kg_v, .precio_venta").on("input", function () {
+
           var fila = $(this).closest("tr");
 
-          var cantidad_kg = parseFloat(fila.find(".cantidad_kg").val());
+          var cantidad_kg = parseFloat(fila.find(".cantidad_kg_v").val());
 
-          var precio_compra = parseFloat(fila.find(".precio_compra").val());
+          var precio_compra = parseFloat(fila.find(".precio_venta").val());
 
-          // Verificar si cantidad_kg o precio_compra son NaN y asignar 0 en su lugar
           if (isNaN(cantidad_kg)) {
+
             cantidad_kg = 0;
+
           }
           if (isNaN(precio_compra)) {
+
             precio_compra = 0;
+
           }
 
           var subtotal = cantidad_kg * precio_compra;
 
           var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
 
-          fila.find(".precio_sub_total").text(formateadoSubTotal);
+          fila.find(".precio_sub_total_venta").text(formateadoSubTotal);
 
           // Calcular y mostrar el total
           calcularTotal();
+
         });
+
       },error: function(err) {
+
         console.error(err);
+
       }
     });
 
@@ -428,6 +435,52 @@ $(document).ready(function () {
       calcularTotal();
     });
   });
+
+
+
+
+  /* =============================================
+   ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
+   ============================================= */
+
+  $(document).on("click", ".btnEliminarAddProductoVenta", function (e) {
+
+    e.preventDefault();
+
+    var idProductoEliminar = $(this).attr("idAddProducto");
+
+    // Encuentra la fila que corresponde al producto a eliminar y elimínala
+
+    $("#detalle_venta_producto")
+
+      .find("tr")
+
+      .each(function () {
+
+        var idProducto = $(this)
+
+          .find(".btnEliminarAddProductoVenta")
+
+          .attr("idAddProducto");
+
+        if (idProducto == idProductoEliminar) {
+
+          $(this).remove();
+
+          // Una vez eliminada la fila, recalcular el total
+
+          calcularTotal();
+
+          return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
+
+        }
+
+      });
+
+  });
+
+
+
 
   /* ===========================================
    CREAR VENTA EGRESO
@@ -478,47 +531,44 @@ $(document).ready(function () {
 
     // Iterar sobre cada fila de producto
 
-    $("#detalle_egreso_producto tr").each(function () {
+    $("#detalle_venta_producto tr").each(function () {
 
       var fila = $(this);
 
       // Obtener los valores de cada campo en la fila
 
-      var idProductoEgreso = fila.find(".id_producto_egreso").val();
+      var idProductoVenta = fila.find(".id_producto_venta").val();
 
-      var cantidadU = fila.find(".cantidad_u").val();
+      var cantidadU = fila.find(".cantidad_u_v").val();
 
-      var cantidadKg = fila.find(".cantidad_kg").val();
-
-      var precioCompra = fila.find(".precio_compra").val();
+      var cantidadKg = fila.find(".cantidad_kg_v").val();
 
       var precioVenta = fila.find(".precio_venta").val();
 
       // Crear un objeto con los valores y agregarlo al array
 
       var producto = {
-        idProductoEgreso: idProductoEgreso,
+        id_producto: idProductoVenta,
         cantidad_u: cantidadU,
         cantidad_kg: cantidadKg,
-        precio_compra: precioCompra,
-        precio_venta: precioVenta,
+        precio_venta: precioVenta
       };
 
       valoresProductos.push(producto);
 
     });
 
-    var productoAddEgreso = JSON.stringify(valoresProductos);
+    var productoAddVenta = JSON.stringify(valoresProductos);
 
-    var subtotal = $("#subtotal_egreso").text().replace(/,/g, "");
+    var subtotal = $("#subtotal_venta").text().replace(/,/g, "");
 
-    var igv = $("#igv_egreso").text().replace(/,/g, "");
+    var igv = $("#igv_venta_show").text().replace(/,/g, "");
 
-    var total = $("#total_precio_egreso").text().replace(/,/g, "");
+    var total = $("#total_precio_venta").text().replace(/,/g, "");
 
     // Captura el valor del tipo de pago (contado o crédito)
 
-    var tipo_pago = $("input[name='forma_pago']:checked").val();
+    var tipo_pago = $("input[name='forma_pago_v']:checked").val();
 
     // Variable para almacenar el estado
 
@@ -538,7 +588,7 @@ $(document).ready(function () {
 
     // Captura el valor del tipo de pago (contado o crédito)
 
-    var pago_tipo = $("input[name='pago_tipo']:checked").val();
+    var pago_tipo = $("input[name='pago_tipo_v']:checked").val();
 
     // Variable para almacenar el estado
 
@@ -561,37 +611,25 @@ $(document).ready(function () {
       var datos = new FormData();
 
 
-      datos.append("id_proveedor_egreso", id_proveedor_egreso);
-
-      datos.append("id_usuario_egreso", id_usuario_egreso);
-
-      datos.append("fecha_egreso", fecha_egreso);
-
-      datos.append("tipo_comprobante_egreso", tipo_comprobante_egreso);
-
-      datos.append("serie_comprobante", serie_comprobante);
-
-      datos.append("num_comprobante", num_comprobante);
-
-      datos.append("impuesto_egreso", impuesto_egreso);
-
-      datos.append("productoAddEgreso", productoAddEgreso);
-
+      datos.append("id_usuario_venta", id_usuario_venta);
+      datos.append("id_cliente_venta", id_cliente_venta);
+      datos.append("fecha_venta", fecha_venta);
+      datos.append("comprobante_venta", comprobante_venta);
+      datos.append("serie_venta", serie_venta);
+      datos.append("numero_venta", numero_venta);
+      datos.append("igv_venta", igv_venta);
+      datos.append("productoAddVenta", productoAddVenta);
       datos.append("subtotal", subtotal);
-
       datos.append("igv", igv);
-
       datos.append("total", total);
-
       datos.append("tipo_pago", tipo_pago);
-      
       datos.append("estado_pago", estado_pago);
-
       datos.append("pago_e_y", pago_e_y);
+
 
       $.ajax({
 
-        url: "ajax/Compra.ajax.php",
+        url: "ajax/ventas.ajax.php",
 
         method: "POST",
 
@@ -605,19 +643,20 @@ $(document).ready(function () {
 
         success: function (respuesta) {
 
+
           var res = JSON.parse(respuesta);
 
           if (res.estado === "ok") {
 
-            $("#form_compra_producto")[0].reset();
+            $("#form_venta_producto")[0].reset();
 
-            $("#detalle_egreso_producto").empty();
+            $("#detalle_venta_producto").empty();
 
-            $("#subtotal_egreso").text("00.00");
+            $("#subtotal_venta").text("00.00");
 
-            $("#igv_egreso").text("00.00");
+            $("#igv_venta_show").text("00.00");
 
-            $("#total_precio_egreso").text("00.00");
+            $("#total_precio_venta").text("00.00");
 
             Swal.fire({
 
@@ -691,6 +730,10 @@ $(document).ready(function () {
 
   });
 
+
+
+
+
   /* ==========================================
    LIMPIAR MODALES
    ========================================== */
@@ -729,8 +772,10 @@ $(document).ready(function () {
 
   limpiarModales();
 
+
+  
   /* =====================================
-   MSOTRANDO DATOS
+   FUNCIONES DE VENTA
    ===================================== */
 
   mostrarProductoVenta();
@@ -739,6 +784,6 @@ $(document).ready(function () {
 
   mostrarSerieNumero();
 
-  tipoPago();
+  tipoPagoYE();
 
 });
