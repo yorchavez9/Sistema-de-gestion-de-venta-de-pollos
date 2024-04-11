@@ -184,6 +184,34 @@ class ControladorVenta
 	}
 
 	/*=============================================
+	ACTUALIZAR EL PAGO DE DEUDA EGRESO
+	=============================================*/
+	static public function ctrActualizarDeudaVenta(){
+
+		$tabla = "ventas";
+
+		$totalPago = number_format($_POST["monto_pagar_venta"], 2, '.', '');
+
+		$datos = array(
+			"id_venta" => $_POST["id_venta_pagar"],
+			"total_pago" => $totalPago
+		);
+
+        $respuesta = ModeloVenta::mdlActualizarPagoPendiente($tabla, $datos);
+
+        if ($respuesta == "ok") {
+
+            echo json_encode($respuesta);
+
+        } else {
+
+            echo json_encode($respuesta);
+
+        }
+
+	}
+
+	/*=============================================
 	EDITAR VENTA
 	=============================================*/
 

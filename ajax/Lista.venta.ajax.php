@@ -106,10 +106,10 @@ elseif (isset($_POST["id_categoria_P"])) {
 
 
 /* ACTUALIZAR PAGO DEUDA */
-elseif (isset($_POST["id_egreso_pagar"])) {
+elseif (isset($_POST["id_venta_pagar"])) {
 
-    $pagoEgreso = new ControladorListaCompra();
-    $pagoEgreso->ctrActualizarDeudaEgreso();
+    $pagoVenta = new ControladorVenta();
+    $pagoVenta->ctrActualizarDeudaVenta();
 
 }
 

@@ -646,6 +646,61 @@
     </div>
 </div>
 
+<!-- MODAL PAGAR COMPRA -->
+<div class="modal fade" id="modalPagarVenta" tabindex="-1" aria-labelledby="modalPagarVentaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pagar deuda</h5>
+                <button type="button" class="close btn_modal_ver_close_usuario" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form enctype="multipart/form-data" id="frm_pagar_deuda_venta">
+                <div class="modal-body">
+                
+                    <input type="hidden" id="id_venta_pagar" name="id_venta_pagar">
+
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <!-- COMPRA TOTAL -->
+                            <div class="form-group">
+                                <label><i class="fas fa-money-bill" style="color: #28C76F"></i> Compra total:</label>
+                                <h3 class="fw-bold" id="total_venta_pagar"></h3>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div class="form-group">
+                                <label><i class="fas fa-money-bill" style="color: #FF4D4D"></i> Total restante:</label>
+                                <h3 class="fw-bold" style="color: #FF4D4D" id="pago_restante_pagar"></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- FECHA DE PAGO -->
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 text-center">
+                            <label class="form-label"><i class="fas fa-barcode text-danger"></i> Monto a pagar:</label>
+                            <input type="text" id="monto_pagar_venta" name="monto_pagar_venta" class="form-control" placeholder="Ingrese el monto a pagar">
+                            <small id="error_monto_pagar_venta"></small>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+
+                </div>
+
+                <div class="text-end mx-4 mb-2">
+                    <button type="button" class="btn btn-primary" id="btn_pagar_deuda_venta"><i class="fa fa-save"></i> Pagar</button>
+                    <button type="button" class="btn btn-secondary btn_modal_ver_close_usuario" data-bs-dismiss="modal"> Cerrar</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
 
 
 <script>
