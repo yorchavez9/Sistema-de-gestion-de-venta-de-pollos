@@ -1,5 +1,8 @@
+import {mostrarVentas} from './lista-venta.js';
+
 $(document).ready(function () {
 
+  
 
   /* ===================================
     SELECCION DE TIPO DE PAGO
@@ -697,6 +700,8 @@ $(document).ready(function () {
             seleccionFecha();
 
             mostrarSerieNumero();
+
+            mostrarVentas();
 
           } else {
 
