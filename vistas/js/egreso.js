@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+  seleccionFecha();
   /* ===================================
   SELECCION DE TIPO DE PAGO
   =================================== */
@@ -35,7 +37,7 @@ $(document).ready(function () {
         const today = new Date().toISOString().split("T")[0];
         fechaEgresoInput.value = today;
     } else {
-        console.log("El elemento con ID 'fecha_egreso' no existe.");
+        console.log("El  elemento con ID 'fecha_egreso' no existe.");
     }
 }
 

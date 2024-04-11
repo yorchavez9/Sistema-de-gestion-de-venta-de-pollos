@@ -235,11 +235,10 @@ $(document).ready(function () {
                             <td>${producto.nombre_producto}</td>
                             <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
                             <td>${producto.fecha_vencimiento}</td>
+
                             <td>
-                                ${
-                                producto.estado_producto != 0 ? '<button class="btn btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="0" style="background: #28C76F; color:white;">Activado</button>' 
-                                : '<button class="btn btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="1" style="background: #FF4D4D; color:white;">Desactivado</button>'
-                                }
+                              ${producto.estado_producto != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="0">Activado</button>' 
+                                                              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="1">Desactivado</button>'}
                             </td>
                             
                             <td class="text-center">
@@ -289,6 +288,7 @@ $(document).ready(function () {
       var datos = new FormData();
       datos.append("activarId", idProducto);
       datos.append("activarProducto", estadoProducto);
+
   
       $.ajax({
         url: "ajax/Producto.ajax.php",
@@ -298,33 +298,25 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
-          if (window.matchMedia("(max-width:767px)").matches) {
-            swal({
-              title: "El producto ha sido actualizado",
-              type: "success",
-              confirmButtonText: "¡Cerrar!",
-            }).then(function (result) {
-              if (result.value) {
-                window.location = "usuarios";
-              }
-            });
-          }
+          console.log(respuesta)
         },
       });
   
       if (estadoProducto == 0) {
-        $(this).removeClass("btn-success").addClass("btn-danger").css({
-            "background-color": "#FF4D4D",
-            "color": "white",
-            "border": "none" // Quita el borde del botón
-        }).html("Desactivado").attr("estadoProducto", 1);
-    } else {
-        $(this).addClass("btn-success").removeClass("btn-danger").css({
-            "background-color": "#28C76F",
-            "color": "white",
-            "border": "none" // Quita el borde del botón
-        }).html("Activado").attr("estadoProducto", 0);
-    }
+        $(this)
+          .removeClass("bg-lightgreen")
+          .addClass("bg-lightred")
+          .html("Desactivado");
+        $(this).attr("estadoProducto", 0);
+
+      } else {
+        $(this)
+          .removeClass("bg-lightred")
+          .addClass("bg-lightgreen")
+          .html("Activado");
+        $(this).attr("estadoProducto", 1);
+
+      }
     
     });
   

@@ -295,7 +295,7 @@ $(document).ready(function () {
   /*=============================================
   ACTIVAR USUARIO
   =============================================*/
-  $(".tabla_usuarios").on("click", ".btnActivar", function(){
+  $("#tabla_usuarios").on("click", ".btnActivar", function(){
 
     var idUsuario = $(this).attr("idUsuario");
     var estadoUsuario = $(this).attr("estadoUsuario");
@@ -360,8 +360,6 @@ $(document).ready(function () {
   $("#tabla_usuarios").on("click", ".btnEditarUsuario", function () {
     var idUsuario = $(this).attr("idUsuario");
 
-    console.log(idUsuario);
-
     var datos = new FormData();
     datos.append("idUsuario", idUsuario);
 
@@ -374,6 +372,7 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (respuesta) {
+        
         $("#editIdUsuario").val(respuesta["id_usuario"]);
         $("#edit_nombre_usuario").val(respuesta["nombre_usuario"]);
 
@@ -405,7 +404,7 @@ $(document).ready(function () {
 
         $("#imagenActualUsuario").val(respuesta["imagen_usuario"]);
 
-        data_roles = JSON.parse(respuesta["roles"])
+        var data_roles = JSON.parse(respuesta["roles"])
 
         data_roles.forEach(function(rol) {
           // Concatena "edit_rol_" con el nombre del rol para obtener el ID del checkbox
@@ -702,4 +701,3 @@ MSOTRANDO DATOS
 ===================================== */
 mostrarUsuarios();
 });
-
