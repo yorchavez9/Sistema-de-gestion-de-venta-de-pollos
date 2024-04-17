@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+
   /* =====================================
   VISTA PREVIA DE LA IMAGEN DEL USUARIO
   ===================================== */
@@ -259,10 +261,10 @@ $(document).ready(function () {
                     <td>${usuario.direccion}</td>
                     <td>${usuario.telefono}</td>
                     <td>${usuario.correo}</td>
+
                     <td>
-                        ${
-                            usuario.estado != 0 ? '<button class="btn btn-success btn-sm btnActivar" idUsuario="' + usuario.id_usuario +'" estadoUsuario="0">Activado</button>' 
-                            : '<button class="btn btn-danger btn-sm btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
+                        ${usuario.estado != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="0">Activado</button>' 
+                                              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
                         }
                     </td>
                     
@@ -336,20 +338,18 @@ $(document).ready(function () {
 
       })
 
-      if(estadoUsuario == 0){
-
-        $(this).removeClass('btn-success');
-        $(this).addClass('btn-danger');
-        $(this).html('Desactivado');
-        $(this).attr('estadoUsuario',1);
-
-      }else{
-
-        $(this).addClass('btn-success');
-        $(this).removeClass('btn-danger');
-        $(this).html('Activado');
-        $(this).attr('estadoUsuario',0);
-
+      if (estadoUsuario == 0) {
+        $(this)
+          .removeClass("bg-lightgreen")
+          .addClass("bg-lightred")
+          .html("Desactivado");
+        $(this).attr("estadoUsuario", 1);
+      } else {
+        $(this)
+          .removeClass("bg-lightred")
+          .addClass("bg-lightgreen")
+          .html("Activado");
+        $(this).attr("estadoUsuario", 0);
       }
 
   })

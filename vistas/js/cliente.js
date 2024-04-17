@@ -260,12 +260,19 @@ $(document).ready(function () {
       });
   
       if (estadoCliente == 0) {
-        $(this).removeClass("bg-lightgreen").addClass("bg-lightred").html("Desactivado");
+        $(this)
+          .removeClass("bg-lightgreen")
+          .addClass("bg-lightred")
+          .html("Desactivado");
         $(this).attr("estadoCliente", 1);
-        } else {
-            $(this).removeClass("bg-lightred").addClass("bg-lightgreen").html("Activado");
-            $(this).attr("estadoCliente", 0);
-        }
+      } else {
+        $(this)
+          .removeClass("bg-lightred")
+          .addClass("bg-lightgreen")
+          .html("Activado");
+        $(this).attr("estadoCliente", 0);
+      }
+      
     });
   
 

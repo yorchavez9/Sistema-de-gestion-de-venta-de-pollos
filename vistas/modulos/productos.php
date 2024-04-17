@@ -6,7 +6,18 @@
                 <h6>Administrar productos</h6>
             </div>
             <div class="page-btn">
-                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoProducto"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Agregar producto</a>
+                <div class="row">
+                    <div class="col-auto">
+                        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoProducto">
+                            <img src="vistas/dist/assets/img/icons/plus.svg" alt="Agregar producto" class="me-2">Agregar producto
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="codigoBarra" class="btn btn-added">
+                            <i class="fas fa-barcode me-2"></i>Código de barra
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
