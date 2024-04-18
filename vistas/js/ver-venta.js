@@ -11,7 +11,7 @@ function mostrarProductoVenta() {
     dataType: "json",
 
     success: function (productos) {
-      var tbody = $("#data_edit_productos_detalle_venta");
+      var tbody = $("#data_ver_productos_detalle_venta");
 
       tbody.empty();
 
@@ -19,39 +19,39 @@ function mostrarProductoVenta() {
         producto.imagen_producto = producto.imagen_producto.substring(3);
 
         var fila = `
-                <tr>
-                    <td class="text-center">
-
-                        <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${
-                          producto.id_producto
-                        }" stockProducto="${producto.stock_producto}">
-
-                            <img class="hover_img" src="${
-                              producto.imagen_producto
-                            }" alt="${producto.imagen_producto}">
-
-                        </a>
-
-                    </td>
-
-                    <td>${producto.nombre_categoria}</td>
-
-                    <td class="fw-bold">S/ ${producto.precio_producto}</td>
-                    <td>${producto.nombre_producto}</td>
-
-                    <td class="text-center">
-
-                        <button type="button" class="btn btn-sm" style="${getButtonStyles(
-                          producto.stock_producto
-                        )}">
-
-                            ${producto.stock_producto}
-
-                        </button>
-
-                    </td>
-
-                </tr>`;
+                  <tr>
+                      <td class="text-center">
+  
+                          <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${
+                            producto.id_producto
+                          }" stockProducto="${producto.stock_producto}">
+  
+                              <img class="hover_img" src="${
+                                producto.imagen_producto
+                              }" alt="${producto.imagen_producto}">
+  
+                          </a>
+  
+                      </td>
+  
+                      <td>${producto.nombre_categoria}</td>
+  
+                      <td class="fw-bold">S/ ${producto.precio_producto}</td>
+                      <td>${producto.nombre_producto}</td>
+  
+                      <td class="text-center">
+  
+                          <button type="button" class="btn btn-sm" style="${getButtonStyles(
+                            producto.stock_producto
+                          )}">
+  
+                              ${producto.stock_producto}
+  
+                          </button>
+  
+                      </td>
+  
+                  </tr>`;
 
         function getButtonStyles(stock) {
           if (stock > 20) {
@@ -66,7 +66,7 @@ function mostrarProductoVenta() {
         tbody.append(fila);
       });
 
-      $("#tabla_edit_add_producto_venta").DataTable();
+      $("#tabla_ver_add_producto_venta").DataTable();
     },
 
     error: function (xhr, status, error) {
@@ -80,8 +80,8 @@ function formateoPrecio(numero) {
 }
 
 /* ===========================
-MOSTRANDO VENTAS
-=========================== */
+  MOSTRANDO VENTAS
+  =========================== */
 
 function mostrarVentas() {
   $.ajax({
@@ -111,52 +111,64 @@ function mostrarVentas() {
           let formateadoPagoRestante = formateoPrecio(restantePago);
 
           var fila = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${fechaFormateada}</td>
-                        <td>${venta.razon_social}</td>
-                        <td>${venta.serie_comprobante}</td>
-                        <td>${venta.num_comprobante}</td>
-                        <td>${venta.tipo_pago}</td>
-                        <td>S/ ${totalCompra}</td>
-                        <td>S/ ${formateadoPagoRestante}</td>
-
-                        <td class="text-center">
-                            ${
-                              restantePago == "0.00"
-                                ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
-                                : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
-                            }
-                        </td>
-                        
-                        <td class="text-center">
-
-                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta}" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
-                                <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
-                            </a>
-                        
-                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta}">
-                                <i class="text-warning fas fa-edit fa-lg"></i>
-                            </a>
-
-                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta}">
-                                <i class="text-primary fa fa-eye fa-lg"></i>
-                            </a>
-
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
-                                <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
-                            </a>
-
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
-                                <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
-                            </a>
-
-                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta}">
-                                <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
-                            </a>
-
-                        </td>
-                    </tr>`;
+                      <tr>
+                          <td>${index + 1}</td>
+                          <td>${fechaFormateada}</td>
+                          <td>${venta.razon_social}</td>
+                          <td>${venta.serie_comprobante}</td>
+                          <td>${venta.num_comprobante}</td>
+                          <td>${venta.tipo_pago}</td>
+                          <td>S/ ${totalCompra}</td>
+                          <td>S/ ${formateadoPagoRestante}</td>
+  
+                          <td class="text-center">
+                              ${
+                                restantePago == "0.00"
+                                  ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
+                                  : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
+                              }
+                          </td>
+                          
+                          <td class="text-center">
+  
+                              <a href="#" class="me-3 btnPagarVenta" idVenta="${
+                                venta.id_venta
+                              }" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
+                                  <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
+                              </a>
+                          
+                              <a href="#" class="me-3 btnEditarVenta" idVenta="${
+                                venta.id_venta
+                              }">
+                                  <i class="text-warning fas fa-edit fa-lg"></i>
+                              </a>
+  
+                              <a href="#" class="me-3 btnVerVenta" idVenta="${
+                                venta.id_venta
+                              }">
+                                  <i class="text-primary fa fa-eye fa-lg"></i>
+                              </a>
+  
+                              <a href="#" class="me-3 btnVerProducto" idVenta="${
+                                venta.id_venta
+                              }">
+                                  <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
+                              </a>
+  
+                              <a href="#" class="me-3 btnVerProducto" idVenta="${
+                                venta.id_venta
+                              }">
+                                  <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
+                              </a>
+  
+                              <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${
+                                venta.id_venta
+                              }">
+                                  <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
+                              </a>
+  
+                          </td>
+                      </tr>`;
 
           // Agregar la fila al tbody
           tbody.append(fila);
@@ -178,8 +190,8 @@ function mostrarVentas() {
 }
 
 /* ===========================================
-   ESCONDIENDO O MOSTRANDO EL TIPO DE PAGO
-   =========================================== */
+     ESCONDIENDO O MOSTRANDO EL TIPO DE PAGO
+     =========================================== */
 
 $(".tipo_pago_venta").on("click", function () {
   let valor = $(this).val();
@@ -192,14 +204,13 @@ $(".tipo_pago_venta").on("click", function () {
 });
 
 /* ===========================
-EDITANDO VENTA
-=========================== */
+  VER VENTA
+  =========================== */
 
-$("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
-  
+$("#data_lista_ventas").on("click", ".btnVerVenta", function (e) {
+
   e.preventDefault();
 
-  console.log("Editando");
 
   var idVenta = $(this).attr("idVenta");
 
@@ -221,37 +232,41 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
       $("#pos_venta").hide();
       $("#ventas_lista").hide();
       $("#ventas_lista").hide();
-      $("#ver_pos_venta").hide();
-      $("#edit_pos_venta").show();
+      $("#edit_pos_venta").hide();
+      $("#ver_pos_venta").show();
+      
 
       mostrarProductoVenta();
 
-      $("#edit_id_venta").val(respuesta["id_venta"]);
-      $("#edit_id_usuario_venta").val(respuesta["id_usuario"]);
-      $("#edit_id_cliente_venta").val(respuesta["id_persona"]);
-      $("#edit_fecha_venta").val(respuesta["fecha_venta"]);
-      $("#edit_comprobante_venta").val(respuesta["tipo_comprobante"]);
-      $("#edit_serie_venta").val(respuesta["serie_comprobante"]);
-      $("#edit_numero_venta").val(respuesta["num_comprobante"]);
-      $("#edit_igv_venta").val(respuesta["impuesto"]);
+      $("#ver_id_venta").val(respuesta["id_venta"]);
+      $("#ver_id_usuario_venta").val(respuesta["id_usuario"]);
+      $("#ver_id_cliente_venta").val(respuesta["id_persona"]);
+      $("#ver_fecha_venta").val(respuesta["fecha_venta"]);
+      $("#ver_comprobante_venta").val(respuesta["tipo_comprobante"]);
+      $("#ver_serie_venta").val(respuesta["serie_comprobante"]);
+      $("#ver_numero_venta").val(respuesta["num_comprobante"]);
+      $("#ver_igv_venta").val(respuesta["impuesto"]);
 
-      $("#edit_subtotal_venta").text(formateoPrecio(respuesta["sub_total"]));
-      $("#edit_igv_venta_show").text(formateoPrecio(respuesta["igv"]));
-      $("#edit_total_precio_venta").text(formateoPrecio(respuesta["total_venta"]));
+      $("#ver_subtotal_venta").text(formateoPrecio(respuesta["sub_total"]));
+      $("#ver_igv_venta_show").text(formateoPrecio(respuesta["igv"]));
+      $("#ver_total_precio_venta").text(
+        formateoPrecio(respuesta["total_venta"])
+      );
 
       if (respuesta["tipo_pago"] === "contado") {
         $("input[type=radio][name=forma_pago_v][value=contado]").prop(
           "checked",
           true
         );
-        $("#edit_venta_al_contado").show();
+        $("#ver_venta_al_contado").show();
+
       } else if (respuesta["tipo_pago"] === "credito") {
         $("input[type=radio][name=forma_pago_v][value=credito]").prop(
           "checked",
           true
         );
 
-        $("#edit_venta_al_contado").hide();
+        $("#ver_venta_al_contado").hide();
       }
     },
     error: function (respuesta) {
@@ -276,47 +291,41 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
         respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
 
         nuevaFila = `
-                        <tr>
-                            <input type="hidden" class="edit_id_producto_venta" value="${respuesta.id_producto}">
-
-                            <th class="text-center align-middle d-none d-md-table-cell">
-                                <a href="#" class="me-3 confirm-text btnEliminarAddProductoVenta" idAddProducto="${respuesta.id_producto}"">
-                                    <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
-                                </a>
-                            </th>
-
-                            <td>
-                                <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="50">
-                            </td>
-
-                            <td>${respuesta.nombre_producto}</td>
-
-                            <td>
-                                <input type="number" class="form-control form-control-sm edit_cantidad_u_v" value="${respuesta.cantidad_u}">
-                            </td>
-
-                            <td>
-                                <input type="number" class="form-control form-control-sm edit_cantidad_kg_v" value="${respuesta.cantidad_kg}">
-                            </td>
-
-                            <td>
-                                <input type="number" class="form-control form-control-sm edit_precio_venta" value="${respuesta.precio_venta}">
-                            </td>
-
-                            <td style="text-align: right;">
-                                <p class="price">S/ <span class="edit_precio_sub_total_venta">0.00</span></p>
-                            </td>
-                            
-                        </tr>`;
-        $("#edit_detalle_venta_producto").append(nuevaFila);
+                          <tr>
+                              <input type="hidden" class="edit_id_producto_venta" value="${respuesta.id_producto}">
+  
+                              <td>
+                                  <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="50">
+                              </td>
+  
+                              <td>${respuesta.nombre_producto}</td>
+  
+                              <td>
+                                  <input type="number" class="form-control form-control-sm ver_cantidad_u_v" value="${respuesta.cantidad_u}" disabled >
+                              </td>
+  
+                              <td>
+                                  <input type="number" class="form-control form-control-sm ver_cantidad_kg_v" value="${respuesta.cantidad_kg}" disabled >
+                              </td>
+  
+                              <td>
+                                  <input type="number" class="form-control form-control-sm ver_precio_venta" value="${respuesta.precio_venta}" disabled >
+                              </td>
+  
+                              <td style="text-align: right;">
+                                  <p class="price">S/ <span class="ver_precio_sub_total_venta">0.00</span></p>
+                              </td>
+                              
+                          </tr>`;
+        $("#ver_detalle_venta_producto").append(nuevaFila);
       });
 
-      $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+      $(".ver_cantidad_kg_v, .ver_precio_venta").on("input", function () {
         var fila = $(this).closest("tr");
 
-        var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
+        var cantidad_kg = parseFloat(fila.find(".ver_cantidad_kg_v").val());
 
-        var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
+        var precio_compra = parseFloat(fila.find(".ver_precio_venta").val());
 
         if (isNaN(cantidad_kg)) {
           cantidad_kg = 0;
@@ -329,7 +338,7 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 
         var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
 
-        fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
+        fila.find(".ver_precio_sub_total_venta").text(formateadoSubTotal);
 
         // Calcular y mostrar el total
         calcularTotal();
@@ -342,8 +351,8 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 });
 
 /* ===========================================
-   CALCULAR EL TOTAL DE PRECIO
-   =========================================== */
+     CALCULAR EL TOTAL DE PRECIO
+     =========================================== */
 function calcularTotal() {
   var subtotalTotal = 0;
 
@@ -401,8 +410,8 @@ function calcularTotal() {
 }
 
 /*=============================================
-MOSTRAR DEUDA A PAGAR
-=============================================*/
+  MOSTRAR DEUDA A PAGAR
+  =============================================*/
 
 $("#data_lista_ventas").on("click", ".btnPagarVenta", function (e) {
   e.preventDefault();
@@ -430,8 +439,8 @@ $("#data_lista_ventas").on("click", ".btnPagarVenta", function (e) {
 });
 
 /*=============================================
-    PAGAR DEUDA
-    =============================================*/
+      PAGAR DEUDA
+      =============================================*/
 $("#btn_pagar_deuda_venta").click(function (e) {
   e.preventDefault();
 
@@ -514,8 +523,8 @@ $("#btn_pagar_deuda_venta").click(function (e) {
 });
 
 /* =====================================
-  MSOTRANDO DATOS
-  ===================================== */
+    MSOTRANDO DATOS
+    ===================================== */
 mostrarVentas();
 
 calcularTotal();

@@ -3,20 +3,6 @@
 class ControladorVenta
 {
 
-	/*=============================================
-	MOSTRAR VENTA
-	=============================================*/
-
-	static public function ctrMostrarVentas($item, $valor)
-	{
-
-		$tablaE = "egresos";
-		$tablaDE = "detalle_egreso";
-
-		$respuesta = ModeloVenta::mdlMostrarVenta($tablaE, $tablaDE, $item, $valor);
-
-		return $respuesta;
-	}
 
 	/*=============================================
 	MOSTRAR LISTA VENTAS
@@ -30,6 +16,21 @@ class ControladorVenta
 		$tablaP = "personas";
 
 		$respuesta = ModeloVenta::mdlMostrarListaVenta($tablaD, $tablaV, $tablaP, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
+	MOSTRAR DETALLE VENTA
+	=============================================*/
+
+	static public function ctrMostrarDetalleVenta($item, $valor)
+	{
+
+		$tablaDV = "detalle_venta";
+		$tablaP = "productos";
+
+		$respuesta = ModeloVenta::mdlMostrarListaDetalleVenta($tablaDV, $tablaP, $item, $valor);
 
 		return $respuesta;
 	}

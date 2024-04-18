@@ -3,7 +3,7 @@
 require_once "../controladores/Ventas.controlador.php";
 require_once "../modelos/Ventas.modelo.php";
 
-class AjaxListaVentas
+class AjaxDetalleVenta
 {
 
     
@@ -19,7 +19,7 @@ class AjaxListaVentas
         $item = "id_venta";
         $valor = $this->idVenta;
 
-        $respuesta = ControladorVenta::ctrMostrarListaVentas($item, $valor);
+        $respuesta = ControladorVenta::ctrMostrarDetalleVenta($item, $valor);
 
         echo json_encode($respuesta);
     }
@@ -71,7 +71,7 @@ EDITAR VENTA
 =============================================*/
 if (isset($_POST["idVenta"])) {
 
-    $editar = new AjaxListaVentas();
+    $editar = new AjaxDetalleVenta();
     $editar->idVenta = $_POST["idVenta"];
     $editar->ajaxEditarVenta();
 
@@ -80,7 +80,7 @@ if (isset($_POST["idVenta"])) {
 /* VER DETALLE PRODUCTO */
 elseif (isset($_POST["idProductoVer"])) {
 
-    $verDetalle = new AjaxListaVentas();
+    $verDetalle = new AjaxDetalleVenta();
     $verDetalle->idProductoVer = $_POST["idProductoVer"];
     $verDetalle->ajaxVerProducto();
 }
@@ -88,7 +88,7 @@ elseif (isset($_POST["idProductoVer"])) {
 /* ACTIVAR PRODUCTO */
 elseif (isset($_POST["activarProducto"])) {
 
-    $activarProducto = new AjaxListaVentas();
+    $activarProducto = new AjaxDetalleVenta();
     $activarProducto->activarProducto = $_POST["activarProducto"];
     $activarProducto->activarId = $_POST["activarId"];
     $activarProducto->ajaxActivarProducto();

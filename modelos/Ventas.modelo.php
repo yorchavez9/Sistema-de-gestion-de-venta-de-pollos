@@ -4,38 +4,7 @@ require_once "Conexion.php";
 
 class ModeloVenta{
 
-	/*=============================================
-	MOSTRAR VENTA
-	=============================================*/
-
-	static public function mdlMostrarVenta($tablaE, $tablaDE, $item, $valor){
-
-		if($item != null){
-
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDE as detalle_egreso inner join $tablaE as egreso on detalle_egreso.id_venta = egreso.id_venta WHERE $item = :$item");
-
-			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
-
-			$stmt -> execute();
-
-			return $stmt -> fetch();
-
-		}else{
-
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDE as detalle_egreso inner join $tablaE as egreso on detalle_egreso.id_venta = egreso.id_venta ORDER BY p.id_venta DESC");
-
-			$stmt -> execute();
-
-			return $stmt -> fetchAll();
-
-		}
-		
-
-
-		$stmt = null;
-
-	}
-
+	
 	/*=============================================
 	MOSTRAR VENTAS
 	=============================================*/
@@ -45,7 +14,7 @@ class ModeloVenta{
 
 		if ($item != null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaD as d inner join $tablaV as p on c.id_categoria = p.id_categoria WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaD as d INNER JOIN $tablaV as v on d.id_venta = v.id_venta INNER JOIN $tablaP as p ON p.id_persona = v.id_persona WHERE v.$item = :$item");
 
 			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
@@ -64,6 +33,33 @@ class ModeloVenta{
 
 
 		$stmt = null;
+	}
+
+	/*=============================================
+	MOSTRAR DETALLE VENTAS
+	=============================================*/
+
+	static public function mdlMostrarListaDetalleVenta($tablaDV, $tablaP, $item, $valor)
+	{
+
+		if ($item != null) {
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaDV as dv INNER JOIN $tablaP as p ON dv.id_producto=p.id_producto WHERE $item = :$item");
+
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+		} else {
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaDV as dv INNER JOIN $tablaP as p ON p.id_producto = dv.id_producto  ORDER BY v.id_venta DESC");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+		}
+
 	}
 
 
