@@ -1,18 +1,25 @@
-/* ==============================
-FUNCION PARA FORMATEAR FUNCION
-============================== */
+/* ===========================================
+MOSTRANDO PRODUCTO PARA LA VENTA
+=========================================== */
 
 function mostrarProductoVenta() {
+
   $.ajax({
+
     url: "ajax/Producto.ajax.php",
+
     type: "GET",
+
     dataType: "json",
+
     success: function (productos) {
+
       var tbody = $("#data_edit_productos_detalle_venta");
 
       tbody.empty();
 
       productos.forEach(function (producto) {
+
         producto.imagen_producto = producto.imagen_producto.substring(3);
 
         var fila = `
@@ -30,6 +37,7 @@ function mostrarProductoVenta() {
                     <td>${producto.nombre_categoria}</td>
 
                     <td class="fw-bold">S/ ${producto.precio_producto}</td>
+
                     <td>${producto.nombre_producto}</td>
 
                     <td class="text-center">
@@ -45,60 +53,89 @@ function mostrarProductoVenta() {
                 </tr>`;
 
         function getButtonStyles(stock) {
+
           if (stock > 20) {
+
             return "background-color: #28C76F; color: white; border: none;";
+
           } else if (stock >= 10 && stock <= 20) {
+
             return "background-color: #FF9F43; color: white; border: none;";
+
           } else {
+
             return "background-color: #FF4D4D; color: white; border: none;";
+
           }
         }
 
         tbody.append(fila);
+
       });
 
       $("#tabla_edit_add_producto_venta").DataTable();
+
     },
 
     error: function (xhr, status, error) {
+
       console.error("Error al recuperar los usuarios:", error.mensaje);
+
     },
+
   });
+
 }
 
+/* ===========================================
+FORMATEO DE PRECIOS
+=========================================== */
 function formateoPrecio(numero) {
+
   return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 }
 
-/* ===========================
-MOSTRANDO VENTAS
-=========================== */
+/* ===========================================
+MOSTRANDO ventas
+=========================================== */
 
 function mostrarVentas() {
+
   $.ajax({
+
     url: "ajax/Lista.venta.ajax.php",
+
     type: "GET",
+
     dataType: "json",
+
     success: function (ventas) {
+
       var tbody = $("#data_lista_ventas");
 
       tbody.empty();
 
       // Inicializamos un conjunto vacío para almacenar los id_egreso ya procesados
+
       var ventasProcesados = new Set();
 
       ventas.forEach(function (venta, index) {
+
         // Verificar si el id_egreso ya ha sido procesado
+
         if (!ventasProcesados.has(venta.id_venta)) {
+
           var restantePago = (venta.total_venta - venta.total_pago).toFixed(2);
 
           let fechaOriginal = venta.fecha_venta;
 
           let partesFecha = fechaOriginal.split("-"); // Dividir la fecha en año, mes y día
-          let fechaFormateada =
-            partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0];
+
+          let fechaFormateada = partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0];
 
           let totalCompra = formateoPrecio(venta.total_venta);
+
           let formateadoPagoRestante = formateoPrecio(restantePago);
 
           var fila = `
@@ -114,40 +151,34 @@ function mostrarVentas() {
 
                         <td class="text-center">
                             ${restantePago == "0.00"
-              ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
-              : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
-            }
+                              ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
+                              : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
+                            }
                         </td>
                         
                         <td class="text-center">
 
-                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta
-            }" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
+                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta}" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
                                 <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
                             </a>
                         
-                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta
-            }">
+                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta}">
                                 <i class="text-warning fas fa-edit fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta
-            }">
+                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta}">
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta
-            }">
+                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta
-            }">
+                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
 
-                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta
-            }">
+                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta}">
                                 <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
                             </a>
 
@@ -155,78 +186,102 @@ function mostrarVentas() {
                     </tr>`;
 
           // Agregar la fila al tbody
+
           tbody.append(fila);
 
           // Agregar el id_egreso al conjunto de egresos procesados
+
           ventasProcesados.add(venta.id_venta);
+
         }
+
       });
 
       // Inicializar DataTables después de cargar los datos
+
       $("#tabla_lista_ventas").DataTable();
     },
     error: function (xhr, status, error) {
+
       console.error(error);
+
       console.error(xhr);
+
       console.error(status);
+
     },
+
   });
+
 }
 
 /* ===========================================
-   AGREGANDO PRODUCTO PARA EDITAR
-   =========================================== */
+AGREGANDO PRODUCTO PARA EDITAR
+=========================================== */
 
-$("#data_edit_productos_detalle_venta").on("click",".btnAddEditProductoVenta",function (e) {
+$("#data_edit_productos_detalle_venta").on("click", ".btnAddEditProductoVenta", function (e) {
 
-    e.preventDefault();
+  e.preventDefault();
+
+  var id_producto_edit = $(this).attr("idProductoAdd");
+
+  var sotck_producto_edit = $(this).attr("stockProducto");
+
+  if (sotck_producto_edit <= 0) {
+
+    Swal.fire({
+      title: "¡Alerta!",
+      text: "¡El stock de este producto se agotado!",
+      icon: "error",
+    });
+
+    return;
+
+  } else if (sotck_producto_edit > 0 && sotck_producto_edit < 10) {
+
+    Swal.fire({
+      title: "¡Aviso!",
+      text: "¡El stock de este producto se está agotando!",
+      icon: "warning",
+    });
+    
+  }
 
 
-    var id_producto_edit = $(this).attr("idProductoAdd");
-    var sotck_producto_edit = $(this).attr("stockProducto");
+  var datos = new FormData();
 
-    if (sotck_producto_edit <= 0) {
-      Swal.fire({
-        title: "¡Alerta!",
-        text: "¡El stock de este producto se agotado!",
-        icon: "error",
-      });
+  datos.append("id_producto_edit", id_producto_edit);
 
-      return;
-    } else if (sotck_producto_edit > 0 && sotck_producto_edit < 10) {
-      Swal.fire({
-        title: "¡Aviso!",
-        text: "¡El stock de este producto se está agotando!",
-        icon: "warning",
-      });
-    }
+  $.ajax({
 
+    url: "ajax/Lista.venta.ajax.php",
 
-    var datos = new FormData();
+    method: "POST",
 
-    datos.append("id_producto_edit", id_producto_edit);
+    data: datos,
 
-    $.ajax({
-      url: "ajax/Lista.venta.ajax.php",
-      method: "POST",
-      data: datos,
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function (respuesta) {
+    cache: false,
 
-       
-        respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
+    contentType: false,
 
-        var nuevaFila = `
+    processData: false,
+
+    dataType: "json",
+
+    success: function (respuesta) {
+
+      respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
+
+      var nuevaFila = `
                       <tr>
                           <input type="hidden" class="id_producto_venta" value="${respuesta.id_producto}">
 
                           <th class="text-center align-middle d-none d-md-table-cell">
+
                               <a href="#" class="me-3 confirm-text btnEliminarAddProductoVentaEdit" idAddProducto="${respuesta.id_producto}"">
                                   <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
                               </a>
+
                           </th>
 
                           <td>
@@ -253,66 +308,90 @@ $("#data_edit_productos_detalle_venta").on("click",".btnAddEditProductoVenta",fu
                           
                       </tr>`;
 
-        $("#edit_detalle_venta_producto").append(nuevaFila);
+      $("#edit_detalle_venta_producto").append(nuevaFila);
 
+      calcularSubTotal();
 
-        $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+    },
+    error: function (err) {
 
-          var fila = $(this).closest("tr");
+      console.error(err);
 
-          var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
+    },
 
-          var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
+  });
 
-          if (isNaN(cantidad_kg)) {
-            cantidad_kg = 0;
-          }
-          if (isNaN(precio_compra)) {
-            precio_compra = 0;
-          }
+  calcularTotal();
 
-          var subtotal = cantidad_kg * precio_compra;
-
-          var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
-
-          fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
-
-          // Calcular y mostrar el total
-          calcularTotal();
-        });
-      },
-      error: function (err) {
-        console.error(err);
-      },
-    });
+  $(document).ready(function () {
 
     calcularTotal();
 
-    $(document).ready(function () {
-      calcularTotal();
-    });
-  }
-);
+  });
+
+});
 
 /* ===========================================
-   ESCONDIENDO O MOSTRANDO EL TIPO DE PAGO
-   =========================================== */
+CALCULAR EL SUB TOTAL CON ACCION DE INPUT
+=========================================== */
+
+function calcularSubTotal() {
+
+  $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+
+    var fila = $(this).closest("tr");
+
+    var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
+
+    var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
+
+    if (isNaN(cantidad_kg)) {
+      cantidad_kg = 0;
+    }
+    if (isNaN(precio_compra)) {
+      precio_compra = 0;
+    }
+
+    var subtotal = cantidad_kg * precio_compra;
+
+    var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
+
+    fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
+
+    // Calcular y mostrar el total
+
+    calcularTotal();
+
+  });
+
+}
+
+/* ===========================================
+MOSTRAR Y OCULAR EL TIPO DE PAGO
+=========================================== */
 
 $(".tipo_pago_venta").on("click", function () {
+
   let valor = $(this).val();
 
   if (valor == "credito") {
+
     $("#edit_venta_al_contado").hide();
+
   } else {
+
     $("#edit_venta_al_contado").show();
+
   }
+
 });
 
-/* ===========================
-  EDITANDO VENTA
-  =========================== */
+/* ===========================================
+EDITANDO VENTA
+=========================================== */
 
 $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
+
   e.preventDefault();
 
   console.log("Editando");
@@ -324,15 +403,25 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
   datos.append("idVenta", idVenta);
 
   /* MOSTRANDO DATOS DE VENTA */
+
   $.ajax({
+
     url: "ajax/Lista.venta.ajax.php",
+
     method: "POST",
+
     data: datos,
+
     cache: false,
+
     contentType: false,
+
     processData: false,
+
     dataType: "json",
+
     success: function (respuesta) {
+
       $("#pos_venta").hide();
       $("#ventas_lista").hide();
       $("#ventas_lista").hide();
@@ -350,41 +439,47 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
       $("#edit_numero_venta").val(respuesta["num_comprobante"]);
       $("#edit_igv_venta").val(respuesta["impuesto"]);
 
-      /* Mostrando el sub total,igv y el total */
-      /* $("#edit_subtotal_venta").text(formateoPrecio(respuesta["sub_total"]));
-      $("#edit_igv_venta_show").text(formateoPrecio(respuesta["igv"]));
-      $("#edit_total_precio_venta").text(formateoPrecio(respuesta["total_venta"])); */
+
 
       if (respuesta["tipo_pago"] === "contado") {
-        $("input[type=radio][name=forma_pago_v][value=contado]").prop(
-          "checked",
-          true
-        );
+
+        $("input[type=radio][name=forma_pago_v][value=contado]").prop("checked",true);
+
         $("#edit_venta_al_contado").show();
+
       } else if (respuesta["tipo_pago"] === "credito") {
-        $("input[type=radio][name=forma_pago_v][value=credito]").prop(
-          "checked",
-          true
-        );
+
+        $("input[type=radio][name=forma_pago_v][value=credito]").prop("checked",true);
 
         $("#edit_venta_al_contado").hide();
       }
     },
     error: function (respuesta) {
+
       console.log(respuesta);
+
     },
+
   });
 
   /* MOSTRANDO DATOS DE DETALLE VENTA */
 
   $.ajax({
+
     url: "ajax/Detalle.venta.ajax.php",
+
     method: "POST",
+
     data: datos,
+
     cache: false,
+
     contentType: false,
+
     processData: false,
+
     dataType: "json",
+    
     success: function (productoDetalle) {
 
       var nuevaFila = "";
@@ -399,9 +494,11 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
                             <input type="hidden" class="edit_id_producto_venta" value="${respuesta.id_producto}">
 
                             <th class="text-center align-middle d-none d-md-table-cell">
+
                                 <a href="#" class="me-3 confirm-text btnEliminarAddProductoVentaEdit" idAddProducto="${respuesta.id_producto}"">
                                     <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
                                 </a>
+
                             </th>
 
                             <td>
@@ -432,54 +529,64 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 
       });
 
+      // Función para realizar los cálculos
 
+      function calcularAutomaticamente() {
 
+        $(".edit_cantidad_kg_v, .edit_precio_venta").each(function () {
 
-      $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+          var fila = $(this).closest("tr");
 
-        var fila = $(this).closest("tr");
+          var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
 
-        var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
+          var precio_venta = parseFloat(fila.find(".edit_precio_venta").val());
 
-        var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
+          if (isNaN(cantidad_kg)) {
 
-        if (isNaN(cantidad_kg)) {
+            cantidad_kg = 0;
 
-          cantidad_kg = 0;
+          }
 
-        }
+          if (isNaN(precio_venta)) {
 
-        if (isNaN(precio_compra)) {
+            precio_venta = 0;
 
-          precio_compra = 0;
+          }
 
-        }
+          var subtotal = cantidad_kg * precio_venta;
 
-        var subtotal = cantidad_kg * precio_compra;
+          var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
 
-        var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
+          fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
 
-        fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
+        });
 
         // Calcular y mostrar el total
+
         calcularTotal();
-      });
 
+      }
+        
+      calcularAutomaticamente();
 
+      calcularSubTotal();
 
     },
     error: function (respuesta) {
+
       console.log(respuesta);
+
     },
+
   });
+
 });
 
 
-
-
 /* ===========================================
-   CALCULAR EL TOTAL DE PRECIO
-   =========================================== */
+CALCULAR EL TOTAL DE LA VENTA
+=========================================== */
+
 function calcularTotal() {
 
   var subtotalTotal = 0;
@@ -489,6 +596,7 @@ function calcularTotal() {
   // Recorrer todas las filas para sumar los subtotales
 
   $("#edit_detalle_venta_producto tr").each(function () {
+
     var subtotalString = $(this)
       .find(".edit_precio_sub_total_venta")
       .text()
@@ -500,10 +608,13 @@ function calcularTotal() {
     // Si subtotal no es un número válido, asignar 0
 
     if (isNaN(subtotal)) {
+
       subtotal = 0;
+
     }
 
     subtotalTotal += subtotal;
+
   });
 
   // Calcular el impuesto
@@ -517,7 +628,9 @@ function calcularTotal() {
   // Verificar si el resultado es NaN y mostrar "0.00" en su lugar
 
   if (isNaN(total)) {
+
     total = 0;
+
   }
 
   // Formatear los resultados
@@ -538,12 +651,9 @@ function calcularTotal() {
 }
 
 
-
-
-
-/* =============================================
-   ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
-   ============================================= */
+/* ===========================================
+ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
+=========================================== */
 
 $(document).on("click", ".btnEliminarAddProductoVentaEdit", function (e) {
 
@@ -554,15 +664,19 @@ $(document).on("click", ".btnEliminarAddProductoVentaEdit", function (e) {
   // Encuentra la fila que corresponde al producto a eliminar y elimínala
 
   $("#edit_detalle_venta_producto")
+
     .find("tr")
 
     .each(function () {
+
       var idProducto = $(this)
+
         .find(".btnEliminarAddProductoVentaEdit")
 
         .attr("idAddProducto");
 
       if (idProducto == idProductoEliminar) {
+
         $(this).remove();
 
         // Una vez eliminada la fila, recalcular el total
@@ -571,42 +685,59 @@ $(document).on("click", ".btnEliminarAddProductoVentaEdit", function (e) {
 
         return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
       }
+
     });
+
 });
 
-/*=============================================
-  MOSTRAR DEUDA A PAGAR
-  =============================================*/
+/* ===========================================
+MOSTRAR DEUDA A PAGAR
+=========================================== */
 
 $("#data_lista_ventas").on("click", ".btnPagarVenta", function (e) {
+
   e.preventDefault();
 
   let idVenta = $(this).attr("idVenta");
+
   let totalCompraVenta = $(this).attr("totalCompraVenta");
+
   let pagoRestanteVenta = $(this).attr("pagoRestanteVenta");
+
   let restantePago = $(this).attr("restantePago");
 
   if (restantePago == "0.00") {
+
     Swal.fire({
       title: "¡Aviso!",
       text: "Esta venta no tiene deudas pendientes.",
       icon: "warning",
     });
+
   } else {
+
     // Configura los valores en el modal según los datos del botón pulsado
+
     $("#id_venta_pagar").val(idVenta);
+
     $("#total_venta_pagar").text("S/ " + totalCompraVenta);
+
     $("#pago_restante_pagar").text("S/ " + pagoRestanteVenta);
 
     // Ahora abre el modal manualmente con JavaScript
+
     $("#modalPagarVenta").modal("show");
+
   }
+
 });
 
-/*=============================================
-    PAGAR DEUDA
-    =============================================*/
+/* ===========================================
+PAGAR DEUDA
+=========================================== */
+
 $("#btn_pagar_deuda_venta").click(function (e) {
+
   e.preventDefault();
 
   var isValid = true;
@@ -618,40 +749,57 @@ $("#btn_pagar_deuda_venta").click(function (e) {
   /* VALIDANDO EL TIPO DE DATOS */
 
   if (monto_pagar_venta === "" || monto_pagar_venta == null) {
+
     $("#error_monto_pagar_venta")
       .html("Por favor, ingrese el monto")
       .addClass("text-danger");
 
     isValid = false;
+
   } else if (isNaN(monto_pagar_venta)) {
+
     $("#error_monto_pagar_venta")
       .html("El monto solo puede contener números")
       .addClass("text-danger");
 
     isValid = false;
+
   } else {
+
     $("#error_monto_pagar_venta").html("").removeClass("text-danger");
+
   }
 
   /*  ENVIAR LOS DATOS SI LA VALIDACION FUE VERDADERO */
 
   if (isValid) {
+
     var datos = new FormData();
 
     datos.append("id_venta_pagar", id_venta_pagar);
+
     datos.append("monto_pagar_venta", monto_pagar_venta);
 
     $.ajax({
+
       url: "ajax/Lista.venta.ajax.php",
+
       method: "POST",
+
       data: datos,
+
       cache: false,
+
       contentType: false,
+
       processData: false,
+
       success: function (respuesta) {
+
         var res = JSON.parse(respuesta);
 
         if (res.estado === "ok") {
+
           Swal.fire({
             title: "¡Correcto!",
             text: res.mensaje,
@@ -673,27 +821,40 @@ $("#btn_pagar_deuda_venta").click(function (e) {
           $("#frm_pagar_deuda_venta")[0].reset();
 
           $("#modalPagarVenta").modal("hide");
+
         } else {
+
           Swal.fire({
             title: res.estado,
             text: res.mensaje,
             icon: "error",
           });
+
         }
 
         mostrarVentas();
       },
+
     });
+
   }
+
 });
 
-/* =====================================
-  MSOTRANDO DATOS
-  ===================================== */
+/* ===========================================
+MOSTRAR VENTAS
+=========================================== */
 mostrarVentas();
 
+/* ===========================================
+CALCULAR EL TOTAL DE LA VENTA
+=========================================== */
 calcularTotal();
 
+
+/* ===========================================
+EXPORTANDO VENTA
+=========================================== */
 export {
   mostrarVentas
 };
