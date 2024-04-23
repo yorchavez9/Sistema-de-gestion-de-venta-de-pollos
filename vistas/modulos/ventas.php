@@ -437,10 +437,10 @@
                         <form id="form_venta_producto">
 
                             <!-- INGRESO DE ID DEL USUARIO -->
-                            <input type="text" id="edit_id_usuario_venta" value="<?php echo $_SESSION["id_usuario"] ?>">
+                            <input type="hidden" id="edit_id_usuario_venta" value="<?php echo $_SESSION["id_usuario"] ?>">
 
                             <!-- INGRESO DE ID VENTA -->
-                            <input type="text" id="edit_id_venta" value="">
+                            <input type="hidden" id="edit_id_venta" value="">
 
 
                             <div class="row">

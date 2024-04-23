@@ -1,12 +1,32 @@
 <?php
 
 require_once "../controladores/Ventas.controlador.php";
+require_once "../controladores/Producto.controlador.php";
 require_once "../modelos/Ventas.modelo.php";
+require_once "../modelos/Producto.modelo.php";
 
 class AjaxListaVentas
 {
 
-    
+    /*=============================================
+	AGREGAR PRODUCTO A LA LISTA DE VENTAS
+	=============================================*/
+
+    public $id_producto_edit;
+
+    public function ajaxAddProducto()
+    {
+
+        $item = "id_producto";
+
+        $valor = $this->id_producto_edit;
+
+        $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
+
+        echo json_encode($respuesta);
+    }
+
+
     /*=============================================
 	EDITAR VENTA
 	=============================================*/
@@ -66,10 +86,23 @@ class AjaxListaVentas
 
 }
 
+
+/*=============================================
+AGREGAR PRODUCTO A LA LISTA
+=============================================*/
+
+if (isset($_POST["id_producto_edit"])) {
+
+    $editar = new AjaxListaVentas();
+    $editar->id_producto_edit = $_POST["id_producto_edit"];
+    $editar->ajaxAddProducto();
+
+}
+
 /*=============================================
 EDITAR VENTA
 =============================================*/
-if (isset($_POST["idVenta"])) {
+elseif (isset($_POST["idVenta"])) {
 
     $editar = new AjaxListaVentas();
     $editar->idVenta = $_POST["idVenta"];

@@ -135,14 +135,9 @@ $(document).ready(function () {
                   <tr>
                       <td class="text-center">
 
-                          <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${
-                            producto.id_producto
-                          }" stockProducto="${producto.stock_producto}">
+                          <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${producto.id_producto}" stockProducto="${producto.stock_producto}">
 
-                              <img class="hover_img" src="${
-                                producto.imagen_producto
-                              }" alt="${producto.imagen_producto}">
-
+                              <img class="hover_img" src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
                           </a>
 
                       </td>
@@ -154,9 +149,7 @@ $(document).ready(function () {
 
                       <td class="text-center">
 
-                          <button type="button" class="btn btn-sm" style="${getButtonStyles(
-                            producto.stock_producto
-                          )}">
+                          <button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">
 
                               ${producto.stock_producto}
 

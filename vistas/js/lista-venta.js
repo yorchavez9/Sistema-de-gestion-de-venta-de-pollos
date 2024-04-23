@@ -5,30 +5,23 @@ FUNCION PARA FORMATEAR FUNCION
 function mostrarProductoVenta() {
   $.ajax({
     url: "ajax/Producto.ajax.php",
-
     type: "GET",
-
     dataType: "json",
-
     success: function (productos) {
-
       var tbody = $("#data_edit_productos_detalle_venta");
 
       tbody.empty();
 
       productos.forEach(function (producto) {
-
         producto.imagen_producto = producto.imagen_producto.substring(3);
 
         var fila = `
                 <tr>
                     <td class="text-center">
 
-                        <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${producto.id_producto}" stockProducto="${producto.stock_producto}">
+                        <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddEditProductoVenta" idProductoAdd="${producto.id_producto}" stockProducto="${producto.stock_producto}">
 
-                            <img class="hover_img" src="${
-                              producto.imagen_producto
-                            }" alt="${producto.imagen_producto}">
+                            <img class="hover_img" src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
 
                         </a>
 
@@ -41,9 +34,7 @@ function mostrarProductoVenta() {
 
                     <td class="text-center">
 
-                        <button type="button" class="btn btn-sm" style="${getButtonStyles(
-                          producto.stock_producto
-                        )}">
+                        <button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">
 
                             ${producto.stock_producto}
 
@@ -122,36 +113,41 @@ function mostrarVentas() {
                         <td>S/ ${formateadoPagoRestante}</td>
 
                         <td class="text-center">
-                            ${
-                              restantePago == "0.00"
-                                ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
-                                : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
-                            }
+                            ${restantePago == "0.00"
+              ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
+              : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
+            }
                         </td>
                         
                         <td class="text-center">
 
-                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta}" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
+                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta
+            }" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
                                 <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
                             </a>
                         
-                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta
+            }">
                                 <i class="text-warning fas fa-edit fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta
+            }">
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta
+            }">
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta
+            }">
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
 
-                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta
+            }">
                                 <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
                             </a>
 
@@ -178,6 +174,127 @@ function mostrarVentas() {
 }
 
 /* ===========================================
+   AGREGANDO PRODUCTO PARA EDITAR
+   =========================================== */
+
+$("#data_edit_productos_detalle_venta").on("click",".btnAddEditProductoVenta",function (e) {
+
+    e.preventDefault();
+
+
+    var id_producto_edit = $(this).attr("idProductoAdd");
+    var sotck_producto_edit = $(this).attr("stockProducto");
+
+    if (sotck_producto_edit <= 0) {
+      Swal.fire({
+        title: "¡Alerta!",
+        text: "¡El stock de este producto se agotado!",
+        icon: "error",
+      });
+
+      return;
+    } else if (sotck_producto_edit > 0 && sotck_producto_edit < 10) {
+      Swal.fire({
+        title: "¡Aviso!",
+        text: "¡El stock de este producto se está agotando!",
+        icon: "warning",
+      });
+    }
+
+
+    var datos = new FormData();
+
+    datos.append("id_producto_edit", id_producto_edit);
+
+    $.ajax({
+      url: "ajax/Lista.venta.ajax.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+
+       
+        respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
+
+        var nuevaFila = `
+                      <tr>
+                          <input type="hidden" class="id_producto_venta" value="${respuesta.id_producto}">
+
+                          <th class="text-center align-middle d-none d-md-table-cell">
+                              <a href="#" class="me-3 confirm-text btnEliminarAddProductoVentaEdit" idAddProducto="${respuesta.id_producto}"">
+                                  <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
+                              </a>
+                          </th>
+
+                          <td>
+                              <img src="${respuesta.imagen_producto}" alt="Imagen de un pollo" width="50">
+                          </td>
+
+                          <td>${respuesta.nombre_producto}</td>
+
+                          <td>
+                              <input type="number" class="form-control form-control-sm edit_cantidad_u_v" value="0">
+                          </td>
+
+                          <td>
+                              <input type="number" class="form-control form-control-sm edit_cantidad_kg_v" value="0">
+                          </td>
+
+                          <td>
+                              <input type="number" class="form-control form-control-sm edit_precio_venta" value="${respuesta.precio_producto}">
+                          </td>
+
+                          <td style="text-align: right;">
+                              <p class="price">S/ <span class="edit_precio_sub_total_venta">0.00</span></p>
+                          </td>
+                          
+                      </tr>`;
+
+        $("#edit_detalle_venta_producto").append(nuevaFila);
+
+
+        $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+
+          var fila = $(this).closest("tr");
+
+          var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
+
+          var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
+
+          if (isNaN(cantidad_kg)) {
+            cantidad_kg = 0;
+          }
+          if (isNaN(precio_compra)) {
+            precio_compra = 0;
+          }
+
+          var subtotal = cantidad_kg * precio_compra;
+
+          var formateadoSubTotal = formateoPrecio(subtotal.toFixed(2));
+
+          fila.find(".edit_precio_sub_total_venta").text(formateadoSubTotal);
+
+          // Calcular y mostrar el total
+          calcularTotal();
+        });
+      },
+      error: function (err) {
+        console.error(err);
+      },
+    });
+
+    calcularTotal();
+
+    $(document).ready(function () {
+      calcularTotal();
+    });
+  }
+);
+
+/* ===========================================
    ESCONDIENDO O MOSTRANDO EL TIPO DE PAGO
    =========================================== */
 
@@ -192,11 +309,10 @@ $(".tipo_pago_venta").on("click", function () {
 });
 
 /* ===========================
-EDITANDO VENTA
-=========================== */
+  EDITANDO VENTA
+  =========================== */
 
 $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
-  
   e.preventDefault();
 
   console.log("Editando");
@@ -217,7 +333,6 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-
       $("#pos_venta").hide();
       $("#ventas_lista").hide();
       $("#ventas_lista").hide();
@@ -235,9 +350,10 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
       $("#edit_numero_venta").val(respuesta["num_comprobante"]);
       $("#edit_igv_venta").val(respuesta["impuesto"]);
 
-      $("#edit_subtotal_venta").text(formateoPrecio(respuesta["sub_total"]));
+      /* Mostrando el sub total,igv y el total */
+      /* $("#edit_subtotal_venta").text(formateoPrecio(respuesta["sub_total"]));
       $("#edit_igv_venta_show").text(formateoPrecio(respuesta["igv"]));
-      $("#edit_total_precio_venta").text(formateoPrecio(respuesta["total_venta"]));
+      $("#edit_total_precio_venta").text(formateoPrecio(respuesta["total_venta"])); */
 
       if (respuesta["tipo_pago"] === "contado") {
         $("input[type=radio][name=forma_pago_v][value=contado]").prop(
@@ -270,17 +386,20 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
     processData: false,
     dataType: "json",
     success: function (productoDetalle) {
+
       var nuevaFila = "";
 
       productoDetalle.forEach((respuesta) => {
+
         respuesta.imagen_producto = respuesta.imagen_producto.substring(3);
 
         nuevaFila = `
                         <tr>
+                    
                             <input type="hidden" class="edit_id_producto_venta" value="${respuesta.id_producto}">
 
                             <th class="text-center align-middle d-none d-md-table-cell">
-                                <a href="#" class="me-3 confirm-text btnEliminarAddProductoVenta" idAddProducto="${respuesta.id_producto}"">
+                                <a href="#" class="me-3 confirm-text btnEliminarAddProductoVentaEdit" idAddProducto="${respuesta.id_producto}"">
                                     <i class="fa fa-trash fa-lg" style="color: #F1666D"></i>
                                 </a>
                             </th>
@@ -308,10 +427,16 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
                             </td>
                             
                         </tr>`;
+
         $("#edit_detalle_venta_producto").append(nuevaFila);
+
       });
 
+
+
+
       $(".edit_cantidad_kg_v, .edit_precio_venta").on("input", function () {
+
         var fila = $(this).closest("tr");
 
         var cantidad_kg = parseFloat(fila.find(".edit_cantidad_kg_v").val());
@@ -319,10 +444,15 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
         var precio_compra = parseFloat(fila.find(".edit_precio_venta").val());
 
         if (isNaN(cantidad_kg)) {
+
           cantidad_kg = 0;
+
         }
+
         if (isNaN(precio_compra)) {
+
           precio_compra = 0;
+
         }
 
         var subtotal = cantidad_kg * precio_compra;
@@ -334,6 +464,9 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
         // Calcular y mostrar el total
         calcularTotal();
       });
+
+
+
     },
     error: function (respuesta) {
       console.log(respuesta);
@@ -341,10 +474,14 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
   });
 });
 
+
+
+
 /* ===========================================
    CALCULAR EL TOTAL DE PRECIO
    =========================================== */
 function calcularTotal() {
+
   var subtotalTotal = 0;
 
   var impuesto = parseFloat($("#edit_igv_venta").val());
@@ -400,9 +537,46 @@ function calcularTotal() {
   $("#edit_total_precio_venta").text(totalFormateado);
 }
 
+
+
+
+
+/* =============================================
+   ELIMINAR EL PRODUCTO AGREGADO DE LA LISTA
+   ============================================= */
+
+$(document).on("click", ".btnEliminarAddProductoVentaEdit", function (e) {
+
+  e.preventDefault();
+
+  var idProductoEliminar = $(this).attr("idAddProducto");
+
+  // Encuentra la fila que corresponde al producto a eliminar y elimínala
+
+  $("#edit_detalle_venta_producto")
+    .find("tr")
+
+    .each(function () {
+      var idProducto = $(this)
+        .find(".btnEliminarAddProductoVentaEdit")
+
+        .attr("idAddProducto");
+
+      if (idProducto == idProductoEliminar) {
+        $(this).remove();
+
+        // Una vez eliminada la fila, recalcular el total
+
+        calcularTotal();
+
+        return false; // Termina el bucle una vez que se ha encontrado y eliminado la fila
+      }
+    });
+});
+
 /*=============================================
-MOSTRAR DEUDA A PAGAR
-=============================================*/
+  MOSTRAR DEUDA A PAGAR
+  =============================================*/
 
 $("#data_lista_ventas").on("click", ".btnPagarVenta", function (e) {
   e.preventDefault();
@@ -520,4 +694,6 @@ mostrarVentas();
 
 calcularTotal();
 
-export { mostrarVentas };
+export {
+  mostrarVentas
+};
