@@ -110,7 +110,9 @@ elseif (isset($_POST["idVenta"])) {
 
 }
 
-/* VER DETALLE PRODUCTO */
+/*=============================================
+VER DETALLE PRODUCTO
+=============================================*/
 elseif (isset($_POST["idProductoVer"])) {
 
     $verDetalle = new AjaxListaVentas();
@@ -118,7 +120,9 @@ elseif (isset($_POST["idProductoVer"])) {
     $verDetalle->ajaxVerProducto();
 }
 
-/* ACTIVAR PRODUCTO */
+/*=============================================
+ACTIVAR PRODUCTO
+=============================================*/
 elseif (isset($_POST["activarProducto"])) {
 
     $activarProducto = new AjaxListaVentas();
@@ -129,7 +133,9 @@ elseif (isset($_POST["activarProducto"])) {
 }
 
 
-/* GUARDAR PRODUCTO */
+/*=============================================
+GUARDAR PRODUCTO
+=============================================*/
 elseif (isset($_POST["id_categoria_P"])) {
 
     $crearProducto = new ControladorProducto();
@@ -138,7 +144,9 @@ elseif (isset($_POST["id_categoria_P"])) {
 }
 
 
-/* ACTUALIZAR PAGO DEUDA */
+/*=============================================
+ACTUALIZAR PAGO DEUDA
+=============================================*/
 elseif (isset($_POST["id_venta_pagar"])) {
 
     $pagoVenta = new ControladorVenta();
@@ -146,7 +154,9 @@ elseif (isset($_POST["id_venta_pagar"])) {
 
 }
 
-/* ACTUALIZAR PRODUCTO */
+/*=============================================
+ACTUALIZAR PRODUCTO
+=============================================*/
 elseif(isset($_POST["edit_id_producto"])){
 
     $editProducto = new ControladorProducto();
@@ -154,7 +164,9 @@ elseif(isset($_POST["edit_id_producto"])){
 
 }
 
-/* BORRAR PRODUCTO */
+/*=============================================
+BORRAR PRODUCTO
+=============================================*/
 elseif(isset($_POST["idProductoDelete"])){
 
     $borrarProducto = new ControladorProducto();
@@ -162,7 +174,9 @@ elseif(isset($_POST["idProductoDelete"])){
 
 }
 
-/* MOSTRAR PRODUCTOS EN LA TABLA */
+/*=============================================
+MOSTRAR TODAS LAS VENTAS EN LA TABLA
+=============================================*/
 else{
 
     $item = null;

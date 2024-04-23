@@ -10,7 +10,6 @@ class AjaxProductoAddVenta
 {
 
     
-    
     /*=============================================
 	AGREGAR PRODUCTO A LA LISTA
 	=============================================*/
@@ -21,6 +20,7 @@ class AjaxProductoAddVenta
     {
 
         $item = "id_producto";
+
         $valor = $this->idProductoAdd;
 
         $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
@@ -38,6 +38,7 @@ class AjaxProductoAddVenta
     {
 
         $item = "id_producto";
+
         $valor = $this->idProductoVer;
 
         $respuesta = ControladorProducto::ctrMostrarProductos($item, $valor);
@@ -53,49 +54,69 @@ AGREGAR PRODUCTO A LA LISTA
 if (isset($_POST["idProductoAdd"])) {
 
     $editar = new AjaxProductoAddVenta();
+
     $editar->idProductoAdd = $_POST["idProductoAdd"];
+
     $editar->ajaxAddProducto();
 
 }
 
-/* VER DETALLE PRODUCTO */
+/*=============================================
+VER DETALLE PRODUCTO
+=============================================*/
 elseif (isset($_POST["idProductoVer"])) {
 
     $verDetalle = new AjaxProductoAddVenta();
+
     $verDetalle->idProductoVer = $_POST["idProductoVer"];
+
     $verDetalle->ajaxVerProducto();
+
 }
 
 
-/* GUARDAR VENTA PRODUCTO */
+/*=============================================
+GUARDAR LA VENTA
+=============================================*/
 elseif (isset($_POST["id_cliente_venta"])) {
 
     $crearVenta = new ControladorVenta();
+
     $crearVenta->ctrCrearVenta();
 
 }
 
-/* ACTUALIZAR PRODUCTO */
+/*=============================================
+ACTUALIZAR PRODUCTO
+=============================================*/
 elseif(isset($_POST["edit_id_producto"])){
 
     $editProducto = new ControladorProducto();
+
     $editProducto->ctrEditarProducto();
 
 }
 
-/* BORRAR PRODUCTO */
+/*=============================================
+BORRAR PRODUCTO
+=============================================*/
 elseif(isset($_POST["idProductoDelete"])){
 
     $borrarProducto = new ControladorProducto();
+    
     $borrarProducto->ctrBorrarProducto();
 
 }
 
-/* MOSTRAR PRODUCTOS EN LA TABLA */
+/*=============================================
+MOSTRANDO PRODUCTOS EN LA TABLA DE PUNTO VENTA
+=============================================*/
 else{
 
     $item = null;
+
     $valor = null;
+
     $mostrarProductos = ControladorProducto::ctrMostrarProductos($item, $valor);
     
     $tablaProductos = array();
