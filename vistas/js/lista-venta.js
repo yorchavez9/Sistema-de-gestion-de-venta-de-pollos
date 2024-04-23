@@ -11,20 +11,20 @@ function mostrarProductoVenta() {
     dataType: "json",
 
     success: function (productos) {
+
       var tbody = $("#data_edit_productos_detalle_venta");
 
       tbody.empty();
 
       productos.forEach(function (producto) {
+
         producto.imagen_producto = producto.imagen_producto.substring(3);
 
         var fila = `
                 <tr>
                     <td class="text-center">
 
-                        <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${
-                          producto.id_producto
-                        }" stockProducto="${producto.stock_producto}">
+                        <a href="#" id="btnAddProductoVenta" class="hover_img_a btnAddProductoVenta" idProductoAdd="${producto.id_producto}" stockProducto="${producto.stock_producto}">
 
                             <img class="hover_img" src="${
                               producto.imagen_producto

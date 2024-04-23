@@ -76,53 +76,36 @@
 
                     <div class="row">
 
-                        <!-- INGRESO DE NOMBRE  -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="direccion" class="form-label">Cantidad de códigos (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="cantidad_codigo_barra" placeholder="Cantidad de códigos" class="form-control">
-                                <small id="edit_error_nombre_p"></small>
-                            </div>
+                        <div class="form-group col-md-4">
+                            <label for="quantity">Cantidad de códigos:</label>
+                            <input type="number" id="quantity"  class="form-control" value="5">
                         </div>
-
-                        <!-- INGRESO DE STOCK -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="stock" class="form-label">Altura (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="altura_codigo_barra" placeholder="Altura" class="form-control">
-                                <small id="edit_error_stock_p"></small>
-                            </div>
+                        <div class="form-group col-md-4">
+                            <label for="barWidth">Ancho de las barras:</label>
+                            <input type="number" id="barWidth"  class="form-control" value="1.4" readonly>
                         </div>
-
-                        <!-- INGRESO DE FECHA DE VENCIMIENTO -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="fecha_vencimiento" class="form-label">Ancho (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="ancho_codigo_barra" placeholder="Ancho" name="edit_fecha_vencimiento" class="form-control">
-                                <small id="edit_error_fecha_vencimiento_p"></small>
-                            </div>
+                        <div class="form-group col-md-4">
+                            <label for="barHeight">Altura de las barras:</label>
+                            <input type="number" id="barHeight" class="form-control"  value="60" readonly>
                         </div>
 
                     </div>
 
-                    <div class="row" id="section_btn_">
+                    <div class="row mb-3">
                         <div class="col-md-4"></div>
-
                         <div class="col-md-4">
-                            <button type="button" id="btn_generar_codigo_producto" class="btn mx-2 text-white" style="background: #7367F0"><i class="fas fa-barcode"></i> Generar código de barra</button>
+                            <button type="button" class="btn" style="background: #7367F0; color: white" id="generate">Generar Códigos de Barras</button>
                         </div>
-
                         <div class="col-md-4"></div>
                     </div>
-                    <div  id="lista_codigo_barra">
-                       
-                    </div>
+
+                    <div id="barcodeContainer"></div>
 
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="btn_actualizar_producto" class="btn text-white mx-2" style="background: #28C76F;"><i class="fas fa-print"></i> Imprimir</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a href="#" type="button" id="printBtnBarra" class="btn text-white mx-2" style="background: #28C76F;"><i class="fas fa-print"></i> Imprimir</a>
+                    <button type="button" id="btnSalirCodigoBarra" class="btn" style="background: #FF4D4D; color: white" data-bs-dismiss="modal">Salir</button>
                 </div>
             </form>
         </div>

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   /*   ===========================================
     GUARDAR DATOS DE TIPO DE DOCUMENTO
     =========================================== */
