@@ -437,10 +437,10 @@
                         <form id="form_venta_producto">
 
                             <!-- INGRESO DE ID DEL USUARIO -->
-                            <input type="hidden" id="edit_id_usuario_venta" value="<?php echo $_SESSION["id_usuario"] ?>">
+                            <input type="text" id="edit_id_usuario_venta" value="">
 
                             <!-- INGRESO DE ID VENTA -->
-                            <input type="hidden" id="edit_id_venta" value="">
+                            <input type="text" id="edit_id_venta" value="">
 
 
                             <div class="row">
@@ -478,7 +478,7 @@
                                             ?>
                                         </select>
 
-                                        <small id="error_cliente_venta"></small>
+                                        <small id="edit_error_cliente_venta"></small>
 
                                     </div>
 
@@ -504,7 +504,7 @@
 
                                         <input type="date" id="edit_fecha_venta" class="form-control" name="fecha_venta" placeholder="Ingrese la fecha">
 
-                                        <small id="error_fecha_venta"></small>
+                                        <small id="edit_error_fecha_venta"></small>
 
                                     </div>
                                 </div>
@@ -643,7 +643,7 @@
 
                                                 <div class="form-check">
 
-                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago_v" value="contado">
+                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="edit_forma_pago_v" value="contado">
 
                                                     <label class="form-check-label" for="contado">
 
@@ -659,7 +659,7 @@
 
                                                 <div class="form-check">
 
-                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="forma_pago_v" value="credito">
+                                                    <input class="form-check-input tipo_pago_venta" type="radio" name="edit_forma_pago_v" value="credito">
 
                                                     <label class="form-check-label" for="credito">
 
@@ -685,7 +685,7 @@
 
                                                             <img src="vistas/dist/assets/img/icons/cash.svg" alt="img" class="me-2">
 
-                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo_v" value="efectivo">
+                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="edit_pago_tipo_v" value="efectivo">
 
                                                             <label class="form-check-label" for="credito">
                                                                 Efectivo
@@ -701,7 +701,7 @@
 
                                                             <img src="vistas/dist/assets/img/icons/scan.svg" alt="img" class="me-2">
 
-                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="pago_tipo_v" value="yape">
+                                                            <input class="form-check-input tipo_pago_venta" type="radio" name="edit_pago_tipo_v" value="yape">
 
                                                             <label class="form-check-label" for="credito">
                                                                 Yape
@@ -721,7 +721,7 @@
                                         <!-- SECCION DE CREAR VENTA -->
                                         <div class="row mb-3">
 
-                                            <button type="button" id="btn_actualizar__venta" class="btn btn-block" style="background:#7367F0; color:white">
+                                            <button type="button" id="btn_actualizar_venta" class="btn btn-block" style="background:#7367F0; color:white">
 
                                                 <h5><i class="fa fa-plus fa-lg text-white me-2"></i> Actualizar venta</h5>
 

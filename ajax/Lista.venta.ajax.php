@@ -110,6 +110,17 @@ elseif (isset($_POST["idVenta"])) {
 
 }
 
+
+/*=============================================
+ACTUALIZAR VENTA
+=============================================*/
+elseif (isset($_POST["edit_id_venta"])) {
+
+    $actualizarVenta = new ControladorVenta();
+    $actualizarVenta->ctrEditarVenta();
+
+}
+
 /*=============================================
 VER DETALLE PRODUCTO
 =============================================*/
@@ -118,18 +129,6 @@ elseif (isset($_POST["idProductoVer"])) {
     $verDetalle = new AjaxListaVentas();
     $verDetalle->idProductoVer = $_POST["idProductoVer"];
     $verDetalle->ajaxVerProducto();
-}
-
-/*=============================================
-ACTIVAR PRODUCTO
-=============================================*/
-elseif (isset($_POST["activarProducto"])) {
-
-    $activarProducto = new AjaxListaVentas();
-    $activarProducto->activarProducto = $_POST["activarProducto"];
-    $activarProducto->activarId = $_POST["activarId"];
-    $activarProducto->ajaxActivarProducto();
-
 }
 
 

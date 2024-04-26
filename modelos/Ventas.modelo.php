@@ -221,7 +221,7 @@ class ModeloVenta{
 
 
 	/*=============================================
-	ACTUALIZAR EGRESOS
+	ACTUALIZAR PAGO PENDIENTE
 	=============================================*/
 
 	static public function mdlActualizarPagoPendiente($tabla, $datos)
@@ -280,17 +280,66 @@ class ModeloVenta{
 																tipo_comprobante = :tipo_comprobante, 
 																serie_comprobante = :serie_comprobante, 
 																num_comprobante = :num_comprobante, 
-																impuesto = :impuesto
-																WHERE id_producto = :id_producto");
+																impuesto = :impuesto,
+																total_venta = :total_venta,
+																total_pago = :total_pago,
+																sub_total = :sub_total,
+																igv = :igv,
+																tipo_pago = :tipo_pago,
+																estado_pago = :estado_pago,
+																pago_e_y = :pago_e_y
+																WHERE id_venta = :id_venta");
 
 		$stmt -> bindParam(":id_persona", $datos["id_persona"], PDO::PARAM_INT);
-		$stmt -> bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
 		$stmt -> bindParam(":fecha_venta", $datos["fecha_venta"], PDO::PARAM_STR);
-		$stmt -> bindParam(":tipo_comprobante", $datos["tipo_comprobante"], PDO::PARAM_INT);
+		$stmt -> bindParam(":tipo_comprobante", $datos["tipo_comprobante"], PDO::PARAM_STR);
 		$stmt -> bindParam(":serie_comprobante", $datos["serie_comprobante"], PDO::PARAM_STR);
 		$stmt -> bindParam(":num_comprobante", $datos["num_comprobante"], PDO::PARAM_STR);
 		$stmt -> bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
+		$stmt -> bindParam(":total_venta", $datos["total_venta"], PDO::PARAM_STR);
+		$stmt -> bindParam(":total_pago", $datos["total_pago"], PDO::PARAM_STR);
+		$stmt -> bindParam(":sub_total", $datos["sub_total"], PDO::PARAM_STR);
+		$stmt -> bindParam(":igv", $datos["igv"], PDO::PARAM_STR);
+		$stmt -> bindParam(":tipo_pago", $datos["tipo_pago"], PDO::PARAM_STR);
+		$stmt -> bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
+		$stmt -> bindParam(":pago_e_y", $datos["pago_e_y"], PDO::PARAM_STR);
+		$stmt -> bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			return "error";	
+
+		}
+
+
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	EDITAR DETALLE VENTA
+	=============================================*/
+
+	static public function mdlEditarDetalleVenta($tabla, $datos){
+	
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
+																id_producto = :id_producto, 
+																precio_venta = :precio_venta, 
+																cantidad_u = :cantidad_u, 
+																cantidad_kg = :cantidad_kg
+																WHERE id_venta = :id_venta");
+
 		$stmt -> bindParam(":id_producto", $datos["id_producto"], PDO::PARAM_INT);
+		$stmt -> bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
+		$stmt -> bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_INT);
+		$stmt -> bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
+
+		$stmt -> bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 

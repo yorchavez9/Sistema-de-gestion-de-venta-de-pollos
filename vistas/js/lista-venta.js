@@ -97,7 +97,7 @@ function formateoPrecio(numero) {
 }
 
 /* ===========================================
-MOSTRANDO ventas
+MOSTRANDO VENTAS
 =========================================== */
 
 function mostrarVentas() {
@@ -274,7 +274,7 @@ $("#data_edit_productos_detalle_venta").on("click", ".btnAddEditProductoVenta", 
 
       var nuevaFila = `
                       <tr>
-                          <input type="hidden" class="id_producto_venta" value="${respuesta.id_producto}">
+                          <input type="hidden" class="edit_id_producto_venta" value="${respuesta.id_producto}">
 
                           <th class="text-center align-middle d-none d-md-table-cell">
 
@@ -443,16 +443,30 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 
       if (respuesta["tipo_pago"] === "contado") {
 
-        $("input[type=radio][name=forma_pago_v][value=contado]").prop("checked",true);
+        $("input[type=radio][name=edit_forma_pago_v][value=contado]").prop("checked",true);
 
         $("#edit_venta_al_contado").show();
 
       } else if (respuesta["tipo_pago"] === "credito") {
 
-        $("input[type=radio][name=forma_pago_v][value=credito]").prop("checked",true);
+        $("input[type=radio][name=edit_forma_pago_v][value=credito]").prop("checked",true);
 
         $("#edit_venta_al_contado").hide();
+
       }
+
+
+      if (respuesta["pago_e_y"] === "efectivo") {
+
+        $("input[type=radio][name=edit_pago_tipo_v][value=efectivo]").prop("checked",true);
+
+
+      } else if (respuesta["pago_e_y"] === "yape") {
+
+        $("input[type=radio][name=edit_pago_tipo_v][value=yape]").prop("checked",true);
+
+      }
+
     },
     error: function (respuesta) {
 
@@ -581,6 +595,274 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
   });
 
 });
+
+/*=============================================
+ACTUALIZANDO LA VENTA
+=============================================*/
+
+$("#btn_actualizar_venta").click(function (e) {
+
+    e.preventDefault();
+
+    var isValid = true;
+
+    var edit_id_usuario_venta = $("#edit_id_usuario_venta").val();
+
+    var edit_id_venta = $("#edit_id_venta").val();
+
+    var edit_id_cliente_venta = $("#edit_id_cliente_venta").val();
+
+    var edit_fecha_venta = $("#edit_fecha_venta").val();
+
+    var edit_comprobante_venta = $("#edit_comprobante_venta").val();
+
+    var edit_serie_venta = $("#edit_serie_venta").val();
+
+    var edit_numero_venta = $("#edit_numero_venta").val();
+
+    var edit_igv_venta = $("#edit_igv_venta").val();
+
+    // Validar la categoria
+
+    if (edit_id_cliente_venta == "" || edit_id_cliente_venta == null) {
+
+      $("#edit_error_cliente_venta")
+
+        .html("Por favor, selecione el cliente")
+
+        .addClass("text-danger");
+
+      isValid = false;
+
+    } else {
+
+      $("#edit_error_cliente_venta").html("").removeClass("text-danger");
+
+    }
+
+    // Array para almacenar los valores de los productos
+
+    var valoresProductos = [];
+
+    // Iterar sobre cada fila de producto
+
+    $("#edit_detalle_venta_producto tr").each(function () {
+
+      var fila = $(this);
+
+      // Obtener los valores de cada campo en la fila
+
+      var idProductoVenta = fila.find(".edit_id_producto_venta").val();
+
+      var cantidadU = fila.find(".edit_cantidad_u_v").val();
+
+      var cantidadKg = fila.find(".edit_cantidad_kg_v").val();
+
+      var precioVenta = fila.find(".edit_precio_venta").val();
+
+      // Crear un objeto con los valores y agregarlo al array
+
+      var producto = {
+
+        id_producto: idProductoVenta,
+
+        cantidad_u: cantidadU,
+
+        cantidad_kg: cantidadKg,
+
+        precio_venta: precioVenta,
+
+      };
+
+      valoresProductos.push(producto);
+
+    });
+
+    var productoAddVenta = JSON.stringify(valoresProductos);
+
+    var subtotal = $("#edit_subtotal_venta").text().replace(/,/g, "");
+
+    var igv = $("#edit_igv_venta_show").text().replace(/,/g, "");
+
+    var total = $("#edit_total_precio_venta").text().replace(/,/g, "");
+
+    // Captura el valor del tipo de pago (contado o crédito)
+
+    var tipo_pago = $("input[name='edit_forma_pago_v']:checked").val();
+
+    // Variable para almacenar el estado
+
+    var estado_pago;
+
+    // Verifica el tipo de pago seleccionado
+
+    if (tipo_pago == "contado") {
+
+      estado_pago = "completado";
+
+    } else {
+
+      estado_pago = "pendiente";
+
+    }
+
+    // Captura el valor del tipo de pago (contado o crédito)
+
+    var pago_tipo = $("input[name='edit_pago_tipo_v']:checked").val();
+
+    // Variable para almacenar el estado
+
+    var pago_e_y;
+
+    // Verifica el tipo de pago seleccionado
+
+    if (pago_tipo == "efectivo") {
+
+      pago_e_y = "efectivo";
+
+    } else {
+
+      pago_e_y = "yape";
+
+    }
+
+    var edit_id_usuario_venta = $("#edit_id_usuario_venta").val();
+
+    var edit_id_venta = $("#edit_id_venta").val();
+
+    var edit_id_cliente_venta = $("#edit_id_cliente_venta").val();
+
+    var edit_fecha_venta = $("#edit_fecha_venta").val();
+
+    var edit_comprobante_venta = $("#edit_comprobante_venta").val();
+
+    var edit_serie_venta = $("#edit_serie_venta").val();
+
+    var edit_numero_venta = $("#edit_numero_venta").val();
+
+    var edit_igv_venta = $("#edit_igv_venta").val();
+
+    if (isValid) {
+
+      var datos = new FormData();
+
+      datos.append("edit_id_venta", edit_id_venta);
+      datos.append("id_cliente_venta", edit_id_cliente_venta);
+      datos.append("id_usuario_venta", edit_id_usuario_venta);
+      datos.append("fecha_venta", edit_fecha_venta);
+      datos.append("comprobante_venta", edit_comprobante_venta);
+      datos.append("serie_venta", edit_serie_venta);
+      datos.append("numero_venta", edit_numero_venta);
+      datos.append("igv_venta", edit_igv_venta);
+      datos.append("productoAddVenta", productoAddVenta);
+      datos.append("subtotal", subtotal);
+      datos.append("igv", igv);
+      datos.append("total", total);
+      datos.append("tipo_pago", tipo_pago);
+      datos.append("estado_pago", estado_pago);
+      datos.append("pago_e_y", pago_e_y);
+
+      $.ajax({
+
+        url: "ajax/Lista.venta.ajax.php",
+
+        method: "POST",
+
+        data: datos,
+
+        cache: false,
+
+        contentType: false,
+
+        processData: false,
+
+        success: function (respuesta) {
+
+          console.log(respuesta);
+
+          return;
+
+          var res = JSON.parse(respuesta);
+
+          if (res.estado === "ok") {
+
+            $("#form_venta_producto")[0].reset();
+
+            $("#detalle_venta_producto").empty();
+
+            $("#subtotal_venta").text("00.00");
+
+            $("#igv_venta_show").text("00.00");
+
+            $("#total_precio_venta").text("00.00");
+
+            Swal.fire({
+
+              title: "¿Quiere imprimir comprobante?",
+
+              text: "¡No podrás revertir esto!",
+
+              icon: "warning",
+
+              showCancelButton: true,
+
+              confirmButtonColor: "#28C76F",
+
+              cancelButtonColor: "#F52E2F",
+
+              confirmButtonText: "¡Sí, imprimir!",
+            }).then((result) => {
+
+              if (result.isConfirmed) {
+
+                Swal.fire({
+
+                  title: "¡Imprimiendo!",
+
+                  text: "Su comprobante se está imprimiento.",
+
+                  icon: "success",
+                });
+              }
+            });
+
+            mostrarProductoVenta();
+
+            seleccionFecha();
+
+            mostrarSerieNumero();
+
+            mostrarVentas();
+          } else {
+
+            Swal.fire({
+
+              title: "¡Error!",
+
+              text: res.mensaje,
+
+              icon: "error",
+            });
+
+          }
+
+        },
+
+        error: function (xhr, status, error) {
+
+          console.error(xhr);
+
+          console.error(status);
+
+          console.error(error);
+        },
+
+      });
+
+    }
+
+});
+
 
 
 /* ===========================================
