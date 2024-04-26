@@ -409,9 +409,35 @@ class ModeloVenta{
 
 	static public function mdlBorrarVenta($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_producto = :id_producto");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_venta = :id_venta");
 
-		$stmt -> bindParam(":id_producto", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":id_venta", $datos, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			return "error";	
+
+		}
+
+
+		$stmt = null;
+
+
+	}
+
+	/*=============================================
+	BORRAR DETALLE VENTA
+	=============================================*/
+
+	static public function mdlBorrarDetalleVenta($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_venta = :id_venta");
+
+		$stmt -> bindParam(":id_venta", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 

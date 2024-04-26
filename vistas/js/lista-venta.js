@@ -2,6 +2,31 @@
 MOSTRANDO PRODUCTO PARA LA VENTA
 =========================================== */
 
+ /*=============================================
+  SELECCIONANDO LA SECCCION DE LA VENTA
+  =============================================*/
+
+  function showSection(){
+    
+    $(".seccion_lista_venta").on("click", function () {
+
+      $("#ventas_lista").show();
+  
+      $("#pos_venta").hide();
+  
+      $("#ver_pos_venta").hide();
+  
+      $("#edit_pos_venta").hide();
+  
+      $("#edit_detalle_venta_producto").empty();
+  
+      $("#ver_detalle_venta_producto").empty();
+  
+    });
+  }
+
+  showSection();
+
 function mostrarProductoVenta() {
 
   $.ajax({
@@ -178,7 +203,7 @@ function mostrarVentas() {
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
 
-                            <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 confirm-text btnEliminarVenta" idVentaDelete="${venta.id_venta}">
                                 <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
                             </a>
 
@@ -778,61 +803,32 @@ $("#btn_actualizar_venta").click(function (e) {
 
         success: function (respuesta) {
 
-          console.log(respuesta);
-
-          return;
+        
 
           var res = JSON.parse(respuesta);
 
           if (res.estado === "ok") {
 
-            $("#form_venta_producto")[0].reset();
-
-            $("#detalle_venta_producto").empty();
-
-            $("#subtotal_venta").text("00.00");
-
-            $("#igv_venta_show").text("00.00");
-
-            $("#total_precio_venta").text("00.00");
-
             Swal.fire({
-
-              title: "¿Quiere imprimir comprobante?",
-
-              text: "¡No podrás revertir esto!",
-
-              icon: "warning",
-
-              showCancelButton: true,
-
-              confirmButtonColor: "#28C76F",
-
-              cancelButtonColor: "#F52E2F",
-
-              confirmButtonText: "¡Sí, imprimir!",
-            }).then((result) => {
-
-              if (result.isConfirmed) {
-
-                Swal.fire({
-
-                  title: "¡Imprimiendo!",
-
-                  text: "Su comprobante se está imprimiento.",
-
-                  icon: "success",
-                });
-              }
+              title: "¡Correcto!",
+              text: "¡La venta se actualizó correctamente!",
+              icon: "success"
             });
-
-            mostrarProductoVenta();
-
-            seleccionFecha();
-
-            mostrarSerieNumero();
-
+            
+            $("#ventas_lista").show();
+          
+            $("#pos_venta").hide();
+          
+            $("#ver_pos_venta").hide();
+          
+            $("#edit_pos_venta").hide();
+          
+            $("#edit_detalle_venta_producto").empty();
+          
+            $("#ver_detalle_venta_producto").empty();
+          
             mostrarVentas();
+            
           } else {
 
             Swal.fire({
@@ -1132,6 +1128,63 @@ mostrarVentas();
 CALCULAR EL TOTAL DE LA VENTA
 =========================================== */
 calcularTotal();
+
+/*=============================================
+ELIMINAR USUARIO
+=============================================*/
+
+$("#data_lista_ventas").on("click", ".btnEliminarVenta", function(e) {
+
+  e.preventDefault();
+  
+  var ventaIdDelete = $(this).attr("idVentaDelete");
+
+  var datos = new FormData();
+
+  datos.append("ventaIdDelete", ventaIdDelete);
+
+  Swal.fire({
+      title: "¿Está seguro de borrar la venta?",
+      text: "¡Si no lo está puede cancelar la acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, borrar!",
+  }).then(function(result) {
+
+      if (result.value) {
+
+          $.ajax({
+              url: "ajax/Lista.venta.ajax.php",
+              method: "POST",
+              data: datos,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function(respuesta) {
+
+                  var res = JSON.parse(respuesta);
+                  if (res === "ok") {
+
+                      Swal.fire({
+                          title: "¡Eliminado!",
+                          text: "La venta ha sido eliminada",
+                          icon: "success",
+                      });
+
+                      mostrarVentas();
+                  } else {
+
+                      console.error("Error al eliminar los datos");
+                  }
+              }
+          });
+      }
+  });
+});
+
 
 
 /* ===========================================

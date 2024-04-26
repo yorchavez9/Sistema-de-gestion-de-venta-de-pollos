@@ -12,21 +12,26 @@ $(document).ready(function () {
   SELECCIONANDO LA SECCCION DE LA VENTA
   =============================================*/
 
-  $(".seccion_lista_venta").on("click", function () {
+  function showSection(){
+    
+    $(".seccion_lista_venta").on("click", function () {
 
-    $("#ventas_lista").show();
+      $("#ventas_lista").show();
+  
+      $("#pos_venta").hide();
+  
+      $("#ver_pos_venta").hide();
+  
+      $("#edit_pos_venta").hide();
+  
+      $("#edit_detalle_venta_producto").empty();
+  
+      $("#ver_detalle_venta_producto").empty();
+  
+    });
+  }
 
-    $("#pos_venta").hide();
-
-    $("#ver_pos_venta").hide();
-
-    $("#edit_pos_venta").hide();
-
-    $("#edit_detalle_venta_producto").empty();
-
-    $("#ver_detalle_venta_producto").empty();
-
-  });
+  showSection();
 
   /*=============================================
   SELECION DE TIPO DE PAGO (EFECYIVO O YAPE)

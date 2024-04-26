@@ -174,6 +174,16 @@ elseif(isset($_POST["idProductoDelete"])){
 }
 
 /*=============================================
+BORRAR VENTA
+=============================================*/
+elseif(isset($_POST["ventaIdDelete"])){
+
+    $borrarVenta = new ControladorVenta();
+    $borrarVenta->ctrBorrarVenta();
+
+}
+
+/*=============================================
 MOSTRAR TODAS LAS VENTAS EN LA TABLA
 =============================================*/
 else{

@@ -339,30 +339,22 @@ class ControladorVenta
 	static public function ctrBorrarVenta()
 	{
 
-		if (isset($_POST["idProductoDelete"])) {
+		if (isset($_POST["ventaIdDelete"])) {
 
-			$tabla = "productos";
+			$tablaV = "ventas";
 
-			$datos = $_POST["idProductoDelete"];
+			$datos = $_POST["ventaIdDelete"];
 
-			if ($_POST["deleteRutaImagenProducto"] != "") {
-				// Verificar si el archivo existe y eliminarlo
-				if (file_exists($_POST["deleteRutaImagenProducto"])) {
-					unlink($_POST["deleteRutaImagenProducto"]);
-				} else {
-					// El archivo no existe
-					echo "El archivo a eliminar no existe.";
-				}
-			}
+			$respuesta = ModeloVenta::mdlBorrarVenta($tablaV, $datos);
 
 
+			$tablaD = "detalle_venta";
 
-			$respuesta = ModeloVenta::mdlBorrarVenta($tabla, $datos);
+			$respuestaDetalle = ModeloVenta::mdlBorrarDetalleVenta($tablaD, $datos);
 
-			if ($respuesta == "ok") {
+			echo json_encode($respuestaDetalle);
 
-				echo json_encode("ok");
-			}
+
 		}
 	}
 }
