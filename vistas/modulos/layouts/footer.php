@@ -29,7 +29,7 @@
     <script src="vistas/js/egreso.js" type="module"></script>
     <script src="vistas/js/lista-egreso.js" type="module"></script>
     <script src="vistas/js/ventas.js" type="module"></script>
-    <script src="vistas/js/lista-venta.js" type="module"></script>
+    <script src="vistas/js/show-venta.js" type="module"></script>
     <script src="vistas/js/ver-venta.js" type="module"></script>
 
 </body>

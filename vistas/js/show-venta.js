@@ -199,7 +199,7 @@ function mostrarVentas() {
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnDownloadTicket" idVenta="${venta.id_venta}">
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
 
@@ -1130,7 +1130,7 @@ CALCULAR EL TOTAL DE LA VENTA
 calcularTotal();
 
 /*=============================================
-ELIMINAR USUARIO
+ELIMINAR VENTA
 =============================================*/
 
 $("#data_lista_ventas").on("click", ".btnEliminarVenta", function(e) {
@@ -1185,6 +1185,21 @@ $("#data_lista_ventas").on("click", ".btnEliminarVenta", function(e) {
   });
 });
 
+/*=============================================
+DESCARGAR TICKET
+=============================================*/
+
+$(document).on("click", ".btnDownloadTicket", function(e){
+
+  console.log("descargnado")
+
+  e.preventDefault();
+
+  var idVentaTicket = $(this).attr("idVenta");
+
+  window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank"); 
+
+})
 
 
 /* ===========================================

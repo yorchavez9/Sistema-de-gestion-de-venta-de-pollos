@@ -2,7 +2,7 @@
 IMPORTANTO LA FUNCION MOSTRAR VENTAS
 =============================================*/
 
-import { mostrarVentas } from "./lista-venta.js";
+import { mostrarVentas } from "./show-venta.js";
 
 
 $(document).ready(function () {
