@@ -21,6 +21,7 @@ class ModeloVenta{
 			$stmt->execute();
 
 			return $stmt->fetch();
+
 		} else {
 
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaD as d INNER JOIN $tablaV as v on d.id_venta = v.id_venta INNER JOIN $tablaP as p ON p.id_persona = v.id_persona  ORDER BY v.estado_pago DESC");
@@ -30,9 +31,6 @@ class ModeloVenta{
 			return $stmt->fetchAll();
 		}
 
-
-
-		$stmt = null;
 	}
 
 	/*=============================================
