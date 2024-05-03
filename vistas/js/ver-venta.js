@@ -130,44 +130,32 @@ function mostrarVentas() {
                           </td>
                           
                           <td class="text-center">
-  
-                              <a href="#" class="me-3 btnPagarVenta" idVenta="${
-                                venta.id_venta
-                              }" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
-                                  <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
-                              </a>
-                          
-                              <a href="#" class="me-3 btnEditarVenta" idVenta="${
-                                venta.id_venta
-                              }">
-                                  <i class="text-warning fas fa-edit fa-lg"></i>
-                              </a>
-  
-                              <a href="#" class="me-3 btnVerVenta" idVenta="${
-                                venta.id_venta
-                              }">
-                                  <i class="text-primary fa fa-eye fa-lg"></i>
-                              </a>
-  
-                              <a href="#" class="me-3 btnVerProducto" idVenta="${
-                                venta.id_venta
-                              }">
-                                  <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
-                              </a>
-  
-                              <a href="#" class="me-3 btnVerProducto" idVenta="${
-                                venta.id_venta
-                              }">
-                                  <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
-                              </a>
-  
-                              <a href="#" class="me-3 confirm-text btnEliminarProducto" idVenta="${
-                                venta.id_venta
-                              }">
-                                  <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
-                              </a>
-  
-                          </td>
+
+                            <a href="#" class="me-3 btnPagarVenta" idVenta="${venta.id_venta}" totalCompraVenta="${totalCompra}" pagoRestanteVenta="${formateadoPagoRestante}" restantePago="${restantePago}">
+                                <i class="fas fa-money-bill-alt fa-lg" style="color: #28C76F"></i>
+                            </a>
+                        
+                            <a href="#" class="me-3 btnEditarVenta" idVenta="${venta.id_venta}">
+                                <i class="text-warning fas fa-edit fa-lg"></i>
+                            </a>
+
+                            <a href="#" class="me-3 btnVerVenta" idVenta="${venta.id_venta}">
+                                <i class="text-primary fa fa-eye fa-lg"></i>
+                            </a>
+
+                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                                <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
+                            </a>
+
+                            <a href="#" class="me-3 btnDescargarTicket" idVenta="${venta.id_venta}">
+                                <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
+                            </a>
+
+                            <a href="#" class="me-3 confirm-text btnEliminarVenta" idVentaDelete="${venta.id_venta}">
+                                <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
+                            </a>
+
+                        </td>
                       </tr>`;
 
           // Agregar la fila al tbody

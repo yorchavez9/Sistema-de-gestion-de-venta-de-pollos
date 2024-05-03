@@ -2,11 +2,11 @@
 MOSTRANDO PRODUCTO PARA LA VENTA
 =========================================== */
 
- /*=============================================
-  SELECCIONANDO LA SECCCION DE LA VENTA
-  =============================================*/
+/*=============================================
+SELECCIONANDO LA SECCCION DE LA VENTA
+=============================================*/
 
-  function showSection(){
+function showSection(){
     
     $(".seccion_lista_venta").on("click", function () {
 
@@ -23,9 +23,13 @@ MOSTRANDO PRODUCTO PARA LA VENTA
       $("#ver_detalle_venta_producto").empty();
   
     });
-  }
+}
 
-  showSection();
+showSection();
+
+/*=============================================
+MOSTRANDO PRODUCTOS DE LA VENTA
+=============================================*/
 
 function mostrarProductoVenta() {
 
@@ -199,7 +203,7 @@ function mostrarVentas() {
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnDownloadTicket" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnDescargarTicket" idVenta="${venta.id_venta}">
                                 <i class="fa fa-download fa-lg" style="color: #28C76F"></i>
                             </a>
 
@@ -620,6 +624,80 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
   });
 
 });
+
+/*=============================================
+DESCARGAR TICKET
+=============================================*/
+
+$("#tabla_lista_ventas").on("click", ".btnDescargarTicket", function(e) {
+
+  e.preventDefault();
+  console.log("Descargando")
+
+  var idVentaTicket = $(this).attr("idVenta");
+
+  window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank"); 
+
+});
+
+
+/*=============================================
+ELIMINAR VENTA
+=============================================*/
+
+$("#data_lista_ventas").on("click", ".btnEliminarVenta", function(e) {
+
+  e.preventDefault();
+  
+  var ventaIdDelete = $(this).attr("idVentaDelete");
+
+  var datos = new FormData();
+
+  datos.append("ventaIdDelete", ventaIdDelete);
+
+  Swal.fire({
+      title: "¿Está seguro de borrar la venta?",
+      text: "¡Si no lo está puede cancelar la acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, borrar!",
+  }).then(function(result) {
+
+      if (result.value) {
+
+          $.ajax({
+              url: "ajax/Lista.venta.ajax.php",
+              method: "POST",
+              data: datos,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function(respuesta) {
+
+                  var res = JSON.parse(respuesta);
+                  if (res === "ok") {
+
+                      Swal.fire({
+                          title: "¡Eliminado!",
+                          text: "La venta ha sido eliminada",
+                          icon: "success",
+                      });
+
+                      mostrarVentas();
+                  } else {
+
+                      console.error("Error al eliminar los datos");
+                  }
+              }
+          });
+      }
+  });
+});
+
+
 
 /*=============================================
 ACTUALIZANDO LA VENTA
@@ -1129,77 +1207,6 @@ CALCULAR EL TOTAL DE LA VENTA
 =========================================== */
 calcularTotal();
 
-/*=============================================
-ELIMINAR VENTA
-=============================================*/
-
-$("#data_lista_ventas").on("click", ".btnEliminarVenta", function(e) {
-
-  e.preventDefault();
-  
-  var ventaIdDelete = $(this).attr("idVentaDelete");
-
-  var datos = new FormData();
-
-  datos.append("ventaIdDelete", ventaIdDelete);
-
-  Swal.fire({
-      title: "¿Está seguro de borrar la venta?",
-      text: "¡Si no lo está puede cancelar la acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "Si, borrar!",
-  }).then(function(result) {
-
-      if (result.value) {
-
-          $.ajax({
-              url: "ajax/Lista.venta.ajax.php",
-              method: "POST",
-              data: datos,
-              cache: false,
-              contentType: false,
-              processData: false,
-              success: function(respuesta) {
-
-                  var res = JSON.parse(respuesta);
-                  if (res === "ok") {
-
-                      Swal.fire({
-                          title: "¡Eliminado!",
-                          text: "La venta ha sido eliminada",
-                          icon: "success",
-                      });
-
-                      mostrarVentas();
-                  } else {
-
-                      console.error("Error al eliminar los datos");
-                  }
-              }
-          });
-      }
-  });
-});
-
-/*=============================================
-DESCARGAR TICKET
-=============================================*/
-
-$(document).on("click", ".btnDownloadTicket", function(e){
-
-  console.log("descargnado")
-
-  e.preventDefault();
-
-  var idVentaTicket = $(this).attr("idVenta");
-
-  window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank"); 
-
-})
 
 
 /* ===========================================
