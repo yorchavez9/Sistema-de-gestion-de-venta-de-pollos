@@ -32,8 +32,6 @@
                     <ul>
                         <li><a href="clientes">Clientes</a></li>
                         <li><a href="ventas">Punto de venta</a></li>
-                        <li><a href="devoluciones">Devoluciones</a></li>
-                        <li><a href="createsalesreturns.html">Nueva devolución de ventas</a></li>
                         <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
@@ -48,39 +46,15 @@
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/expense1.svg" alt="img"><span>
-                            Gastos</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img">
+                        <span>Trabajadores</span> <span class="menu-arrow"></span>
+                    </a>
                     <ul>
-                        <li><a href="expenselist.html">Lista de gastos</a></li>
-                        <li><a href="createexpense.html">Agregar gastos</a></li>
-                        <li><a href="expensecategory.html">Categoría de gastos</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/quotation1.svg" alt="img"><span>
-                            Cotización</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="quotationList.html">Lista de cotizaciones</a></li>
-                        <li><a href="addquotation.html">Agregar cotización</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/transfer1.svg" alt="img"><span>
-                            Transferir</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="transferlist.html">Lista de transferencia</a></li>
-                        <li><a href="addtransfer.html">Agregar transferencia</a></li>
-                        <li><a href="importtransfer.html">Transferencia de importación </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/return1.svg" alt="img"><span>
-                            Devolución</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="salesreturnlist.html">Lista de devoluciones de ventas</a></li>
-                        <li><a href="createsalesreturn.html">Agregar devolución de ventas</a></li>
-                        <li><a href="purchasereturnlist.html">Lista de devoluciones de compras</a></li>
-                        <li><a href="createpurchasereturn.html">Agregar devolución de compra</a></li>
+                        <li><a href="trabajador">Trabajadores</a></li>
+                        <li><a href="contratoTrabajador">Contrato trabajador</a></li>
+                        <li><a href="pagosTrabajador">Pagos trabajador</a></li>
+                        <li><a href="vacacionesTrabajador">Vacaciones</a></li>
+                        <li><a href="asistenciaTrabajador">Asistencia</a></li>
                     </ul>
                 </li>
 
@@ -99,7 +73,7 @@
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
-                    Usuarios</span> <span class="menu-arrow"></span></a>
+                            Usuarios</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="newuser.html">Nuevo Usuario </a></li>
                         <li><a href="userlists.html">Lista de usuarios</a></li>

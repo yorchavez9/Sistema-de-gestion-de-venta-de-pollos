@@ -35,6 +35,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
                 $_GET["ruta"] == "crear-venta" ||
                 $_GET["ruta"] == "editar-venta" ||
                 $_GET["ruta"] == "reportes" ||
+                $_GET["ruta"] == "trabajador" ||
                 $_GET["ruta"] == "salir"
             ) {
 
