@@ -152,9 +152,9 @@ MODAL NUEVO TRABAJADOR
                                 <label for="tipo_pago" class="form-label">Ingrese el tipo de pago</label>
                                 <select id="tipo_pago_t" class="form-select">
                                     <option value="" selected disabled>Seleccione</option>
-                                    <option value="diario">Diario</option>
-                                    <option value="semanal">Semanal</option>
-                                    <option value="mensual">Mensual</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="targetaDebito">Targeta de débito</option>
+                                    <option value="targetaCredito">Targeta de crédito</option>
                                 </select>
                             </div>
                         </div>
@@ -279,9 +279,9 @@ MODAL EDITAR TRABAJADOR
                                 <label for="tipo_pago" class="form-label">Ingrese el tipo de pago</label>
                                 <select id="edit_tipo_pago_t" class="form-select">
                                     <option value="" selected disabled>Seleccione</option>
-                                    <option value="diario">Diario</option>
-                                    <option value="semanal">Semanal</option>
-                                    <option value="mensual">Mensual</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="targetaDebito">Targeta de débito</option>
+                                    <option value="targetaCredito">Targeta de crédito</option>
                                 </select>
                             </div>
                         </div>
