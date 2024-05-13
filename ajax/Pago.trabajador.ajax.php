@@ -1,14 +1,16 @@
 <?php
 
+require_once "../controladores/Pago.trabajador.controlador.php";
+require_once "../modelos/Pago.trabajador.modelo.php";
 require_once "../controladores/Contrato.trabajador.controlador.php";
 require_once "../modelos/Contrato.trabajador.modelo.php";
 
-class AjaxContrato
+class AjaxPago
 {
 
     
     /*=============================================
-	EDITAR CONTRATO
+	EDITAR PAGO
 	=============================================*/
 
     public $idContrato;
@@ -24,9 +26,27 @@ class AjaxContrato
 
         echo json_encode($respuesta);
     }
+
+    /*=============================================
+	OBTENER MONTO DE PAGO
+	=============================================*/
+
+    public $idContratoSelect;
+
+    public function ajaxObtenerMontoPago()
+    {
+
+        $item = "id_contrato";
+
+        $valor = $this->idContratoSelect;
+
+        $respuesta = ControladorContrato::ctrMostrarContratos($item, $valor);
+
+        echo json_encode($respuesta);
+    }
     
     /*=============================================
-	MOSTRAR DETALLE CONTRATO
+	MOSTRAR DETALLE PAGO
 	=============================================*/
 
     public $id_trabajador_ver;
@@ -44,76 +64,87 @@ class AjaxContrato
     }
 
     /*=============================================
-	ACTIVAR CONTRATO
+	ACTIVAR PAGO
 	=============================================*/
 
-    public $activarTrabajador;
+    public $activarPago;
     public $activarId;
 
 
-    public function ajaxActivarContrato()
+    public function ajaxActivarPago()
     {
 
-        $tabla = "trabajadores";
+        $tabla = "pagos_trabajadores";
 
-        $item1 = "estado_trabajador";
-        $valor1 = $this->activarTrabajador;
+        $item1 = "estado_pago";
+        $valor1 = $this->activarPago;
 
-        $item2 = "id_trabajador";
+        $item2 = "id_pagos";
         $valor2 = $this->activarId;
 
-        $respuesta = ModeloTrabajador::mdlActualizarTrabajador($tabla, $item1, $valor1, $item2, $valor2);
+        $respuesta = ModeloPago::mdlActualizarPagos($tabla, $item1, $valor1, $item2, $valor2);
     }
 
 
 }
 
 /*=============================================
-EDITAR CONTRATO
+EDITAR PAGO
 =============================================*/
 if (isset($_POST["idContrato"])) {
 
-    $editar = new AjaxContrato();
+    $editar = new AjaxPago();
     $editar->idContrato = $_POST["idContrato"];
     $editar->ajaxEditarContrato();
 
 }
 
 /*=============================================
-VER DETALLE CONTRATO
+OBTENER EL MONTO A PAGAR
+=============================================*/
+elseif (isset($_POST["idContratoSelect"])) {
+
+    $editar = new AjaxPago();
+    $editar->idContratoSelect = $_POST["idContratoSelect"];
+    $editar->ajaxObtenerMontoPago();
+
+}
+
+/*=============================================
+VER DETALLE PAGO
 =============================================*/
 elseif (isset($_POST["id_trabajador_ver"])) {
 
-    $verDetalle = new AjaxContrato();
+    $verDetalle = new AjaxPago();
     $verDetalle->id_trabajador_ver = $_POST["id_trabajador_ver"];
     $verDetalle->ajaxVerContrato();
 }
 
 /*=============================================
-ACTIVAR CONTRATO
+ACTIVAR PAGO
 =============================================*/
-elseif (isset($_POST["activarTrabajador"])) {
+elseif (isset($_POST["activarPago"])) {
 
-    $activarTrabajador = new AjaxContrato();
-    $activarTrabajador->activarTrabajador = $_POST["activarTrabajador"];
-    $activarTrabajador->activarId = $_POST["activarId"];
-    $activarTrabajador->ajaxActivarContrato();
+    $activarPago = new AjaxPago();
+    $activarPago->activarPago = $_POST["activarPago"];
+    $activarPago->activarId = $_POST["activarId"];
+    $activarPago->ajaxActivarPago();
 
 }
 
 
 /*=============================================
-GUARDAR CONTRATO
+GUARDAR PAGO
 =============================================*/
-elseif (isset($_POST["id_trabajador_c"])) {
+elseif (isset($_POST["id_contrato_pago"])) {
 
-    $crearContratoTrabajador = new ControladorContrato();
-    $crearContratoTrabajador->ctrCrearContrato();
+    $crearPagoTrabajador = new ControladorPagos();
+    $crearPagoTrabajador->ctrCrearPagos();
 
 }
 
 /*=============================================
-ACTUALIZAR CONTRATO
+ACTUALIZAR PAGO
 =============================================*/
 elseif(isset($_POST["edit_id_contrato"])){
 
@@ -123,17 +154,17 @@ elseif(isset($_POST["edit_id_contrato"])){
 }
 
 /*=============================================
-BORRAR CONTRATO
+BORRAR PAGO
 =============================================*/
-elseif(isset($_POST["idContratoDelete"])){
+elseif(isset($_POST["idPagoDelete"])){
 
-    $borrarContrato = new ControladorContrato();
-    $borrarContrato->ctrBorrarContrato();
+    $borrarPago = new ControladorPagos();
+    $borrarPago->ctrBorrarPago();
 
 }
 
 /*=============================================
-MOSTRAR LISTA DE CONTRATOS
+MOSTRAR LISTA DE PAGOS
 =============================================*/
 else{
 
@@ -141,28 +172,29 @@ else{
 
     $valor = null;
 
-    $mostrarContratoTrabajador = ControladorContrato::ctrMostrarContratos($item, $valor);
+    $showPagos = ControladorPagos::ctrMostrarPagos($item, $valor);
     
-    $tablaTrabajador = array();
+    $tablaPago = array();
     
-    foreach ($mostrarContratoTrabajador as $key => $contrato) {
+    foreach ($showPagos as $key => $pago) {
         
         $fila = array(
-            'id_contrato' => $contrato['id_contrato'],
-            'id_trabajador' => $contrato['id_trabajador'],
-            'nombre' => $contrato['nombre'],
-            'tiempo_contrato' => $contrato['tiempo_contrato'],
-            'tipo_sueldo' => $contrato['tipo_sueldo'],
-            'sueldo' => $contrato['sueldo'],
-            'fecha_contrato' => $contrato['fecha_contrato']
+            'id_pagos' => $pago['id_pagos'],
+            'id_contrato' => $pago['id_contrato'],
+            'monto_pago' => $pago['monto_pago'],
+            'id_trabajador' => $pago['id_trabajador'],
+            'nombre' => $pago['nombre'],
+            'fecha_contrato' => $pago['fecha_contrato'],
+            'fecha_pago' => $pago['fecha_pago'],
+            'estado_pago' => $pago['estado_pago']
         );
     
         
-        $tablaTrabajador[] = $fila;
+        $tablaPago[] = $fila;
     }
     
     
-    echo json_encode($tablaTrabajador);
+    echo json_encode($tablaPago);
 }
 
 

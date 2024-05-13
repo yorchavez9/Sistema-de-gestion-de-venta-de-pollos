@@ -40,7 +40,7 @@ CONTENIDO PRINCIPAL
                                 <th>N°</th>
                                 <th>Trabajador</th>
                                 <th>Monto a pagar</th>
-                                <th>Fecha pago</th>
+                                <th>Próximo pago</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -79,7 +79,7 @@ MODAL NUEVO PAGO DEL TRABAJADOR
 
                         <label>Selecione el trabajador (<span class="text-danger">*</span>)</label>
 
-                        <select id="id_trabajador_contrato" class="form-select form-select-sm">
+                        <select id="id_contrato_pago" class="form-select form-select-sm">
                             <option selected disabled>Selecione</option>
                             <?php
 
@@ -97,7 +97,7 @@ MODAL NUEVO PAGO DEL TRABAJADOR
 
                         </select>
 
-                        <small id="error_id_contrato"></small>
+                        <small id="error_id_trabjador_pago"></small>
 
                     </div>
 
@@ -105,10 +105,10 @@ MODAL NUEVO PAGO DEL TRABAJADOR
 
 
 
-                        <!-- INGRESO DE TIPO DE SUELDO -->
+                        <!-- INGRESO DEL MONTO DE PAGO -->
                         <div class="col-md-6">
 
-                            <label for="" class="form-label">Tipo de sueldo (<span class="text-danger">*</span>)</label>
+                            <label for="" class="form-label">Monto de pago (<span class="text-danger">*</span>)</label>
 
                             <input type="number" id="monto_pago_t" class="form-control" value="0" min="0">
 
@@ -122,7 +122,7 @@ MODAL NUEVO PAGO DEL TRABAJADOR
 
                             <div class="form-group">
 
-                                <label for="tiempo de contrato" class="form-label">Tiempo de contrato (<span class="text-danger">*</span>)</label>
+                                <label for="tiempo de contrato" class="form-label">Fecha de próximo pago (<span class="text-danger">*</span>)</label>
 
                                 <input type="date" id="fecha_pago_t" class="form-control">
 
@@ -140,7 +140,7 @@ MODAL NUEVO PAGO DEL TRABAJADOR
                 <!-- BOTONES PARA GUARDAR Y CERRAR -->
                 <div class="text-end mx-4 mb-2">
 
-                    <button type="button" id="btn_guardar_pago_trabajador" class="btn btn-primary mx-2">Guardar</button>
+                    <button type="button" id="btn_guardar_pago_trabajador" class="btn btn-primary mx-2">Generar pago</button>
 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
@@ -153,72 +153,62 @@ MODAL NUEVO PAGO DEL TRABAJADOR
 
 
 <!-- ========================================
-MODAL EDITAR PAGO DEL TRABAJADOR
+MODAL NUEVO PAGO DEL TRABAJADOR
 ======================================== -->
 
-<div class="modal fade" id="modalEditarContratoTrabajador" tabindex="-1" aria-labelledby="modalEditarContratoTrabajadorLabel" aria-hidden="true">
+<div class="modal fade" id="modalNuevoPagoTrabajador" tabindex="-1" aria-labelledby="modalNuevoPagoTrabajadorLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar contrato del trabajador</h5>
+                <h5 class="modal-title">Crear nuevo pago</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
 
-            <form enctype="multipart/form-data" id="form_editar_contrato_trabajador">
+            <form enctype="multipart/form-data" id="form_nuevo_pago_trabajador">
 
                 <div class="modal-body">
-
-                    <!-- ID CONTRATO -->
-                    <input type="hidden" id="edit_id_contrato">
 
                     <!-- INGRESO DE TRABAJADOR -->
                     <div class="form-group">
 
-                        <label>Ingrese el nombre completo (<span class="text-danger">*</span>)</label>
+                        <label>Selecione el trabajador (<span class="text-danger">*</span>)</label>
 
-                        <select id="edit_id_trabajador_contrato" class="form-select form-select-sm">
-
+                        <select id="id_contrato_pago" class="form-select form-select-sm">
+                            <option selected disabled>Selecione</option>
                             <?php
 
                             $item = null;
                             $valor = null;
 
-                            $trabajadores = ControladorTrabajador::ctrMostrarTrabajadores($item, $valor);
-                            foreach ($trabajadores as $trabajador) {
+                            $contratos = ControladorContrato::ctrMostrarContratos($item, $valor);
+
+                            foreach ($contratos as $contrato) {
                             ?>
-                                <option value="<?php echo $trabajador["id_trabajador"] ?>"><?php echo $trabajador["nombre"] ?></option>
+                                <option value="<?php echo $contrato["id_contrato"] ?>"><?php echo $contrato["nombre"] ?></option>
                             <?php
                             }
                             ?>
 
                         </select>
 
-                        <small id="edit_error_id_trabajador"></small>
+                        <small id="error_id_trabjador_pago"></small>
 
                     </div>
 
                     <div class="row">
 
 
-                        <!-- INGRESO DE TIPO DE SUELDO -->
+
+                        <!-- INGRESO DEL MONTO DE PAGO -->
                         <div class="col-md-6">
 
-                            <label for="" class="form-label">Tipo de sueldo (<span class="text-danger">*</span>)</label>
+                            <label for="" class="form-label">Monto de pago (<span class="text-danger">*</span>)</label>
 
-                            <select id="edit_tipo_sueldo_c" class="form-select form-select-sm">
+                            <input type="number" id="monto_pago_t" class="form-control" value="0" min="0">
 
-                                <option selected disabled>Seleccione</option>
-                                <option value="diaria">Diario</option>
-                                <option value="semanal">Semanal</option>
-                                <option value="mensual">Mensual</option>
-
-                            </select>
-
-                            <small id="edit_error_tipo_sueldo"></small>
+                            <small id="error_tipo_sueldo"></small>
 
                         </div>
-
-
 
 
                         <!-- INGRESO DE TIEMPO DE CONTRATO -->
@@ -226,43 +216,25 @@ MODAL EDITAR PAGO DEL TRABAJADOR
 
                             <div class="form-group">
 
-                                <label for="tiempo de contrato" class="form-label">Tiempo de contrato (<span class="text-danger">*</span>)</label>
+                                <label for="tiempo de contrato" class="form-label">Fecha de próximo pago (<span class="text-danger">*</span>)</label>
 
-                                <input type="number" id="edit_tiempo_contrato_t" class="form-control" value="0" min="0">
+                                <input type="date" id="fecha_pago_t" class="form-control">
 
-                                <small id="edit_error_tiempo_contrato"></small>
+                                <small id="error_tiempo_contrato"></small>
 
                             </div>
                         </div>
 
 
-
                     </div>
 
-                    <div class="row">
-
-                        <div class="col-md-3"></div>
-
-                        <div class="col-md-6">
-
-                            <label for="sueldo_t" class="form-label">Ingrese el sueldo (<span class="text-danger">*</span>)</label>
-
-                            <input type="number" id="edit_sueldo_trabajador" value="0.00" class="form-control">
-
-                            <small id="edit_error_sueldo_trabajador"></small>
-
-                        </div>
-
-                        <div class="col-md-3"></div>
-
-                    </div>
 
                 </div>
 
                 <!-- BOTONES PARA GUARDAR Y CERRAR -->
                 <div class="text-end mx-4 mb-2">
 
-                    <button type="button" id="btn_actualizar_contrato_trabajador" class="btn btn-primary mx-2"><i class="fas fa-sync"></i> Guardar</button>
+                    <button type="button" id="btn_guardar_pago_trabajador" class="btn btn-primary mx-2">Generar pago</button>
 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 

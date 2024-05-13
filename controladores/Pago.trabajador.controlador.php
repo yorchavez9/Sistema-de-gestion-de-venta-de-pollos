@@ -1,29 +1,28 @@
 <?php
 
-class ControladorContrato
+class ControladorPagos
 {
 
 
 	/*=============================================
-	REGISTRO DE CONTRATO
+	REGISTRO DE PAGOS
 	=============================================*/
 
-	static public function ctrCrearContrato()
+	static public function ctrCrearPagos()
 	{
 
 
-		$tabla = "contratos_trabajadores";
+		$tabla = "pagos_trabajadores";
 
 
 		$datos = array(
-			"id_trabajador" => $_POST["id_trabajador_c"],
-			"tiempo_contrato" => $_POST["tiempo_contrato_t"],
-			"tipo_sueldo" => $_POST["tipo_sueldo_c"],
-			"sueldo" => $_POST["sueldo_trabajador"]
+			"id_contrato" => $_POST["id_contrato_pago"],
+			"monto_pago" => $_POST["monto_pago_t"],
+			"fecha_pago" => $_POST["fecha_pago_t"]
 		);
 
 
-		$respuesta = ModeloContrato::mdlIngresarContrato($tabla, $datos);
+		$respuesta = ModeloPago::mdlIngresarPagos($tabla, $datos);
 
 		if ($respuesta == "ok") {
 
@@ -37,25 +36,26 @@ class ControladorContrato
 	}
 
 	/*=============================================
-	MOSTRAR CONTRATO
+	MOSTRAR PAGOS
 	=============================================*/
 
-	static public function ctrMostrarContratos($item, $valor)
+	static public function ctrMostrarPagos($item, $valor)
 	{
 
 		$tablaT = "trabajadores";
 		$tablaC = "contratos_trabajadores";
+		$tablaP = "pagos_trabajadores";
 
-		$respuesta = ModeloContrato::mdlMostrarContratos($tablaT, $tablaC, $item, $valor);
+		$respuesta = ModeloPago::mdlMostrarPagos($tablaT, $tablaC, $tablaP, $item, $valor);
 
 		return $respuesta;
 	}
 
     /*=============================================
-	EDITAR CONTRATO
+	EDITAR PAGO
 	=============================================*/
 
-    static public function ctrEditarContrato()
+    static public function ctrEditarPago()
     {
 
 
@@ -80,19 +80,19 @@ class ControladorContrato
     }
 
 	/*=============================================
-	BORRAR CONTRATO
+	BORRAR PAGO
 	=============================================*/
 
-	static public function ctrBorrarContrato()
+	static public function ctrBorrarPago()
 	{
 
-		if (isset($_POST["idContratoDelete"])) {
+		if (isset($_POST["idPagoDelete"])) {
 
-			$tabla = "contratos_trabajadores";
+			$tabla = "pagos_trabajadores";
 
-			$datos = $_POST["idContratoDelete"];
+			$datos = $_POST["idPagoDelete"];
 
-			$respuesta = ModeloContrato::mdlBorrarContrato($tabla, $datos);
+			$respuesta = ModeloPago::mdlBorrarPagos($tabla, $datos);
 
 			if ($respuesta == "ok") {
 

@@ -2,17 +2,17 @@
 
 require_once "Conexion.php";
 
-class ModeloContrato{
+class ModeloPago{
 
 	/*=============================================
-	MOSTRAR CONTRATOS
+	MOSTRAR PAGOS
 	=============================================*/
 
-	static public function mdlMostrarContratos($tablaT, $tablaC, $item, $valor){
+	static public function mdlMostrarPagos($tablaT, $tablaC, $tablaP, $item, $valor){
 
 		if($item != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT INNER JOIN $tablaC ON $tablaT.id_trabajador = $tablaC.id_trabajador WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT INNER JOIN $tablaC ON $tablaT.id_trabajador = $tablaC.id_trabajador INNER JOIN $tablaP ON $tablaC.id_contrato = $tablaP.id_contrato WHERE $item = :$item");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -22,7 +22,7 @@ class ModeloContrato{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT INNER JOIN $tablaC ON $tablaT.id_trabajador = $tablaC.id_trabajador");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT INNER JOIN $tablaC ON $tablaT.id_trabajador = $tablaC.id_trabajador INNER JOIN $tablaP ON $tablaC.id_contrato = $tablaP.id_contrato");
 
 			$stmt -> execute();
 
@@ -37,26 +37,23 @@ class ModeloContrato{
 	}
 
 	/*=============================================
-	REGISTRO DE CONTRATO
+	REGISTRO DE PAGO
 	=============================================*/
 
-	static public function mdlIngresarContrato($tabla, $datos){
+	static public function mdlIngresarPagos($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
-                                                                id_trabajador, 
-                                                                tiempo_contrato, 
-                                                                tipo_sueldo, 
-                                                                sueldo) 
+                                                                id_contrato, 
+                                                                monto_pago, 
+                                                                fecha_pago) 
 		                                                  VALUES (
-                                                                :id_trabajador, 
-                                                                :tiempo_contrato, 
-                                                                :tipo_sueldo, 
-                                                                :sueldo)");
+                                                                :id_contrato, 
+                                                                :monto_pago, 
+                                                                :fecha_pago)");
 
-		$stmt->bindParam(":id_trabajador", $datos["id_trabajador"], PDO::PARAM_INT);
-		$stmt->bindParam(":tiempo_contrato", $datos["tiempo_contrato"], PDO::PARAM_STR);
-		$stmt->bindParam(":tipo_sueldo", $datos["tipo_sueldo"], PDO::PARAM_STR);
-		$stmt->bindParam(":sueldo", $datos["sueldo"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_contrato", $datos["id_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":monto_pago", $datos["monto_pago"], PDO::PARAM_STR);
+		$stmt->bindParam(":fecha_pago", $datos["fecha_pago"], PDO::PARAM_STR);
 
 
 		if($stmt->execute()){
@@ -75,10 +72,10 @@ class ModeloContrato{
 	}
 
 	/*=============================================
-	EDITAR CONTRATO
+	EDITAR PAGO
 	=============================================*/
 
-	static public function mdlEditarContrato($tabla, $datos){
+	static public function mdlEditarPagos($tabla, $datos){
 	
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
 																id_trabajador = :id_trabajador, 
@@ -110,10 +107,10 @@ class ModeloContrato{
 	}
 
 	/*=============================================
-	ACTUALIZAR CONTRATO
+	ACTUALIZAR PAGO
 	=============================================*/
 
-	static public function mdlActualizarContrato($tabla, $item1, $valor1, $item2, $valor2){
+	static public function mdlActualizarPagos($tabla, $item1, $valor1, $item2, $valor2){
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
 
@@ -136,14 +133,14 @@ class ModeloContrato{
 	}
 
 	/*=============================================
-	BORRAR CONTRATO
+	BORRAR PAGO
 	=============================================*/
 
-	static public function mdlBorrarContrato($tabla, $datos){
+	static public function mdlBorrarPagos($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_contrato = :id_contrato");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_pagos = :id_pagos");
 
-		$stmt -> bindParam(":id_contrato", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":id_pagos", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 
