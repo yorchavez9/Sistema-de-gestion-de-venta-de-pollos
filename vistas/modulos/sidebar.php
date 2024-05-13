@@ -53,7 +53,7 @@
                         <li><a href="trabajador">Trabajadores</a></li>
                         <li><a href="contratoTrabajador">Contrato trabajador</a></li>
                         <li><a href="pagoTrabajador">Pagos trabajador</a></li>
-                        <li><a href="vacacionesTrabajador">Vacaciones</a></li>
+                        <li><a href="vacaciones">Vacaciones</a></li>
                         <li><a href="asistenciaTrabajador">Asistencia</a></li>
                     </ul>
                 </li>
@@ -71,24 +71,12 @@
                         <li><a href="customerreport.html">Informe del cliente</a></li>
                     </ul>
                 </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
-                            Usuarios</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="newuser.html">Nuevo Usuario </a></li>
-                        <li><a href="userlists.html">Lista de usuarios</a></li>
-                    </ul>
-                </li>
+
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/settings.svg" alt="img"><span>
                             Ajustes</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="generalsettings.html">Configuración general</a></li>
-                        <li><a href="emailsettings.html">Ajustes del correo electrónico</a></li>
-                        <li><a href="paymentsettings.html">Configuración de pago</a></li>
-                        <li><a href="currencysettings.html">Configuración de moneda</a></li>
-                        <li><a href="grouppermissions.html">Permisos de grupo</a></li>
-                        <li><a href="taxrates.html">Las tasas de impuestos</a></li>
                     </ul>
                 </li>
             </ul>
