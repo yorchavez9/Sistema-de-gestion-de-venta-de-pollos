@@ -52,7 +52,7 @@
                     <ul>
                         <li><a href="trabajador">Trabajadores</a></li>
                         <li><a href="contratoTrabajador">Contrato trabajador</a></li>
-                        <li><a href="pagosTrabajador">Pagos trabajador</a></li>
+                        <li><a href="pagoTrabajador">Pagos trabajador</a></li>
                         <li><a href="vacacionesTrabajador">Vacaciones</a></li>
                         <li><a href="asistenciaTrabajador">Asistencia</a></li>
                     </ul>

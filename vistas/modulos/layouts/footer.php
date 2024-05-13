@@ -33,6 +33,7 @@
     <script src="vistas/js/ver-venta.js" type="module"></script>
     <script src="vistas/js/trabajador.js" type="module"></script>
     <script src="vistas/js/contrato.js" type="module"></script>
+    <script src="vistas/js/pago.js" type="module"></script>
 
 </body>
 
