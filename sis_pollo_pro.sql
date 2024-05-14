@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2024 a las 18:13:58
+-- Tiempo de generación: 14-05-2024 a las 17:25:03
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -107,6 +107,18 @@ CREATE TABLE `contratos_trabajadores` (
   `fecha_contrato` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `contratos_trabajadores`
+--
+
+INSERT INTO `contratos_trabajadores` (`id_contrato`, `id_trabajador`, `tiempo_contrato`, `tipo_sueldo`, `sueldo`, `fecha_contrato`) VALUES
+(2, 10, 100, 'diaria', 1399.00, '2024-05-10 09:33:05'),
+(3, 8, 12, 'mensual', 1600.00, '2024-05-10 09:34:23'),
+(5, 12, 12, 'semanal', 324.00, '2024-05-10 10:32:33'),
+(6, 10, 12, 'mensual', 5900.00, '2024-05-10 10:34:13'),
+(7, 14, 4, 'semanal', 400.00, '2024-05-13 12:06:04'),
+(8, 11, 5, 'mensual', 1540.00, '2024-05-13 20:47:35');
+
 -- --------------------------------------------------------
 
 --
@@ -173,23 +185,10 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
-(38, 39, 24, 7.00, 20, 20.00),
-(39, 40, 22, 32.00, 10, 15.00),
-(40, 41, 23, 15.00, 12, 9.00),
-(41, 42, 22, 32.00, 23, 2.00),
-(42, 42, 24, 23.00, 3, 2.00),
-(43, 43, 26, 13.00, 12, 24.00),
-(44, 43, 25, 13.00, 15, 38.00),
-(45, 43, 24, 0.00, 20, 12.00),
-(46, 43, 23, 10.00, 20, 12.00),
-(47, 44, 25, 13.00, 12, 12.00),
-(48, 44, 24, 23.00, 12, 12.00),
-(49, 44, 23, 10.00, 12, 12.00),
-(50, 45, 24, 99.00, 12, 12.00),
-(51, 45, 21, 99.00, 12, 12.00),
-(52, 45, 17, 9.00, 12, 12.00),
-(53, 46, 26, 13.00, 12, 24.00),
-(54, 47, 26, 13.00, 20, 40.00);
+(63, 60, 26, 13.00, 12, 25.00),
+(67, 62, 26, 13.00, 12, 25.00),
+(68, 62, 25, 13.00, 12, 34.00),
+(69, 62, 21, 23.00, 12, 34.00);
 
 -- --------------------------------------------------------
 
@@ -253,9 +252,18 @@ CREATE TABLE `pagos_trabajadores` (
   `id_contrato` int(11) NOT NULL,
   `monto_pago` decimal(11,2) NOT NULL,
   `fecha_pago` datetime DEFAULT current_timestamp(),
-  `tipo_comprobante` varchar(20) NOT NULL,
   `estado_pago` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pagos_trabajadores`
+--
+
+INSERT INTO `pagos_trabajadores` (`id_pagos`, `id_contrato`, `monto_pago`, `fecha_pago`, `estado_pago`) VALUES
+(6, 2, 1399.00, '2024-05-13 00:00:00', 0),
+(9, 3, 1600.00, '2024-05-30 00:00:00', 1),
+(10, 7, 400.00, '2024-05-13 00:00:00', 0),
+(11, 8, 1540.00, '2024-06-13 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -286,7 +294,7 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id_persona`, `tipo_persona`, `razon_social`, `id_doc`, `numero_documento`, `direccion`, `ciudad`, `codigo_postal`, `telefono`, `email`, `sitio_web`, `estado_persona`, `tipo_banco`, `numero_cuenta`, `fecha_persona`) VALUES
-(1, 'cliente', 'Cliente Genérico', 2, '444555888', 'Calle Principal', 'Ciudad O', '13579', '4445558888', 'proveedor15@example.com', 'www.proveedor15.com', 1, 'BF', '4445558888', '2024-04-05 14:00:00'),
+(1, 'cliente', 'Cliente Genérico', 2, 'Ninguno', 'Ninguno', 'Ninguno', '00000', 'Ninguno', 'Ninguno', 'Ninguno', 1, 'BF', '', '2024-04-05 14:00:00'),
 (31, 'proveedor', 'jorge', 2, '987654321', 'Av. Principal', 'Ciudad B', '54321', '9876543210', 'proveedor2@example.com', 'www.proveedor2.com', 1, 'BCP', '9876543210', '2024-03-20 15:13:02'),
 (38, 'proveedor', 'Pino', 6, '666777888', 'Av. Norte', 'Ciudad I', '97531', '6667778888', 'proveedor9@example.com', 'www.proveedor9.com', 1, 'BCRP', '6667778888', '2024-03-29 11:45:40'),
 (41, 'proveedor', 'Proveedor 11', 1, '111222444', 'Calle Este', 'Ciudad K', '54321', '1112224444', 'proveedor11@example.com', 'www.proveedor11.com', 1, 'BCP', '1112224444', '2024-04-01 10:00:00'),
@@ -355,14 +363,14 @@ INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo_producto`, `nomb
 (14, 21, 'A004', 'Pollo d3', 0.00, 0, '2024-05-14', 'sdfasdf', '../vistas/img/productos/202404020107043683.jpg', 1, '2024-04-01 18:07:04'),
 (15, 20, 'A005', 'Pollo edf', 0.00, 9, '2024-05-13', 'dfsfdas', '../vistas/img/productos/202404020107335335.jpg', 1, '2024-04-01 18:07:33'),
 (16, 2, 'A006', 'Pollo fasdf', 0.00, 10, '2024-05-15', 'fdsaf', '../vistas/img/productos/202404020108526008.png', 1, '2024-04-01 18:08:52'),
-(17, 23, 'A007', 'Prodcuto ss', 0.00, -2, '2024-05-07', 'fdsaf', '../vistas/img/productos/202404020112257253.jpg', 1, '2024-04-01 18:12:25'),
+(17, 23, 'A007', 'Prodcuto ss', 0.00, 123, '2024-05-07', 'fdsaf', '../vistas/img/productos/202404020112257253.jpg', 1, '2024-04-01 18:12:25'),
 (18, 23, 'A008', 'Cangrejo B1', 0.00, 1, '2024-05-02', 'Calamina', '../vistas/img/productos/202404101936545470.jpg', 1, '2024-04-01 18:51:59'),
-(21, 22, 'A0019', 'Cangreso A1', 0.00, -11, '2024-05-01', 'fdsaf', '../vistas/img/productos/202404101936231066.jpg', 1, '2024-04-03 10:34:52'),
-(22, 20, 'a00d', 'Pescado A1', 32.00, 90, '2024-04-30', 'daD', '../vistas/img/productos/202404101933502536.jpg', 1, '2024-04-03 10:40:27'),
-(23, 20, 'B001', 'Salchicha A1', 10.00, 34, '2024-05-22', 'dasda', '../vistas/img/productos/202404101932454518.jpg', 1, '2024-04-03 10:43:19'),
-(24, 23, 'a00234', 'Jamon A1', 0.00, 130, '2024-04-23', 'fsadf', '../vistas/img/productos/202404101931014143.jpg', 1, '2024-04-03 10:46:14'),
-(25, 23, 'A0054', 'Pollo B2', 13.00, 171, '2024-04-09', 'fsafdsa', '../vistas/img/productos/202404101929544885.jpg', 1, '2024-04-03 10:47:33'),
-(26, 23, 'A0012', 'Pollo B1', 13.00, 454, '2024-05-08', 'Descripcion del producto', '../vistas/img/productos/202404101928503425.jpg', 1, '2024-04-04 08:32:43');
+(21, 22, 'A0019', 'Cangreso A1', 0.00, 111, '2024-05-01', 'fdsaf', '../vistas/img/productos/202404101936231066.jpg', 1, '2024-04-03 10:34:52'),
+(22, 20, 'a00d', 'Pescado A1', 32.00, 0, '2024-04-30', 'daD', '../vistas/img/productos/202404101933502536.jpg', 1, '2024-04-03 10:40:27'),
+(23, 20, 'B001', 'Salchicha A1', 10.00, 2, '2024-05-22', 'dasda', '../vistas/img/productos/202404101932454518.jpg', 1, '2024-04-03 10:43:19'),
+(24, 23, 'a00234', 'Jamon A1', 0.00, -16, '2024-04-23', 'fsadf', '../vistas/img/productos/202404101931014143.jpg', 1, '2024-04-03 10:46:14'),
+(25, 23, 'A0054', 'Pollo B2', 13.00, 68, '2024-04-09', 'fsafdsa', '../vistas/img/productos/202404101929544885.jpg', 1, '2024-04-03 10:47:33'),
+(26, 23, 'A0012', 'Pollo B1', 13.00, 306, '2024-05-08', 'Descripcion del producto', '../vistas/img/productos/202404101928503425.jpg', 1, '2024-04-04 08:32:43');
 
 -- --------------------------------------------------------
 
@@ -394,7 +402,6 @@ INSERT INTO `tipo_documentos` (`id_doc`, `nombre_doc`, `fecha_doc`) VALUES
 CREATE TABLE `trabajadores` (
   `id_trabajador` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `id_doc` int(11) NOT NULL,
   `num_documento` varchar(20) NOT NULL,
   `telefono` varchar(100) NOT NULL,
   `correo` varchar(50) DEFAULT NULL,
@@ -404,6 +411,19 @@ CREATE TABLE `trabajadores` (
   `num_cuenta` varchar(30) DEFAULT NULL,
   `estado_trabajador` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `trabajadores`
+--
+
+INSERT INTO `trabajadores` (`id_trabajador`, `nombre`, `num_documento`, `telefono`, `correo`, `foto`, `cv`, `tipo_pago`, `num_cuenta`, `estado_trabajador`) VALUES
+(8, 'Daniel Chávez Martinez', '72243561', '920468502', 'jorge@gmail.com', '../vistas/img/trabajador/202405092141484284.png', '../vistas/pdf/trabajador/202405092141489690.pdf', 'targetaDebito', '923836723621621', 1),
+(10, 'Jorge Chávez Huincho', '72243561', '920468502', 'jorge@gmail.com', '../vistas/img/trabajador/202405101505511432.jpeg', '../vistas/pdf/trabajador/202405101505511414.pdf', 'efectivo', '', 1),
+(11, 'Alejandro Pérez García', '56452314', '976321123', 'alajandro@gmail.com', '../vistas/img/trabajador/202405101729165140.jpg', '../vistas/pdf/trabajador/202405101729165362.pdf', 'efectivo', '', 1),
+(12, 'Luis Martínez Sánchez', '56452334', '9879675432', 'Luis@gmail.com', '../vistas/img/trabajador/202405101729575791.jpg', '../vistas/pdf/trabajador/202405101729574266.pdf', 'targetaDebito', '7489023109871432', 1),
+(13, 'María García Martínez', '12233454', '923212457', 'maria@gmail.com', '../vistas/img/trabajador/202405101731172764.jpg', '../vistas/pdf/trabajador/202405101731178053.pdf', 'efectivo', '', 1),
+(14, 'Laura Sánchez Rodríguez', '34345467', '987564234', 'laura@gmail.com', '../vistas/img/trabajador/202405101732021330.jpg', '../vistas/pdf/trabajador/202405101732027056.pdf', 'targetaCredito', '6345653362434445', 1),
+(15, 'Jorge Chávez Huincho', '72243561', '920468502', 'jorge@gmail.com', '../vistas/img/trabajador/202405140346015358.jpg', '../vistas/pdf/trabajador/202405140346019922.pdf', 'efectivo', '', 1);
 
 -- --------------------------------------------------------
 
@@ -432,10 +452,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `id_doc`, `numero_documento`, `direccion`, `telefono`, `correo`, `usuario`, `contrasena`, `imagen_usuario`, `estado`, `fecha_usuario`, `roles`) VALUES
-(99, 'Jorge', 1, '72243561', 'Av. Los libertadores #453', '920468502', 'jorge@gmail.com', 'Jorge', '$2a$07$asxx54ahjppf45sd87a5auKKweOnGVRntDRMQN.CVMrzvBvwrBU/C', '../vistas/img/usuarios/202404111913174629.png', 1, '2024-04-01 11:31:15', '[\"administrador\",\"cajero\",\"ayudante\"]'),
+(99, 'Jorge', 1, '72243561', 'Av. Los libertadores #453', '920468502', 'jorge@gmail.com', 'Jorge', '$2a$07$asxx54ahjppf45sd87a5auKKweOnGVRntDRMQN.CVMrzvBvwrBU/C', '../vistas/img/usuarios/202404111913174629.png', 1, '2024-04-01 11:31:15', '[\"administrador\",\"cajero\"]'),
 (100, 'Juan', 1, '72243562', 'Av. Los libertadores #453', '920468509', 'juan@gmail.com', 'Juan', '$2a$07$asxx54ahjppf45sd87a5auFxqrwzBR0RPCx/v9BOmOyImsyarRs7G', '../vistas/img/usuarios/202404011831496892.jpg', 1, '2024-04-01 11:31:49', '[\"administrador\",\"cajero\",\"ayudante\"]'),
-(101, 'Gimena', 2, '1023344512', 'Av. Los libertadores #453', '920468500', 'gimena@gmail.com', 'Gimena', '$2a$07$asxx54ahjppf45sd87a5auDDwkjduNzmb7Sm.c8sy/h38RdR1WucC', '../vistas/img/usuarios/202404111913025998.png', 0, '2024-04-01 11:32:50', '[\"administrador\",\"cajero\"]'),
-(104, 'Sergio', 1, 'Sergio', 'Av. centenario ', '3542521354', 'sergio@gmail.com', 'Sergio', '$2a$07$asxx54ahjppf45sd87a5aui6rQDeZzg/833bVKPHkwtIvfwJtfMy.', '../vistas/img/usuarios/202404111850339886.jpg', 1, '2024-04-11 11:50:34', '[\"administrador\",\"cajero\",\"ayudante\"]');
+(101, 'Gimena', 2, '1023344512', 'Av. Los libertadores #453', '920468500', 'gimena@gmail.com', 'Gimena', '$2a$07$asxx54ahjppf45sd87a5auDDwkjduNzmb7Sm.c8sy/h38RdR1WucC', '../vistas/img/usuarios/202404111913025998.png', 1, '2024-04-01 11:32:50', '[\"administrador\",\"cajero\"]'),
+(104, 'Sergio', 1, '72243561', 'Av. centenario ', '3542521354', 'sergio@gmail.com', 'Sergio', '$2a$07$asxx54ahjppf45sd87a5aui6rQDeZzg/833bVKPHkwtIvfwJtfMy.', '../vistas/img/usuarios/202405092145439037.jpg', 1, '2024-04-11 11:50:34', '[\"administrador\",\"cajero\",\"ayudante\"]');
 
 -- --------------------------------------------------------
 
@@ -447,7 +467,8 @@ CREATE TABLE `vacaciones` (
   `id_vacacion` int(11) NOT NULL,
   `id_trabajador` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL
+  `fecha_fin` date NOT NULL,
+  `estado_vacion` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -472,23 +493,16 @@ CREATE TABLE `ventas` (
   `tipo_pago` varchar(30) NOT NULL,
   `estado_pago` varchar(30) DEFAULT NULL,
   `pago_e_y` varchar(50) NOT NULL,
-  `fecha_egreso` datetime DEFAULT current_timestamp()
+  `fecha_venta_a` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `ventas`
 --
 
-INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_venta`, `total_pago`, `sub_total`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_egreso`) VALUES
-(39, 1, 99, '2024-04-18', 'ticket', 'T0001', '0001', 0.00, 140.00, 140.00, 140.00, 0.00, 'contado', 'completado', 'efectivo', '2024-04-18 09:54:27'),
-(40, 1, 99, '2024-04-18', 'ticket', 'T0002', '0002', 18.00, 566.40, 0.40, 480.00, 86.40, 'credito', 'pendiente', 'yape', '2024-04-18 09:54:54'),
-(41, 84, 99, '2024-04-18', 'ticket', 'T0003', '0003', 0.00, 135.00, 135.00, 135.00, 0.00, 'contado', 'completado', 'efectivo', '2024-04-18 09:55:25'),
-(42, 1, 99, '2024-04-18', 'ticket', 'T0004', '0004', 0.00, 110.00, 110.00, 110.00, 0.00, 'contado', 'completado', 'efectivo', '2024-04-18 10:02:19'),
-(43, 1, 99, '2024-04-18', 'ticket', 'T0005', '0005', 0.00, 926.00, 926.00, 926.00, 0.00, 'contado', 'completado', 'efectivo', '2024-04-18 10:06:18'),
-(44, 1, 99, '2024-04-18', 'ticket', 'T0006', '0006', 0.00, 552.00, 0.00, 552.00, 0.00, 'credito', 'pendiente', 'efectivo', '2024-04-18 11:11:14'),
-(45, 1, 99, '2024-04-18', 'ticket', 'T0007', '0007', 0.00, 2484.00, 0.00, 2484.00, 0.00, 'credito', 'pendiente', 'yape', '2024-04-18 11:38:01'),
-(46, 1, 99, '2024-04-20', 'ticket', 'T0008', '0008', 0.00, 312.00, 312.00, 312.00, 0.00, 'contado', 'completado', 'efectivo', '2024-04-19 20:58:45'),
-(47, 1, 99, '2024-04-20', 'ticket', 'T0009', '0009', 0.00, 520.00, 20.00, 520.00, 0.00, 'credito', 'pendiente', 'yape', '2024-04-19 21:07:13');
+INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_venta`, `total_pago`, `sub_total`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_venta_a`) VALUES
+(60, 1, 99, '2024-05-03', 'ticket', 'T0001', '0001', 0.00, 325.00, 325.00, 325.00, 0.00, 'contado', 'completado', 'efectivo', '2024-05-03 12:00:01'),
+(62, 1, 99, '2024-05-03', 'ticket', 'T0003', '0003', 0.00, 1549.00, 1549.00, 1549.00, 0.00, 'credito', 'pendiente', 'yape', '2024-05-03 12:02:59');
 
 --
 -- Índices para tablas volcadas
@@ -630,7 +644,7 @@ ALTER TABLE `config_ticket`
 -- AUTO_INCREMENT de la tabla `contratos_trabajadores`
 --
 ALTER TABLE `contratos_trabajadores`
-  MODIFY `id_contrato` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_contrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_egreso`
@@ -642,7 +656,7 @@ ALTER TABLE `detalle_egreso`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
@@ -654,7 +668,7 @@ ALTER TABLE `egresos`
 -- AUTO_INCREMENT de la tabla `pagos_trabajadores`
 --
 ALTER TABLE `pagos_trabajadores`
-  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
@@ -678,7 +692,7 @@ ALTER TABLE `tipo_documentos`
 -- AUTO_INCREMENT de la tabla `trabajadores`
 --
 ALTER TABLE `trabajadores`
-  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -696,7 +710,7 @@ ALTER TABLE `vacaciones`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Restricciones para tablas volcadas
