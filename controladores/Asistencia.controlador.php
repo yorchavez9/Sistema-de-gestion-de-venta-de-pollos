@@ -16,9 +16,11 @@ class ControladorAsistencia{
         $hora_entrada = $_POST["hora_entrada_a"];
         $hora_salida = $_POST["hora_salida_a"];
 
-        $asistencias = json_decode($_POST["datosAsistencia"], true);
+        $asistencias = json_decode($_POST["datosAsistenciaJSON"], true);
 
 		$datos = array();
+
+        $respuesta = "";
 
 		foreach ($asistencias as $dato) {
 
@@ -27,7 +29,7 @@ class ControladorAsistencia{
 				'fecha_asistencia' => $fecha_asistencia,
 				'hora_entrada' => $hora_entrada,
 				'hora_salida' => $hora_salida,
-				'estado' => $dato['asistencia'],
+				'estado' => $dato['estado'],
 				'observaciones' => $dato['observacion']
 			);
 
@@ -36,7 +38,6 @@ class ControladorAsistencia{
 			 $respuesta = ModeloAsistencia::mdlIngresarAsistencia($tabla, $nuevo_dato);
 
 		}
-
 
 
 

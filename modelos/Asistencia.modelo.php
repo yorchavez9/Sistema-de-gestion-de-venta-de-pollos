@@ -68,6 +68,7 @@ class ModeloAsistencia{
         if ($stmt->execute()) {
 
             return "ok";
+            
         } else {
 
             return "error";

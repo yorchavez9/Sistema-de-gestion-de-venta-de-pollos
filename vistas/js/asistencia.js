@@ -51,31 +51,46 @@ $(document).ready(function () {
 
 
 
-        var valoresAsistencia = [];
-
+        var valoresAsistencia = {};
+        var datosAsistencia = [];
 
         $("#show_estado_asistencia tr").each(function () {
-
             var fila = $(this);
 
-
             var idTrabajador = fila.find("#id_trabajador_asistencia").val();
+            var estado = fila.find("input[type='radio']:checked").val();
             var observacion = fila.find("input[type='text']").val();
-            var asistencia = fila.find("input[type='radio']:checked").val();
 
-            // Crear un objeto con los valores y agregarlo al array
-            var asistencia_data = {
-                id_trabajador: idTrabajador,
-                asistencia: asistencia,
-                observacion: observacion
-            };
-
-            valoresAsistencia.push(asistencia_data);
-
+            // Verificar si ya existe un registro para este trabajador
+            if (valoresAsistencia[idTrabajador]) {
+                // Si ya existe, actualizar el estado y la observación si es necesario
+                if (estado) {
+                    valoresAsistencia[idTrabajador].estado = estado;
+                }
+                if (observacion) {
+                    valoresAsistencia[idTrabajador].observacion = observacion;
+                }
+            } else {
+                // Si no existe, crear un nuevo registro
+                var asistencia_data = {
+                    id_trabajador: idTrabajador,
+                    estado: estado || "Ausente", // Si no hay estado seleccionado, asumir "Ausente" o ajusta según tu lógica
+                    observacion: observacion || ""
+                };
+                valoresAsistencia[idTrabajador] = asistencia_data;
+            }
         });
 
+        // Convertir el objeto a un array
+        for (var key in valoresAsistencia) {
+            if (valoresAsistencia.hasOwnProperty(key)) {
+                datosAsistencia.push(valoresAsistencia[key]);
+            }
+        }
+
         // Convertir el array a JSON
-        var datosAsistencia = JSON.stringify(valoresAsistencia);
+        var datosAsistenciaJSON = JSON.stringify(datosAsistencia);
+
 
 
   
@@ -92,8 +107,7 @@ $(document).ready(function () {
   
         datos.append("hora_salida_a", hora_salida_a);
 
-        datos.append("datosAsistencia", datosAsistencia);
-
+        datos.append("datosAsistenciaJSON", datosAsistenciaJSON);
 
   
         $.ajax({
@@ -105,7 +119,7 @@ $(document).ready(function () {
           processData: false,
           success: function (respuesta) {
 
-  
+
             var res = JSON.parse(respuesta);
   
             if (res === "ok") {
@@ -127,6 +141,11 @@ $(document).ready(function () {
             }
   
           },
+          error: function (xhr, status, error) {
+            console.error("Error al recuperar los usuarios:", error);
+            console.error(xhr);
+            console.error(status);
+        },
   
         });
   

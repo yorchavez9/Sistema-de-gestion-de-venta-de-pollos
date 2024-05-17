@@ -147,10 +147,7 @@ else{
         $fila = array(
             'id_asistencia' => $asistencia['id_asistencia'],
             'id_trabajador' => $asistencia['id_trabajador'],
-            'fecha_asistencia' => $asistencia['fecha_asistencia'],
-            'hora_entrada' => $asistencia['hora_entrada'],
-            'estado' => $asistencia['estado'],
-            'estado_vacion' => $asistencia['observaciones']
+            'fecha_asistencia' => $asistencia['fecha_asistencia']
         );
     
         
