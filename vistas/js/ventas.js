@@ -575,6 +575,7 @@ $(document).ready(function () {
     // Iterar sobre cada fila de producto
 
     $("#detalle_venta_producto tr").each(function () {
+      
       var fila = $(this);
 
       // Obtener los valores de cada campo en la fila

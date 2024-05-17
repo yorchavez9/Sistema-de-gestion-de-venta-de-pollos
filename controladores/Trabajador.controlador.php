@@ -122,6 +122,20 @@ class ControladorTrabajador
 	}
 
 	/*=============================================
+	MOSTRAR TRABAJADORES
+	=============================================*/
+
+	static public function ctrMostrarTrabajadoresAsistencia($item, $valor)
+	{
+
+		$tabla = "trabajadores";
+
+		$respuesta = ModeloTrabajador::mdlMostrarTrabajadoresAsistencia($tabla, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	EDITAR TRABAJADOR
 	=============================================*/
 

@@ -35,6 +35,7 @@
     <script src="vistas/js/contrato.js" type="module"></script>
     <script src="vistas/js/pago.js" type="module"></script>
     <script src="vistas/js/vacaciones.js" type="module"></script>
+    <script src="vistas/js/asistencia.js" type="module"></script>
 
 </body>
 

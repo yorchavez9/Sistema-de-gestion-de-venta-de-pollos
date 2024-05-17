@@ -54,7 +54,7 @@
                         <li><a href="contratoTrabajador">Contrato trabajador</a></li>
                         <li><a href="pagoTrabajador">Pagos trabajador</a></li>
                         <li><a href="vacaciones">Vacaciones</a></li>
-                        <li><a href="asistenciaTrabajador">Asistencia</a></li>
+                        <li><a href="asistencia">Asistencia</a></li>
                     </ul>
                 </li>
 
