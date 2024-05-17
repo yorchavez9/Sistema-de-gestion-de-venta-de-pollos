@@ -2,17 +2,17 @@
 
 require_once "Conexion.php";
 
-class ModeloUsuarios{
+class ModeloVacaciones{
 
 	/*=============================================
-	MOSTRAR USUARIOS
+	MOSTRAR VACACIONES
 	=============================================*/
 
-	static public function mdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor){
+	static public function mdlMostrarVacaciones($tablaT, $tablaV, $item, $valor){
 
 		if($item != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT as t inner join $tablaV as v on t.id_trabajador = v.id_trabajador WHERE $item = :$item");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -22,7 +22,7 @@ class ModeloUsuarios{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaDoc as doc inner join $tablaUser as u on doc.id_doc = u.id_doc ORDER BY u.id_usuario DESC");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT as t inner join $tablaV as v on t.id_trabajador = v.id_trabajador ORDER BY v.id_vacacion DESC");
 
 			$stmt -> execute();
 
@@ -37,24 +37,17 @@ class ModeloUsuarios{
 	}
 
 	/*=============================================
-	REGISTRO DE USUARIO
+	REGISTRO DE VACACION
 	=============================================*/
 
-	static public function mdlIngresarUsuario($tabla, $datos){
+	static public function mdlIngresarVacacion($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre_usuario, id_doc, numero_documento, direccion, telefono, correo, usuario, contrasena, imagen_usuario, roles) 
-		                                                  VALUES (:nombre_usuario, :id_doc, :numero_documento, :direccion, :telefono, :correo, :usuario, :contrasena, :imagen_usuario, :roles)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_trabajador, fecha_inicio, fecha_fin) 
+		                                                  VALUES (:id_trabajador, :fecha_inicio, :fecha_fin)");
 
-		$stmt->bindParam(":nombre_usuario", $datos["nombre_usuario"], PDO::PARAM_STR);
-		$stmt->bindParam(":id_doc", $datos["id_doc"], PDO::PARAM_INT);
-		$stmt->bindParam(":numero_documento", $datos["numero_documento"], PDO::PARAM_STR);
-		$stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
-		$stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
-		$stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
-		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
-		$stmt->bindParam(":contrasena", $datos["contrasena"], PDO::PARAM_STR);
-		$stmt->bindParam(":imagen_usuario", $datos["imagen_usuario"], PDO::PARAM_STR);
-		$stmt->bindParam(":roles", $datos["roles"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_trabajador", $datos["id_trabajador"], PDO::PARAM_INT);
+		$stmt->bindParam(":fecha_inicio", $datos["fecha_inicio"], PDO::PARAM_STR);
+		$stmt->bindParam(":fecha_fin", $datos["fecha_fin"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
@@ -72,35 +65,22 @@ class ModeloUsuarios{
 	}
 
 	/*=============================================
-	EDITAR USUARIO
+	EDITAR VACACION
 	=============================================*/
 
-	static public function mdlEditarUsuario($tabla, $datos){
+	static public function mdlEditarVacacion($tabla, $datos){
 	
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
-																nombre_usuario = :nombre_usuario, 
-																id_doc = :id_doc, 
-																numero_documento = :numero_documento, 
-																direccion = :direccion, 
-																telefono = :telefono, 
-																correo = :correo, 
-																usuario = :usuario, 
-																contrasena = :contrasena, 
-																imagen_usuario = :imagen_usuario,
-																roles = :roles
-																WHERE id_usuario = :id_usuario");
+																id_trabajador = :id_trabajador, 
+																fecha_inicio = :fecha_inicio, 
+																fecha_fin = :fecha_fin
+																WHERE id_vacacion = :id_vacacion");
 
-		$stmt -> bindParam(":nombre_usuario", $datos["nombre_usuario"], PDO::PARAM_STR);
-		$stmt -> bindParam(":id_doc", $datos["id_doc"], PDO::PARAM_INT);
-		$stmt -> bindParam(":numero_documento", $datos["numero_documento"], PDO::PARAM_STR);
-		$stmt -> bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
-		$stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
-		$stmt -> bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
-		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
-		$stmt -> bindParam(":contrasena", $datos["contrasena"], PDO::PARAM_STR);
-		$stmt -> bindParam(":imagen_usuario", $datos["imagen_usuario"], PDO::PARAM_STR);
-		$stmt -> bindParam(":roles", $datos["roles"], PDO::PARAM_STR);
-		$stmt -> bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
+		$stmt -> bindParam(":id_trabajador", $datos["id_trabajador"], PDO::PARAM_INT);
+		$stmt -> bindParam(":fecha_inicio", $datos["fecha_inicio"], PDO::PARAM_STR);
+		$stmt -> bindParam(":fecha_fin", $datos["fecha_fin"], PDO::PARAM_STR);
+		$stmt -> bindParam(":id_vacacion", $datos["id_vacacion"], PDO::PARAM_INT);
+
 
 		if($stmt -> execute()){
 
@@ -118,10 +98,10 @@ class ModeloUsuarios{
 	}
 
 	/*=============================================
-	ACTUALIZAR USUARIO
+	ACTUALIZAR VACACION
 	=============================================*/
 
-	static public function mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2){
+	static public function mdlActualizarVacacion($tabla, $item1, $valor1, $item2, $valor2){
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
 
@@ -144,14 +124,14 @@ class ModeloUsuarios{
 	}
 
 	/*=============================================
-	BORRAR USUARIO
+	BORRAR VACACION
 	=============================================*/
 
-	static public function mdlBorrarUsuario($tabla, $datos){
+	static public function mdlBorrarVacacion($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_usuario = :id_usuario");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_vacacion = :id_vacacion");
 
-		$stmt -> bindParam(":id_usuario", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":id_vacacion", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 

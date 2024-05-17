@@ -1,31 +1,31 @@
 <?php
 
-require_once "../controladores/Usuario.controlador.php";
-require_once "../modelos/Usuario.modelo.php";
+require_once "../controladores/Vacaciones.controlador.php";
+require_once "../modelos/Vacaciones.modelo.php";
 
-class AjaxUsuarios
+class AjaxVacaciones
 {
 
     
     /*=============================================
-	EDITAR USUARIO
+	EDITAR VACACIONES
 	=============================================*/
 
-    public $idUsuario;
+    public $idVacacion;
 
-    public function ajaxEditarUsuario()
+    public function ajaxEditarVacacion()
     {
 
-        $item = "id_usuario";
-        $valor = $this->idUsuario;
+        $item = "id_vacacion";
+        $valor = $this->idVacacion;
 
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+        $respuesta = ControladorVacaciones::ctrMostrarVacacion($item, $valor);
 
         echo json_encode($respuesta);
     }
     
     /*=============================================
-	MOSTRAR DETALLE USUARIO
+	MOSTRAR DETALLE VACACIONBES
 	=============================================*/
 
     public $idUsuarioVer;
@@ -42,29 +42,29 @@ class AjaxUsuarios
     }
 
     /*=============================================
-	ACTIVAR USUARIO
+	ACTIVAR VACACIONES
 	=============================================*/
 
-    public $activarUsuario;
+    public $activarVacacion;
     public $activarId;
 
 
-    public function ajaxActivarUsuario()
+    public function ajaxActivarVacacion()
     {
 
-        $tabla = "usuarios";
+        $tabla = "vacaciones";
 
-        $item1 = "estado";
-        $valor1 = $this->activarUsuario;
+        $item1 = "estado_vacion";
+        $valor1 = $this->activarVacacion;
 
-        $item2 = "id_usuario";
+        $item2 = "id_vacacion";
         $valor2 = $this->activarId;
 
-        $respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+        $respuesta = ModeloVacaciones::mdlActualizarVacacion($tabla, $item1, $valor1, $item2, $valor2);
     }
 
     /*=============================================
-	VALIDAR NO REPETIR USUARIO
+	VALIDAR NO REPITIR VACACIONES
 	=============================================*/
 
     public $validarUsuario;
@@ -82,103 +82,96 @@ class AjaxUsuarios
 }
 
 /*=============================================
-EDITAR USUARIO
+EDITAR VACACION
 =============================================*/
-if (isset($_POST["idUsuario"])) {
+if (isset($_POST["idVacacion"])) {
 
-    $editar = new AjaxUsuarios();
-    $editar->idUsuario = $_POST["idUsuario"];
-    $editar->ajaxEditarUsuario();
+    $editar = new AjaxVacaciones();
+    $editar->idVacacion = $_POST["idVacacion"];
+    $editar->ajaxEditarVacacion();
 
 }
 
-/* VER DETALLE USUARIO */
+/* VER VACACION */
 elseif (isset($_POST["idUsuarioVer"])) {
 
-    $verDetalle = new AjaxUsuarios();
+    $verDetalle = new AjaxVacaciones();
     $verDetalle->idUsuarioVer = $_POST["idUsuarioVer"];
     $verDetalle->ajaxVerUsuario();
 }
 
-/* ACTIVAR USUARIO */
-elseif (isset($_POST["activarUsuario"])) {
+/* ACTIVAR VACACION */
+elseif (isset($_POST["activarVacacion"])) {
 
-    $activarUsuario = new AjaxUsuarios();
-    $activarUsuario->activarUsuario = $_POST["activarUsuario"];
+    $activarUsuario = new AjaxVacaciones();
+    $activarUsuario->activarVacacion = $_POST["activarVacacion"];
     $activarUsuario->activarId = $_POST["activarId"];
-    $activarUsuario->ajaxActivarUsuario();
+    $activarUsuario->ajaxActivarVacacion();
 
 }
 
-/* VALIDAR USUARIO */
+/* VALIDAR VACACION */
 elseif (isset($_POST["validarUsuario"])) {
 
-    $valUsuario = new AjaxUsuarios();
+    $valUsuario = new AjaxVacaciones();
     $valUsuario->validarUsuario = $_POST["validarUsuario"];
     $valUsuario->ajaxValidarUsuario();
     
 }
 
-/* GUARDAR USUARIO */
-elseif (isset($_POST["nombre"])) {
+/* GUARDAR VACACION */
+elseif (isset($_POST["fecha_inicio"])) {
 
-    $crearUsuario = new ControladorUsuarios();
-    $crearUsuario->ctrCrearUsuario();
-
-}
-
-/* ACTUALIZAR USUARIO */
-elseif(isset($_POST["edit_idUsuario"])){
-
-    $editusuario = new ControladorUsuarios();
-    $editusuario->ctrEditarUsuario();
+    $crearVacacion = new ControladorVacaciones();
+    $crearVacacion->ctrCrearVacaciones();
 
 }
 
-/* BORRAR USUARIO */
-elseif(isset($_POST["deleteUserId"])){
+/* ACTUALIZAR VACACION */
+elseif(isset($_POST["edit_id_vacaciones"])){
 
-    $borrarUsuario = new ControladorUsuarios();
-    $borrarUsuario->ctrBorrarUsuario();
+    $editVacacion = new ControladorVacaciones();
+    $editVacacion->ctrEditarVacacion();
 
 }
 
-/* MOSTRAR USUARIO EN LA TABLA */
+/* BORRAR VACACION */
+elseif(isset($_POST["idVacacionDelete"])){
+
+    $borrarVacacion = new ControladorVacaciones();
+    $borrarVacacion->ctrBorrarVacacion();
+
+}
+
+/* MOSTRAR VACACIONES */
 else{
 
     $item = null;
+
     $valor = null;
-    $mostrarUsuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+
+    $mostrarVacaciones = ControladorVacaciones::ctrMostrarVacacion($item, $valor);
     
-    $tablaUsuarios = array();
+    $tablaVacaciones = array();
     
-    foreach ($mostrarUsuarios as $key => $usuario) {
+    foreach ($mostrarVacaciones as $key => $vacacion) {
         
         $fila = array(
-            'id_usuario' => $usuario['id_usuario'],
-            'nombre_usuario' => $usuario['nombre_usuario'],
-            'id_doc' => $usuario['id_doc'],
-            'nombre_doc' => $usuario['nombre_doc'],
-            'numero_documento' => $usuario['numero_documento'],
-            'direccion' => $usuario['direccion'],
-            'telefono' => $usuario['telefono'],
-            'correo' => $usuario['correo'],
-            'usuario' => $usuario['usuario'],
-            'contrasena' => $usuario['contrasena'],
-            'imagen_usuario' => $usuario['imagen_usuario'],
-            'estado' => $usuario['estado'],
-            'fecha_usuario' => $usuario['fecha_usuario'],
-            'roles' => $usuario['roles']
+            'id_vacacion' => $vacacion['id_vacacion'],
+            'id_trabajador' => $vacacion['id_trabajador'],
+            'nombre' => $vacacion['nombre'],
+            'fecha_inicio' => $vacacion['fecha_inicio'],
+            'fecha_fin' => $vacacion['fecha_fin'],
+            'estado_vacion' => $vacacion['estado_vacion']
         );
     
         
-        $tablaUsuarios[] = $fila;
+        $tablaVacaciones[] = $fila;
     }
     
     
-    echo json_encode($tablaUsuarios);
+    echo json_encode($tablaVacaciones);
 }
 
 
 ?>
-

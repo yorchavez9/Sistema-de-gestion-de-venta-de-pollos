@@ -42,21 +42,18 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_usuarios">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_vacaciones">
                         <thead>
                             <tr>
-                                <th>Foto</th>
+                                <th>N°</th>
                                 <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>N° documento</th>
-                                <th>Dirección</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
-                        <tbody id="dataUsuarios">
+                        <tbody id="data_mostrar_vacaciones">
 
                         </tbody>
                     </table>
@@ -68,7 +65,9 @@
 </div>
 
 
-<!-- MODAL CREAR VACACIONES -->
+<!-- ===============================
+MODAL CREAR VACACIONES
+=============================== -->
 <div class="modal fade" id="modalNuevoVacaciones" tabindex="-1" aria-labelledby="modalNuevoVacacionesLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -77,6 +76,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form enctype="multipart/form-data" id="form_nuevo_vacaciones">
+
                 <div class="modal-body">
 
                     <!-- INGRESO DEL TRABAJADOR -->
@@ -92,7 +92,7 @@
                         $trabajadores = ControladorTrabajador::ctrMostrarTrabajadores($item, $valor);
 
                         ?>
-                        <select class="select" id="id_doc">
+                        <select class="select" id="id_trabajador_v">
                             <option disabled selected>Seleccione</option>
                             <?php
                             foreach ($trabajadores as $key => $trabajador) {
@@ -103,7 +103,7 @@
                             ?>
                         </select>
 
-                        <small id="errorTipoDocumento"></small>
+                        <small id="error_id_trabajador_v"></small>
                     </div>
 
 
@@ -111,10 +111,15 @@
 
                         <!-- INGRESO DE FECHA DE INICIO -->
                         <div class="col-md-6">
+
                             <div class="form-group">
-                                <label for="direccion" class="form-label">Fecha de inicio (<span class="text-danger">*</span>)</label>
-                                <input type="date" id="direccion" class="form-control">
-                                <small id="errorDireccionUsuario"></small>
+
+                                <label for="fecha_inicio_v" class="form-label">Fecha de inicio (<span class="text-danger">*</span>)</label>
+
+                                <input type="date" id="fecha_inicio_v" class="form-control">
+
+                                <small id="error_fecha_inicio_v"></small>
+
                             </div>
 
                         </div>
@@ -122,10 +127,15 @@
 
                         <!-- INGRESO DE FECHA DE FIN -->
                         <div class="col-md-6">
+
                             <div class="form-group">
-                                <label for="telefono" class="form-label">Fecha de fin (<span class="text-danger">*</span>)</label>
-                                <input type="date" id="telefono" class="form-control">
-                                <small id="errorTelefonoUsuario"></small>
+
+                                <label for="fecha_fin_v" class="form-label">Fecha de fin (<span class="text-danger">*</span>)</label>
+
+                                <input type="date" id="fecha_fin_v" class="form-control">
+
+                                <small id="error_fecha_fin_v"></small>
+
                             </div>
 
                         </div>
@@ -135,9 +145,108 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="btn_guardar_vacaciones" class="btn btn-primary mx-2">Guardar</button>
+
+                    <button type="button" id="btn_guardar_vacacion" class="btn btn-primary mx-2"><i class="fas fa-save"></i> Guardar</button>
+
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
                 </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ===============================
+MODAL EDITAR VACACIONES
+=============================== -->
+<div class="modal fade" id="modalEditarVacaciones" tabindex="-1" aria-labelledby="modalEditarVacacionesLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear nueva vacación</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form enctype="multipart/form-data" id="form_actualizar_vacaciones">
+
+                <div class="modal-body">
+
+                    <!-- ID VACACIONES -->
+                    <input type="text" id="edit_id_vacaciones">
+                            
+                    <!-- INGRESO DEL TRABAJADOR -->
+
+                    <div class="form-group">
+                        <label class="form-label">Selecione el trabajador(<span class="text-danger">*</span>)</label>
+                        <?php
+
+                        $item = null;
+
+                        $valor = null;
+
+                        $trabajadores = ControladorTrabajador::ctrMostrarTrabajadores($item, $valor);
+
+                        ?>
+                        <select class="form-select" id="edit_id_trabajador_v">
+                            <option disabled selected>Seleccione</option>
+                            <?php
+                            foreach ($trabajadores as $key => $trabajador) {
+                            ?>
+                                <option value="<?php echo $trabajador["id_trabajador"] ?>"><?php echo $trabajador["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+
+                        <small id="edit_error_id_trabajador_v"></small>
+                    </div>
+
+
+                    <div class="row">
+
+                        <!-- INGRESO DE FECHA DE INICIO -->
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label for="fecha_inicio_v" class="form-label">Fecha de inicio (<span class="text-danger">*</span>)</label>
+
+                                <input type="date" id="edit_fecha_inicio_v" class="form-control">
+
+                                <small id="edit_error_fecha_inicio_v"></small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- INGRESO DE FECHA DE FIN -->
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label for="fecha_fin_v" class="form-label">Fecha de fin (<span class="text-danger">*</span>)</label>
+
+                                <input type="date" id="edit_fecha_fin_v" class="form-control">
+
+                                <small id="edit_error_fecha_fin_v"></small>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="text-end mx-4 mb-2">
+
+                    <button type="button" id="btn_actualizar_vacacion" class="btn btn-primary mx-2"><i class="fas fa-sync-alt"></i> Actualizar</button>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                </div>
+
             </form>
         </div>
     </div>

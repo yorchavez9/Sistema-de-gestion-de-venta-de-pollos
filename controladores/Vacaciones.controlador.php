@@ -1,254 +1,95 @@
 <?php
 
-class ControladorUsuarios
-{
+class ControladorVacaciones{
+
 
 	/*=============================================
-	INGRESO DE USUARIO
+	REGISTRO DE VACACIONES
 	=============================================*/
 
-	static public function ctrIngresoUsuario()
+	static public function ctrCrearVacaciones()
 	{
 
-		if (isset($_POST["ingUsuario"])) {
-
-			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"])) {
-
-				$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
-
-				$tablaDoc = "tipo_documentos";
-				$tablaUser = "usuarios";
-
-				$item = "usuario";
-				$valor = $_POST["ingUsuario"];
-
-				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor);
-
-				if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["contrasena"] == $encriptar) {
-					
-					if ($respuesta["estado"] == 1) {
-
-						$_SESSION["iniciarSesion"] = "ok";
-						$_SESSION["id_usuario"] = $respuesta["id_usuario"];
-						$_SESSION["nombre_usuario"] = $respuesta["nombre_usuario"];
-						$_SESSION["id_doc"] = $respuesta["id_doc"];
-						$_SESSION["numero_documento"] = $respuesta["numero_documento"];
-						$_SESSION["direccion"] = $respuesta["direccion"];
-						$_SESSION["telefono"] = $respuesta["telefono"];
-						$_SESSION["correo"] = $respuesta["correo"];
-						$_SESSION["usuario"] = $respuesta["usuario"];
-						$_SESSION["imagen_usuario"] = $respuesta["imagen_usuario"];
-						$_SESSION["roles"] = $respuesta["roles"];
-
-
-						echo '<script>
-							window.location = "inicio"
-						</script>';
-					} else {
-
-						echo json_encode("El usuario aún no está activado");
-					}
-				} else {
-
-
-					$mensajeError = "Error al ingresar, vuelve a intentarlo";
-					echo json_encode($mensajeError);
-				}
-			}
-		}
-	}
-
-	/*=============================================
-	REGISTRO DE USUARIO
-	=============================================*/
-
-	static public function ctrCrearUsuario()
-	{
-
-
-		/* VALIDANDO IMAGEN */
-
-		$ruta = "../vistas/img/usuarios/";
-
-		if (isset($_FILES["imagen"]["tmp_name"])) {
-
-			$extension = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
-
-			$tipos_permitidos = array("jpg", "jpeg", "png", "gif");
-
-			if (in_array(strtolower($extension), $tipos_permitidos)) {
-
-				$nombre_imagen = date("YmdHis") . rand(1000, 9999);
-
-				$ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
-
-				if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $ruta_imagen)) {
-
-					/* echo "Imagen subida correctamente."; */
-				} else {
-
-					/* echo "Error al subir la imagen."; */
-				}
-			} else {
-
-				/* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
-			}
-		}
-
-
-		$tabla = "usuarios";
-
-		$encriptar = crypt($_POST["contrasena"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+		$tabla = "vacaciones";
 
 		$datos = array(
-			"nombre_usuario" => $_POST["nombre"],
-			"id_doc" => $_POST["tipoDocumento"],
-			"numero_documento" => $_POST["numeroDocumento"],
-			"direccion" => $_POST["direccion"],
-			"telefono" => $_POST["telefono"],
-			"correo" => $_POST["correo"],
-			"usuario" => $_POST["usuario"],
-			"contrasena" => $encriptar,
-			"imagen_usuario" => $ruta_imagen,
-			"roles" => $_POST["data_roles"]
+			"id_trabajador" => $_POST["id_trabajador"],
+			"fecha_inicio" => $_POST["fecha_inicio"],
+			"fecha_fin" => $_POST["fecha_fin"]
 		);
 
-		$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla,	$datos);
+		$respuesta = ModeloVacaciones::mdlIngresarVacacion($tabla,	$datos);
 
 		if ($respuesta == "ok") {
 
 			echo json_encode("ok");
+
 		} else {
+
 			echo json_encode("error");
 		}
 	}
 
 	/*=============================================
-	MOSTRAR USUARIO
+	MOSTRAR VACACIONES
 	=============================================*/
 
-	static public function ctrMostrarUsuarios($item, $valor)
+	static public function ctrMostrarVacacion($item, $valor)
 	{
 
-		$tablaDoc = "tipo_documentos";
-		$tablaUser = "usuarios";
+		$tablaT = "trabajadores";
 
-		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor);
+		$tablaV = "vacaciones";
+
+		$respuesta = ModeloVacaciones::mdlMostrarVacaciones($tablaT, $tablaV, $item, $valor);
 
 		return $respuesta;
 	}
 
 	/*=============================================
-	EDITAR USUARIO
+	EDITAR VACACIONES
 	=============================================*/
 
-	static public function ctrEditarUsuario()
+	static public function ctrEditarVacacion()
 	{
-		if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["edit_nombre"])) {
-
-			/* ============================
-            VALIDANDO IMAGEN
-            ============================ */
-
-            $ruta = "../vistas/img/usuarios/";
-
-            $ruta_imagen = $_POST["edit_imagenActualUsuario"];
-
-            if (isset($_FILES["edit_imagen"]["tmp_name"]) && !empty($_FILES["edit_imagen"]["tmp_name"])) {
-
-                if (file_exists($ruta_imagen)) {
-                    unlink($ruta_imagen);
-                }
-
-                $extension = pathinfo($_FILES["edit_imagen"]["name"], PATHINFO_EXTENSION);
-
-                $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
-
-                if (in_array(strtolower($extension), $tipos_permitidos)) {
-
-                    $nombre_imagen = date("YmdHis") . rand(1000, 9999);
-
-                    $ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
-
-                    if (move_uploaded_file($_FILES["edit_imagen"]["tmp_name"], $ruta_imagen)) {
-
-                        /* echo "Imagen subida correctamente."; */
-                    } else {
-
-                        /* echo "Error al subir la imagen."; */
-                    }
-                } else {
-
-                    /* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
-                }
-            }
 
 
 
-			$tabla = "usuarios";
+		$tabla = "vacaciones";
 
-			if ($_POST["edit_contrasena"] != "") {
+		$datos = array(
+			"id_vacacion" => $_POST["edit_id_vacaciones"],
+			"id_trabajador" => $_POST["edit_id_trabajador_v"],
+			"fecha_inicio" => $_POST["edit_fecha_inicio_v"],
+			"fecha_fin" => $_POST["edit_fecha_fin_v"]
+		);
 
-				$encriptar = crypt($_POST["edit_contrasena"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-			} else {
+		$respuesta = ModeloVacaciones::mdlEditarVacacion($tabla, $datos);
 
-				$encriptar = $_POST["edit_actualContrasena"];
-			}
+		if ($respuesta == "ok") {
 
-			$datos = array(
-				"id_usuario" => $_POST["edit_idUsuario"],
-				"nombre_usuario" => $_POST["edit_nombre"],
-				"id_doc" => $_POST["edit_tipoDocumento"],
-				"numero_documento" => $_POST["edit_numeroDocumento"],
-				"direccion" => $_POST["edit_direccion"],
-				"telefono" => $_POST["edit_telefono"],
-				"correo" => $_POST["edit_correo"],
-				"usuario" => $_POST["edit_usuario"],
-				"contrasena" => $encriptar,
-				"imagen_usuario" => $ruta_imagen,
-				"roles" => $_POST["data_roles"]
-			);
-
-			$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
-
-			if ($respuesta == "ok") {
-
-				echo json_encode("ok");
-			}
+			echo json_encode("ok");
 
 		} else {
 
-			echo json_encode("ok");
+			echo json_encode("error");
 		}
 	}
 
 	/*=============================================
-	BORRAR USUARIO
+	BORRAR VACACIONES
 	=============================================*/
 
-	static public function ctrBorrarUsuario()
+	static public function ctrBorrarVacacion()
 	{
 
-		if (isset($_POST["deleteUserId"])) {
+		if (isset($_POST["idVacacionDelete"])) {
 
-			$tabla = "usuarios";
+			$tabla = "vacaciones";
 
-			$datos = $_POST["deleteUserId"];
+			$datos = $_POST["idVacacionDelete"];
 
-			if ($_POST["deleteRutaUser"] != "") {
-				// Verificar si el archivo existe y eliminarlo
-				if (file_exists($_POST["deleteRutaUser"])) {
-					unlink($_POST["deleteRutaUser"]);
-				} else {
-					// El archivo no existe
-					echo "El archivo a eliminar no existe.";
-				}
-			}
-			
-			
-
-			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
+			$respuesta = ModeloVacaciones::mdlBorrarVacacion($tabla, $datos);
 
 			if ($respuesta == "ok") {
 
