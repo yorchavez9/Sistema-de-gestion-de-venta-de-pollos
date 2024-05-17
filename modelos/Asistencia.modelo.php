@@ -36,6 +36,38 @@ class ModeloAsistencia{
 
 	}
 
+	/*=============================================
+	MOSTRAR LISTA ASISTENCIA
+	=============================================*/
+
+	static public function mdlMostrarListaAsistencia($tablaT, $tablaA, $item, $valor){
+
+		if($item != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT as t inner join $tablaA as a on t.id_trabajador = a.id_trabajador WHERE $item = :$item");
+
+			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT DISTINCT fecha_asistencia, t.*, a.* FROM $tablaT AS t INNER JOIN $tablaA AS a ON t.id_trabajador = a.id_trabajador  ORDER BY a.id_asistencia DESC");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}
+		
+
+
+		$stmt = null;
+
+	}
+
     /*=============================================
 	REGISTRO DE ASISTENCIAS
 	=============================================*/

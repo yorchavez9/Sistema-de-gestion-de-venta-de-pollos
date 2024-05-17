@@ -173,42 +173,46 @@ MODAL NUEVA ASISTENCIA
 </div>
 
 <!-- ===============================
-MODAL NUEVA ASISTENCIA
+MODAL EDITAR ASISTENCIA
 =============================== -->
 <div class="modal fade" id="modalEditarAsistencia" tabindex="-1" aria-labelledby="modalEditarAsistenciaLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Crear asistencia de trabajadores</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button"  class="close close_modal_asistencia" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="form_nuevo_asistencia">
+            <form enctype="multipart/form-data" id="form_editar_asistencia">
 
                 <div class="modal-body">
 
                     <div class="row mb-3">
+                        
 
+                        <!-- INGRESO DE FECHA  -->
                         <div class="col-md-4">
 
                             <label for="fecha_asistencia" class="form-label">Fecha (<span class="text-danger">*</span>)</label>
 
-                            <input type="date" id="fecha_asistencia_a" class="form-control">
+                            <input type="date" id="edit_fecha_asistencia_a" readonly class="form-control">
 
                         </div>
 
+                        <!-- INGRESO DE HORA DE ENTRADA -->
                         <div class="col-md-4">
 
                             <label for="hora_entrada" class="form-label">Hora entrada (<span class="text-danger">*</span>)</label>
 
-                            <input type="time" id="hora_entrada_a" class="form-control">
+                            <input type="time" id="edit_hora_entrada_a" class="form-control">
 
                         </div>
 
+                        <!-- INGRESO DE HORA DE SALIDA -->
                         <div class="col-md-4">
 
-                            <label for="hora-salida" class="form-label">Hola salida (<span class="text-danger">*</span>)</label>
+                            <label for="hora-salida" class="form-label">Hora salida (<span class="text-danger">*</span>)</label>
 
-                            <input type="time" id="hora_salida_a" class="form-control">
+                            <input type="time" id="edit_hora_salida_a" class="form-control">
 
                         </div>
 
@@ -222,46 +226,9 @@ MODAL NUEVA ASISTENCIA
                                 <th scope="col" class="text-center">Observación</th>
                             </tr>
                         </thead>
-                        <tbody id="show_estado_asistencia">
-                            <?php
-                            $item = null;
-                            $valor = null;
-
-                            $trabajadores = ControladorTrabajador::ctrMostrarTrabajadoresAsistencia($item, $valor);
-
-                            $contador = 1;
-
-                            foreach ($trabajadores as $trabajador) {
-
-                                // Verificar si la clave 'asistencia' existe
-                                $asistencia = isset($trabajador['asistencia']) ? $trabajador['asistencia'] : '';
-
-                            ?>
-                                <tr>
-                                    <th scope="row"><?php echo $contador ?></th>
-                                    <td><?php echo $trabajador["nombre"] ?> <input type="hidden" id="id_trabajador_asistencia" value="<?php echo $trabajador["id_trabajador"]?>" ></td>
-                                    <td class="text-center">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="asistencia<?php echo $contador ?>" id="presente<?php echo $contador ?>" value="Presente" <?php if ($asistencia == 'Presente') echo 'checked' ?>>
-                                            <label class="form-check-label" style="color: #28C76F" for="presente<?php echo $contador ?>">Presente</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="asistencia<?php echo $contador ?>" id="tarde<?php echo $contador ?>" value="Tarde" <?php if ($asistencia == 'Tarde') echo 'checked' ?>>
-                                            <label class="form-check-label" style="color: #FF9F43" for="tarde<?php echo $contador ?>">Tarde</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="asistencia<?php echo $contador ?>" id="falta<?php echo $contador ?>" value="Falta" <?php if ($asistencia == 'Falta') echo 'checked' ?>>
-                                            <label class="form-check-label" style="color: #FF4D4D" for="falta<?php echo $contador ?>">Falta</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" id="observacion_asistencia<?php echo $contador ?>" placeholder="Observación">
-                                    </td>
-                                </tr>
-                            <?php
-                                $contador++;
-                            }
-                            ?>
+                        
+                        <tbody id="edit_show_estado_asistencia">
+                            
                         </tbody>
                     </table>
 
@@ -273,7 +240,7 @@ MODAL NUEVA ASISTENCIA
 
                     <button type="button" id="btn_guardar_asistencia" class="btn btn-primary mx-2"><i class="fas fa-save"></i> Guardar</button>
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary close_modal_asistencia" data-bs-dismiss="modal">Cerrar</button>
 
                 </div>
 

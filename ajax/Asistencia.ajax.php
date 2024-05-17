@@ -11,15 +11,16 @@ class AjaxAsistencia
 	EDITAR ASISTENCIA
 	=============================================*/
 
-    public $idVacacion;
+    public $fechaAsistencia;
 
-    public function ajaxEditarVacacion()
+    public function ajaxEditarAsistencia()
     {
 
-        $item = "id_vacacion";
-        $valor = $this->idVacacion;
+        $item = "fecha_asistencia";
 
-        $respuesta = ControladorVacaciones::ctrMostrarVacacion($item, $valor);
+        $valor = $this->fechaAsistencia;
+
+        $respuesta = ControladorAsistencia::ctrMostrarAsistencia($item, $valor);
 
         echo json_encode($respuesta);
     }
@@ -68,11 +69,11 @@ class AjaxAsistencia
 /*=============================================
 EDITAR ASISTENCIA
 =============================================*/
-if (isset($_POST["idVacacion"])) {
+if (isset($_POST["fechaAsistencia"])) {
 
     $editar = new AjaxAsistencia();
-    $editar->idVacacion = $_POST["idVacacion"];
-    $editar->ajaxEditarVacacion();
+    $editar->fechaAsistencia = $_POST["fechaAsistencia"];
+    $editar->ajaxEditarAsistencia();
 
 }
 

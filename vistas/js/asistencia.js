@@ -212,13 +212,13 @@ $(document).ready(function () {
                                         <td>${asistencia.fecha_asistencia}</td>
                                         
                                         <td class="text-center">
-                                            <a href="#" class="me-3 btnEditarUsuario" idUsuario="${asistencia.fecha_asistencia}" data-bs-toggle="modal" data-bs-target="#modalEditarAsistencia">
+                                            <a href="#" class="me-3 btnEditarAsistencia" fechaAsistencia="${asistencia.fecha_asistencia}" data-bs-toggle="modal" data-bs-target="#modalEditarAsistencia">
                                                 <i class="text-warning fas fa-edit fa-lg"></i>
                                             </a>
-                                            <a href="#" class="me-3 btnVerUsuario" idUsuario="${asistencia.fecha_asistencia}" data-bs-toggle="modal" data-bs-target="#modalVerAsistencia">
+                                            <a href="#" class="me-3 btnVerUsuario" fechaAsistencia="${asistencia.fecha_asistencia}" data-bs-toggle="modal" data-bs-target="#modalVerAsistencia">
                                                 <i class="text-primary fa fa-eye fa-lg"></i>
                                             </a>
-                                            <a href="#" class="me-3 confirm-text btnEliminarUsuario" idUsuario="${asistencia.fecha_asistencia}">
+                                            <a href="#" class="me-3 confirm-text btnEliminarAsistencia" fechaAsistencia="${asistencia.fecha_asistencia}">
                                                 <i class="fa fa-trash fa-lg" style="color: #F52E2F"></i>
                                             </a>
                                         </td>
@@ -250,39 +250,124 @@ $(document).ready(function () {
     /*=========================================
     EDITAR ASISTENCIA
     ===========================================*/
-    $("#tabla_asistencia").on("click", ".btnEditarVacacion", function (e) {
-  
-      e.preventDefault();
-  
-      var idVacacion = $(this).attr("idVacacion");
-  
-      var datos = new FormData();
-  
-      datos.append("idVacacion", idVacacion);
-  
-      $.ajax({
-        url: "ajax/Vacaciones.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (respuesta) {
-  
-  
-          $("#edit_id_vacaciones").val(respuesta["id_vacacion"]);
-  
-          $("#edit_id_trabajador_v").val(respuesta["id_trabajador"]);
-  
-          $("#edit_fecha_inicio_v").val(respuesta["fecha_inicio"]);
-  
-          $("#edit_fecha_fin_v").val(respuesta["fecha_fin"]);
-  
-        },
-  
-      });
-  
+    $("#tabla_asistencia").on("click", ".btnEditarAsistencia", function (e) {
+
+        e.preventDefault();
+
+        var fechaAsistencia = $(this).attr("fechaAsistencia");
+
+        var datos = new FormData();
+
+        datos.append("fechaAsistencia", fechaAsistencia);
+
+        $.ajax({
+            url: "ajax/Asistencia.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (respuesta) {
+
+                $("#edit_fecha_asistencia_a").val(respuesta["fecha_asistencia"]);
+
+                $("#edit_hora_entrada_a").val(respuesta["hora_entrada"]);
+
+                $("#edit_hora_salida_a").val(respuesta["hora_salida"]);
+
+            },
+
+        });
+
+        $.ajax({
+            url: "ajax/Asistencia.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (respuesta) {
+
+                $("#edit_fecha_asistencia_a").val(respuesta["fecha_asistencia"]);
+
+                $("#edit_hora_entrada_a").val(respuesta["hora_entrada"]);
+
+                $("#edit_hora_salida_a").val(respuesta["hora_salida"]);
+
+            },
+
+        });
+
+        $.ajax({
+
+            url: "ajax/Lista.asistencia.ajax.php",
+
+            method: "POST",
+
+            data: datos,
+
+            cache: false,
+
+            contentType: false,
+
+            processData: false,
+
+            dataType: "json",
+
+            success: function (detalleAsistencia) {
+
+
+                var nuevaFila = "";
+
+
+                let contador = 1;
+                detalleAsistencia.forEach((trabajador) => {
+                    // Verificar si la clave 'asistencia' existe
+                    const estado = trabajador.estado || '';
+
+                    const nuevaFila = `
+                                    <tr>
+                                        <th scope="row">${contador}</th>
+                                        <td>
+                                            ${trabajador.nombre}
+                                            <input type="hidden" id="id_trabajador_asistencia${contador}" value="${trabajador.id_trabajador}">
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="asistencia${contador}" id="presente${contador}" value="Presente" ${estado === 'Presente' ? 'checked' : ''}>
+                                                <label class="form-check-label" style="color: #28C76F" for="presente${contador}">Presente</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="asistencia${contador}" id="tarde${contador}" value="Tarde" ${estado === 'Tarde' ? 'checked' : ''}>
+                                                <label class="form-check-label" style="color: #FF9F43" for="tarde${contador}">Tarde</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="asistencia${contador}" id="falta${contador}" value="Falta" ${estado === 'Falta' ? 'checked' : ''}>
+                                                <label class="form-check-label" style="color: #FF4D4D" for="falta${contador}">Falta</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="observacion_asistencia${contador}" placeholder="Observación">
+                                        </td>
+                                    </tr>`;
+
+                                        $("#edit_show_estado_asistencia").append(nuevaFila);
+                                        contador++;
+                                    });
+
+
+            },
+            error: function (respuesta) {
+
+                console.log(respuesta);
+
+            },
+
+        });
+
+
     });
   
   
@@ -388,7 +473,7 @@ $(document).ready(function () {
     /*=========================================
     ELIMINAR ASISTENCIA
     ===========================================*/
-    $("#tabla_vacaciones").on("click", ".btnEliminarVacacion", function (e) {
+    $("#tabla_asistencia").on("click", ".btnEliminarAsistencia", function (e) {
   
       e.preventDefault();
   
@@ -448,7 +533,16 @@ $(document).ready(function () {
   
     );
   
+
   
+    /*=========================================
+    LIMPIAR MODALES
+    ===========================================*/
+    $('.close_modal_asistencia').click(function() {
+        $('#form_editar_asistencia')[0].reset();
+        $('#edit_show_estado_asistencia').empty();
+    });
+
     /*=========================================
     MOSTRADO VACACIONES
     ===========================================*/

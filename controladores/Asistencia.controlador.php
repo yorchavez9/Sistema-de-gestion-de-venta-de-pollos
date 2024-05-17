@@ -68,6 +68,22 @@ class ControladorAsistencia{
 	}
 
 	/*=============================================
+	MOSTRAR ASISTENCIA LISTA
+	=============================================*/
+
+	static public function ctrMostrarListaAsistencia($item, $valor)
+	{
+
+		$tablaT = "trabajadores";
+
+		$tablaA = "asistencia_trabajadores";
+
+		$respuesta = ModeloAsistencia::mdlMostrarListaAsistencia($tablaT, $tablaA, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	EDITAR ASISTENCIA
 	=============================================*/
 
