@@ -84,6 +84,22 @@ class ControladorAsistencia{
 	}
 
 	/*=============================================
+	MOSTRAR ASISTENCIA LISTA
+	=============================================*/
+
+	static public function ctrMostrarListaAsistenciaVer($item, $valor)
+	{
+
+		$tablaT = "trabajadores";
+
+		$tablaA = "asistencia_trabajadores";
+
+		$respuesta = ModeloAsistencia::mdlMostrarListaAsistencia($tablaT, $tablaA, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	EDITAR ASISTENCIA
 	=============================================*/
 
@@ -118,13 +134,13 @@ class ControladorAsistencia{
 	static public function ctrBorrarAsistencia()
 	{
 
-		if (isset($_POST["idVacacionDelete"])) {
+		if (isset($_POST["fechaAsistenciaDelete"])) {
 
-			$tabla = "vacaciones";
+			$tabla = "asistencia_trabajadores";
 
-			$datos = $_POST["idVacacionDelete"];
+			$datos = $_POST["fechaAsistenciaDelete"];
 
-			$respuesta = ModeloVacaciones::mdlBorrarVacacion($tabla, $datos);
+			$respuesta = ModeloAsistencia::mdlBorrarAsistencia($tabla, $datos);
 
 			if ($respuesta == "ok") {
 

@@ -44,7 +44,7 @@ class ModeloAsistencia{
 
 		if($item != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT as t inner join $tablaA as a on t.id_trabajador = a.id_trabajador WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaT as t inner join $tablaA as a on t.id_trabajador = a.id_trabajador WHERE $item = :$item ORDER BY t.nombre");
 
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -67,6 +67,7 @@ class ModeloAsistencia{
 		$stmt = null;
 
 	}
+
 
     /*=============================================
 	REGISTRO DE ASISTENCIAS
@@ -175,9 +176,9 @@ class ModeloAsistencia{
 
 	static public function mdlBorrarAsistencia($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_vacacion = :id_vacacion");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE fecha_asistencia = :fecha_asistencia");
 
-		$stmt -> bindParam(":id_vacacion", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":fecha_asistencia", $datos, PDO::PARAM_STR);
 
 		if($stmt -> execute()){
 

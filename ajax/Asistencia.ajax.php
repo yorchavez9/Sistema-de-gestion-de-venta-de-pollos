@@ -25,44 +25,46 @@ class AjaxAsistencia
         echo json_encode($respuesta);
     }
     
+
+        
     /*=============================================
-	MOSTRAR DETALLE ASISTENCIA
+	VER ASISTENCIA
 	=============================================*/
 
-    public $idUsuarioVer;
+    public $fechaAsistenciaVer;
 
-    public function ajaxVerUsuario()
+    public function ajaxVerAsistencia()
     {
 
-        $item = "id_usuario";
-        $valor = $this->idUsuarioVer;
+        $item = "fecha_asistencia";
 
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+        $valor = $this->fechaAsistenciaVer;
+
+        $respuesta = ControladorAsistencia::ctrMostrarAsistencia($item, $valor);
 
         echo json_encode($respuesta);
     }
 
+
     /*=============================================
-	ACTIVAR ASISTENCIA
+	VER ASISTENCIA LISTA
 	=============================================*/
 
-    public $activarVacacion;
-    public $activarId;
+    public $fechaAsistenciaVerLista;
 
-
-    public function ajaxActivarVacacion()
+    public function fechaAsistenciaVerLista()
     {
 
-        $tabla = "vacaciones";
+        $item = "fecha_asistencia";
 
-        $item1 = "estado_vacion";
-        $valor1 = $this->activarVacacion;
+        $valor = $this->fechaAsistenciaVerLista;
 
-        $item2 = "id_vacacion";
-        $valor2 = $this->activarId;
+        $respuesta = ControladorAsistencia::ctrMostrarListaAsistenciaVer($item, $valor);
 
-        $respuesta = ModeloVacaciones::mdlActualizarVacacion($tabla, $item1, $valor1, $item2, $valor2);
+        echo json_encode($respuesta);
     }
+
+
 
 }
 
@@ -80,23 +82,21 @@ if (isset($_POST["fechaAsistencia"])) {
 /*=============================================
 VER ASISTENCIA
 =============================================*/
-elseif (isset($_POST["idUsuarioVer"])) {
+elseif (isset($_POST["fechaAsistenciaVer"])) {
 
     $verDetalle = new AjaxAsistencia();
-    $verDetalle->idUsuarioVer = $_POST["idUsuarioVer"];
-    $verDetalle->ajaxVerUsuario();
+    $verDetalle->fechaAsistenciaVer = $_POST["fechaAsistenciaVer"];
+    $verDetalle->ajaxVerAsistencia();
 }
 
 /*=============================================
-ACTIVAR ASISTENCIA
+VER ASISTENCIA LISTA
 =============================================*/
-elseif (isset($_POST["activarVacacion"])) {
+elseif (isset($_POST["fechaAsistenciaVerLista"])) {
 
-    $activarUsuario = new AjaxAsistencia();
-    $activarUsuario->activarVacacion = $_POST["activarVacacion"];
-    $activarUsuario->activarId = $_POST["activarId"];
-    $activarUsuario->ajaxActivarVacacion();
-
+    $verDetalle = new AjaxAsistencia();
+    $verDetalle->fechaAsistenciaVerLista = $_POST["fechaAsistenciaVerLista"];
+    $verDetalle->fechaAsistenciaVerLista();
 }
 
 
@@ -123,10 +123,10 @@ elseif(isset($_POST["edit_id_vacaciones"])){
 /*=============================================
 BORRAR ASISTENCIA
 =============================================*/
-elseif(isset($_POST["idVacacionDelete"])){
+elseif(isset($_POST["fechaAsistenciaDelete"])){
 
-    $borrarVacacion = new ControladorVacaciones();
-    $borrarVacacion->ctrBorrarVacacion();
+    $borrarAsistencia = new ControladorAsistencia();
+    $borrarAsistencia->ctrBorrarAsistencia();
 
 }
 
