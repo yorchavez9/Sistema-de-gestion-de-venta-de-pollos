@@ -98,7 +98,7 @@ $(document).ready(function () {
 
     var roles = [];
 
-    $('.data_rol:checked').each(function() {
+    $('.data_rol:checked').each(function () {
       roles.push($(this).val());
     });
 
@@ -263,9 +263,9 @@ $(document).ready(function () {
                     <td>${usuario.correo}</td>
 
                     <td>
-                        ${usuario.estado != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="0">Activado</button>' 
-                                              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
-                        }
+                        ${usuario.estado != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="0">Activado</button>'
+              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
+            }
                     </td>
                     
                     <td>
@@ -297,60 +297,60 @@ $(document).ready(function () {
   /*=============================================
   ACTIVAR USUARIO
   =============================================*/
-  $("#tabla_usuarios").on("click", ".btnActivar", function(){
+  $("#tabla_usuarios").on("click", ".btnActivar", function () {
 
     var idUsuario = $(this).attr("idUsuario");
     var estadoUsuario = $(this).attr("estadoUsuario");
 
     var datos = new FormData();
     datos.append("activarId", idUsuario);
-      datos.append("activarUsuario", estadoUsuario);
+    datos.append("activarUsuario", estadoUsuario);
 
-      $.ajax({
+    $.ajax({
 
-      url:"ajax/Usuario.ajax.php",
+      url: "ajax/Usuario.ajax.php",
       method: "POST",
       data: datos,
       cache: false,
-        contentType: false,
-        processData: false,
-        success: function(respuesta){
+      contentType: false,
+      processData: false,
+      success: function (respuesta) {
 
-            if(window.matchMedia("(max-width:767px)").matches){
+        if (window.matchMedia("(max-width:767px)").matches) {
 
-              swal({
-              title: "El usuario ha sido actualizado",
-              type: "success",
-              confirmButtonText: "¡Cerrar!"
-            }).then(function(result) {
-                if (result.value) {
+          swal({
+            title: "El usuario ha sido actualizado",
+            type: "success",
+            confirmButtonText: "¡Cerrar!"
+          }).then(function (result) {
+            if (result.value) {
 
-                  window.location = "usuarios";
+              window.location = "usuarios";
 
-                }
+            }
 
 
           });
 
-            }
-
         }
 
-      })
-
-      if (estadoUsuario == 0) {
-        $(this)
-          .removeClass("bg-lightgreen")
-          .addClass("bg-lightred")
-          .html("Desactivado");
-        $(this).attr("estadoUsuario", 1);
-      } else {
-        $(this)
-          .removeClass("bg-lightred")
-          .addClass("bg-lightgreen")
-          .html("Activado");
-        $(this).attr("estadoUsuario", 0);
       }
+
+    })
+
+    if (estadoUsuario == 0) {
+      $(this)
+        .removeClass("bg-lightgreen")
+        .addClass("bg-lightred")
+        .html("Desactivado");
+      $(this).attr("estadoUsuario", 1);
+    } else {
+      $(this)
+        .removeClass("bg-lightred")
+        .addClass("bg-lightgreen")
+        .html("Activado");
+      $(this).attr("estadoUsuario", 0);
+    }
 
   })
 
@@ -372,16 +372,16 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (respuesta) {
-        
+
         $("#editIdUsuario").val(respuesta["id_usuario"]);
         $("#edit_nombre_usuario").val(respuesta["nombre_usuario"]);
 
         $("#edit_id_doc").append(
           '<option value="' +
-            respuesta["id_doc"] +
-            '" selected>' +
-            respuesta["nombre_doc"] +
-            "</option>"
+          respuesta["id_doc"] +
+          '" selected>' +
+          respuesta["nombre_doc"] +
+          "</option>"
         );
 
         $("#edit_numero_documento").val(respuesta["numero_documento"]);
@@ -406,12 +406,12 @@ $(document).ready(function () {
 
         var data_roles = JSON.parse(respuesta["roles"])
 
-        data_roles.forEach(function(rol) {
+        data_roles.forEach(function (rol) {
           // Concatena "edit_rol_" con el nombre del rol para obtener el ID del checkbox
           var checkboxId = "edit_rol_" + rol;
           // Busca el checkbox por su ID y márcalo
           document.getElementById(checkboxId).checked = true;
-      });
+        });
 
       },
     });
@@ -461,10 +461,10 @@ $(document).ready(function () {
         var rolesContainer = document.getElementById("mostrar_roles");
 
         data_roles.forEach(role => {
-            var roleSpan = document.createElement("span");
-            roleSpan.textContent = role;
-            roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
-            rolesContainer.appendChild(roleSpan);
+          var roleSpan = document.createElement("span");
+          roleSpan.textContent = role;
+          roleSpan.classList.add("badge", "bg-primary", "me-2"); // Añade clases de Bootstrap para hacer que los roles se vean como insignias coloridas
+          rolesContainer.appendChild(roleSpan);
         });
 
       },
@@ -496,7 +496,7 @@ $(document).ready(function () {
 
     var roles = [];
 
-    $('.edit_data_rol:checked').each(function() {
+    $('.edit_data_rol:checked').each(function () {
       roles.push($(this).val());
     });
 
@@ -625,79 +625,162 @@ $(document).ready(function () {
   /*=============================================
     ELIMINAR USUARIO
     =============================================*/
-  $("#tabla_usuarios").on("click",".btnEliminarUsuario",function (e) {
+  $("#tabla_usuarios").on("click", ".btnEliminarUsuario", function (e) {
 
-      e.preventDefault();
+    e.preventDefault();
 
-      var deleteUserId = $(this).attr("idUsuario");
-      var deletefotoUser = $(this).attr("fotoUsuario");
-      var deleteRutaUser = "../" + deletefotoUser;
+    var deleteUserId = $(this).attr("idUsuario");
+    var deletefotoUser = $(this).attr("fotoUsuario");
+    var deleteRutaUser = "../" + deletefotoUser;
 
 
-      var datos = new FormData();
-      datos.append("deleteUserId", deleteUserId);
-      datos.append("deleteRutaUser", deleteRutaUser);
+    var datos = new FormData();
+    datos.append("deleteUserId", deleteUserId);
+    datos.append("deleteRutaUser", deleteRutaUser);
 
-      Swal.fire({
-        title: "¿Está seguro de borrar el usuario?",
-        text: "¡Si no lo está puede cancelar la accíón!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Si, borrar!",
-      }).then(function (result) {
-        if (result.value) {
-          $.ajax({
-            url: "ajax/Usuario.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (respuesta) {
-              var res = JSON.parse(respuesta);
-        
-              if (res === "ok") {
-               
-                Swal.fire({
-                  title: "¡Eliminado!",
-                  text: "El usuario ha sido eliminado",
-                  icon: "success",
-                });
-    
-                mostrarUsuarios();
+    Swal.fire({
+      title: "¿Está seguro de borrar el usuario?",
+      text: "¡Si no lo está puede cancelar la accíón!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, borrar!",
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          url: "ajax/Usuario.ajax.php",
+          method: "POST",
+          data: datos,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (respuesta) {
+            var res = JSON.parse(respuesta);
 
-              } else {
+            if (res === "ok") {
 
-                console.error("Error al eliminar los datos");
+              Swal.fire({
+                title: "¡Eliminado!",
+                text: "El usuario ha sido eliminado",
+                icon: "success",
+              });
 
-              }
+              mostrarUsuarios();
+
+            } else {
+
+              console.error("Error al eliminar los datos");
+
             }
+          }
         });
-        
-        }
-      });
-    }
+
+      }
+    });
+  }
   );
 
-/*   ==========================================
-  LIMPIAR MODALES
-  ========================================== */
+  /*   ==========================================
+    LIMPIAR MODALES
+    ========================================== */
 
-  $(".btn_modal_ver_close_usuario").click(function() {
+  $(".btn_modal_ver_close_usuario").click(function () {
 
     $("#mostrar_roles").text('');
   });
 
-  $(".btn_modal_editar_close_usuario").click(function() {
+  $(".btn_modal_editar_close_usuario").click(function () {
 
     $("#formEditUsuario")[0].reset();
   });
 
-/* =====================================
-MSOTRANDO DATOS
-===================================== */
-mostrarUsuarios();
+  /* =====================================
+  MSOTRANDO DATOS
+  ===================================== */
+  mostrarUsuarios();
+
+  /* ===========================
+  MOSTRANDO REPORTE USUARIO
+  =========================== */
+
+  function mostrarReporteUsuarios() {
+    $.ajax({
+      url: "ajax/Usuario.ajax.php",
+      type: "GET",
+      dataType: "json",
+      success: function (usuarios) {
+
+        var tbody = $("#dataReporteUsuarios");
+
+        tbody.empty();
+
+        usuarios.forEach(function (usuario) {
+
+          usuario.imagen_usuario = usuario.imagen_usuario.substring(3);
+
+          var fila = `
+                <tr>
+                    <td>
+                        <a href="javascript:void(0);" class="product-img">
+                            <img src="${usuario.imagen_usuario}" alt="${usuario.nombre_usuario}">
+                        </a>
+                    </td>
+                    <td>${usuario.nombre_usuario}</td>
+                    <td>${usuario.usuario}</td>
+                    <td>
+                        <span>${usuario.nombre_doc}: </span>
+                        <span>${usuario.numero_documento}</span>
+                    </td>
+                    <td>${usuario.direccion}</td>
+                    <td>${usuario.telefono}</td>
+                    <td>${usuario.correo}</td>
+
+                    <td>
+                        ${usuario.estado != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="0">Activado</button>'
+              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idUsuario="' + usuario.id_usuario + '" estadoUsuario="1">Desactivado</button>'
+            }
+                    </td>
+                    
+                </tr>`;
+
+
+          // Agregar la fila al tbody
+
+          tbody.append(fila);
+
+        });
+
+        // Inicializar DataTables después de cargar los datos
+        
+        $('#tabla_reporte_usuarios').DataTable();
+
+      },
+      error: function (xhr, status, error) {
+
+        console.error("Error al recuperar los usuarios:", error);
+
+      },
+    });
+  }
+
+  mostrarReporteUsuarios();
+
+
+  /*=============================================
+  DESCARGAR REPORTE DE USUARIO
+  =============================================*/
+
+  $("#btn_descargar_reporte_usuario").click(function (e) {
+
+    e.preventDefault();
+
+    var idVentaTicket = $(this).attr("idVenta");
+
+    window.open("extensiones/reportes/reporte.usuario.php?idVentaTicket=" + idVentaTicket, "_blank");
+
+  });
+
+
 });

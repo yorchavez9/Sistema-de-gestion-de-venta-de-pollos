@@ -60,9 +60,9 @@
 
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/time.svg" alt="img"><span>
-                            Reporte</span> <span class="menu-arrow"></span></a>
+                            Reportes</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="purchaseorderreport.html">Informe de orden de compra</a></li>
+                        <li><a href="reporteUsuario">Usuario</a></li>
                         <li><a href="inventoryreport.html">Reporte de inventario</a></li>
                         <li><a href="salesreport.html">Reporte de ventas</a></li>
                         <li><a href="invoicereport.html">Informe de factura</a></li>

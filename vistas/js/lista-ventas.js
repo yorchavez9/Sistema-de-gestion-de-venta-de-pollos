@@ -632,7 +632,6 @@ DESCARGAR TICKET
 $("#tabla_lista_ventas").on("click", ".btnDescargarTicket", function(e) {
 
   e.preventDefault();
-  console.log("Descargando")
 
   var idVentaTicket = $(this).attr("idVenta");
 
