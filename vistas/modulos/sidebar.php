@@ -62,9 +62,9 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/time.svg" alt="img"><span>
                             Reportes</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="reporteUsuario">Usuarios</a></li>
-                        <li><a href="reporteProveedor">Proveedores</a></li>
-                        <li><a href="salesreport.html">Reporte de ventas</a></li>
+                        <li><a href="reporteUsuario">Reporte de usuarios</a></li>
+                        <li><a href="reporteProveedor">Reporte de proveedores</a></li>
+                        <li><a href="reporteCliente">Reporte de clientes</a></li>
                         <li><a href="invoicereport.html">Informe de factura</a></li>
                         <li><a href="purchasereport.html">Informe de compra</a></li>
                         <li><a href="supplierreport.html">Informe de proveedor</a></li>
