@@ -15,7 +15,7 @@ class PDF extends FPDF
         $this->setXY(60, 15);
         $this->Cell(100, 8, utf8_decode('Reporte de usuarios'), 0, 1, 'C', 0);
         $this->Image('img/shinheky.png', 170, 5, 25); //imagen(archivo, png/jpg || x,y,tamaño)
-        $this->Ln(40);
+        $this->Ln(20);
     }
 
     // Pie de página
