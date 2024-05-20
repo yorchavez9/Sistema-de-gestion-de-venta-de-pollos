@@ -32,7 +32,6 @@
                     <ul>
                         <li><a href="clientes">Clientes</a></li>
                         <li><a href="ventas">Punto de venta</a></li>
-                        <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -42,7 +41,6 @@
                         <li><a href="proveedores">Proveedor</a></li>
                         <li><a href="compras">Compra</a></li>
                         <li><a href="listaCompras">Lista de compras</a></li>
-                        <li><a href="reportes">Reportes</a></li>
                     </ul>
                 </li>
                 <li class="submenu">

@@ -842,18 +842,21 @@ $(document).ready(function () {
   
 
   // Condición para verificar si se hizo clic en el botón
-  if (clicEnBoton) {
+  if (clicEnBoton == true) {
 
     reporteProductos = null;
-
-  }else{
     
+    $('#tabla_reporte_producto').DataTable();
+
+  }else if(clicEnBoton == false){
+
+    reporteProductos();
     
   }
   
 
 
-  reporteProductos();
+  
 
 
 
