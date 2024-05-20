@@ -181,7 +181,7 @@ $(document).ready(function () {
   });
 
   /*=============================================
-    ELIMINAR USUARIO
+    ELIMINAR TIPO DE DOCUMENTO
     =============================================*/
   $("#tabla_tipo_documento").on("click", ".btnEliminarTipoDocumento", function () {
 
