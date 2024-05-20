@@ -37,6 +37,21 @@ class ModeloProducto{
 	}
 
 	/*=============================================
+	MOSTRAR PRODUCTOS
+	=============================================*/
+
+	static public function mdlMostrarProductoStock($tablaC, $tablaP, $item, $valor)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria WHERE p.stock_producto <= $valor ORDER BY p.id_producto DESC");
+
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+
+	}
+
+	/*=============================================
 	REGISTRO DE PRODUCTOS
 	=============================================*/
 

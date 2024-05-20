@@ -42,7 +42,7 @@
                     <table class="table table-striped table-bordered" style="width:100%" id="tabla_reporte_proveedor">
                         <thead>
                             <tr>
-                                <th>Foto</th>
+                                <th>N°</th>
                                 <th>Proveedor</th>
                                 <th>N° documento</th>
                                 <th>Teléfono</th>
