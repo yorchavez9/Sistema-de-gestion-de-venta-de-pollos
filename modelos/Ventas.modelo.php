@@ -34,6 +34,32 @@ class ModeloVenta{
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE DE VENTAS
+	=============================================*/
+
+	static public function mdlMostrarReporteVenta($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
+	{
+
+		if ($fecha_desde != "" && $fecha_hasta != "") {
+			
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaDetalleV as d 
+													INNER JOIN $tablaVentas as v on d.id_venta = v.id_venta 
+													INNER JOIN $tablaPersona as p ON p.id_persona = v.id_persona 
+													WHERE v.fecha_venta 
+													BETWEEN '$fecha_desde' AND '$fecha_hasta' AND v.id_usuario = $id_usuario");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
+
+		} else {
+
+		}
+	}
+
+	/*=============================================
 	MOSTRAR DETALLE VENTAS
 	=============================================*/
 

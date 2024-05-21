@@ -21,6 +21,24 @@ class ControladorVenta
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE VENTAS
+	=============================================*/
+
+	static public function ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
+	{
+
+		$tablaVentas = "ventas";
+		$tablaDetalleV = "detalle_venta";
+		$tablaProducto = "productos";
+		$tablaUsuario = "usuarios";
+		$tablaPersona = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarReporteVenta($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	MOSTRAR DETALLE VENTA
 	=============================================*/
 

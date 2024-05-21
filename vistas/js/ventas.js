@@ -831,4 +831,7 @@ $(document).ready(function () {
 
   tipoPagoYE();
 
+
+  
+
 });

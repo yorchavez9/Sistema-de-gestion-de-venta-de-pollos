@@ -1,0 +1,66 @@
+<?php
+
+require_once "../controladores/Ventas.controlador.php";
+require_once "../controladores/Producto.controlador.php";
+require_once "../modelos/Ventas.modelo.php";
+require_once "../modelos/Producto.modelo.php";
+
+
+
+
+/*=============================================
+MOSTRAR DATOS PARA EL REPORTE
+=============================================*/
+if(isset($_POST["fecha_desde_r"]) || isset($_POST["fecha_hasta_r"]) || isset($_POST["id_usuario_r"]) || isset($_POST["tipo_pago_r"]) || isset($_POST["descuento_producto_r"])){
+
+    $fecha_desde = $_POST["fecha_desde_r"];
+
+    $fecha_hasta = $_POST["fecha_hasta_r"];
+
+    $id_usuario = $_POST["id_usuario_r"];
+
+    $tipo_pago = $_POST["tipo_pago_r"];
+
+    $descuento_producto = $_POST["descuento_producto_r"];
+
+
+    $mostrarReporteVentas = ControladorVenta::ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
+    
+    $tblReporteVenta = array();
+    
+    foreach ($mostrarReporteVentas as $venta) {
+        
+        $fila = array(
+            'id_detalle_venta' => $venta['id_detalle_venta'],
+            'id_venta' => $venta['id_venta'],
+            'id_producto' => $venta['id_producto'],
+            'id_persona' => $venta['id_persona'],
+            'precio_venta' => $venta['precio_venta'],
+            'cantidad_u' => $venta['cantidad_u'],
+            'cantidad_kg' => $venta['cantidad_kg'],
+            'id_usuario' => $venta['id_usuario'],
+            'fecha_venta' => $venta['fecha_venta'],
+            'tipo_comprobante' => $venta['tipo_comprobante'],
+            'serie_comprobante' => $venta['serie_comprobante'],
+            'num_comprobante' => $venta['num_comprobante'],
+            'impuesto' => $venta['impuesto'],
+            'total_venta' => $venta['total_venta'],
+            'total_pago' => $venta['total_pago'],
+            'sub_total' => $venta['sub_total'],
+            'igv' => $venta['igv'],
+            'tipo_pago' => $venta['tipo_pago'],
+            'estado_pago' => $venta['estado_pago'],
+            'pago_e_y' => $venta['pago_e_y'],
+            'razon_social' => $venta['razon_social']
+        );
+        
+        
+        $tblReporteVenta[] = $fila;
+    }
+    
+    
+    echo json_encode($tblReporteVenta);
+}
+
+
+?>

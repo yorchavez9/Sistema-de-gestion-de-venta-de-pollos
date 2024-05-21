@@ -64,9 +64,9 @@
                         <li><a href="reporteProveedor">Reporte de proveedores</a></li>
                         <li><a href="reporteCliente">Reporte de clientes</a></li>
                         <li><a href="reporteProducto">Reporte de productos</a></li>
-                        <li><a href="purchasereport.html">Informe de compra</a></li>
-                        <li><a href="supplierreport.html">Informe de proveedor</a></li>
-                        <li><a href="customerreport.html">Informe del cliente</a></li>
+                        <li><a href="reporteVenta">Reporte de venta</a></li>
+                        <li><a href="reporteCompra">Reporte de compra</a></li>
+
                     </ul>
                 </li>
 
