@@ -2,9 +2,10 @@
 
 require_once "Conexion.php";
 
-class ModeloVenta{
+class ModeloVenta
+{
 
-	
+
 	/*=============================================
 	MOSTRAR VENTAS
 	=============================================*/
@@ -21,7 +22,6 @@ class ModeloVenta{
 			$stmt->execute();
 
 			return $stmt->fetch();
-
 		} else {
 
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaD as d INNER JOIN $tablaV as v on d.id_venta = v.id_venta INNER JOIN $tablaP as p ON p.id_persona = v.id_persona  ORDER BY v.estado_pago DESC");
@@ -30,36 +30,38 @@ class ModeloVenta{
 
 			return $stmt->fetchAll();
 		}
-
 	}
 
 	/*=============================================
 	MOSTRAR REPORTE DE VENTAS
 	=============================================*/
 
-	static public function mdlMostrarReporteVenta($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
-	{
+	static public function mdlMostrarReporteVenta($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde,	$fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto) {
 
-		if ($fecha_desde != "" && $fecha_hasta != "") {
-			
+		if ($fecha_desde != "" && $fecha_hasta != "" && $id_usuario != null && $tipo_pago == null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaVentas as v INNER JOIN $tablaPersona AS p ON p.id_persona = v.id_persona
-													WHERE v.fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta'
-													AND v.id_usuario = $id_usuario");
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona AS p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona	WHERE v.fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta' AND v.id_usuario = $id_usuario");
 
 			$stmt->execute();
 
 			return $stmt->fetchAll();
 
+		} else if ($fecha_desde != "" && $fecha_hasta != "" && $id_usuario != null && $tipo_pago != null) {
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona AS p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona WHERE v.fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta' AND v.id_usuario = $id_usuario AND v.tipo_pago = '$tipo_pago'");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
 
 		} else {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaVentas as v INNER JOIN $tablaPersona AS p ON p.id_persona = v.id_persona");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona as p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona");
 
 			$stmt->execute();
 
 			return $stmt->fetchAll();
-
 		}
 	}
 
@@ -87,7 +89,6 @@ class ModeloVenta{
 
 			return $stmt->fetchAll();
 		}
-
 	}
 
 
@@ -96,47 +97,45 @@ class ModeloVenta{
 	MOSTRAR SERIE Y NUMERO DE COMPRA O EGRESO
 	=============================================*/
 
-	static public function mdlMostrarSerieNumero($tabla, $item, $valor){
+	static public function mdlMostrarSerieNumero($tabla, $item, $valor)
+	{
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id_venta DESC LIMIT 1");
-		
+
 		$stmt->execute();
 
 		return $stmt->fetchAll();
 
 		$stmt = null;
-
 	}
 
 	/*=============================================
 	MOSTRAR VENTA
 	=============================================*/
 
-	static public function mdlMostrarIdVenta($tabla, $item, $valor){
+	static public function mdlMostrarIdVenta($tabla, $item, $valor)
+	{
 
-		if($item != null){
+		if ($item != null) {
 
 			$stmt = Conexion::conectar()->prepare("SELECT * from $tabla WHERE $item = :$item ORDER BY id_venta DESC LIMIT 1");
 
-			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
-			$stmt -> execute();
+			$stmt->execute();
 
-			return $stmt -> fetch();
-
-		}else{
+			return $stmt->fetch();
+		} else {
 
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id_venta DESC LIMIT 1");
 
-			$stmt -> execute();
+			$stmt->execute();
 
-			return $stmt -> fetchAll();
-
+			return $stmt->fetchAll();
 		}
-		
+
 
 		$stmt = null;
-
 	}
 
 
@@ -144,7 +143,8 @@ class ModeloVenta{
 	REGISTRO DE VENTA
 	=============================================*/
 
-	static public function mdlIngresarVenta($tabla, $datos){
+	static public function mdlIngresarVenta($tabla, $datos)
+	{
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
                                                                 id_persona,
@@ -192,26 +192,24 @@ class ModeloVenta{
 		$stmt->bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
 		$stmt->bindParam(":pago_e_y", $datos["pago_e_y"], PDO::PARAM_STR);
 
-		if($stmt->execute()){
+		if ($stmt->execute()) {
 
-			return "ok";	
-
-		}else{
+			return "ok";
+		} else {
 
 			return "error";
-		
 		}
 
-		
-		$stmt = null;
 
+		$stmt = null;
 	}
 
 	/*=============================================
 	REGISTRO DETALLE VENTA
 	=============================================*/
 
-	static public function mdlIngresarDetalleVenta($tabla, $datos){
+	static public function mdlIngresarDetalleVenta($tabla, $datos)
+	{
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
                                                                 id_venta,
@@ -232,19 +230,16 @@ class ModeloVenta{
 		$stmt->bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_STR);
 		$stmt->bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
 
-		if($stmt->execute()){
+		if ($stmt->execute()) {
 
-			return "ok";	
-
-		}else{
+			return "ok";
+		} else {
 
 			return "error";
-		
 		}
 
-		
-		$stmt = null;
 
+		$stmt = null;
 	}
 
 
@@ -299,8 +294,9 @@ class ModeloVenta{
 	EDITAR VENTA
 	=============================================*/
 
-	static public function mdlEditarVenta($tabla, $datos){
-	
+	static public function mdlEditarVenta($tabla, $datos)
+	{
+
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
 																id_persona = :id_persona, 
 																id_usuario = :id_usuario, 
@@ -318,43 +314,41 @@ class ModeloVenta{
 																pago_e_y = :pago_e_y
 																WHERE id_venta = :id_venta");
 
-		$stmt -> bindParam(":id_persona", $datos["id_persona"], PDO::PARAM_INT);
-		$stmt -> bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
-		$stmt -> bindParam(":fecha_venta", $datos["fecha_venta"], PDO::PARAM_STR);
-		$stmt -> bindParam(":tipo_comprobante", $datos["tipo_comprobante"], PDO::PARAM_STR);
-		$stmt -> bindParam(":serie_comprobante", $datos["serie_comprobante"], PDO::PARAM_STR);
-		$stmt -> bindParam(":num_comprobante", $datos["num_comprobante"], PDO::PARAM_STR);
-		$stmt -> bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
-		$stmt -> bindParam(":total_venta", $datos["total_venta"], PDO::PARAM_STR);
-		$stmt -> bindParam(":total_pago", $datos["total_pago"], PDO::PARAM_STR);
-		$stmt -> bindParam(":sub_total", $datos["sub_total"], PDO::PARAM_STR);
-		$stmt -> bindParam(":igv", $datos["igv"], PDO::PARAM_STR);
-		$stmt -> bindParam(":tipo_pago", $datos["tipo_pago"], PDO::PARAM_STR);
-		$stmt -> bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
-		$stmt -> bindParam(":pago_e_y", $datos["pago_e_y"], PDO::PARAM_STR);
-		$stmt -> bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_persona", $datos["id_persona"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
+		$stmt->bindParam(":fecha_venta", $datos["fecha_venta"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_comprobante", $datos["tipo_comprobante"], PDO::PARAM_STR);
+		$stmt->bindParam(":serie_comprobante", $datos["serie_comprobante"], PDO::PARAM_STR);
+		$stmt->bindParam(":num_comprobante", $datos["num_comprobante"], PDO::PARAM_STR);
+		$stmt->bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
+		$stmt->bindParam(":total_venta", $datos["total_venta"], PDO::PARAM_STR);
+		$stmt->bindParam(":total_pago", $datos["total_pago"], PDO::PARAM_STR);
+		$stmt->bindParam(":sub_total", $datos["sub_total"], PDO::PARAM_STR);
+		$stmt->bindParam(":igv", $datos["igv"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_pago", $datos["tipo_pago"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
+		$stmt->bindParam(":pago_e_y", $datos["pago_e_y"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
 
-		if($stmt -> execute()){
+		if ($stmt->execute()) {
 
 			return "ok";
-		
-		}else{
+		} else {
 
-			return "error";	
-
+			return "error";
 		}
 
 
 		$stmt = null;
-
 	}
 
 	/*=============================================
 	EDITAR DETALLE VENTA
 	=============================================*/
 
-	static public function mdlEditarDetalleVenta($tabla, $datos){
-	
+	static public function mdlEditarDetalleVenta($tabla, $datos)
+	{
+
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
 																id_producto = :id_producto, 
 																precio_venta = :precio_venta, 
@@ -362,71 +356,67 @@ class ModeloVenta{
 																cantidad_kg = :cantidad_kg
 																WHERE id_venta = :id_venta");
 
-		$stmt -> bindParam(":id_producto", $datos["id_producto"], PDO::PARAM_INT);
-		$stmt -> bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
-		$stmt -> bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_INT);
-		$stmt -> bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_producto", $datos["id_producto"], PDO::PARAM_INT);
+		$stmt->bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
+		$stmt->bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_INT);
+		$stmt->bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
 
-		$stmt -> bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
 
-		if($stmt -> execute()){
+		if ($stmt->execute()) {
 
 			return "ok";
-		
-		}else{
+		} else {
 
-			return "error";	
-
+			return "error";
 		}
 
 
 		$stmt = null;
-
 	}
 
 	/*=============================================
 	ACTUALIZAR VENTA
 	=============================================*/
 
-	static public function mdlActualizarVenta($tabla, $item1, $valor1, $item2, $valor2){
+	static public function mdlActualizarVenta($tabla, $item1, $valor1, $item2, $valor2)
+	{
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
 
-		$stmt -> bindParam(":".$item1, $valor1, PDO::PARAM_STR);
-		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+		$stmt->bindParam(":" . $item1, $valor1, PDO::PARAM_STR);
+		$stmt->bindParam(":" . $item2, $valor2, PDO::PARAM_STR);
 
-		if($stmt -> execute()){
+		if ($stmt->execute()) {
 
 			return "ok";
-		
-		}else{
+		} else {
 
-			return "error";	
-
+			return "error";
 		}
 
 
 		$stmt = null;
-
 	}
 
 	/*=============================================
 	ACTUALIZAR STOCK PRODUCTO
 	=============================================*/
 
-	static public function mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad) {
-		
+	static public function mdlActualizarStockProducto($tblProducto, $idProducto, $cantidad)
+	{
+
 		$stmt = Conexion::conectar()->prepare("UPDATE $tblProducto SET stock_producto = stock_producto - :cantidad WHERE id_producto = :id_producto");
-	
+
 		$stmt->bindParam(":cantidad", $cantidad, PDO::PARAM_INT);
 		$stmt->bindParam(":id_producto", $idProducto, PDO::PARAM_INT);
-	
+
 		if ($stmt->execute()) {
 			return "ok";
 		} else {
 			return "error";
 		}
-	
+
 		$stmt = null;
 	}
 
@@ -435,52 +425,45 @@ class ModeloVenta{
 	BORRAR VENTA
 	=============================================*/
 
-	static public function mdlBorrarVenta($tabla, $datos){
+	static public function mdlBorrarVenta($tabla, $datos)
+	{
 
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_venta = :id_venta");
 
-		$stmt -> bindParam(":id_venta", $datos, PDO::PARAM_INT);
+		$stmt->bindParam(":id_venta", $datos, PDO::PARAM_INT);
 
-		if($stmt -> execute()){
+		if ($stmt->execute()) {
 
 			return "ok";
-		
-		}else{
+		} else {
 
-			return "error";	
-
+			return "error";
 		}
 
 
 		$stmt = null;
-
-
 	}
 
 	/*=============================================
 	BORRAR DETALLE VENTA
 	=============================================*/
 
-	static public function mdlBorrarDetalleVenta($tabla, $datos){
+	static public function mdlBorrarDetalleVenta($tabla, $datos)
+	{
 
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_venta = :id_venta");
 
-		$stmt -> bindParam(":id_venta", $datos, PDO::PARAM_INT);
+		$stmt->bindParam(":id_venta", $datos, PDO::PARAM_INT);
 
-		if($stmt -> execute()){
+		if ($stmt->execute()) {
 
 			return "ok";
-		
-		}else{
+		} else {
 
-			return "error";	
-
+			return "error";
 		}
 
 
 		$stmt = null;
-
-
 	}
-
 }

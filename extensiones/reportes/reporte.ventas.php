@@ -78,65 +78,32 @@ $id_usuario = $_GET["id_usuario_r"];
 $tipo_pago = $_GET["tipo_pago_r"];
 $descuento_producto = $_GET["descuento_producto_r"];
 
-if ($fecha_desde != "" && $fecha_hasta != "") {
+// Obtener datos de ventas
+$ventas = ControladorVenta::ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
 
-    $ventas = ControladorVenta::ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
+$contador = 1;
 
-    $contador = 1;
-
-    foreach ($ventas as $venta) {
-        $total_venta = $venta['total_venta'];
-        $total_venta_formateado = number_format($total_venta, 2, '.', ',');
-        
-        // Suponiendo que 'total_pago' es el campo que deseas agregar
-        $total_pago = $venta['total_pago'];
-        $total_pago_formateado = number_format($total_pago, 2, '.', ',');
-
-        $pdf->Ln(0.6);
-        $pdf->setX(10); // Ajuste para los márgenes
-        $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1);
-        $pdf->Cell($anchoFecha, 8, utf8_decode($venta['fecha_venta']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoNombre, 8, utf8_decode($venta['razon_social']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTipoPago, 8, utf8_decode($venta['tipo_pago']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoPagoEn, 8, utf8_decode($venta['pago_e_y']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTotalPago, 8, utf8_decode("S/ " . $total_venta_formateado), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
-
-        $contador++;
-    }
-
-    $pdf->Output();
+foreach ($ventas as $venta) {
+    $total_venta = $venta['total_venta'];
+    $total_venta_formateado = number_format($total_venta, 2, '.', ',');
     
-} else if ($fecha_desde == "" && $fecha_hasta == "") {
+    // Suponiendo que 'total_pago' es el campo que deseas agregar
+    $total_pago = $venta['total_pago'];
+    $total_pago_formateado = number_format($total_pago, 2, '.', ',');
 
+    $pdf->Ln(0.6);
+    $pdf->setX(10); // Ajuste para los márgenes
+    $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1);
+    $pdf->Cell($anchoFecha, 8, utf8_decode($venta['fecha_venta']), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoNombre, 8, utf8_decode($venta['razon_social']), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoTipoPago, 8, utf8_decode($venta['tipo_pago']), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoPagoEn, 8, utf8_decode($venta['pago_e_y']), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoTotalPago, 8, utf8_decode("S/ " . $total_venta_formateado), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
+    $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
 
-    $ventas = ControladorVenta::ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
-
-    $contador = 1;
-
-    foreach ($ventas as $venta) {
-        $total_venta = $venta['total_venta'];
-        $total_venta_formateado = number_format($total_venta, 2, '.', ',');
-        
-        // Suponiendo que 'total_pago' es el campo que deseas agregar
-        $total_pago = $venta['total_pago'];
-        $total_pago_formateado = number_format($total_pago, 2, '.', ',');
-
-        $pdf->Ln(0.6);
-        $pdf->setX(10); // Ajuste para los márgenes
-        $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1);
-        $pdf->Cell($anchoFecha, 8, utf8_decode($venta['fecha_venta']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoNombre, 8, utf8_decode($venta['razon_social']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTipoPago, 8, utf8_decode($venta['tipo_pago']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoPagoEn, 8, utf8_decode($venta['pago_e_y']), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTotalPago, 8, utf8_decode("S/ " . $total_venta_formateado), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
-        $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
-
-        $contador++;
-    }
-
-    $pdf->Output();
+    $contador++;
 }
+
+$pdf->Output();
 ?>

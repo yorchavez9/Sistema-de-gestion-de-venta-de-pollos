@@ -210,6 +210,8 @@ $("#btn_ver_reporte_ventas").click(function (e) {
             // Inicializar DataTables después de cargar los datos
 
             $("#tabla_reporte_ventas_fecha").DataTable();
+            
+            $('#form_mostrar_venta_reporte')[0].reset();
 
             window.open("extensiones/reportes/reporte.ventas.php?fecha_desde_r=" + fecha_desde_r + "&fecha_hasta_r=" + fecha_hasta_r + "&id_usuario_r=" + id_usuario_r + "&tipo_pago_r=" + tipo_pago_r + "&descuento_producto_r=" + descuento_producto_r, "_blank");
 
