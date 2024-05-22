@@ -88,8 +88,12 @@ class ControladorVenta
 
 			$pago_total = $_POST["total"];
 
+			$pago_e_y = $_POST["pago_e_y"];
+
 		}else{
 			$pago_total = 0;
+
+			$pago_e_y = "Ninguno";
 		}
 
 		
@@ -109,7 +113,7 @@ class ControladorVenta
 			"igv" => $_POST["igv"],
 			"tipo_pago" => $_POST["tipo_pago"],
 			"estado_pago" => $_POST["estado_pago"],
-			"pago_e_y" => $_POST["pago_e_y"]
+			"pago_e_y" => $pago_e_y
 		);
 
 

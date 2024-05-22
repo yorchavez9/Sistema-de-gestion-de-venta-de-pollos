@@ -31,13 +31,8 @@ if(isset($_POST["fecha_desde_r"]) || isset($_POST["fecha_hasta_r"]) || isset($_P
     foreach ($mostrarReporteVentas as $venta) {
         
         $fila = array(
-            'id_detalle_venta' => $venta['id_detalle_venta'],
             'id_venta' => $venta['id_venta'],
-            'id_producto' => $venta['id_producto'],
             'id_persona' => $venta['id_persona'],
-            'precio_venta' => $venta['precio_venta'],
-            'cantidad_u' => $venta['cantidad_u'],
-            'cantidad_kg' => $venta['cantidad_kg'],
             'id_usuario' => $venta['id_usuario'],
             'fecha_venta' => $venta['fecha_venta'],
             'tipo_comprobante' => $venta['tipo_comprobante'],

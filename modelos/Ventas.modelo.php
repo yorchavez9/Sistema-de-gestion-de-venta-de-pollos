@@ -43,11 +43,9 @@ class ModeloVenta{
 		if ($fecha_desde != "" && $fecha_hasta != "") {
 			
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaDetalleV as d 
-													INNER JOIN $tablaVentas as v on d.id_venta = v.id_venta 
-													INNER JOIN $tablaPersona as p ON p.id_persona = v.id_persona 
-													WHERE v.fecha_venta 
-													BETWEEN '$fecha_desde' AND '$fecha_hasta' AND v.id_usuario = $id_usuario");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaVentas as v INNER JOIN $tablaPersona AS p ON p.id_persona = v.id_persona
+													WHERE v.fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta'
+													AND v.id_usuario = $id_usuario");
 
 			$stmt->execute();
 
@@ -55,6 +53,12 @@ class ModeloVenta{
 
 
 		} else {
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaVentas as v INNER JOIN $tablaPersona AS p ON p.id_persona = v.id_persona");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
 
 		}
 	}

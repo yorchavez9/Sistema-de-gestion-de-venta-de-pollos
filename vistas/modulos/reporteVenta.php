@@ -134,7 +134,7 @@
                     <div class="wordset">
                         <ul>
                             <li>
-                                <a data-bs-toggle="tooltip" id="btn_descargar_reporte_usuario" data-bs-placement="top" title="pdf"><img src="vistas/dist/assets/img/icons/pdf.svg" alt="img"></a>
+                                <a data-bs-toggle="tooltip" id="btn_descargar_reporte_ventas" data-bs-placement="top" title="pdf"><img src="vistas/dist/assets/img/icons/pdf.svg" alt="img"></a>
                             </li>
                             <li>
                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="vistas/dist/assets/img/icons/excel.svg" alt="img"></a>
@@ -147,8 +147,10 @@
                 </div>
 
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas" style="width:100%">
+                <div class="table-responsive" id="section_tabla_reporte_ventas" style="display: block">
+
+                    <!-- REPORTE DE TODAS LAS VENTAS -->
+                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas" style="width:100%;">
                         <thead>
                             <tr>
                                 <th>N°</th>
@@ -166,7 +168,34 @@
 
                         </tbody>
                     </table>
+
                 </div>
+
+                <div class="table-responsive" id="section_tabla_reporte_ventas_fecha" style="display: none">
+
+                    <!-- REPORTE DE RANGO DE FECHA Y EL USUARIO -->
+                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas_fecha" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Fecha</th>
+                                <th>Nombre</th>
+                                <th>Serie</th>
+                                <th>Número</th>
+                                <th>Tipo venta</th>
+                                <th>Venta total</th>
+                                <th>Restante</th>
+                                <th class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data_ventas_reporte_fecha">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
             </div>
         </div>
 
