@@ -56,6 +56,7 @@ class ControladorVenta
 		return $respuesta;
 	}
 
+
 	/*=============================================
 	MOSTRAR DETALLE VENTA
 	=============================================*/
