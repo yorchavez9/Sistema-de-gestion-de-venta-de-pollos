@@ -37,6 +37,7 @@
     <script src="vistas/js/vacaciones.js" type="module"></script>
     <script src="vistas/js/asistencia.js" type="module"></script>
     <script src="vistas/js/reporte-ventas.js" type="module"></script>
+    <script src="vistas/js/config-ticket.js" type="module"></script>
 
 </body>
 

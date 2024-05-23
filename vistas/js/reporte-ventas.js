@@ -149,7 +149,7 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
                 $('#section_tabla_reporte_ventas').css('display', 'none');
                 $('#section_tabla_reporte_ventas_fecha').css('display', 'block');
-
+                $('#section_tabla_reporte_rango_fechas').css('display', 'none');
                 ventas = JSON.parse(ventas);
 
                 var tbody = $("#data_ventas_reporte_fecha");
@@ -249,11 +249,11 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
                 $('#section_tabla_reporte_ventas').css('display', 'none');
                 $('#section_tabla_reporte_ventas_fecha').css('display', 'none');
-                $('#section_tabla_reporte_ventas_fecha_tipo_pago').css('display', 'block');
+                $('#section_tabla_reporte_rango_fechas').css('display', 'block');
 
                 ventas = JSON.parse(ventas);
 
-                var tbody = $("#data_ventas_reporte_fecha_tipo_pago");
+                var tbody = $("#data_ventas_reporte_rango_fecha_venta");
 
                 tbody.empty();
 
@@ -312,7 +312,7 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
                 // Inicializar DataTables después de cargar los datos
 
-                $("#tabla_reporte_ventas_fecha").DataTable();
+                $("#tabla_reporte_rango_fecha_venta").DataTable();
 
                 $('#form_mostrar_venta_reporte')[0].reset();
 
@@ -350,7 +350,7 @@ $("#btn_ver_reporte_ventas").click(function (e) {
                 $('#section_tabla_reporte_ventas').css('display', 'none');
                 $('#section_tabla_reporte_ventas_fecha').css('display', 'none');
                 $('#section_tabla_reporte_ventas_precio_producto').css('display', 'block');
-
+                $('#section_tabla_reporte_rango_fechas').css('display', 'none');
   
                 ventasPrecio = JSON.parse(ventasPrecio);
 

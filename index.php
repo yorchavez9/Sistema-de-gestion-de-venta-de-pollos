@@ -13,6 +13,7 @@ require_once "controladores/Trabajador.controlador.php";
 require_once "controladores/Contrato.trabajador.controlador.php";
 require_once "controladores/Pago.trabajador.controlador.php";
 require_once "controladores/Vacaciones.controlador.php";
+require_once "controladores/Configuracion.ticket.controlador.php";
 
 
 
@@ -28,6 +29,7 @@ require_once "modelos/Trabajador.modelo.php";
 require_once "modelos/Contrato.trabajador.modelo.php";
 require_once "modelos/Pago.trabajador.modelo.php";
 require_once "modelos/Vacaciones.modelo.php";
+require_once "modelos/Configuracion.ticket.modelo.php";
 
 
 

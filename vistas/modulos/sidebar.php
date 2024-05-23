@@ -10,8 +10,23 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img"><span>
                             Personas</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="tipoDocumento">Tipo documento</a></li>
-                        <li><a href="usuarios">Usuarios</a></li>
+
+                        <?php
+
+                        $data_roles = json_decode($_SESSION["roles"], true);
+
+                        foreach ($data_roles as $rol) {
+                            
+                            if($rol == "administrador"){
+                            ?>
+                                <li><a href="tipoDocumento">Tipo documento</a></li>
+                                <li><a href="usuarios">Usuarios</a></li>
+                            <?php
+                            }
+                        }
+
+                        ?>
+
                         <li><a href="proveedores">Proveedores</a></li>
                         <li><a href="clientes">Clientes</a></li>
                     </ul>
@@ -65,8 +80,6 @@
                         <li><a href="reporteCliente">Reporte de clientes</a></li>
                         <li><a href="reporteProducto">Reporte de productos</a></li>
                         <li><a href="reporteVenta">Reporte de venta</a></li>
-                        <li><a href="reporteCompra">Reporte de compra</a></li>
-
                     </ul>
                 </li>
 
@@ -74,7 +87,8 @@
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/settings.svg" alt="img"><span>
                             Ajustes</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="generalsettings.html">Configuración general</a></li>
+                        <li><a href="configuracionTicket">Configuración Ticket</a></li>
+                        <li><a href="configuracionImpresora">Configuración Impresora</a></li>
                     </ul>
                 </li>
             </ul>

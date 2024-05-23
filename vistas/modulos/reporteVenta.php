@@ -174,7 +174,7 @@
 
                 <!-- REPORTE DE RANGO DE FECHA Y EL USUARIO -->
 
-                <div class="table-responsive" id="section_tabla_reporte_ventas_fecha" style="display: none">
+                <div class="table-responsive" id="section_tabla_reporte_ventas_fecha_venta" style="display: none">
                     <table class="table table-striped table-bordered" id="tabla_reporte_ventas_fecha" style="width:100%">
                         <thead>
                             <tr>
@@ -198,8 +198,8 @@
 
                 <!-- REPORTE DE RANGO DE FECHA, USUARIO y TIPO DE PAGO -->
 
-                <div class="table-responsive" id="section_tabla_reporte_ventas_fecha_tipo_pago" style="display: none">
-                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas_fecha" style="width:100%">
+                <div class="table-responsive" id="section_tabla_reporte_rango_fechas" style="display: none">
+                    <table class="table table-striped table-bordered" id="tabla_reporte_rango_fecha_venta" style="width:100%">
                         <thead>
                             <tr>
                                 <th>N°</th>
@@ -213,7 +213,7 @@
                                 <th class="text-center">Estado</th>
                             </tr>
                         </thead>
-                        <tbody id="data_ventas_reporte_fecha_tipo_pago">
+                        <tbody id="data_ventas_reporte_rango_fecha_venta">
 
                         </tbody>
                     </table>
