@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2024 a las 17:25:03
+-- Tiempo de generación: 23-05-2024 a las 02:23:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,16 +24,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `asistencia`
+-- Estructura de tabla para la tabla `asistencia_trabajadores`
 --
 
-CREATE TABLE `asistencia` (
-  `id_asistecia` int(11) NOT NULL,
+CREATE TABLE `asistencia_trabajadores` (
+  `id_asistencia` int(11) NOT NULL,
   `id_trabajador` int(11) NOT NULL,
-  `entrada_presente` tinyint(1) NOT NULL,
-  `salida_presente` tinyint(1) NOT NULL,
-  `fecha_asistencia` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `fecha_asistencia` date NOT NULL,
+  `hora_entrada` time DEFAULT NULL,
+  `hora_salida` time DEFAULT NULL,
+  `estado` enum('Presente','Tarde','Falta') NOT NULL,
+  `observaciones` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asistencia_trabajadores`
+--
+
+INSERT INTO `asistencia_trabajadores` (`id_asistencia`, `id_trabajador`, `fecha_asistencia`, `hora_entrada`, `hora_salida`, `estado`, `observaciones`) VALUES
+(218, 8, '2024-05-18', '14:55:00', '22:55:00', 'Tarde', ''),
+(219, 10, '2024-05-18', '14:55:00', '22:55:00', 'Tarde', ''),
+(220, 11, '2024-05-18', '14:55:00', '22:55:00', 'Presente', ''),
+(221, 12, '2024-05-18', '14:55:00', '22:55:00', 'Presente', ''),
+(222, 13, '2024-05-18', '14:55:00', '22:55:00', 'Presente', ''),
+(223, 14, '2024-05-18', '14:55:00', '22:55:00', 'Tarde', ''),
+(224, 15, '2024-05-18', '14:55:00', '22:55:00', 'Tarde', ''),
+(225, 8, '2024-05-19', '15:02:00', '23:02:00', 'Presente', ''),
+(226, 10, '2024-05-19', '15:02:00', '23:02:00', 'Tarde', ''),
+(227, 11, '2024-05-19', '15:02:00', '23:02:00', 'Presente', ''),
+(228, 12, '2024-05-19', '15:02:00', '23:02:00', 'Presente', ''),
+(229, 13, '2024-05-19', '15:02:00', '23:02:00', 'Presente', ''),
+(230, 14, '2024-05-19', '15:02:00', '23:02:00', 'Presente', ''),
+(231, 15, '2024-05-19', '15:02:00', '23:02:00', 'Presente', '');
 
 -- --------------------------------------------------------
 
@@ -185,10 +207,15 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
-(63, 60, 26, 13.00, 12, 25.00),
-(67, 62, 26, 13.00, 12, 25.00),
-(68, 62, 25, 13.00, 12, 34.00),
-(69, 62, 21, 23.00, 12, 34.00);
+(77, 68, 26, 12.90, 12, 24.00),
+(78, 69, 17, 11.90, 13, 27.00),
+(79, 69, 25, 12.30, 14, 21.00),
+(80, 69, 21, 10.78, 8, 12.00),
+(81, 70, 11, 38.00, 12, 3.00),
+(82, 71, 25, 12.23, 12, 12.00),
+(83, 71, 26, 11.24, 12, 12.00),
+(84, 72, 26, 245.00, 12, 12.00),
+(85, 73, 26, 13.00, 12, 12.00);
 
 -- --------------------------------------------------------
 
@@ -263,7 +290,8 @@ INSERT INTO `pagos_trabajadores` (`id_pagos`, `id_contrato`, `monto_pago`, `fech
 (6, 2, 1399.00, '2024-05-13 00:00:00', 0),
 (9, 3, 1600.00, '2024-05-30 00:00:00', 1),
 (10, 7, 400.00, '2024-05-13 00:00:00', 0),
-(11, 8, 1540.00, '2024-06-13 00:00:00', 1);
+(11, 8, 1540.00, '2024-06-13 00:00:00', 1),
+(12, 8, 1540.00, '2024-05-18 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -330,7 +358,8 @@ INSERT INTO `personas` (`id_persona`, `tipo_persona`, `razon_social`, `id_doc`, 
 (90, 'proveedor', 'Lopez dominges', 2, '10723634', 'Av. centenario  #456', 'Lircay', 'a0012', '928238347', 'doc@gmail.com', '', 1, 'null', '', '2024-04-03 11:56:31'),
 (91, 'proveedor', 'Pedro Juan', 2, '324142143', '', 'Lircay', '', '93283428342', 'gu@gmail.com', '', 1, 'null', '', '2024-04-03 12:09:08'),
 (92, 'proveedor', 'sol', 2, '343423321', '', 'hdsfdfs', '', '920236523', 'jsol@gmail.com', '', 1, 'null', '', '2024-04-03 12:10:44'),
-(93, 'proveedor', 'Ciro', 1, '674376342', '', 'Lircay', '', '920345120', 'ciro@gmail.com', 'dfsaf', 1, 'IB', '435325235', '2024-04-03 12:13:08');
+(93, 'proveedor', 'Ciro', 1, '674376342', '', 'Lircay', '', '920345120', 'ciro@gmail.com', 'dfsaf', 1, 'IB', '435325235', '2024-04-03 12:13:08'),
+(94, 'cliente', 'Minequeque', 1, '72243561', 'Av. Los ande # 455', 'Lircay', '4324', '920468502', 'minequeue@gmail.com', '', 1, 'null', '', '2024-05-14 11:52:07');
 
 -- --------------------------------------------------------
 
@@ -357,20 +386,20 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo_producto`, `nombre_producto`, `precio_producto`, `stock_producto`, `fecha_vencimiento`, `descripcion_producto`, `imagen_producto`, `estado_producto`, `fecha_producto`) VALUES
-(11, 23, 'A001', 'Polos AB2', 38.00, 12, '2024-04-30', 'dsaff', '../vistas/img/productos/202404020102059907.jpg', 1, '2024-04-01 17:45:09'),
+(11, 23, 'A001', 'Polos AB2', 38.00, 0, '2024-04-30', 'dsaff', '../vistas/img/productos/202404020102059907.jpg', 1, '2024-04-01 17:45:09'),
 (12, 21, 'A002', 'Pollo A2', 0.00, 0, '2024-05-06', 'Descripcion del pollo', '../vistas/img/productos/202404020105497407.jpg', 1, '2024-04-01 18:05:49'),
 (13, 4, 'A003', 'Pollo tierno', 0.00, 0, '2024-05-14', 'asdfdsafdsaf', '../vistas/img/productos/202404020106207276.jpg', 1, '2024-04-01 18:06:20'),
 (14, 21, 'A004', 'Pollo d3', 0.00, 0, '2024-05-14', 'sdfasdf', '../vistas/img/productos/202404020107043683.jpg', 1, '2024-04-01 18:07:04'),
 (15, 20, 'A005', 'Pollo edf', 0.00, 9, '2024-05-13', 'dfsfdas', '../vistas/img/productos/202404020107335335.jpg', 1, '2024-04-01 18:07:33'),
 (16, 2, 'A006', 'Pollo fasdf', 0.00, 10, '2024-05-15', 'fdsaf', '../vistas/img/productos/202404020108526008.png', 1, '2024-04-01 18:08:52'),
-(17, 23, 'A007', 'Prodcuto ss', 0.00, 123, '2024-05-07', 'fdsaf', '../vistas/img/productos/202404020112257253.jpg', 1, '2024-04-01 18:12:25'),
+(17, 23, 'A007', 'Prodcuto ss', 0.00, 110, '2024-05-07', 'fdsaf', '../vistas/img/productos/202404020112257253.jpg', 1, '2024-04-01 18:12:25'),
 (18, 23, 'A008', 'Cangrejo B1', 0.00, 1, '2024-05-02', 'Calamina', '../vistas/img/productos/202404101936545470.jpg', 1, '2024-04-01 18:51:59'),
-(21, 22, 'A0019', 'Cangreso A1', 0.00, 111, '2024-05-01', 'fdsaf', '../vistas/img/productos/202404101936231066.jpg', 1, '2024-04-03 10:34:52'),
+(21, 22, 'A0019', 'Cangreso A1', 0.00, 80, '2024-05-01', 'fdsaf', '../vistas/img/productos/202404101936231066.jpg', 1, '2024-04-03 10:34:52'),
 (22, 20, 'a00d', 'Pescado A1', 32.00, 0, '2024-04-30', 'daD', '../vistas/img/productos/202404101933502536.jpg', 1, '2024-04-03 10:40:27'),
 (23, 20, 'B001', 'Salchicha A1', 10.00, 2, '2024-05-22', 'dasda', '../vistas/img/productos/202404101932454518.jpg', 1, '2024-04-03 10:43:19'),
 (24, 23, 'a00234', 'Jamon A1', 0.00, -16, '2024-04-23', 'fsadf', '../vistas/img/productos/202404101931014143.jpg', 1, '2024-04-03 10:46:14'),
-(25, 23, 'A0054', 'Pollo B2', 13.00, 68, '2024-04-09', 'fsafdsa', '../vistas/img/productos/202404101929544885.jpg', 1, '2024-04-03 10:47:33'),
-(26, 23, 'A0012', 'Pollo B1', 13.00, 306, '2024-05-08', 'Descripcion del producto', '../vistas/img/productos/202404101928503425.jpg', 1, '2024-04-04 08:32:43');
+(25, 23, 'A0054', 'Pollo B2', 13.00, 18, '2024-04-09', 'fsafdsa', '../vistas/img/productos/202404101929544885.jpg', 1, '2024-04-03 10:47:33'),
+(26, 23, 'A0012', 'Pollo B1', 13.00, 178, '2024-05-08', 'Descripcion del producto', '../vistas/img/productos/202404101928503425.jpg', 1, '2024-04-04 08:32:43');
 
 -- --------------------------------------------------------
 
@@ -423,7 +452,7 @@ INSERT INTO `trabajadores` (`id_trabajador`, `nombre`, `num_documento`, `telefon
 (12, 'Luis Martínez Sánchez', '56452334', '9879675432', 'Luis@gmail.com', '../vistas/img/trabajador/202405101729575791.jpg', '../vistas/pdf/trabajador/202405101729574266.pdf', 'targetaDebito', '7489023109871432', 1),
 (13, 'María García Martínez', '12233454', '923212457', 'maria@gmail.com', '../vistas/img/trabajador/202405101731172764.jpg', '../vistas/pdf/trabajador/202405101731178053.pdf', 'efectivo', '', 1),
 (14, 'Laura Sánchez Rodríguez', '34345467', '987564234', 'laura@gmail.com', '../vistas/img/trabajador/202405101732021330.jpg', '../vistas/pdf/trabajador/202405101732027056.pdf', 'targetaCredito', '6345653362434445', 1),
-(15, 'Jorge Chávez Huincho', '72243561', '920468502', 'jorge@gmail.com', '../vistas/img/trabajador/202405140346015358.jpg', '../vistas/pdf/trabajador/202405140346019922.pdf', 'efectivo', '', 1);
+(15, 'Juana Huincho Pariona', '72243561', '920468502', 'jorge@gmail.com', '../vistas/img/trabajador/202405140346015358.jpg', '../vistas/pdf/trabajador/202405140346019922.pdf', 'efectivo', '', 1);
 
 -- --------------------------------------------------------
 
@@ -468,8 +497,18 @@ CREATE TABLE `vacaciones` (
   `id_trabajador` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
-  `estado_vacion` int(11) NOT NULL DEFAULT 1
+  `estado_vacion` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `vacaciones`
+--
+
+INSERT INTO `vacaciones` (`id_vacacion`, `id_trabajador`, `fecha_inicio`, `fecha_fin`, `estado_vacion`) VALUES
+(5, 8, '2024-07-17', '2024-08-17', 0),
+(6, 10, '2024-05-17', '2024-06-17', 0),
+(7, 11, '2024-05-18', '2024-06-18', 0),
+(8, 13, '2024-05-18', '2024-06-18', 0);
 
 -- --------------------------------------------------------
 
@@ -501,18 +540,22 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_venta`, `total_pago`, `sub_total`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_venta_a`) VALUES
-(60, 1, 99, '2024-05-03', 'ticket', 'T0001', '0001', 0.00, 325.00, 325.00, 325.00, 0.00, 'contado', 'completado', 'efectivo', '2024-05-03 12:00:01'),
-(62, 1, 99, '2024-05-03', 'ticket', 'T0003', '0003', 0.00, 1549.00, 1549.00, 1549.00, 0.00, 'credito', 'pendiente', 'yape', '2024-05-03 12:02:59');
+(68, 1, 99, '2024-05-21', 'ticket', 'T0001', '0001', 0.00, 309.60, 309.60, 309.60, 0.00, 'contado', 'completado', 'efectivo', '2024-05-21 11:18:38'),
+(69, 1, 99, '2024-05-21', 'ticket', 'T0002', '0002', 0.00, 708.96, 708.96, 708.96, 0.00, 'contado', 'completado', 'efectivo', '2024-05-21 12:27:38'),
+(70, 1, 99, '2024-05-15', 'ticket', 'T0003', '0003', 0.00, 114.00, 114.00, 114.00, 0.00, 'contado', 'completado', 'efectivo', '2024-05-21 12:31:13'),
+(71, 1, 99, '2024-05-22', 'ticket', 'T0004', '0004', 0.00, 281.64, 0.00, 281.64, 0.00, 'credito', 'pendiente', 'yape', '2024-05-22 09:14:58'),
+(72, 86, 99, '2024-05-22', 'ticket', 'T0005', '0005', 0.00, 2940.00, 2940.00, 2940.00, 0.00, 'contado', 'completado', 'efectivo', '2024-05-22 11:03:33'),
+(73, 84, 99, '2024-05-22', 'ticket', 'T0006', '0006', 0.00, 156.00, 0.00, 156.00, 0.00, 'credito', 'pendiente', '', '2024-05-22 11:49:34');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `asistencia`
+-- Indices de la tabla `asistencia_trabajadores`
 --
-ALTER TABLE `asistencia`
-  ADD PRIMARY KEY (`id_asistecia`),
+ALTER TABLE `asistencia_trabajadores`
+  ADD PRIMARY KEY (`id_asistencia`),
   ADD KEY `id_trabajador` (`id_trabajador`);
 
 --
@@ -623,10 +666,10 @@ ALTER TABLE `ventas`
 --
 
 --
--- AUTO_INCREMENT de la tabla `asistencia`
+-- AUTO_INCREMENT de la tabla `asistencia_trabajadores`
 --
-ALTER TABLE `asistencia`
-  MODIFY `id_asistecia` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `asistencia_trabajadores`
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -656,7 +699,7 @@ ALTER TABLE `detalle_egreso`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
@@ -668,13 +711,13 @@ ALTER TABLE `egresos`
 -- AUTO_INCREMENT de la tabla `pagos_trabajadores`
 --
 ALTER TABLE `pagos_trabajadores`
-  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -704,23 +747,23 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `id_vacacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_vacacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `asistencia`
+-- Filtros para la tabla `asistencia_trabajadores`
 --
-ALTER TABLE `asistencia`
-  ADD CONSTRAINT `asistencia_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `asistencia_trabajadores`
+  ADD CONSTRAINT `asistencia_trabajadores_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`);
 
 --
 -- Filtros para la tabla `contratos_trabajadores`
