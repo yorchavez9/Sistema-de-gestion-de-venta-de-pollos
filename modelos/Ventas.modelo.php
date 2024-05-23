@@ -55,6 +55,14 @@ class ModeloVenta
 
 			return $stmt->fetchAll();
 
+		}else if($fecha_desde == "" && $fecha_hasta == "" && $tipo_pago == null && $descuento_producto != "" && $id_usuario != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT $tablaProducto.nombre_producto, $tablaProducto.precio_producto, $tablaDetalleV.precio_venta, $tablaVentas.fecha_venta, $tablaUsuario.nombre_usuario FROM $tablaProducto INNER JOIN $tablaDetalleV ON $tablaProducto.id_producto = $tablaDetalleV.id_producto INNER JOIN $tablaVentas ON $tablaVentas.id_venta = $tablaDetalleV.id_venta INNER JOIN $tablaUsuario ON $tablaUsuario.id_usuario = $tablaVentas.id_usuario WHERE $tablaProducto.precio_producto != $tablaDetalleV.precio_venta AND $tablaVentas.id_usuario = $id_usuario");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
 		} else {
 
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona as p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona");
@@ -63,6 +71,21 @@ class ModeloVenta
 
 			return $stmt->fetchAll();
 		}
+	}
+
+	/*=============================================
+	MOSTRAR REPORTE DE VENTAS POR PRECIOS DE PRODUCTOS
+	=============================================*/
+
+	static public function mdlMostrarReporteVentaPrecioProducto($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde,	$fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT $tablaProducto.nombre_producto, $tablaProducto.precio_producto, $tablaDetalleV.precio_venta, $tablaVentas.fecha_venta, $tablaUsuario.nombre_usuario FROM $tablaProducto INNER JOIN $tablaDetalleV ON $tablaProducto.id_producto = $tablaDetalleV.id_producto INNER JOIN $tablaVentas ON $tablaVentas.id_venta = $tablaDetalleV.id_venta INNER JOIN $tablaUsuario ON $tablaUsuario.id_usuario = $tablaVentas.id_usuario WHERE $tablaProducto.precio_producto != $tablaDetalleV.precio_venta AND $tablaVentas.id_usuario = $id_usuario");
+
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+		
 	}
 
 	/*=============================================

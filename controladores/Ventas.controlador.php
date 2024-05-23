@@ -39,6 +39,24 @@ class ControladorVenta
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE PRECIOS MODIFICADO EN LA VENTA
+	=============================================*/
+
+	static public function ctrMostrarReporteVentasPrecioProducto($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
+	{
+
+		$tablaVentas = "ventas";
+		$tablaDetalleV = "detalle_venta";
+		$tablaProducto = "productos";
+		$tablaUsuario = "usuarios";
+		$tablaPersona = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarReporteVentaPrecioProducto($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	MOSTRAR DETALLE VENTA
 	=============================================*/
 

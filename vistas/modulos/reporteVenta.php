@@ -195,6 +195,27 @@
 
                 </div>
 
+                <div class="table-responsive" id="section_tabla_reporte_ventas_precio_producto" style="display: none">
+
+                    <!-- REPORTE USUARIO Y PRODUCTOS MODIFICADOS DE PRECIOS -->
+                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas_precio_producto" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Usuario</th>
+                                <th>Producto</th>
+                                <th>Precio venta</th>
+                                <th>Precio modificado</th>
+                                <th>Fecha venta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data_ventas_reporte_precio_producto">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
 
             </div>
         </div>

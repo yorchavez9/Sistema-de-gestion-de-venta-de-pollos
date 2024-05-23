@@ -237,6 +237,7 @@ $(document).ready(function () {
       type: "GET",
       dataType: "json",
       success: function (usuarios) {
+
         var tbody = $("#dataUsuarios");
 
         tbody.empty();
@@ -285,8 +286,10 @@ $(document).ready(function () {
           // Agregar la fila al tbody
           tbody.append(fila);
         });
+
         // Inicializar DataTables después de cargar los datos
         $('#tabla_usuarios').DataTable();
+        
       },
       error: function (xhr, status, error) {
         console.error("Error al recuperar los usuarios:", error);
