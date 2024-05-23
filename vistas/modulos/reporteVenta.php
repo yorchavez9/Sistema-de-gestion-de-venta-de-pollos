@@ -147,9 +147,9 @@
                 </div>
 
 
-                <div class="table-responsive" id="section_tabla_reporte_ventas" style="display: block">
+                <!-- REPORTE DE TODAS LAS VENTAS -->
 
-                    <!-- REPORTE DE TODAS LAS VENTAS -->
+                <div class="table-responsive" id="section_tabla_reporte_ventas" style="display: block">
                     <table class="table table-striped table-bordered" id="tabla_reporte_ventas" style="width:100%;">
                         <thead>
                             <tr>
@@ -170,10 +170,11 @@
                     </table>
 
                 </div>
+                
+
+                <!-- REPORTE DE RANGO DE FECHA Y EL USUARIO -->
 
                 <div class="table-responsive" id="section_tabla_reporte_ventas_fecha" style="display: none">
-
-                    <!-- REPORTE DE RANGO DE FECHA Y EL USUARIO -->
                     <table class="table table-striped table-bordered" id="tabla_reporte_ventas_fecha" style="width:100%">
                         <thead>
                             <tr>
@@ -195,9 +196,34 @@
 
                 </div>
 
-                <div class="table-responsive" id="section_tabla_reporte_ventas_precio_producto" style="display: none">
+                <!-- REPORTE DE RANGO DE FECHA, USUARIO y TIPO DE PAGO -->
 
-                    <!-- REPORTE USUARIO Y PRODUCTOS MODIFICADOS DE PRECIOS -->
+                <div class="table-responsive" id="section_tabla_reporte_ventas_fecha_tipo_pago" style="display: none">
+                    <table class="table table-striped table-bordered" id="tabla_reporte_ventas_fecha" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Fecha</th>
+                                <th>Nombre</th>
+                                <th>Serie</th>
+                                <th>Número</th>
+                                <th>Tipo venta</th>
+                                <th>Venta total</th>
+                                <th>Restante</th>
+                                <th class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data_ventas_reporte_fecha_tipo_pago">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!-- REPORTE USUARIO Y PRODUCTOS MODIFICADOS DE PRECIOS -->
+
+                <div class="table-responsive" id="section_tabla_reporte_ventas_precio_producto" style="display: none">
                     <table class="table table-striped table-bordered" id="tabla_reporte_ventas_precio_producto" style="width:100%">
                         <thead>
                             <tr>

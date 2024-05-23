@@ -66,6 +66,21 @@ class ModeloVenta
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE DE VENTAS RANGO DE FECHAS
+	=============================================*/
+
+	static public function mdlMostrarReporteVentaRangoFechas($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde,	$fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona AS p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona	WHERE v.fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta' AND v.id_usuario = $id_usuario");
+
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+		
+	}
+
+	/*=============================================
 	MOSTRAR REPORTE DE VENTAS POR PRECIOS DE PRODUCTOS
 	=============================================*/
 
