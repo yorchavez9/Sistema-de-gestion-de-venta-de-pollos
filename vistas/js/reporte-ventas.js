@@ -150,8 +150,10 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
 
                 $('#section_tabla_reporte_ventas').css('display', 'none');
-                $('#section_tabla_reporte_ventas_fecha').css('display', 'block');
                 $('#section_tabla_reporte_rango_fechas').css('display', 'none');
+                $('#section_tabla_reporte_credito_cliente').css('display', 'none');
+                $('#section_tabla_reporte_ventas_fecha').css('display', 'block');
+
                 ventas = JSON.parse(ventas);
 
                 var tbody = $("#data_ventas_reporte_fecha");
@@ -251,6 +253,7 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
                 $('#section_tabla_reporte_ventas').css('display', 'none');
                 $('#section_tabla_reporte_ventas_fecha').css('display', 'none');
+                $('#section_tabla_reporte_credito_cliente').css('display', 'none');
                 $('#section_tabla_reporte_rango_fechas').css('display', 'block');
 
                 ventas = JSON.parse(ventas);
