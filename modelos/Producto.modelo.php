@@ -37,7 +37,7 @@ class ModeloProducto{
 	}
 
 	/*=============================================
-	MOSTRAR PRODUCTOS
+	MOSTRAR PRODUCTOS STOCK
 	=============================================*/
 
 	static public function mdlMostrarProductoStock($tablaC, $tablaP, $item, $valor)
@@ -50,6 +50,28 @@ class ModeloProducto{
 		return $stmt->fetchAll();
 
 	}
+
+
+	/*=============================================
+	MOSTRAR PRODUCTOS FECHA DE VENCIMIENTO
+	=============================================*/
+
+	static public function mdlMostrarProductoFechaVencimiento($tablaC, $tablaP, $item, $valor)
+	{
+
+		if($item == null && $valor == null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaP WHERE fecha_vencimiento BETWEEN CURRENT_DATE() AND DATE_ADD(CURRENT_DATE(), INTERVAL 10 DAY);");
+
+			$stmt->execute();
+	
+			return $stmt->fetchAll();
+		}
+
+
+
+	}
+
 
 	/*=============================================
 	REGISTRO DE PRODUCTOS

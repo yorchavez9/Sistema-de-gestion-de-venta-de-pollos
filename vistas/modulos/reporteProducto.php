@@ -17,18 +17,25 @@
 
                             <div class="form-group">
 
-                                <div class="form-label">Mostrar productos por stock:</div>
+                                <div class="d-flex align-items-center">
+                                    <div class="form-label me-5">Mostrar productos por stock:</div>
+                                    <div class="form-label">Fecha de vencimiento:</div>
+                                </div>
 
                                 <div class="input-group">
 
-                                    <input type="number" id="show_sotck_reporte" class="form-control" placeholder="Ingresa la cantidad">
-                                    
+                                    <input type="number" id="show_sotck_reporte" class="form-control me-5" placeholder="Ingresa la cantidad">
+
+                                    <input type="checkbox" id="show_fecha_vencimiento" class="me-5" value="fecha_vencimiento_r">
+
                                     <div class="input-group-append">
+
                                         <button class="btn btn-primary" id="btn_mostrar_producto_stock" type="button">Ver reporte</button>
+
                                     </div>
 
                                 </div>
-                                <small id="error_show_sotck_reporte"></small>
+
 
                             </div>
 

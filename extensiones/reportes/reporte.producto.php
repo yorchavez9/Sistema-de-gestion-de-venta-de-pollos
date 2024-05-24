@@ -70,12 +70,40 @@ $usuarios = array(
 );
 
 
-if (isset($_GET["show_sotck_reporte"])) {
+if ($_GET["show_sotck_reporte"] != "" && $_GET["seleccion_fecha_r"] == "") {
 
     $item = null;
+
     $valor = $_GET["show_sotck_reporte"];
 
     $productos = ControladorProducto::ctrMostrarProductosStock($item, $valor);
+
+    $contador = 1;
+
+    foreach ($productos as $producto) {
+        $pdf->Ln(0.6);
+        $pdf->setX(10); // Ajuste para los márgenes
+        $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1); // Aquí debería ir el número de registro, adaptar según el contenido
+        $pdf->Cell($anchoNombre, 8, utf8_decode($producto['codigo_producto']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoDocumento, 8, utf8_decode($producto['nombre_producto']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoDireccion, 8, utf8_decode($producto['precio_producto']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoTelefono, 8, utf8_decode($producto['stock_producto']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoCorreo, 8, utf8_decode($producto['fecha_vencimiento']), 'B', 1, 'C', 1);
+
+        $contador++;
+    }
+
+    // cell(ancho, largo, contenido, borde?, salto de línea?)
+
+    $pdf->Output();
+
+}else if($_GET["show_sotck_reporte"] == "" && $_GET["seleccion_fecha_r"] != ""){
+
+    $item = null;
+    
+    $valor = null;
+
+    $productos = ControladorProducto::ctrMostrarProductosFechaVencimientos($item, $valor);
 
     $contador = 1;
 

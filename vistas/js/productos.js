@@ -713,51 +713,41 @@ $(document).ready(function () {
 
   var clicEnBoton = false;
 
-  $("#btn_mostrar_producto_stock").click(function(e){
+  $("#btn_mostrar_producto_stock").click(function (e) {
 
     e.preventDefault();
 
     clicEnBoton = true;
 
-    console.log('Se hizo clic en el botón');
-
-    let isValid = true;
 
     let show_sotck_reporte = $("#show_sotck_reporte").val();
 
-    console.log(show_sotck_reporte);
+    var seleccion_fecha_r = "";
 
+    if ($("#show_fecha_vencimiento").prop("checked")) {
 
-    // Validar la categoria
-    if (show_sotck_reporte == "" || show_sotck_reporte == null) {
-
-      $("#error_show_sotck_reporte").html("Por favor, ingrese el stock").addClass("text-danger");
-
-      isValid = false;
+        seleccion_fecha_r = $("#show_fecha_vencimiento").val();
 
     } else {
 
-      $("#error_show_sotck_reporte").html("").removeClass("text-danger");
+        seleccion_fecha_r = "";
 
     }
 
 
-    if (isValid) {
+    mostrarReporteProductosStock(show_sotck_reporte);
 
-      mostrarReporteProductosStock(show_sotck_reporte);
+    window.open("extensiones/reportes/reporte.producto.php?show_sotck_reporte=" + show_sotck_reporte + "&seleccion_fecha_r=" + seleccion_fecha_r, "_blank");
 
-      window.open("extensiones/reportes/reporte.producto.php?show_sotck_reporte=" + show_sotck_reporte, "_blank");
-      
-    }
-
+    $('#form_mostrar_producto_stock')[0].reset();
 
 
   })
 
 
-  /* =========================================
+  /* ==========================================
   MOSTRANDO TODOS LOS PRODUCTOS PARA EL REPORTE
-  ============================================ */
+  ============================================= */
 
  
   function mostrarReporteProductosStock(stock) {
