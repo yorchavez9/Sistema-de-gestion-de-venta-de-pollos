@@ -102,9 +102,41 @@
 
                             </div>
 
-                            <!-- BOTON VER REPORTE -->
+                            <!-- INGRESO DE CLIENTE -->
 
                             <div class="col-md-2">
+
+                                <label for="" class="form-label">Selecione el cliente</label><br>
+                                <?php
+                                
+                                $item = null;
+                                $valor = null;
+
+                                $clientes = ControladorCliente::ctrMostrarCliente($item, $valor);
+                                ?>
+                                <select id="id_cliente_reporte" class="form-select">
+
+                                    <option value="" selected disabled>Seleccione</option>
+
+                                    <?php
+                                    foreach ($clientes as $cliente) {
+                                    ?>
+                                    <option value="<?php echo $cliente["id_persona"]?>"><?php echo $cliente["razon_social"]?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <!-- BOTON VER REPORTE -->
+
+                            <div class="text-center">
 
                                 <label for="" class="form-label">.</label><br>
 
@@ -114,7 +146,6 @@
 
                         </div>
                     </div>
-
                 </form>
 
                 <div class="table-top">
@@ -170,7 +201,7 @@
                     </table>
 
                 </div>
-                
+
 
                 <!-- REPORTE DE RANGO DE FECHA Y EL USUARIO -->
 
@@ -236,6 +267,32 @@
                             </tr>
                         </thead>
                         <tbody id="data_ventas_reporte_precio_producto">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!-- REPORTE CREDITO POR CLIENTE -->
+
+                <div class="table-responsive" id="section_tabla_reporte_credito_cliente" style="display: none">
+
+                    <table class="table table-striped table-bordered" id="tabla_reporte_credito_cliente" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Fecha</th>
+                                <th>Nombre</th>
+                                <th>Serie</th>
+                                <th>Número</th>
+                                <th>Tipo venta</th>
+                                <th>Venta total</th>
+                                <th>Restante</th>
+                                <th class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data_ventas_reporte_credito_cliente">
 
                         </tbody>
                     </table>

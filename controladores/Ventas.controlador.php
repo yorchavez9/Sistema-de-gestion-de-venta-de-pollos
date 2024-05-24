@@ -57,6 +57,24 @@ class ControladorVenta
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE CREDITOS POR CLIENTE
+	=============================================*/
+
+	static public function ctrMostrarReporteVentasCreditoCliente($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto, $id_cliente_reporte)
+	{
+
+		$tablaVentas = "ventas";
+		$tablaDetalleV = "detalle_venta";
+		$tablaProducto = "productos";
+		$tablaUsuario = "usuarios";
+		$tablaPersona = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarReporteVentaCreditosCliente($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto, $id_cliente_reporte);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	MOSTRAR REPORTE PRECIOS MODIFICADO EN LA VENTA
 	=============================================*/
 

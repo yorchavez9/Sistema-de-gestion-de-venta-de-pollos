@@ -125,8 +125,10 @@ $("#btn_ver_reporte_ventas").click(function (e) {
 
     }
 
+    let id_cliente_reporte = $("#id_cliente_reporte").val();
 
-    if (fecha_desde_r != "" && fecha_hasta_r != "" && id_usuario_r != null && tipo_pago_r != null && descuento_producto_r == "") {
+
+    if (fecha_desde_r != "" && fecha_hasta_r != "" && id_usuario_r != null && tipo_pago_r != null && descuento_producto_r == "" && id_cliente_reporte == null) {
 
 
         let datos = new FormData();
@@ -226,7 +228,7 @@ $("#btn_ver_reporte_ventas").click(function (e) {
             }
         });
 
-    }else if(fecha_desde_r != "" && fecha_hasta_r != "" && id_usuario_r != null && tipo_pago_r == null && descuento_producto_r == ""){
+    }else if(fecha_desde_r != "" && fecha_hasta_r != "" && id_usuario_r != null && tipo_pago_r == null && descuento_producto_r == "" && id_cliente_reporte == null){
 
         let datos = new FormData();
 
@@ -327,6 +329,105 @@ $("#btn_ver_reporte_ventas").click(function (e) {
             }
         });
 
+    }else if(fecha_desde_r == "" && fecha_hasta_r == "" && id_usuario_r == null && tipo_pago_r != null && descuento_producto_r == "" && id_cliente_reporte != null){
+        let datos = new FormData();
+
+        datos.append("fecha_desde_r", fecha_desde_r);
+        datos.append("fecha_hasta_r", fecha_hasta_r);
+        datos.append("id_usuario_r", id_usuario_r);
+        datos.append("tipo_pago_r", tipo_pago_r);
+        datos.append("descuento_producto_r", descuento_producto_r);
+        datos.append("id_cliente_reporte", id_cliente_reporte);
+
+        $.ajax({
+            url: "ajax/Reporte.credito.cliente.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (ventas) {
+
+                $('#section_tabla_reporte_ventas').css('display', 'none');
+                $('#section_tabla_reporte_ventas_fecha').css('display', 'none');
+                $('#section_tabla_reporte_rango_fechas').css('display', 'none');
+                $('#section_tabla_reporte_credito_cliente').css('display', 'block');
+
+                ventas = JSON.parse(ventas);
+
+                var tbody = $("#data_ventas_reporte_credito_cliente");
+
+                tbody.empty();
+
+                // Inicializamos un conjunto vacío para almacenar los id_egreso ya procesados
+
+                var ventasProcesados = new Set();
+
+                ventas.forEach(function (venta, index) {
+
+                    // Verificar si el id_egreso ya ha sido procesado
+
+                    if (!ventasProcesados.has(venta.id_venta)) {
+
+                        var restantePago = (venta.total_venta - venta.total_pago).toFixed(2);
+
+                        let fechaOriginal = venta.fecha_venta;
+
+                        let partesFecha = fechaOriginal.split("-"); // Dividir la fecha en año, mes y día
+
+                        let fechaFormateada = partesFecha[2] + "/" + partesFecha[1] + "/" + partesFecha[0];
+
+                        let totalCompra = formateoPrecio(venta.total_venta);
+
+                        let formateadoPagoRestante = formateoPrecio(restantePago);
+
+                        var fila = `
+                          <tr>
+                              <td>${index + 1}</td>
+                              <td>${fechaFormateada}</td>
+                              <td>${venta.razon_social}</td>
+                              <td>${venta.serie_comprobante}</td>
+                              <td>${venta.num_comprobante}</td>
+                              <td>${venta.tipo_pago}</td>
+                              <td>S/ ${totalCompra}</td>
+                              <td>S/ ${formateadoPagoRestante}</td>
+      
+                              <td class="text-center">
+                                  ${restantePago == "0.00"
+                                ? '<button class="btn btn-sm rounded" style="background: #28C76F; color:white;">Completado</button>'
+                                : '<button class="btn btn-sm rounded" style="background: #FF4D4D; color:white;">Pendiente</button>'
+                            }
+                              </td>
+                          </tr>`;
+
+                        // Agregar la fila al tbody
+
+                        tbody.append(fila);
+
+                        // Agregar el id_egreso al conjunto de egresos procesados
+
+                        ventasProcesados.add(venta.id_venta);
+
+                    }
+
+                });
+
+                // Inicializar DataTables después de cargar los datos
+
+                $("#tabla_reporte_credito_cliente").DataTable();
+
+                $('#form_mostrar_venta_reporte')[0].reset();
+
+                window.open("extensiones/reportes/reporte.credito.cliente.php?fecha_desde_r=" + fecha_desde_r + "&fecha_hasta_r=" + fecha_hasta_r + "&id_usuario_r=" + id_usuario_r + "&tipo_pago_r=" + tipo_pago_r + "&descuento_producto_r=" + descuento_producto_r + "&id_cliente_reporte=" + id_cliente_reporte, "_blank");
+
+
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr);
+                console.error(status);
+                console.error(error);
+            }
+        });
     } else {
 
         let datos = new FormData();

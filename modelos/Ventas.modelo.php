@@ -81,6 +81,22 @@ class ModeloVenta
 	}
 
 	/*=============================================
+	MOSTRAR REPORTE CREDITO POR CLIENTE
+	=============================================*/
+
+	static public function mdlMostrarReporteVentaCreditosCliente($tablaVentas, $tablaDetalleV, $tablaProducto, $tablaUsuario, $tablaPersona, $fecha_desde,	$fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto, $id_cliente_reporte)
+	{
+
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaPersona AS p INNER JOIN $tablaVentas AS v ON p.id_persona = v.id_persona	WHERE v.id_persona = $id_cliente_reporte AND v.tipo_pago = '$tipo_pago'");
+
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+		
+	}
+
+	/*=============================================
 	MOSTRAR REPORTE DE VENTAS POR PRECIOS DE PRODUCTOS
 	=============================================*/
 
