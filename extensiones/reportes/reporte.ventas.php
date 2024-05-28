@@ -83,7 +83,10 @@ $ventas = ControladorVenta::ctrMostrarReporteVentas($fecha_desde, $fecha_hasta, 
 
 $contador = 1;
 
+$sumaTotalVenta = 0;
+
 foreach ($ventas as $venta) {
+
     $total_venta = $venta['total_venta'];
     $total_venta_formateado = number_format($total_venta, 2, '.', ',');
     
@@ -102,8 +105,17 @@ foreach ($ventas as $venta) {
     $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
     $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
 
+    $sumaTotalVenta += $total_venta; // Sumar al total acumulado
     $contador++;
 }
+
+// Formatear el total de ventas
+$sumaTotalVentaFormateado = number_format($sumaTotalVenta, 2, '.', ',');
+
+// Añadir la suma total de ventas fuera de la tabla
+$pdf->Ln(10);
+$pdf->SetFont('Helvetica', 'B', 12);
+$pdf->Cell(0, 10, 'Total de Ventas: S/ ' . $sumaTotalVentaFormateado, 0, 1, 'R');
 
 $pdf->Output();
 ?>

@@ -82,28 +82,41 @@ $descuento_producto = $_GET["descuento_producto_r"];
 $ventas = ControladorVenta::ctrMostrarReporteVentasRangoFechas($fecha_desde, $fecha_hasta, $id_usuario, $tipo_pago, $descuento_producto);
 
 $contador = 1;
+$sumaTotalVenta = 0;
 
 foreach ($ventas as $venta) {
-    $total_venta = $venta['total_venta'];
-    $total_venta_formateado = number_format($total_venta, 2, '.', ',');
-    
-    // Suponiendo que 'total_pago' es el campo que deseas agregar
-    $total_pago = $venta['total_pago'];
-    $total_pago_formateado = number_format($total_pago, 2, '.', ',');
+    // Verificar si la fecha de la venta está dentro del rango especificado
+    if ($venta['fecha_venta'] >= $fecha_desde && $venta['fecha_venta'] <= $fecha_hasta) {
+        $total_venta = $venta['total_venta'];
+        $total_venta_formateado = number_format($total_venta, 2, '.', ',');
+        
+        // Suponiendo que 'total_pago' es el campo que deseas agregar
+        $total_pago = $venta['total_pago'];
+        $total_pago_formateado = number_format($total_pago, 2, '.', ',');
 
-    $pdf->Ln(0.6);
-    $pdf->setX(10); // Ajuste para los márgenes
-    $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1);
-    $pdf->Cell($anchoFecha, 8, utf8_decode($venta['fecha_venta']), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoNombre, 8, utf8_decode($venta['razon_social']), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoTipoPago, 8, utf8_decode($venta['tipo_pago']), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoPagoEn, 8, utf8_decode($venta['pago_e_y']), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoTotalPago, 8, utf8_decode("S/ " . $total_venta_formateado), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
-    $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
+        $pdf->Ln(0.6);
+        $pdf->setX(10); // Ajuste para los márgenes
+        $pdf->Cell($anchoN, 8, $contador, 'B', 0, 'C', 1);
+        $pdf->Cell($anchoFecha, 8, utf8_decode($venta['fecha_venta']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoNombre, 8, utf8_decode($venta['razon_social']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoTipoPago, 8, utf8_decode($venta['tipo_pago']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoPagoEn, 8, utf8_decode($venta['pago_e_y']), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoTotalPago, 8, utf8_decode("S/ " . $total_venta_formateado), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoTotalPagoContado, 8, utf8_decode("S/ " . $total_pago_formateado), 'B', 0, 'C', 1);
+        $pdf->Cell($anchoEstado, 8, utf8_decode($venta['estado_pago']), 'B', 1, 'C', 1);
 
-    $contador++;
+        $sumaTotalVenta += $total_venta; // Sumar al total acumulado
+        $contador++;
+    }
 }
+
+// Formatear el total de ventas
+$sumaTotalVentaFormateado = number_format($sumaTotalVenta, 2, '.', ',');
+
+// Añadir la suma total de ventas fuera de la tabla
+$pdf->Ln(10);
+$pdf->SetFont('Helvetica', 'B', 12);
+$pdf->Cell(0, 10, 'Total de Ventas (En el rango de fechas): S/ ' . $sumaTotalVentaFormateado, 0, 1, 'R');
 
 $pdf->Output();
 ?>
