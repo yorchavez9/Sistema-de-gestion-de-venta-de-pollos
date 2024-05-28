@@ -2,7 +2,7 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Configuración de impresora</h4>
+                <h4 class="mb-1">Configuración de impresora</h4>
                 <h6>Administrar impresora</h6>
             </div>
             <div class="page-btn">
@@ -11,13 +11,13 @@
                 $item = null;
                 $valor = null;
 
-                $tickets = ControladorConfiguracionTicket::ctrMostrarConfiguracionTicket($item, $valor);
+                $impresoras = ControladorImpresora::ctrMostrarImpresora($item, $valor);
 
-                $contadorTickets = count($tickets);
+                $contadorImpresoras = count($impresoras);
 
-                if ($contadorTickets <= 0) {
+                if ($contadorImpresoras <= 0) {
                 ?>
-                    <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoConfiguracionTicket"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Crear configuración</a>
+                    <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#modalNuevoConfiguracionImpresora"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Crear configuración</a>
 
                 <?php
                 }
@@ -57,21 +57,17 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_configuracion_ticket">
+                    <table class="table table-striped table-bordered" style="width:100%" id="tabla_configuracion_impresora">
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>Nombre tienda</th>
-                                <th>Teléfono</th>
-                                <th>Correo</th>
-                                <th>Dirección</th>
-                                <th>logo</th>
-                                <th>Mensaje</th>
+                                <th>Nombre de impresora</th>
+                                <th>IP de la impresora</th>
                                 <th>Fecha</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
-                        <tbody id="data_configuracion_ticket">
+                        <tbody id="data_configuracion_impresora">
 
                         </tbody>
                     </table>
@@ -83,63 +79,36 @@
 </div>
 
 
-<!-- MODAL INGRESO DE CONFIGURACION DE TICKET -->
-<div class="modal fade" id="modalNuevoConfiguracionTicket" tabindex="-1" aria-labelledby="modalNuevoConfiguracionTicketLabel" aria-hidden="true">
+<!-- MODAL INGRESO DE CONFIGURACION DE LA IMPRESORA -->
+<div class="modal fade" id="modalNuevoConfiguracionImpresora" tabindex="-1" aria-labelledby="modalNuevoConfiguracionImpresoraLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Configurar Ticket</h5>
+                <h5 class="modal-title">Configurar impresora</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="form_nuevo_configuracion_ticket">
+            <form enctype="multipart/form-data" id="form_nuevo_configuracion_impresora">
 
                 <div class="modal-body">
 
                     <!-- INGRESO NOMBRE DE LA TIENDA -->
                     <div class="form-group">
-                        <label for="nombre_empresa" class="form-label">Ingrese el nombre:</label>
-                        <input type="text" name="nombre_empresa_ticket" id="nombre_empresa_ticket" placeholder="Ingresa el el nombre de la tienda">
+                        <label for="nombre_empresa" class="form-label">Ingrese el nombre de la impresora:</label>
+                        <input type="text" id="nombre_impresora" placeholder="Ingresa el nombre de la impresora">
+                        <small id="error_nombre_impresora"></small>
                     </div>
 
                     <!-- INGRESO DEL TELÉFONO -->
                     <div class="form-group">
-                        <label class="form-label">Ingrese el teléfono:</label>
-                        <input type="text" id="telefono_ticket" class="form-control" placeholder="Ingrese el teléfono">
-                    </div>
-
-                    <!-- INGRESO DE CORREO -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese el correo:</label>
-                        <input type="text" id="correo_ticket" class="form-control" placeholder="Ingrese el correo">
-                    </div>
-
-                    <!-- INGRESO DE DIRECCION -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese la dirección:</label>
-                        <input type="text" id="direccion_ticket" class="form-control" placeholder="Ingrese la dirección">
-                    </div>
-
-                    <!-- INGRESO LOGO -->
-                    <div class="form-group">
-                        <label class="form-label">Selecione una imagen:</label>
-                        <input type="file" id="logo_ticket" class="form-control">
-                        <div class="text-center mt-2">
-                            <img src="" id="vista_previa_logo_ticket" class="img img-fluid" alt="" style="min-width: 100px; min-height: 100px;">
-                        </div>
-
-                    </div>
-
-                    <!-- INGRESO DE MENSAJE -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese el mensaje:</label>
-                        <textarea id="mensaje_ticket" cols="30" rows="10" placeholder="Ingrese el mensaje"></textarea>
+                        <label class="form-label">Ingrese el IP de la impresora:</label>
+                        <input type="text" id="ip_impresora" class="form-control" placeholder="Ingrese el IP de la impresora">
                     </div>
 
 
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="btn_guardar_configuracion_ticket" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" id="btn_guardar_configuracion_impresora" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 
@@ -149,66 +118,40 @@
     </div>
 </div>
 
-<!-- MODAL INGRESO DE CONFIGURACION DE TICKET -->
-<div class="modal fade" id="modalEditarConfiguracionTicket" tabindex="-1" aria-labelledby="modalNuevoConfiguracionTicketLabel" aria-hidden="true">
+<!-- MODAL EDITAR DE CONFIGURACION DE LA IMPRESORA -->
+<div class="modal fade" id="modalEditarConfiguracionImpresora" tabindex="-1" aria-labelledby="modalNuevoConfiguracionImpresoraLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear categoría</h5>
+                <h5 class="modal-title">Configurar impresora</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form enctype="multipart/form-data" id="form_edit_configuracion_ticket">
+            <form enctype="multipart/form-data" id="form_impresora_configuracion_impresora">
 
                 <div class="modal-body">
 
-                    <!-- ID DEL TICKET -->
-                    <input type="hidden" id="edit_id_config_ticket">
+
+                    <!-- ID DE LA IMPRESORA -->
+                    <input type="text" id="id_impresora_edit">
 
                     <!-- INGRESO NOMBRE DE LA TIENDA -->
                     <div class="form-group">
-                        <label for="nombre_empresa" class="form-label">Ingrese el nombre:</label>
-                        <input type="text" name="edit_nombre_empresa_ticket" id="edit_nombre_empresa_ticket" placeholder="Ingresa el el nombre de la tienda">
+                        <label for="nombre_empresa" class="form-label">Ingrese el nombre de la impresora:</label>
+                        <input type="text" id="edit_nombre_impresora" placeholder="Ingresa el nombre de la impresora">
+                        <small id="edit_error_nombre_impresora"></small>
                     </div>
 
                     <!-- INGRESO DEL TELÉFONO -->
                     <div class="form-group">
-                        <label class="form-label">Ingrese el teléfono:</label>
-                        <input type="text" id="edit_telefono_ticket" class="form-control" placeholder="Ingrese el teléfono">
-                    </div>
-
-                    <!-- INGRESO DE CORREO -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese el correo:</label>
-                        <input type="text" id="edit_correo_ticket" class="form-control" placeholder="Ingrese el correo">
-                    </div>
-
-                    <!-- INGRESO DE DIRECCION -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese la dirección:</label>
-                        <input type="text" id="edit_direccion_ticket" class="form-control" placeholder="Ingrese la dirección">
-                    </div>
-
-                    <!-- INGRESO LOGO -->
-                    <div class="form-group">
-                        <label class="form-label">Selecione una imagen:</label>
-                        <input type="file" id="edit_logo_ticket" class="form-control">
-                        <div class="text-center mt-2">
-                            <img src="" id="edit_vista_previa_logo_ticket" class="img img-fluid" alt="" style="min-width: 100px; min-height: 100px;">
-                        </div>
-                        <input type="hidden" id="edit_foto_actual_ticket">
-                    </div>
-
-                    <!-- INGRESO DE MENSAJE -->
-                    <div class="form-group">
-                        <label class="form-label">Ingrese el mensaje:</label>
-                        <textarea id="edit_mensaje_ticket" cols="30" rows="10" placeholder="Ingrese el mensaje"></textarea>
+                        <label class="form-label">Ingrese el IP de la impresora:</label>
+                        <input type="text" id="edit_ip_impresora" class="form-control" placeholder="Ingrese el IP de la impresora">
                     </div>
 
 
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="btn_update_configuracion_ticket" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" id="btn_actualizar_configuracion_impresora" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 
