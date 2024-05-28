@@ -66,8 +66,8 @@
             </a>
             <div class="dropdown-menu notifications">
                 <div class="topnav-dropdown-header">
-                    <span class="notification-title">Notifications</span>
-                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                    <span class="notification-title">Notificaciones</span>
+                    <a href="javascript:void(0)" class="clear-noti">Limpiar todo</a>
                 </div>
                 <div class="noti-content">
                     <ul class="notification-list">

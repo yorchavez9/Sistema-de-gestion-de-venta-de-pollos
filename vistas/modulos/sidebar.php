@@ -1,3 +1,8 @@
+<?php
+
+$data_roles = json_decode($_SESSION["roles"], true);
+
+?>
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
@@ -13,15 +18,13 @@
 
                         <?php
 
-                        $data_roles = json_decode($_SESSION["roles"], true);
-
                         foreach ($data_roles as $rol) {
-                            
-                            if($rol == "administrador"){
-                            ?>
+
+                            if ($rol == "administrador") {
+                        ?>
                                 <li><a href="tipoDocumento">Tipo documento</a></li>
                                 <li><a href="usuarios">Usuarios</a></li>
-                            <?php
+                        <?php
                             }
                         }
 
@@ -82,15 +85,26 @@
                         <li><a href="reporteVenta">Reporte de venta</a></li>
                     </ul>
                 </li>
+                <?php
 
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/settings.svg" alt="img"><span>
-                            Ajustes</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="configuracionTicket">Configuración Ticket</a></li>
-                        <li><a href="configuracionImpresora">Configuración Impresora</a></li>
-                    </ul>
-                </li>
+                foreach ($data_roles as $rol) {
+
+                    if ($rol == "administrador") {
+                ?>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/settings.svg" alt="img"><span>
+                                    Ajustes</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="configuracionTicket">Configuración Ticket</a></li>
+                                <li><a href="configuracionImpresora">Configuración Impresora</a></li>
+                            </ul>
+                        </li>
+                <?php
+                    }
+                }
+
+                ?>
+
             </ul>
         </div>
     </div>
