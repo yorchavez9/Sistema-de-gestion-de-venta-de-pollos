@@ -78,9 +78,9 @@
                                 <a href="javascript:void(0);">
                                     <img src="vistas/dist/assets/img/icons/facebook.png" class="me-2" alt="google">
                                     Regístrate usando Facebook
-                                    
+
                                 </a>
-                        
+
                             </li>
                         </ul>
                     </div>

@@ -26,7 +26,7 @@ class ControladorUsuarios
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tablaDoc, $tablaUser, $item, $valor);
 
 				if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["contrasena"] == $encriptar) {
-					
+
 					if ($respuesta["estado"] == 1) {
 
 						$_SESSION["iniciarSesion"] = "ok";
@@ -43,17 +43,42 @@ class ControladorUsuarios
 
 
 						echo '<script>
-							window.location = "inicio"
-						</script>';
+								window.location = "inicio"
+							</script>';
 					} else {
 
-						echo json_encode("El usuario aún no está activado");
+						echo '<script>
+						Swal.fire({
+							title: "Advertencia",
+							text: "¡El usuario no está activado!",
+							icon: "warning",
+							showCancelButton: false,
+							confirmButtonColor: "#3085d6",
+							confirmButtonText: "Ok"
+						  }).then((result) => {
+							if (result.isConfirmed) {
+								window.location = "ingreso"
+							}
+						  });
+						</script>';
 					}
+					
 				} else {
 
-
-					$mensajeError = "Error al ingresar, vuelve a intentarlo";
-					echo json_encode($mensajeError);
+					echo '<script>
+					Swal.fire({
+						title: "Error",
+						text: "¡Vuelva a intentar nuevamente!",
+						icon: "error",
+						showCancelButton: false,
+						confirmButtonColor: "#3085d6",
+						confirmButtonText: "Ok"
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							window.location = "ingreso"
+						}
+					  });
+					</script>';
 				}
 			}
 		}
@@ -151,38 +176,38 @@ class ControladorUsuarios
             VALIDANDO IMAGEN
             ============================ */
 
-            $ruta = "../vistas/img/usuarios/";
+			$ruta = "../vistas/img/usuarios/";
 
-            $ruta_imagen = $_POST["edit_imagenActualUsuario"];
+			$ruta_imagen = $_POST["edit_imagenActualUsuario"];
 
-            if (isset($_FILES["edit_imagen"]["tmp_name"]) && !empty($_FILES["edit_imagen"]["tmp_name"])) {
+			if (isset($_FILES["edit_imagen"]["tmp_name"]) && !empty($_FILES["edit_imagen"]["tmp_name"])) {
 
-                if (file_exists($ruta_imagen)) {
-                    unlink($ruta_imagen);
-                }
+				if (file_exists($ruta_imagen)) {
+					unlink($ruta_imagen);
+				}
 
-                $extension = pathinfo($_FILES["edit_imagen"]["name"], PATHINFO_EXTENSION);
+				$extension = pathinfo($_FILES["edit_imagen"]["name"], PATHINFO_EXTENSION);
 
-                $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+				$tipos_permitidos = array("jpg", "jpeg", "png", "gif");
 
-                if (in_array(strtolower($extension), $tipos_permitidos)) {
+				if (in_array(strtolower($extension), $tipos_permitidos)) {
 
-                    $nombre_imagen = date("YmdHis") . rand(1000, 9999);
+					$nombre_imagen = date("YmdHis") . rand(1000, 9999);
 
-                    $ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
+					$ruta_imagen = $ruta . $nombre_imagen . "." . $extension;
 
-                    if (move_uploaded_file($_FILES["edit_imagen"]["tmp_name"], $ruta_imagen)) {
+					if (move_uploaded_file($_FILES["edit_imagen"]["tmp_name"], $ruta_imagen)) {
 
-                        /* echo "Imagen subida correctamente."; */
-                    } else {
+						/* echo "Imagen subida correctamente."; */
+					} else {
 
-                        /* echo "Error al subir la imagen."; */
-                    }
-                } else {
+						/* echo "Error al subir la imagen."; */
+					}
+				} else {
 
-                    /* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
-                }
-            }
+					/* echo "Solo se permiten archivos de imagen JPG, JPEG, PNG o GIF."; */
+				}
+			}
 
 
 
@@ -216,7 +241,6 @@ class ControladorUsuarios
 
 				echo json_encode("ok");
 			}
-
 		} else {
 
 			echo json_encode("ok");
@@ -245,8 +269,8 @@ class ControladorUsuarios
 					echo "El archivo a eliminar no existe.";
 				}
 			}
-			
-			
+
+
 
 			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
 
