@@ -20,6 +20,57 @@ class ControladorVenta
 		return $respuesta;
 	}
 
+	
+	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTA
+	=============================================*/
+
+	static public function ctrMostrarSumaTotalVenta($item, $valor)
+	{
+
+		$tablaD = "detalle_venta";
+		$tablaV = "ventas";
+		$tablaP = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarSumaTotalVenta($tablaD, $tablaV, $tablaP, $item, $valor);
+
+		return $respuesta;
+	}
+
+	
+	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTA
+	=============================================*/
+
+	static public function ctrMostrarSumaTotalVentaContado($item, $valor)
+	{
+
+		$tablaD = "detalle_venta";
+		$tablaV = "ventas";
+		$tablaP = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarSumaTotalVentaContado($tablaD, $tablaV, $tablaP, $item, $valor);
+
+		return $respuesta;
+	}
+
+	
+	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTA
+	=============================================*/
+
+	static public function ctrMostrarSumaTotalVentaCredito($item, $valor)
+	{
+
+		$tablaD = "detalle_venta";
+		$tablaV = "ventas";
+		$tablaP = "personas";
+
+		$respuesta = ModeloVenta::mdlMostrarSumaTotalCredito($tablaD, $tablaV, $tablaP, $item, $valor);
+
+		return $respuesta;
+	}
+
 	/*=============================================
 	MOSTRAR REPORTE VENTAS
 	=============================================*/

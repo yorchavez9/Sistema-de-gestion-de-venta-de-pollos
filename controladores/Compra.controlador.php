@@ -19,6 +19,36 @@ class ControladorCompra
 	}
 
 	/*=============================================
+	MOSTRAR TOTAL DE COMPRAS
+	=============================================*/
+
+	static public function ctrMostrarTotalComprasCantidad($item, $valor)
+	{
+
+		$tablaE = "egresos";
+		$tablaDE = "detalle_egreso";
+
+		$respuesta = ModeloCompra::mdlMostrarCompraTotalCantidad($tablaE, $tablaDE, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
+	MOSTRAR COMPRA
+	=============================================*/
+
+	static public function ctrMostrarTotalCompra($item, $valor)
+	{
+
+		$tablaE = "egresos";
+		$tablaDE = "detalle_egreso";
+
+		$respuesta = ModeloCompra::mdlMostrarTotalCompras($tablaE, $tablaDE, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	MOSTRAR COMPRA
 	=============================================*/
 

@@ -37,6 +37,39 @@ class ModeloProducto{
 	}
 
 	/*=============================================
+	MOSTRAR PRODUCTOS NUEVOS
+	=============================================*/
+
+	static public function mdlMostrarProductoNuevos($tablaC, $tablaP, $item, $valor){
+
+		if($item != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria WHERE $item = :$item");
+
+			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetch();
+
+		}else{
+
+
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria WHERE p.fecha_producto >= CURDATE() - INTERVAL 10 DAY");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}
+		
+
+
+		$stmt = null;
+
+	}
+
+	/*=============================================
 	MOSTRAR PRODUCTOS STOCK
 	=============================================*/
 
@@ -61,7 +94,7 @@ class ModeloProducto{
 
 		if($item == null && $valor == null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaP WHERE fecha_vencimiento BETWEEN CURRENT_DATE() AND DATE_ADD(CURRENT_DATE(), INTERVAL 10 DAY);");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tablaC INNER JOIN  $tablaP ON $tablaC.id_categoria=$tablaP.id_categoria WHERE $tablaP.fecha_vencimiento BETWEEN CURRENT_DATE() AND DATE_ADD(CURRENT_DATE(), INTERVAL 10 DAY)");
 
 			$stmt->execute();
 	

@@ -94,6 +94,21 @@ class ControladorProducto
 	}
 
 	/*=============================================
+	MOSTRAR PRODUCTOS NUEVOS
+	=============================================*/
+
+	static public function ctrMostrarProductosNuevos($item, $valor)
+	{
+
+		$tablaC = "categorias";
+		$tablaP = "productos";
+
+		$respuesta = ModeloProducto::mdlMostrarProductoNuevos($tablaC, $tablaP, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	MOSTRAR PRODUCTO PRO STOCK
 	=============================================*/
 

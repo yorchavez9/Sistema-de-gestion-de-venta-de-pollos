@@ -33,6 +33,57 @@ class ModeloVenta
 	}
 
 	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTAS
+	=============================================*/
+
+	static public function mdlMostrarSumaTotalVenta($tablaD, $tablaV, $tablaP, $item, $valor)
+	{
+
+			$stmt = Conexion::conectar()->prepare("SELECT SUM(total_venta) AS total_ventas FROM $tablaV");
+
+			$stmt->execute();
+			
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+			return $result['total_ventas'];
+		
+	}
+
+	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTAS AL CONTADO
+	=============================================*/
+
+	static public function mdlMostrarSumaTotalVentaContado($tablaD, $tablaV, $tablaP, $item, $valor)
+	{
+
+			$stmt = Conexion::conectar()->prepare("SELECT SUM(total_venta) AS total_ventas_contado FROM $tablaV WHERE tipo_pago = 'credito';");
+
+			$stmt->execute();
+			
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+			return $result['total_ventas_contado'];
+		
+	}
+
+	/*=============================================
+	MOSTRAR SUMA TOTAL DE VENTAS AL CRÉDITO
+	=============================================*/
+
+	static public function mdlMostrarSumaTotalCredito($tablaD, $tablaV, $tablaP, $item, $valor)
+	{
+
+			$stmt = Conexion::conectar()->prepare("SELECT SUM(total_venta) AS total_ventas_credito FROM $tablaV WHERE tipo_pago = 'credito';");
+
+			$stmt->execute();
+			
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+			return $result['total_ventas_credito'];
+		
+	}
+
+	/*=============================================
 	MOSTRAR REPORTE DE VENTAS
 	=============================================*/
 

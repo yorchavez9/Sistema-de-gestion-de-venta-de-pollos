@@ -37,6 +37,36 @@ class ModeloCompra{
 	}
 
 	/*=============================================
+	MOSTRAR COMPRA
+	=============================================*/
+
+	static public function mdlMostrarCompraTotalCantidad($tablaE, $tablaDE, $item, $valor){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * from $tablaE");
+
+		$stmt -> execute();
+
+		return $stmt -> fetchAll();
+
+	}
+
+	/*=============================================
+	MOSTRAR TOTAL DE COMPRAS
+	=============================================*/
+
+	static public function mdlMostrarTotalCompras($tablaE, $tablaDE, $item, $valor){
+
+		$stmt = Conexion::conectar()->prepare("SELECT SUM(total_compra) AS total_compras FROM $tablaE");
+
+		$stmt->execute();
+		
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $result['total_compras'];
+
+	}
+
+	/*=============================================
 	MOSTRAR SERIE Y NUMERO DE COMPRA O EGRESO
 	=============================================*/
 
