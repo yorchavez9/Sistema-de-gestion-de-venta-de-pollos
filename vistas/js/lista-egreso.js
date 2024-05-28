@@ -126,6 +126,7 @@ $(document).ready(function () {
     MOSTRANDO PRODUCTO
     =========================== */
     function mostrarEgresos() {
+      
       $.ajax({
         url: "ajax/Lista.compra.ajax.php",
         type: "GET",

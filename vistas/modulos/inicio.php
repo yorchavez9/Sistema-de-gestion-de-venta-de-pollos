@@ -160,7 +160,7 @@ $totalComprasCantidad = count($totalCompras);
 
         <div class="row">
 
-            <div class="col-lg-7 col-sm-12 col-12 d-flex">
+            <div class="col-lg-8 col-sm-12 col-12 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Ventas y Compras</h5>
@@ -196,10 +196,10 @@ $totalComprasCantidad = count($totalCompras);
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-sm-12 col-12 d-flex">
+            <div class="col-lg-4 col-sm-12 col-12 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0">Productos agregados recientemente</h4>
+                        <h4 class="card-title mb-0">Nuevos productos</h4>
                         <div class="dropdown">
                             <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="dropset">
                                 <i class="fa fa-ellipsis-v"></i>
