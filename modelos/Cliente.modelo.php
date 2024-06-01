@@ -37,6 +37,22 @@ class ModeloCliente{
 	}
 
 	/*=============================================
+	MOSTRAR TOTAL DE CLIENTES
+	=============================================*/
+
+	static public function mdlMostrarTotalClientes($tablaDoc, $tablaPer, $item, $valor)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT tipo_persona, COUNT(*) as total_cliente FROM $tablaPer WHERE tipo_persona = 'cliente'");
+
+		$stmt->execute();
+			
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $result['total_cliente'];
+	}
+
+	/*=============================================
 	REGISTRAR CLIENTE
 	=============================================*/
 

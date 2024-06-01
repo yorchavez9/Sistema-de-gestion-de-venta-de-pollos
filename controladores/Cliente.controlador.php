@@ -57,6 +57,21 @@ class ControladorCliente
 	}
 
 	/*=============================================
+	MOSTRAR TOTAL DE CLIENTES
+	=============================================*/
+
+	static public function ctrMostrarTotalCliente($item, $valor)
+	{
+
+		$tablaDoc = "tipo_documentos";
+		$tablaPer = "personas";
+
+		$respuesta = ModeloCliente::mdlMostrarTotalClientes($tablaDoc, $tablaPer, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	EDITAR CLIENTE
 	=============================================*/
 

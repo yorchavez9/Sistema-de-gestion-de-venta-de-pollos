@@ -1,6 +1,10 @@
 <?php
 
-function formatearPrecio($precio) {
+$data_roles = json_decode($_SESSION["roles"], true);
+
+
+function formatearPrecio($precio)
+{
 
     return number_format($precio, 2, '.', ',');
 }
@@ -51,65 +55,88 @@ $totalCompras = ControladorCompra::ctrMostrarTotalComprasCantidad($item, $valor)
 
 $totalComprasCantidad = count($totalCompras);
 
+/* TOTAL DE COMPRAS */
+$totalCompras = ControladorCompra::ctrMostrarTotalComprasCantidad($item, $valor);
+
+$totalComprasCantidad = count($totalCompras);
+
+/* MOSTRAR TOTAL DE CLIENTES */
+$totalClientes = ControladorCliente::ctrMostrarTotalCliente($item, $valor);
+
+
+/* MOSTRAR TOTAL DE PROVEEDORES */
+$totalProveedores = ControladorProveedores::ctrMostrarTotalProveedores($item, $valor);
+
 ?>
 
 <div class="page-wrapper">
     <div class="content">
 
         <div class="row">
+            <?php
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="dash-widget dash1">
-                    <div class="dash-widgetimg">
-                        <span><img src="vistas/dist/assets/img/icons/dash2.svg" alt="img"></span>
-                    </div>
-                    <div class="dash-widgetcontent">
-                        <h5>S/ <span class="counters"><?php echo $precioFormateado?></span></h5>
-                        <h6>Total de ventas</h6>
-                    </div>
-                </div>
-            </div>
+            foreach ($data_roles as $rol) {
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="dash-widget">
-                    <div class="dash-widgetimg">
-                        <span><img src="vistas/dist/assets/img/icons/dash1.svg" alt="img"></span>
+                if ($rol == "administrador") {
+                ?>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="dash-widget dash1">
+                            <div class="dash-widgetimg">
+                                <span><img src="vistas/dist/assets/img/icons/dash2.svg" alt="img"></span>
+                            </div>
+                            <div class="dash-widgetcontent">
+                                <h5>S/ <span class="counters"><?php echo $precioFormateado ?></span></h5>
+                                <h6>Total de ventas</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dash-widgetcontent">
-                        <h5>S/ <span class="counters"><?php echo $precioFormateadoCompra;?></span></h5>
-                        <h6>Total de compras</h6>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="dash-widget dash2">
-                    <div class="dash-widgetimg">
-                        <span><img src="vistas/dist/assets/img/icons/dash3.svg" alt="img"></span>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="dash-widget">
+                            <div class="dash-widgetimg">
+                                <span><img src="vistas/dist/assets/img/icons/dash1.svg" alt="img"></span>
+                            </div>
+                            <div class="dash-widgetcontent">
+                                <h5>S/ <span class="counters"><?php echo $precioFormateadoCompra; ?></span></h5>
+                                <h6>Total de compras</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dash-widgetcontent">
-                        <h5>S/ <span class="counters"><?php echo $sumaTotalVentaContado?></span></h5>
-                        <h6>Ventas al contado</h6>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="dash-widget dash3">
-                    <div class="dash-widgetimg">
-                        <span><img src="vistas/dist/assets/img/icons/dash4.svg" alt="img"></span>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="dash-widget dash2">
+                            <div class="dash-widgetimg">
+                                <span><img src="vistas/dist/assets/img/icons/dash3.svg" alt="img"></span>
+                            </div>
+                            <div class="dash-widgetcontent">
+                                <h5>S/ <span class="counters"><?php echo $sumaTotalVentaContado ?></span></h5>
+                                <h6>Ventas al contado</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dash-widgetcontent">
-                        <h5>S/ <span class="counters"><?php echo $precioFormateadoCredito?></span></h5>
-                        <h6>Ventas al crédito</h6>
+
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="dash-widget dash3">
+                            <div class="dash-widgetimg">
+                                <span><img src="vistas/dist/assets/img/icons/dash4.svg" alt="img"></span>
+                            </div>
+                            <div class="dash-widgetcontent">
+                                <h5>S/ <span class="counters"><?php echo $precioFormateadoCredito ?></span></h5>
+                                <h6>Ventas al crédito</h6>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                <?php
+                }
+            }
+
+            ?>
+
 
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count">
                     <div class="dash-counts">
-                        <h4>100</h4>
+                        <h4><?php echo $totalClientes ?></h4>
                         <h5>Clientes</h5>
                     </div>
                     <div class="dash-imgs">
@@ -121,7 +148,7 @@ $totalComprasCantidad = count($totalCompras);
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das1">
                     <div class="dash-counts">
-                        <h4>100</h4>
+                        <h4><?php echo $totalProveedores ?></h4>
                         <h5>Proveedores</h5>
                     </div>
                     <div class="dash-imgs">
@@ -133,7 +160,7 @@ $totalComprasCantidad = count($totalCompras);
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das3">
                     <div class="dash-counts">
-                        <h4><?php echo $totalVentasCantidad?></h4>
+                        <h4><?php echo $totalVentasCantidad ?></h4>
                         <h5>Ventas</h5>
                     </div>
                     <div class="dash-imgs">
@@ -145,7 +172,7 @@ $totalComprasCantidad = count($totalCompras);
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das2">
                     <div class="dash-counts">
-                        <h4><?php echo $totalComprasCantidad?></h4>
+                        <h4><?php echo $totalComprasCantidad ?></h4>
                         <h5>Compras</h5>
                     </div>
                     <div class="dash-imgs">
@@ -226,7 +253,7 @@ $totalComprasCantidad = count($totalCompras);
                                 </thead>
                                 <tbody>
                                     <?php
-                                    
+
                                     $item = null;
                                     $valor = null;
 
@@ -237,18 +264,18 @@ $totalComprasCantidad = count($totalCompras);
                                     foreach ($productosNuevos as $producto) {
 
                                     ?>
-                                    <tr>
-                                        <td><?php echo $contador?></td>
-                                        <td class="productimgname">
-                                            <a href="productlist.html" class="product-img">
-                                                <img src="<?php echo substr($producto["imagen_producto"], 3);?>" alt="product">
-                                            </a>
-                                            <a href="productlist.html"><?php echo $producto["nombre_producto"]?></a>
-                                        </td>
-                                        <td>S/ <?php echo $producto["precio_producto"]?></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?php echo $contador ?></td>
+                                            <td class="productimgname">
+                                                <a href="productlist.html" class="product-img">
+                                                    <img src="<?php echo substr($producto["imagen_producto"], 3); ?>" alt="product">
+                                                </a>
+                                                <a href="productlist.html"><?php echo $producto["nombre_producto"] ?></a>
+                                            </td>
+                                            <td>S/ <?php echo $producto["precio_producto"] ?></td>
+                                        </tr>
                                     <?php
-                                    $contador++;
+                                        $contador++;
                                     }
                                     ?>
                                 </tbody>
@@ -274,8 +301,8 @@ $totalComprasCantidad = count($totalCompras);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            
+                            <?php
+
                             $item = null;
                             $valor = null;
 
@@ -285,20 +312,20 @@ $totalComprasCantidad = count($totalCompras);
 
                             foreach ($productosPorVencer as $producto) {
                             ?>
-                            <tr>
-                                <td><?php echo $contador?></td>
-                                <td><a href="javascript:void(0);"><?php echo $producto["codigo_producto"]?></a></td>
-                                <td class="productimgname">
-                                    <a class="product-img" href="productlist.html">
-                                        <img src="<?php echo substr($producto["imagen_producto"], 3);?>" alt="product">
-                                    </a>
-                                    <a href="productlist.html"><?php echo $producto["nombre_producto"]?></a>
-                                </td>
-                                <td><?php echo $producto["stock_producto"]?></td>
-                                <td><?php echo $producto["nombre_categoria"]?></td>
-                                <td class="text-center fw-bold"><?php echo $producto["fecha_vencimiento"]?></td>
-                            </tr>
-                            <?php 
+                                <tr>
+                                    <td><?php echo $contador ?></td>
+                                    <td><a href="javascript:void(0);"><?php echo $producto["codigo_producto"] ?></a></td>
+                                    <td class="productimgname">
+                                        <a class="product-img" href="productlist.html">
+                                            <img src="<?php echo substr($producto["imagen_producto"], 3); ?>" alt="product">
+                                        </a>
+                                        <a href="productlist.html"><?php echo $producto["nombre_producto"] ?></a>
+                                    </td>
+                                    <td><?php echo $producto["stock_producto"] ?></td>
+                                    <td><?php echo $producto["nombre_categoria"] ?></td>
+                                    <td class="text-center fw-bold"><?php echo $producto["fecha_vencimiento"] ?></td>
+                                </tr>
+                            <?php
                             }
                             ?>
                         </tbody>

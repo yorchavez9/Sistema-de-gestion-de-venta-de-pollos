@@ -37,6 +37,22 @@ class ModeloProveedor{
 	}
 
 	/*=============================================
+	MOSTRAR TOTAL DE PROVEEDORES
+	=============================================*/
+
+	static public function mdlMostrarTotalProveedores($tablaDoc, $tablaPer, $item, $valor)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT tipo_persona, COUNT(*) as total_proveedor FROM $tablaPer WHERE tipo_persona = 'proveedor'");
+
+		$stmt->execute();
+			
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $result['total_proveedor'];
+	}
+
+	/*=============================================
 	REGISTRAR PROVEEDOR
 	=============================================*/
 

@@ -57,6 +57,21 @@ class ControladorProveedores
 	}
 
 	/*=============================================
+	MOSTRAR TOTAL DE  PROVEEDORES
+	=============================================*/
+
+	static public function ctrMostrarTotalProveedores($item, $valor)
+	{
+
+		$tablaDoc = "tipo_documentos";
+		$tablaPer = "personas";
+
+		$respuesta = ModeloProveedor::mdlMostrarTotalProveedores($tablaDoc, $tablaPer, $item, $valor);
+
+		return $respuesta;
+	}
+
+	/*=============================================
 	EDITAR PROVEEDOR
 	=============================================*/
 
