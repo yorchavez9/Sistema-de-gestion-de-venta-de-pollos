@@ -209,9 +209,10 @@ $(document).ready(function () {
 
                 tickets.forEach(function (ticket, index) {
 
-                    ticket.logo = ticket.logo.substring(3);
-
-
+                    if(ticket.logo != null){
+                        ticket.logo = ticket.logo.substring(3);
+                    }
+                
                     var fila = `
                           <tr>
                               <td>${index + 1}</td>

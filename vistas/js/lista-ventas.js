@@ -199,7 +199,7 @@ function mostrarVentas() {
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnImprimirTicket" idVenta="${venta.id_venta}">
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 
@@ -423,8 +423,6 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 
   e.preventDefault();
 
-  console.log("Editando");
-
   var idVenta = $(this).attr("idVenta");
 
   var datos = new FormData();
@@ -622,6 +620,24 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
     },
 
   });
+
+});
+
+/*=============================================
+IMPRIMIR TICKET
+=============================================*/
+
+$("#tabla_lista_ventas").on("click", ".btnImprimirTicket", function(e) {
+
+  alert("Funcionando...")
+
+  e.preventDefault();
+
+  let idImprimirTicket = $(this).attr("idVenta");
+
+  console.log(idImprimirTicket);
+
+  /* window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank");  */
 
 });
 
