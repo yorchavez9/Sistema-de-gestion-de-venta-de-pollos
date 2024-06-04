@@ -1155,6 +1155,9 @@
                 <h4>Lista de ventas</h4>
                 <h6>Administrar ventas</h6>
             </div>
+            <div>
+                <p id="section_imprimir_mensaje_ventas"></p>
+            </div>
             <div class="page-btn">
                 <a href="#" id="crear_venta" class="btn btn-added"><img src="vistas/dist/assets/img/icons/plus.svg" alt="img" class="me-2">Crear venta</a>
             </div>

@@ -143,7 +143,7 @@ function mostrarVentas() {
                                 <i class="text-primary fa fa-eye fa-lg"></i>
                             </a>
 
-                            <a href="#" class="me-3 btnVerProducto" idVenta="${venta.id_venta}">
+                            <a href="#" class="me-3 btnImprimirTicket" idVenta="${venta.id_venta}">
                                 <i class="fa fa-print fa-lg" style="color: #0084FF"></i>
                             </a>
 

@@ -623,37 +623,86 @@ $("#data_lista_ventas").on("click", ".btnEditarVenta", function (e) {
 
 });
 
+
+
 /*=============================================
 IMPRIMIR TICKET
 =============================================*/
 
-$("#tabla_lista_ventas").on("click", ".btnImprimirTicket", function(e) {
-
-  alert("Funcionando...")
-
+$("#data_lista_ventas").on("click", ".btnImprimirTicket", function(e) {
   e.preventDefault();
 
-  let idImprimirTicket = $(this).attr("idVenta");
+  var idVentaTicket = $(this).attr("idVenta");
 
-  console.log(idImprimirTicket);
+  // Guardar el ticket en el servidor
+  $.ajax({
+      url: "extensiones/ticketPrint.php",
+      type: "GET",
+      data: { idVentaTicket: idVentaTicket },
+      success: function(response) {
+          const $estado = document.querySelector("#section_imprimir_mensaje_ventas");
+          $estado.textContent = "Imprimiendo ...";
 
-  /* window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank");  */
+          // URL del PDF
+          const urlPDF = `http://localhost/sis_venta_pollo/vistas/ticket/ticket${idVentaTicket}.pdf`;
 
+          // Nombre de la impresora
+          const nombreImpresora = "EPSON L310 Series";
+
+          // URL del servicio de impresión
+          const url = `http://localhost:8080/url?urlPdf=${encodeURIComponent(urlPDF)}&impresora=${encodeURIComponent(nombreImpresora)}`;
+
+          fetch(url)
+              .then(respuesta => {
+                  if (respuesta.ok) {
+                      $estado.textContent = "Impreso correctamente";
+                  } else {
+                      respuesta.json().then(mensaje => {
+                          $estado.textContent = "Error imprimiendo: " + mensaje.message;
+                          console.log("Error: ", mensaje);
+                      });
+                  }
+              })
+              .catch(error => {
+                  $estado.textContent = "Error haciendo petición: " + error.message;
+                  console.log("Error: ", error);
+              });
+      },
+      error: function(error) {
+          console.log("Error guardando el ticket: ", error);
+      }
+  });
 });
+
+
 
 /*=============================================
 DESCARGAR TICKET
 =============================================*/
 
-$("#tabla_lista_ventas").on("click", ".btnDescargarTicket", function(e) {
-
+$("#data_lista_ventas").on("click", ".btnDescargarTicket", function(e) {
   e.preventDefault();
 
   var idVentaTicket = $(this).attr("idVenta");
 
-  window.open("extensiones/ticket.php?idVentaTicket="+idVentaTicket, "_blank"); 
+  // Crea un enlace temporal
+  var link = document.createElement('a');
+  link.href = "extensiones/ticket.php?idVentaTicket=" + idVentaTicket;
 
+  // Establece el atributo download en el enlace con el nombre deseado
+  link.setAttribute('download', 'ticket' + idVentaTicket + '.pdf');
+
+  // Agrega el enlace temporal al DOM
+  document.body.appendChild(link);
+
+  // Simula un clic en el enlace
+  link.click();
+
+  // Remueve el enlace temporal del DOM
+  document.body.removeChild(link);
 });
+
+
 
 
 /*=============================================

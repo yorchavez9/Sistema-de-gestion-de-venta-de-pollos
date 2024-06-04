@@ -96,37 +96,60 @@ foreach ($respuesta_dv as $value) {
     $pdf->Ln(2);
 }
 
-/*----------  Fin Detalles de la tabla  ----------*/
+/*---------- Fin Detalles de la tabla ----------*/
 
 $pdf->Cell(72, 5, iconv("UTF-8", "ISO-8859-1", "-------------------------------------------------------------------"), 0, 0, 'C');
+
 $pdf->Ln(5);
 
-# Impuestos & totales #
 $pdf->Cell(18, 5, iconv("UTF-8", "ISO-8859-1", ""), 0, 0, 'C');
 $pdf->Cell(22, 5, iconv("UTF-8", "ISO-8859-1", "SUBTOTAL"), 0, 0, 'C');
 $pdf->Cell(32, 5, iconv("UTF-8", "ISO-8859-1", "+ S/ ".formatearPrecio($respuesta["sub_total"]).""), 0, 0, 'C');
+
 $pdf->Ln(5);
+
 $pdf->Cell(18, 5, iconv("UTF-8", "ISO-8859-1", ""), 0, 0, 'C');
 $pdf->Cell(22, 5, iconv("UTF-8", "ISO-8859-1", "IVA (%)"), 0, 0, 'C');
 $pdf->Cell(32, 5, iconv("UTF-8", "ISO-8859-1", "+ S/ ".formatearPrecio($respuesta["igv"]).""), 0, 0, 'C');
+
 $pdf->Ln(5);
+
+$pdf->Cell(72, 5, iconv("UTF-8", "ISO-8859-1", "-------------------------------------------------------------------"), 0, 0, 'C');
+
+$pdf->Ln(5);
+
 $pdf->Cell(18, 5, iconv("UTF-8", "ISO-8859-1", ""), 0, 0, 'C');
-$pdf->Cell(22, 5, iconv("UTF-8", "ISO-8859-1", "TOTAL"), 0, 0, 'C');
-$pdf->Cell(32, 5, iconv("UTF-8", "ISO-8859-1", "+ S/ ".formatearPrecio($respuesta["total"]).""), 0, 0, 'C');
+$pdf->Cell(22, 5, iconv("UTF-8", "ISO-8859-1", "TOTAL A PAGAR"), 0, 0, 'C');
+$pdf->Cell(32, 5, iconv("UTF-8", "ISO-8859-1", "S/ ".formatearPrecio($respuesta["total_venta"]).""), 0, 0, 'C');
 
 $pdf->Ln(5);
-$pdf->Cell(0, 5, iconv("UTF-8", "ISO-8859-1", "------------------------------------------------------"), 0, 0, 'C');
-$pdf->Ln(8);
 
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper("GRACIAS POR TU COMPRA!")), 0, 'C', false);
-$pdf->SetFont('Arial', '', 9);
+$pdf->Cell(18, 5, iconv("UTF-8", "ISO-8859-1", ""), 0, 0, 'C');
+$pdf->Cell(22, 5, iconv("UTF-8", "ISO-8859-1", "TOTAL PAGADO"), 0, 0, 'C');
+$pdf->Cell(32, 5, iconv("UTF-8", "ISO-8859-1", "S/ ".formatearPrecio($respuesta["total_pago"]).""), 0, 0, 'C');
 
-$pdf->Output("F", "path_to_directory/ticket".$valor.".pdf");
+$pdf->Ln(5);
 
-// Ahora redirige el navegador para descargar el archivo
-header("Content-Type: application/pdf");
-header("Content-Disposition: attachment; filename=ticket".$valor.".pdf");
-readfile("path_to_directory/ticket".$valor.".pdf");
-exit();
+$pdf->Ln(10);
+
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "*** Precios de productos incluyen impuestos. Para poder realizar un reclamo o devolución debe de presentar este ticket ***"), 0, 'C', false);
+
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(0, 7, iconv("UTF-8", "ISO-8859-1", "Gracias por su compra"), '', 0, 'C');
+
+$pdf->Ln(9);
+
+$pdf->Code128(5, $pdf->GetY(), "COD000001V0001", 70, 20);
+$pdf->SetXY(0, $pdf->GetY() + 21);
+$pdf->SetFont('Arial', '', 14);
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "COD000001V0001"), 0, 'C', false);
+$pdfFile = "ticket" . $valor . ".pdf"; // Nombre del archivo
+
+// Guardar el PDF en el servidor
+
+$pdf->Output("F", "../vistas/ticket/" . $pdfFile);
+
+// Enviar respuesta JSON para confirmar que se guardó correctamente
+echo json_encode(array("status" => "success", "message" => "Ticket generado correctamente."));
+
 ?>
