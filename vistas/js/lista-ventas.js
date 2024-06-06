@@ -636,42 +636,63 @@ $("#data_lista_ventas").on("click", ".btnImprimirTicket", function(e) {
 
   // Guardar el ticket en el servidor
   $.ajax({
-      url: "extensiones/ticketPrint.php",
-      type: "GET",
-      data: { idVentaTicket: idVentaTicket },
-      success: function(response) {
-          const $estado = document.querySelector("#section_imprimir_mensaje_ventas");
-          $estado.textContent = "Imprimiendo ...";
+    url: "extensiones/ticketPrint.php",
+    type: "GET",
+    data: { idVentaTicket: idVentaTicket },
+    success: function (response) {
 
-          // URL del PDF
-          const urlPDF = `http://localhost/sis_venta_pollo/vistas/ticket/ticket${idVentaTicket}.pdf`;
+      const $estado = document.querySelector("#section_imprimir_mensaje_ventas");
 
-          // Nombre de la impresora
-          const nombreImpresora = "EPSON L310 Series";
+      $estado.textContent = "Imprimiendo ...";
+
+      // URL del PDF
+      var urlPDF = `http://localhost/sis_venta_pollo/vistas/ticket/ticket${idVentaTicket}.pdf`;
+
+      var nombreImpresora = '';
+
+      $.ajax({
+        url: "ajax/Impresora.ajax.php",
+        type: "GET",
+        dataType: "json",
+        success: function (impresoras) {
+
+
+          impresoras.forEach(function (impresora) {
+
+            nombreImpresora = impresora.nombre;
+
+          });
 
           // URL del servicio de impresión
-          const url = `http://localhost:8080/url?urlPdf=${encodeURIComponent(urlPDF)}&impresora=${encodeURIComponent(nombreImpresora)}`;
+          var url = `http://localhost:8080/url?urlPdf=${encodeURIComponent(urlPDF)}&impresora=${encodeURIComponent(nombreImpresora)}`;
 
           fetch(url)
-              .then(respuesta => {
-                  if (respuesta.ok) {
-                      $estado.textContent = "Impreso correctamente";
-                  } else {
-                      respuesta.json().then(mensaje => {
-                          $estado.textContent = "Error imprimiendo: " + mensaje.message;
-                          console.log("Error: ", mensaje);
-                      });
-                  }
-              })
-              .catch(error => {
-                  $estado.textContent = "Error haciendo petición: " + error.message;
-                  console.log("Error: ", error);
-              });
-      },
-      error: function(error) {
-          console.log("Error guardando el ticket: ", error);
-      }
+            .then(respuesta => {
+              if (respuesta.ok) {
+                $estado.textContent = "Impreso correctamente";
+              } else {
+                respuesta.json().then(mensaje => {
+                  $estado.textContent = "Error imprimiendo: " + mensaje.message;
+                  console.log("Error: ", mensaje);
+                });
+              }
+            })
+            .catch(error => {
+              $estado.textContent = "Error haciendo petición: " + error.message;
+              console.log("Error: ", error);
+            });
+
+
+        },
+
+      });
+
+    },
+    error: function (error) {
+      console.log("Error guardando el ticket: ", error);
+    }
   });
+  
 });
 
 

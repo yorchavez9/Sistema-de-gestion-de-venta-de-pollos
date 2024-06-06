@@ -288,26 +288,11 @@ class ControladorVenta
 
 
 		
-		if ($respuestaDatos == "ok") {
+		if ($respuestaDatos) {
 
-            $response = array(
-                "mensaje" => "La venta se realizó con éxito",
-                "estado" => "ok"
-            );
-
-            echo json_encode($response);
-
-        } else {
-
-            $response = array(
-                "mensaje" => "Error al realizar la venta",
-                "estado" => "error"
-            );
-
-            echo json_encode($response);
+            echo $respuestaDatos;
 
         }
-
 
 		
 	}

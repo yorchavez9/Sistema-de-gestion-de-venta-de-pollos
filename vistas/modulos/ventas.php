@@ -353,7 +353,7 @@
 
                                             <button type="button" id="btn_crear_nueva_venta" class="btn btn-block" style="background:#7367F0; color:white">
 
-                                                <h5><i class="fa fa-plus fa-lg text-white me-2"></i> Crear compra</h5>
+                                                <h5><i class="fa fa-plus fa-lg text-white me-2"></i> Crear Venta</h5>
 
                                             </button>
 
@@ -1446,35 +1446,24 @@
 
 
 <script>
-    function manejarAtajosTeclado(event) {
-        if (event.ctrlKey) {
-            switch (event.key) {
-                case 'b':
-                    $("#modalNuevoProveedor").modal("show");
-                    break;
-                case 'i':
-                    $("#modalMostrarProductos").modal("show");
-                    break;
-                case 'm':
-                    alert("Creando venta");
-                    break;
-            }
+    
+    // Seleccionar el botón
+    const btnCrearVenta = document.getElementById('btn_crear_nueva_venta');
+
+    // Función para manejar el atajo Ctrl + M
+    function handleCtrlM(event) {
+        // Verificar si se presionó Ctrl + M
+        if (event.ctrlKey && event.key === 'm' || event.ctrlKey && event.key === 'M') {
+            // Simular el clic en el botón
+            btnCrearVenta.click();
         }
     }
 
-    function manejarClickBotonesVentas() {
-        $("#ver_ventas").click(function() {
-            $("#pos_venta").hide();
-            $("#ventas_lista").show();
-        });
+    // Agregar un event listener para el evento keydown en el documento
+    document.addEventListener('keydown', handleCtrlM);
 
-        $("#crear_venta").click(function() {
-            $("#ventas_lista").hide();
-            $("#pos_venta").show();
-        });
-    }
-
-    document.addEventListener('keydown', manejarAtajosTeclado);
-
-    $(document).ready(manejarClickBotonesVentas);
+    // También puedes manejar el clic directamente
+    btnCrearVenta.addEventListener('click', function() {
+        
+    });
 </script>

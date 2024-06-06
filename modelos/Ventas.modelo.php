@@ -308,37 +308,37 @@ class ModeloVenta
 
 	static public function mdlIngresarDetalleVenta($tabla, $datos)
 	{
-
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(
-                                                                id_venta,
-                                                                id_producto, 
-                                                                precio_venta, 
-                                                                cantidad_u, 
-                                                                cantidad_kg) 
-                                                                VALUES (
-                                                                :id_venta, 
-                                                                :id_producto,
-                                                                :precio_venta, 
-                                                                :cantidad_u, 
-                                                                :cantidad_kg)");
-
+													id_venta,
+													id_producto, 
+													precio_venta, 
+													cantidad_u, 
+													cantidad_kg) 
+												VALUES (
+													:id_venta, 
+													:id_producto,
+													:precio_venta, 
+													:cantidad_u, 
+													:cantidad_kg)");
+	
 		$stmt->bindParam(":id_venta", $datos["id_venta"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_producto", $datos["id_producto"], PDO::PARAM_INT);
 		$stmt->bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
 		$stmt->bindParam(":cantidad_u", $datos["cantidad_u"], PDO::PARAM_STR);
 		$stmt->bindParam(":cantidad_kg", $datos["cantidad_kg"], PDO::PARAM_STR);
-
+	
 		if ($stmt->execute()) {
+			// Devolver el id_venta que se acaba de insertar
+			return $datos["id_venta"];
 
-			return "ok";
 		} else {
-
-			return "error";
+			
+			return "error";  // Devuelve "error" si hay algún problema
 		}
-
-
+	
 		$stmt = null;
 	}
+	
 
 
 	/*=============================================
