@@ -7,6 +7,7 @@
                         <!-- <img src="vistas/dist/assets/img/logo.png" class="text-center" alt="img"> -->
                     </div>
                     <div class="login-userheading text-center ">
+                        <img src="vistas/dist/assets/img/login-logo.png" width="150" alt="">
                         <h3>Iniciar sesión</h3>
                         <h4>Por favor, ingrese a su cuenta</h4>
                     </div>
@@ -40,7 +41,7 @@
 
                         <div class="form-login">
                             <div class="alreadyuser">
-                                <h4><a href="forgetpassword.html" class="hover-a">¿Has olvidado tu contraseña?</a></h4>
+                                <h4><a href="#" class="hover-a">¿Has olvidado tu contraseña?</a></h4>
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@
 
 
                     <div class="signinform text-center">
-                        <h4>¿No tienes una cuenta? <a href="signup.html" class="hover-a">Inscribirse</a></h4>
+                        <h4>¿No tienes una cuenta? <a href="#" class="hover-a">Inscribirse</a></h4>
                     </div>
                     <div class="form-setlogin">
                         <h4>O regístrate con</h4>
