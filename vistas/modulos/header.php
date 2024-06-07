@@ -45,16 +45,16 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="vistas/dist/assets/img/flags/us.png" alt="" height="16"> English
+                    <img src="vistas/dist/assets/img/flags/us.png" alt="" height="16"> Ingles
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="vistas/dist/assets/img/flags/fr.png" alt="" height="16"> French
+                    <img src="vistas/dist/assets/img/flags/fr.png" alt="" height="16"> Frances
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="vistas/dist/assets/img/flags/es.png" alt="" height="16"> Spanish
+                    <img src="vistas/dist/assets/img/flags/es.png" alt="" height="16"> Español
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="vistas/dist/assets/img/flags/de.png" alt="" height="16"> German
+                    <img src="vistas/dist/assets/img/flags/de.png" alt="" height="16"> Aleman
                 </a>
             </div>
         </li>

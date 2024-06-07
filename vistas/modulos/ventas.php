@@ -1089,7 +1089,7 @@
                                         <!-- SECCION DE CREAR VENTA -->
                                         <div class="row mb-3">
 
-                                        
+
                                             <a href="#" class="btn btn-block seccion_lista_venta" style="background:#7367F0; color:white">
                                                 <h5><i class="fas fa-arrow-left me-2"></i> Volver a la lista de ventas</h5>
                                             </a>
@@ -1446,8 +1446,7 @@
 
 
 <script>
-    
-    // Seleccionar el botón
+
     const btnCrearVenta = document.getElementById('btn_crear_nueva_venta');
 
     // Función para manejar el atajo Ctrl + M
@@ -1464,6 +1463,25 @@
 
     // También puedes manejar el clic directamente
     btnCrearVenta.addEventListener('click', function() {
-        
+
     });
+
+
+
+
+    function manejarClickBotonesVentas() {
+        $("#ver_ventas").click(function() {
+            $("#pos_venta").hide();
+            $("#ventas_lista").show();
+        });
+
+        $("#crear_venta").click(function() {
+            $("#ventas_lista").hide();
+            $("#pos_venta").show();
+        });
+    }
+
+
+
+    $(document).ready(manejarClickBotonesVentas);
 </script>

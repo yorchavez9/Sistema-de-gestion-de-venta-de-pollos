@@ -6,8 +6,10 @@ $nombre_usuario = $_SESSION["nombre_usuario"];
 
 require_once "../controladores/Ventas.controlador.php";
 require_once "../controladores/Producto.controlador.php";
+require_once "../controladores/Configuracion.ticket.controlador.php";
 require_once "../modelos/Ventas.modelo.php";
 require_once "../modelos/Producto.modelo.php";
+require_once "../modelos/Configuracion.ticket.modelo.php";
 
 # Incluyendo librerias necesarias #
 require "./code128.php";
@@ -37,15 +39,24 @@ $respuesta_dv = ControladorVenta::ctrMostrarDetalleVenta($item, $valor);
 $horaVenta = $respuesta["fecha_venta_a"];
 $horaFormateada = date("h:i A", strtotime($horaVenta));
 
+
+$itemConfig = null;
+$valorConfig = null;
+
+$tickets = ControladorConfiguracionTicket::ctrMostrarConfiguracionTicket($itemConfig, $valorConfig);
+
+foreach ($tickets as $ticket){
+
+
 # Encabezado y datos de la empresa #
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper("AVITAC")), 0, 'C', false);
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", strtoupper($ticket["nombre_empresa"])), 0, 'C', false);
 $pdf->SetFont('Arial', '', 9);
 $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "RUC: 10234533456234"), 0, 'C', false);
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Direccion Ejemplo, Ejemplo"), 0, 'C', false);
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Teléfono: 920468502"), 0, 'C', false);
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Email: correo@ejemplo.com"), 0, 'C', false);
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Direccion: ".$ticket["direccion"].""), 0, 'C', false);
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Teléfono: ".$ticket["telefono"].""), 0, 'C', false);
+$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "Email: ".$ticket["correo"].""), 0, 'C', false);
 
 $pdf->Ln(1);
 $pdf->Cell(0, 5, iconv("UTF-8", "ISO-8859-1", "------------------------------------------------------"), 0, 0, 'C');
@@ -132,10 +143,10 @@ $pdf->Ln(5);
 
 $pdf->Ln(10);
 
-$pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "*** Precios de productos incluyen impuestos. Para poder realizar un reclamo o devolución debe de presentar este ticket ***"), 0, 'C', false);
+/* $pdf->MultiCell(0, 5, iconv("UTF-8", "ISO-8859-1", "*** ".$ticket["mensaje"]." ***"), 0, 'C', false); */
 
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(0, 7, iconv("UTF-8", "ISO-8859-1", "Gracias por su compra"), '', 0, 'C');
+$pdf->Cell(0, 7, iconv("UTF-8", "ISO-8859-1", "*** ".$ticket["mensaje"]." ***"), '', 0, 'C');
 
 $pdf->Ln(9);
 
@@ -151,5 +162,7 @@ $pdf->Output("F", "../vistas/ticket/" . $pdfFile);
 
 // Enviar respuesta JSON para confirmar que se guardó correctamente
 echo json_encode(array("status" => "success", "message" => "Ticket generado correctamente."));
+
+}
 
 ?>
