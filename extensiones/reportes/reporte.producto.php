@@ -70,7 +70,7 @@ $usuarios = array(
 );
 
 
-if ($_GET["show_sotck_reporte"] != "" && $_GET["seleccion_fecha_r"] == "") {
+if (isset($_GET["show_sotck_reporte"]) && $_GET["show_sotck_reporte"] != "" && isset($_GET["seleccion_fecha_r"]) && $_GET["seleccion_fecha_r"] == "") {
 
     $item = null;
 
@@ -97,7 +97,7 @@ if ($_GET["show_sotck_reporte"] != "" && $_GET["seleccion_fecha_r"] == "") {
 
     $pdf->Output();
 
-}else if($_GET["show_sotck_reporte"] == "" && $_GET["seleccion_fecha_r"] != ""){
+}else if(isset($_GET["show_sotck_reporte"]) && $_GET["show_sotck_reporte"] == "" && isset($_GET["seleccion_fecha_r"]) && $_GET["seleccion_fecha_r"] != ""){
 
     $item = null;
     
