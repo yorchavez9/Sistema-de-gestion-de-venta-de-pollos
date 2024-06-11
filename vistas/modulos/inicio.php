@@ -109,7 +109,7 @@ $totalProveedores = ControladorProveedores::ctrMostrarTotalProveedores($item, $v
                                 <span><img src="vistas/dist/assets/img/icons/dash3.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>S/ <span class="counters"><?php echo $sumaTotalVentaContado ?></span></h5>
+                                <h5>S/ <span class="counters"><?php echo number_format($sumaTotalVentaContado, 2, '.', ''); ?></span></h5>
                                 <h6>Ventas al contado</h6>
                             </div>
                         </div>

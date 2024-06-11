@@ -135,8 +135,11 @@ $(document).ready(function () {
         var tbody = $("#data_mostrar_vacaciones");
 
         tbody.empty();
+        let contador = 1;
 
         vacaciones.forEach(function (vacacion) {
+
+          
 
           let fechaInicio = vacacion.fecha_inicio;
 
@@ -200,7 +203,7 @@ $(document).ready(function () {
           var fila = `
                   <tr>
                       <td>
-                         
+                         ${contador}
                       </td>
                       <td>${vacacion.nombre}</td>
                       <td>${vacacion.fecha_inicio}</td>
@@ -230,6 +233,7 @@ $(document).ready(function () {
 
           // Agregar la fila al tbody
           tbody.append(fila);
+          contador++;
         });
         // Inicializar DataTables después de cargar los datos
         $('#tabla_vacaciones').DataTable();
