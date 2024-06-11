@@ -48,7 +48,7 @@
 
                 <div class="page-header">
                     <div class="">
-                        <h4 class="h2" style="font-size: 25px">Crear venta <i class="fas fa-shopping-cart" style="color: #5645ED"></i></h4>
+                        <h4 class="h2" style="font-size: 25px">Crear Compra <i class="fas fa-shopping-cart" style="color: #5645ED"></i></h4>
                     </div>
                     <div class="page-btn">
                         <a href="listaCompras" class="btn btn-added"><i class="fas fa-eye me-2"></i>Ver compras</a>

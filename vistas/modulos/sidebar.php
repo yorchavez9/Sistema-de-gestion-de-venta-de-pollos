@@ -45,14 +45,6 @@ $data_roles = json_decode($_SESSION["roles"], true);
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/sales1.svg" alt="img"><span>
-                            Ventas</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="clientes">Clientes</a></li>
-                        <li><a href="ventas">Punto de venta</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/purchase1.svg" alt="img"><span>
                             Compras</span> <span class="menu-arrow"></span></a>
                     <ul>
@@ -61,6 +53,15 @@ $data_roles = json_decode($_SESSION["roles"], true);
                         <li><a href="listaCompras">Lista de compras</a></li>
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/sales1.svg" alt="img"><span>
+                            Ventas</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="clientes">Clientes</a></li>
+                        <li><a href="ventas">Punto de venta</a></li>
+                    </ul>
+                </li>
+
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="vistas/dist/assets/img/icons/users1.svg" alt="img">
                         <span>Trabajadores</span> <span class="menu-arrow"></span>

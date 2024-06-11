@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2024 a las 03:54:59
+-- Tiempo de generación: 11-06-2024 a las 15:29:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -37,6 +37,18 @@ CREATE TABLE `asistencia_trabajadores` (
   `observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `asistencia_trabajadores`
+--
+
+INSERT INTO `asistencia_trabajadores` (`id_asistencia`, `id_trabajador`, `fecha_asistencia`, `hora_entrada`, `hora_salida`, `estado`, `observaciones`) VALUES
+(238, 18, '2024-06-10', '17:58:00', '01:58:00', 'Presente', ''),
+(239, 19, '2024-06-10', '17:58:00', '01:58:00', 'Presente', ''),
+(240, 20, '2024-06-10', '17:58:00', '01:58:00', 'Presente', ''),
+(241, 18, '2024-06-27', '21:58:00', '23:58:00', 'Tarde', ''),
+(242, 19, '2024-06-27', '21:58:00', '23:58:00', 'Presente', ''),
+(243, 20, '2024-06-27', '21:58:00', '23:58:00', 'Tarde', '');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +61,15 @@ CREATE TABLE `categorias` (
   `descripcion` text DEFAULT NULL,
   `fecha` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id_categoria`, `nombre_categoria`, `descripcion`, `fecha`) VALUES
+(31, 'Pollos', 'Pollos Frescos', '2024-06-10 17:29:44'),
+(32, 'Pavitas', 'Pavitas frescos', '2024-06-10 17:29:58'),
+(33, 'Pescado', 'Pescados frescos', '2024-06-10 17:30:11');
 
 -- --------------------------------------------------------
 
@@ -67,6 +88,13 @@ CREATE TABLE `config_ticket` (
   `fecha_config_ticket` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `config_ticket`
+--
+
+INSERT INTO `config_ticket` (`id_config_ticket`, `nombre_empresa`, `telefono`, `correo`, `direccion`, `logo`, `mensaje`, `fecha_config_ticket`) VALUES
+(11, 'Apuuray', '920468502', 'apuuray@gmail.com', 'Vía Los libertadores', '../vistas/img/ticket/202406110041571471.png', 'Gracias por su compra, vuelva pronto', '2024-06-10 17:41:57');
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +109,15 @@ CREATE TABLE `contratos_trabajadores` (
   `sueldo` decimal(11,2) NOT NULL,
   `fecha_contrato` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `contratos_trabajadores`
+--
+
+INSERT INTO `contratos_trabajadores` (`id_contrato`, `id_trabajador`, `tiempo_contrato`, `tipo_sueldo`, `sueldo`, `fecha_contrato`) VALUES
+(12, 18, 15, 'diaria', 45.00, '2024-06-10 17:53:10'),
+(13, 19, 2, 'semanal', 480.00, '2024-06-10 17:53:25'),
+(14, 20, 3, 'mensual', 2400.00, '2024-06-10 17:53:43');
 
 -- --------------------------------------------------------
 
@@ -98,6 +135,19 @@ CREATE TABLE `detalle_egreso` (
   `cantidad_kg` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_egreso`
+--
+
+INSERT INTO `detalle_egreso` (`id_detalle_egreso`, `id_egreso`, `id_producto`, `precio_compra`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
+(131, 134, 73, 7.60, 8.00, 234, 500.00),
+(132, 135, 70, 6.70, 8.90, 45, 79.00),
+(133, 136, 67, 10.00, 12.00, 12, 12.00),
+(134, 137, 64, 7.00, 10.00, 1, 1.00),
+(135, 138, 61, 5.90, 7.20, 67, 106.00),
+(136, 139, 58, 6.80, 8.60, 12, 24.00),
+(137, 140, 55, 7.10, 8.70, 1, 1.00);
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +162,23 @@ CREATE TABLE `detalle_venta` (
   `cantidad_u` int(11) DEFAULT NULL,
   `cantidad_kg` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
+(125, 109, 73, 8.00, 7, 9.00),
+(126, 110, 73, 8.00, 6, 9.00),
+(127, 110, 70, 7.90, 6, 10.00),
+(128, 111, 61, 7.00, 12, 24.00),
+(129, 112, 64, 9.90, 10, 22.00),
+(130, 113, 73, 8.00, 1, 2.00),
+(131, 114, 73, 8.00, 1, 2.00),
+(132, 115, 64, 10.00, 2, 5.00),
+(133, 115, 61, 7.00, 4, 9.00),
+(134, 115, 67, 12.00, 8, 11.00),
+(135, 116, 73, 7.80, 5, 9.00);
 
 -- --------------------------------------------------------
 
@@ -138,6 +205,19 @@ CREATE TABLE `egresos` (
   `fecha_egreso` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `egresos`
+--
+
+INSERT INTO `egresos` (`id_egreso`, `id_persona`, `id_usuario`, `fecha_egre`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_compra`, `total_pago`, `subTotal`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_egreso`) VALUES
+(134, 100, 124, '2024-06-10', 'ticket', 'T0001', '0001', 0.00, 3800.00, 3800.00, 3800.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:44:31'),
+(135, 101, 124, '2024-06-10', 'ticket', 'T0002', '0002', 0.00, 529.30, 529.30, 529.30, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:07'),
+(136, 101, 124, '2024-06-10', 'ticket', 'T0003', '0003', 0.00, 120.00, 120.00, 120.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:27'),
+(137, 102, 124, '2024-06-10', 'ticket', 'T0004', '0004', 0.00, 7.00, 7.00, 7.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:50'),
+(138, 102, 124, '2024-06-10', 'ticket', 'T0005', '0005', 0.00, 625.40, 625.40, 625.40, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:47:22'),
+(139, 102, 124, '2024-06-10', 'ticket', 'T0006', '0006', 0.00, 163.20, 163.20, 163.20, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:47:58'),
+(140, 102, 124, '2024-06-10', 'ticket', 'T0007', '0007', 0.00, 7.10, 7.10, 7.10, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:55:01');
+
 -- --------------------------------------------------------
 
 --
@@ -150,6 +230,13 @@ CREATE TABLE `impresora` (
   `ip_impresora` varchar(100) NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `impresora`
+--
+
+INSERT INTO `impresora` (`id_impresora`, `nombre`, `ip_impresora`, `fecha`) VALUES
+(5, 'EPSON L310 Series', '192.168.1.50', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -164,6 +251,15 @@ CREATE TABLE `pagos_trabajadores` (
   `fecha_pago` datetime DEFAULT current_timestamp(),
   `estado_pago` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pagos_trabajadores`
+--
+
+INSERT INTO `pagos_trabajadores` (`id_pagos`, `id_contrato`, `monto_pago`, `fecha_pago`, `estado_pago`) VALUES
+(17, 12, 45.00, '2024-06-25 00:00:00', 1),
+(18, 13, 480.00, '2024-06-23 00:00:00', 1),
+(19, 14, 2400.00, '2024-07-10 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -194,7 +290,12 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id_persona`, `tipo_persona`, `razon_social`, `id_doc`, `numero_documento`, `direccion`, `ciudad`, `codigo_postal`, `telefono`, `email`, `sitio_web`, `estado_persona`, `tipo_banco`, `numero_cuenta`, `fecha_persona`) VALUES
-(1, 'cliente', 'Cliente genérico', 1, 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 1, '', NULL, '2024-06-01 06:36:03');
+(1, 'cliente', 'Cliente genérico', 1, 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 'Ninguno', 1, '', NULL, '2024-06-01 06:36:03'),
+(100, 'proveedor', 'San antonio', 2, '20123456789', 'Jr. Los ángeles #45', 'Lima', '09405', '920468501', 'sanantonio@gmail.com', '', 1, 'null', '', '2024-06-10 17:18:41'),
+(101, 'proveedor', 'Altamar', 2, '20234567890', 'Av. Grau #4567', 'Lima', '09405', '920468502', 'altamar@gmail.com', 'https://altamar.com', 1, 'BBVA', '32156423151432', '2024-06-10 17:20:18'),
+(102, 'proveedor', 'San miguel', 2, '20345678901', 'Pasaje Los Sajus', 'Huancayo', '09404', '920468503', 'sanmiguel@gmail.com', '', 1, 'null', '', '2024-06-10 17:21:23'),
+(103, 'cliente', 'José Sarmiento Lopez', 1, '47233445', 'Pampona', 'Arequipa', '09406', '920468504', 'jose123@gmail.com', '', 1, 'null', '', '2024-06-10 17:22:46'),
+(116, 'cliente', 'Alicia de la Cruz Gómez', 1, '72243566', 'Jr. Las Americas #45', 'Arequipa', '09409', '920234556', 'alicia123@gmail.com', '', 1, 'null', '', '2024-06-10 17:25:05');
 
 -- --------------------------------------------------------
 
@@ -215,6 +316,19 @@ CREATE TABLE `productos` (
   `estado_producto` int(11) DEFAULT 1,
   `fecha_producto` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo_producto`, `nombre_producto`, `precio_producto`, `stock_producto`, `fecha_vencimiento`, `descripcion_producto`, `imagen_producto`, `estado_producto`, `fecha_producto`) VALUES
+(55, 31, 'P001', 'Pollo B1', 8.00, 61, '2024-06-15', 'Pollos frescos traidos desde la granja', '../vistas/img/productos/202406110035253642.jpeg', 1, '2024-06-10 17:35:25'),
+(58, 31, 'P002', 'Pollo B2', 8.00, 92, '2024-06-17', '', '../vistas/img/productos/202406110036082931.jpeg', 1, '2024-06-10 17:36:08'),
+(61, 31, 'P003', 'Pollo b3', 7.00, 108, '2024-06-20', '', '../vistas/img/productos/202406110036403242.jpeg', 1, '2024-06-10 17:36:40'),
+(64, 32, 'P004', 'Pavita', 10.00, 67, '2024-06-19', '', '../vistas/img/productos/202406110037141928.jpeg', 1, '2024-06-10 17:37:14'),
+(67, 33, 'P005', 'Bonito', 12.00, 1238, '2024-06-25', '', '../vistas/img/productos/202406110037549163.jpeg', 1, '2024-06-10 17:37:54'),
+(70, 33, 'P006', 'Curbina', 8.00, 273, '2024-06-20', 'Cubina desde el mar caribe', '../vistas/img/productos/202406110038395045.jpeg', 1, '2024-06-10 17:38:39'),
+(73, 33, 'P007', 'Jurel', 8.00, 431, '2024-06-11', 'Jurel fresco ', '../vistas/img/productos/202406110039446444.jpeg', 1, '2024-06-10 17:39:44');
 
 -- --------------------------------------------------------
 
@@ -255,6 +369,15 @@ CREATE TABLE `trabajadores` (
   `num_cuenta` varchar(30) DEFAULT NULL,
   `estado_trabajador` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `trabajadores`
+--
+
+INSERT INTO `trabajadores` (`id_trabajador`, `nombre`, `num_documento`, `telefono`, `correo`, `foto`, `cv`, `tipo_pago`, `num_cuenta`, `estado_trabajador`) VALUES
+(18, 'Lucas Dominguez Sanches', '72233456', '923345541', 'lucas@gmail.com', '../vistas/img/trabajador/202406110050548470.jpeg', '../vistas/pdf/trabajador/202406110050549025.pdf', 'efectivo', '', 1),
+(19, 'Luis Illanez Martinez', '47564312', '923456512', 'luis@gmail.com', '../vistas/img/trabajador/202406110051524831.jpeg', '../vistas/pdf/trabajador/202406110051527414.pdf', 'efectivo', '', 1),
+(20, 'Saul Clemente Salas', '42232113', '923234566', 'saul@gmail.com', '../vistas/img/trabajador/202406110052424056.jpeg', '../vistas/pdf/trabajador/202406110052427414.pdf', 'efectivo', '', 1);
 
 -- --------------------------------------------------------
 
@@ -300,6 +423,15 @@ CREATE TABLE `vacaciones` (
   `estado_vacion` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `vacaciones`
+--
+
+INSERT INTO `vacaciones` (`id_vacacion`, `id_trabajador`, `fecha_inicio`, `fecha_fin`, `estado_vacion`) VALUES
+(11, 18, '2025-06-10', '2024-06-11', 0),
+(12, 19, '2024-06-20', '2024-06-26', 0),
+(13, 20, '2024-06-10', '2024-06-11', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -330,20 +462,14 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_venta`, `total_pago`, `sub_total`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_venta_a`) VALUES
-(80, 1, 124, '2024-06-01', 'ticket', 'T0001', '0001', 0.00, 283.40, 283.40, 283.40, 0.00, 'contado', 'completado', 'efectivo', '2024-06-01 07:17:32'),
-(81, 1, 124, '2024-06-01', 'ticket', 'T0002', '0002', 0.00, 156.60, 56.60, 156.60, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-01 07:18:07'),
-(82, 1, 124, '2024-06-01', 'ticket', 'T0003', '0003', 0.00, 72.00, 72.00, 72.00, 0.00, 'contado', 'completado', 'yape', '2024-06-01 07:18:52'),
-(95, 1, 124, '2024-06-06', 'ticket', 'T0016', '0016', 0.00, 18.00, 18.00, 18.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-06 15:38:40'),
-(96, 1, 124, '2024-06-06', 'ticket', 'T0017', '0017', 0.00, 0.00, 0.00, 0.00, 0.00, 'contado', 'completado', 'yape', '2024-06-06 15:49:13'),
-(99, 1, 124, '2024-06-07', 'ticket', 'T0018', '0018', 0.00, 8.70, 8.70, 8.70, 0.00, 'contado', 'completado', 'efectivo', '2024-06-06 20:00:39'),
-(100, 1, 124, '2024-06-07', 'ticket', 'T0019', '0019', 0.00, 10.78, 10.78, 10.78, 0.00, 'contado', 'completado', 'efectivo', '2024-06-06 20:01:35'),
-(101, 1, 124, '2024-06-07', 'ticket', 'T0020', '0020', 0.00, 1107.00, 1107.00, 1107.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-06 20:06:03'),
-(102, 1, 124, '2024-06-09', 'ticket', 'T0021', '0021', 0.00, 96.00, 96.00, 96.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-08 19:29:19'),
-(103, 1, 124, '2024-06-09', 'ticket', 'T0022', '0022', 0.00, 288.00, 88.00, 288.00, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-08 19:29:46'),
-(104, 1, 124, '2024-06-09', 'ticket', 'T0023', '0023', 0.00, 0.00, 0.00, 0.00, 0.00, 'contado', 'completado', 'yape', '2024-06-08 19:29:56'),
-(105, 1, 124, '2024-06-09', 'ticket', 'T0024', '0024', 0.00, 234.00, 234.00, 234.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-08 20:14:45'),
-(106, 1, 124, '2024-06-09', 'ticket', 'T0025', '0025', 0.00, 252.00, 252.00, 252.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-08 20:17:16'),
-(107, 1, 124, '2024-06-09', 'ticket', 'T0026', '0026', 0.00, 989.00, 989.00, 989.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-08 20:18:22');
+(109, 1, 124, '2024-06-10', 'ticket', 'T0001', '0001', 0.00, 72.00, 72.00, 72.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:45:59'),
+(110, 1, 124, '2024-06-10', 'ticket', 'T0002', '0002', 0.00, 151.00, 151.00, 151.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:50:43'),
+(111, 1, 124, '2024-06-10', 'ticket', 'T0003', '0003', 0.00, 168.00, 0.00, 168.00, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 18:52:35'),
+(112, 1, 124, '2024-06-10', 'ticket', 'T0004', '0004', 0.00, 217.80, 217.80, 217.80, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:53:23'),
+(113, 1, 124, '2024-06-11', 'ticket', 'T0005', '0005', 0.00, 16.00, 16.00, 16.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:03:05'),
+(114, 1, 124, '2024-06-11', 'ticket', 'T0006', '0006', 0.00, 16.00, 16.00, 16.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:03:39'),
+(115, 1, 124, '2024-06-11', 'ticket', 'T0007', '0007', 0.00, 245.00, 245.00, 245.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:06:09'),
+(116, 1, 124, '2024-06-11', 'ticket', 'T0008', '0008', 0.00, 70.20, 70.00, 70.20, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 19:08:08');
 
 --
 -- Índices para tablas volcadas
@@ -473,67 +599,67 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `asistencia_trabajadores`
 --
 ALTER TABLE `asistencia_trabajadores`
-  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `config_ticket`
 --
 ALTER TABLE `config_ticket`
-  MODIFY `id_config_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_config_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos_trabajadores`
 --
 ALTER TABLE `contratos_trabajadores`
-  MODIFY `id_contrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_contrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_egreso`
 --
 ALTER TABLE `detalle_egreso`
-  MODIFY `id_detalle_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id_detalle_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
 --
 ALTER TABLE `egresos`
-  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT de la tabla `impresora`
 --
 ALTER TABLE `impresora`
-  MODIFY `id_impresora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_impresora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos_trabajadores`
 --
 ALTER TABLE `pagos_trabajadores`
-  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_documentos`
@@ -545,7 +671,7 @@ ALTER TABLE `tipo_documentos`
 -- AUTO_INCREMENT de la tabla `trabajadores`
 --
 ALTER TABLE `trabajadores`
-  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -557,13 +683,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `id_vacacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_vacacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- Restricciones para tablas volcadas
