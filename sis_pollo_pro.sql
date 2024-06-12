@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2024 a las 15:29:33
+-- Tiempo de generación: 12-06-2024 a las 22:38:37
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -47,7 +47,10 @@ INSERT INTO `asistencia_trabajadores` (`id_asistencia`, `id_trabajador`, `fecha_
 (240, 20, '2024-06-10', '17:58:00', '01:58:00', 'Presente', ''),
 (241, 18, '2024-06-27', '21:58:00', '23:58:00', 'Tarde', ''),
 (242, 19, '2024-06-27', '21:58:00', '23:58:00', 'Presente', ''),
-(243, 20, '2024-06-27', '21:58:00', '23:58:00', 'Tarde', '');
+(243, 20, '2024-06-27', '21:58:00', '23:58:00', 'Tarde', ''),
+(244, 18, '2024-06-11', '13:16:00', '21:16:00', 'Presente', ''),
+(245, 19, '2024-06-11', '13:16:00', '21:16:00', 'Presente', ''),
+(246, 20, '2024-06-11', '13:16:00', '21:16:00', 'Presente', '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +149,11 @@ INSERT INTO `detalle_egreso` (`id_detalle_egreso`, `id_egreso`, `id_producto`, `
 (134, 137, 64, 7.00, 10.00, 1, 1.00),
 (135, 138, 61, 5.90, 7.20, 67, 106.00),
 (136, 139, 58, 6.80, 8.60, 12, 24.00),
-(137, 140, 55, 7.10, 8.70, 1, 1.00);
+(137, 140, 55, 7.10, 8.70, 1, 1.00),
+(138, 141, 67, 7.00, 9.00, 12, 12.00),
+(139, 142, 64, 11.00, 15.00, 12, 12.00),
+(140, 143, 55, 7.00, 10.00, 11, 22.00),
+(141, 144, 64, 12.00, 12.00, 12, 12.00);
 
 -- --------------------------------------------------------
 
@@ -178,7 +185,17 @@ INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `pre
 (132, 115, 64, 10.00, 2, 5.00),
 (133, 115, 61, 7.00, 4, 9.00),
 (134, 115, 67, 12.00, 8, 11.00),
-(135, 116, 73, 7.80, 5, 9.00);
+(135, 116, 73, 7.80, 5, 9.00),
+(136, 117, 70, 8.00, 12, 26.00),
+(137, 118, 64, 15.00, 23, 23.00),
+(138, 119, 67, 9.00, 12, 12.00),
+(139, 120, 64, 11.90, 5, 14.00),
+(140, 121, 67, 9.00, 2, 2.00),
+(141, 122, 67, 9.00, 2, 2.00),
+(142, 123, 61, 7.00, 2, 2.00),
+(143, 124, 64, 12.00, 5, 10.00),
+(144, 125, 70, 8.00, 12, 15.00),
+(145, 125, 67, 9.00, 11, 17.00);
 
 -- --------------------------------------------------------
 
@@ -210,13 +227,17 @@ CREATE TABLE `egresos` (
 --
 
 INSERT INTO `egresos` (`id_egreso`, `id_persona`, `id_usuario`, `fecha_egre`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_compra`, `total_pago`, `subTotal`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_egreso`) VALUES
-(134, 100, 124, '2024-06-10', 'ticket', 'T0001', '0001', 0.00, 3800.00, 3800.00, 3800.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:44:31'),
-(135, 101, 124, '2024-06-10', 'ticket', 'T0002', '0002', 0.00, 529.30, 529.30, 529.30, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:07'),
-(136, 101, 124, '2024-06-10', 'ticket', 'T0003', '0003', 0.00, 120.00, 120.00, 120.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:27'),
+(134, 100, 124, '2024-07-10', 'ticket', 'T0001', '0001', 0.00, 3800.00, 3800.00, 3800.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:44:31'),
+(135, 101, 124, '2024-07-10', 'ticket', 'T0002', '0002', 0.00, 529.30, 529.30, 529.30, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:07'),
+(136, 101, 124, '2024-07-10', 'ticket', 'T0003', '0003', 0.00, 120.00, 120.00, 120.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:27'),
 (137, 102, 124, '2024-06-10', 'ticket', 'T0004', '0004', 0.00, 7.00, 7.00, 7.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:46:50'),
-(138, 102, 124, '2024-06-10', 'ticket', 'T0005', '0005', 0.00, 625.40, 625.40, 625.40, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:47:22'),
+(138, 102, 124, '2024-07-10', 'ticket', 'T0005', '0005', 0.00, 625.40, 625.40, 625.40, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:47:22'),
 (139, 102, 124, '2024-06-10', 'ticket', 'T0006', '0006', 0.00, 163.20, 163.20, 163.20, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 17:47:58'),
-(140, 102, 124, '2024-06-10', 'ticket', 'T0007', '0007', 0.00, 7.10, 7.10, 7.10, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:55:01');
+(140, 102, 124, '2024-06-10', 'ticket', 'T0007', '0007', 0.00, 7.10, 7.10, 7.10, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:55:01'),
+(141, 101, 124, '2024-07-11', 'ticket', 'T0008', '0008', 0.00, 84.00, 84.00, 84.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:02:48'),
+(142, 102, 124, '2024-05-11', 'ticket', 'T0009', '0009', 0.00, 132.00, 132.00, 132.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:03:32'),
+(143, 102, 124, '2024-05-11', 'ticket', 'T0010', '0010', 0.00, 154.00, 154.00, 154.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:05:36'),
+(144, 102, 124, '2024-07-11', 'ticket', 'T0011', '0011', 0.00, 144.00, 144.00, 144.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:19:17');
 
 -- --------------------------------------------------------
 
@@ -322,12 +343,12 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo_producto`, `nombre_producto`, `precio_producto`, `stock_producto`, `fecha_vencimiento`, `descripcion_producto`, `imagen_producto`, `estado_producto`, `fecha_producto`) VALUES
-(55, 31, 'P001', 'Pollo B1', 8.00, 61, '2024-06-15', 'Pollos frescos traidos desde la granja', '../vistas/img/productos/202406110035253642.jpeg', 1, '2024-06-10 17:35:25'),
+(55, 31, 'P001', 'Pollo B1', 10.00, 72, '2024-06-15', 'Pollos frescos traidos desde la granja', '../vistas/img/productos/202406110035253642.jpeg', 1, '2024-06-10 17:35:25'),
 (58, 31, 'P002', 'Pollo B2', 8.00, 92, '2024-06-17', '', '../vistas/img/productos/202406110036082931.jpeg', 1, '2024-06-10 17:36:08'),
-(61, 31, 'P003', 'Pollo b3', 7.00, 108, '2024-06-20', '', '../vistas/img/productos/202406110036403242.jpeg', 1, '2024-06-10 17:36:40'),
-(64, 32, 'P004', 'Pavita', 10.00, 67, '2024-06-19', '', '../vistas/img/productos/202406110037141928.jpeg', 1, '2024-06-10 17:37:14'),
-(67, 33, 'P005', 'Bonito', 12.00, 1238, '2024-06-25', '', '../vistas/img/productos/202406110037549163.jpeg', 1, '2024-06-10 17:37:54'),
-(70, 33, 'P006', 'Curbina', 8.00, 273, '2024-06-20', 'Cubina desde el mar caribe', '../vistas/img/productos/202406110038395045.jpeg', 1, '2024-06-10 17:38:39'),
+(61, 31, 'P003', 'Pollo b3', 7.00, 106, '2024-06-20', '', '../vistas/img/productos/202406110036403242.jpeg', 1, '2024-06-10 17:36:40'),
+(64, 32, 'P004', 'Pavita', 12.00, 58, '2024-06-19', '', '../vistas/img/productos/202406110037141928.jpeg', 1, '2024-06-10 17:37:14'),
+(67, 33, 'P005', 'Bonito', 9.00, 1223, '2024-06-25', '', '../vistas/img/productos/202406110037549163.jpeg', 1, '2024-06-10 17:37:54'),
+(70, 33, 'P006', 'Curbina', 8.00, 249, '2024-06-20', 'Cubina desde el mar caribe', '../vistas/img/productos/202406110038395045.jpeg', 1, '2024-06-10 17:38:39'),
 (73, 33, 'P007', 'Jurel', 8.00, 431, '2024-06-11', 'Jurel fresco ', '../vistas/img/productos/202406110039446444.jpeg', 1, '2024-06-10 17:39:44');
 
 -- --------------------------------------------------------
@@ -464,12 +485,21 @@ CREATE TABLE `ventas` (
 INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `impuesto`, `total_venta`, `total_pago`, `sub_total`, `igv`, `tipo_pago`, `estado_pago`, `pago_e_y`, `fecha_venta_a`) VALUES
 (109, 1, 124, '2024-06-10', 'ticket', 'T0001', '0001', 0.00, 72.00, 72.00, 72.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:45:59'),
 (110, 1, 124, '2024-06-10', 'ticket', 'T0002', '0002', 0.00, 151.00, 151.00, 151.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:50:43'),
-(111, 1, 124, '2024-06-10', 'ticket', 'T0003', '0003', 0.00, 168.00, 0.00, 168.00, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 18:52:35'),
+(111, 1, 124, '2024-06-10', 'ticket', 'T0003', '0003', 0.00, 168.00, 94.00, 168.00, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 18:52:35'),
 (112, 1, 124, '2024-06-10', 'ticket', 'T0004', '0004', 0.00, 217.80, 217.80, 217.80, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 18:53:23'),
 (113, 1, 124, '2024-06-11', 'ticket', 'T0005', '0005', 0.00, 16.00, 16.00, 16.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:03:05'),
 (114, 1, 124, '2024-06-11', 'ticket', 'T0006', '0006', 0.00, 16.00, 16.00, 16.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:03:39'),
 (115, 1, 124, '2024-06-11', 'ticket', 'T0007', '0007', 0.00, 245.00, 245.00, 245.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-10 19:06:09'),
-(116, 1, 124, '2024-06-11', 'ticket', 'T0008', '0008', 0.00, 70.20, 70.00, 70.20, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 19:08:08');
+(116, 1, 124, '2024-06-11', 'ticket', 'T0008', '0008', 0.00, 70.20, 70.00, 70.20, 0.00, 'credito', 'pendiente', 'Ninguno', '2024-06-10 19:08:08'),
+(117, 1, 124, '2024-05-11', 'ticket', 'T0009', '0009', 0.00, 208.00, 208.00, 208.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:04:16'),
+(118, 1, 124, '2024-05-11', 'ticket', 'T0010', '0010', 0.00, 345.00, 345.00, 345.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:04:47'),
+(119, 1, 124, '2024-07-11', 'ticket', 'T0011', '0011', 0.00, 108.00, 108.00, 108.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 12:17:36'),
+(120, 1, 124, '2024-06-11', 'ticket', 'T0012', '0012', 0.00, 166.60, 166.60, 166.60, 0.00, 'contado', 'completado', 'efectivo', '2024-06-11 13:10:26'),
+(121, 1, 124, '2024-06-12', 'ticket', 'T0013', '0013', 0.00, 18.00, 18.00, 18.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:21:21'),
+(122, 1, 124, '2024-06-12', 'ticket', 'T0014', '0014', 0.00, 18.00, 18.00, 18.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:23:40'),
+(123, 1, 124, '2024-06-12', 'ticket', 'T0015', '0015', 0.00, 14.00, 14.00, 14.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:27:37'),
+(124, 1, 124, '2024-06-12', 'ticket', 'T0016', '0016', 0.00, 120.00, 120.00, 120.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:30:35'),
+(125, 103, 124, '2024-06-12', 'ticket', 'T0017', '0017', 0.00, 273.00, 273.00, 273.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:32:27');
 
 --
 -- Índices para tablas volcadas
@@ -599,7 +629,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `asistencia_trabajadores`
 --
 ALTER TABLE `asistencia_trabajadores`
-  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -623,19 +653,19 @@ ALTER TABLE `contratos_trabajadores`
 -- AUTO_INCREMENT de la tabla `detalle_egreso`
 --
 ALTER TABLE `detalle_egreso`
-  MODIFY `id_detalle_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id_detalle_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
 --
 ALTER TABLE `egresos`
-  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `impresora`
@@ -671,7 +701,7 @@ ALTER TABLE `tipo_documentos`
 -- AUTO_INCREMENT de la tabla `trabajadores`
 --
 ALTER TABLE `trabajadores`
-  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -689,7 +719,7 @@ ALTER TABLE `vacaciones`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- Restricciones para tablas volcadas
