@@ -655,36 +655,32 @@ $("#data_lista_ventas").on("click", ".btnImprimirTicket", function(e) {
         type: "GET",
         dataType: "json",
         success: function (impresoras) {
-
-
+      
           impresoras.forEach(function (impresora) {
-
             nombreImpresora = impresora.nombre;
-
           });
-
-          // URL del servicio de impresión
-          var url = `http://localhost:8080/url?urlPdf=${encodeURIComponent(urlPDF)}&impresora=${encodeURIComponent(nombreImpresora)}`;
-
+      
+          // Asegúrate de codificar las partes de la URL
+          var url = `http://127.0.0.1:5000/print/${encodeURIComponent(nombreImpresora)}/${encodeURIComponent(urlPDF)}`;
+      
           fetch(url)
             .then(respuesta => {
               if (respuesta.ok) {
-                $estado.textContent = "Impreso correctamente";
+                respuesta.json().then(mensaje => {
+                  console.log("Impresión exitosa: ", mensaje);
+                });
               } else {
                 respuesta.json().then(mensaje => {
                   $estado.textContent = "Error imprimiendo: " + mensaje.message;
-                  console.log("Error: ", mensaje);
+                  
                 });
               }
             })
             .catch(error => {
               $estado.textContent = "Error haciendo petición: " + error.message;
-              console.log("Error: ", error);
+              
             });
-
-
         },
-
       });
 
     },
@@ -1251,10 +1247,68 @@ $("#btn_pagar_deuda_venta").click(function (e) {
             confirmButtonText: "¡Imprimir!",
           }).then((result) => {
             if (result.isConfirmed) {
+
+
               Swal.fire({
                 title: "¡Imprimiendo!",
                 text: "Su comprobante se está imprimiento.",
                 icon: "success",
+              });
+
+
+              $.ajax({
+                url: "extensiones/ticketPrint.php",
+                type: "GET",
+                data: { id_venta_pagar: id_venta_pagar },
+                success: function (response) {
+
+                  const $estado = document.querySelector("#section_imprimir_mensaje_ventas_pagado");
+
+                  $estado.textContent = "Imprimiendo ...";
+
+                  // URL del PDF
+                  var urlPDF = `http://localhost/sis_venta_pollo/vistas/ticket/ticket${id_venta_pagar}.pdf`;
+
+                  var nombreImpresora = '';
+
+                  $.ajax({
+                    url: "ajax/Impresora.ajax.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (impresoras) {
+
+                      impresoras.forEach(function (impresora) {
+                        nombreImpresora = impresora.nombre;
+                      });
+
+                      // Asegúrate de codificar las partes de la URL
+                      var url = `http://127.0.0.1:5000/print/${encodeURIComponent(nombreImpresora)}/${encodeURIComponent(urlPDF)}`;
+
+                      fetch(url)
+                        .then(respuesta => {
+                          if (respuesta.ok) {
+                            respuesta.json().then(mensaje => {
+                              console.log("Impresión exitosa: ", mensaje);
+                            });
+                          } else {
+                            respuesta.json().then(mensaje => {
+                              $estado.textContent = "";
+
+                            });
+                          }
+                        })
+                        .catch(error => {
+                          $estado.textContent = "";
+
+                        });
+                    },
+                  });
+
+
+                },
+                error: function (error) {
+                  console.log("Error guardando el ticket: ", error);
+                }
               });
             }
           });

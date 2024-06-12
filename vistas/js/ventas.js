@@ -750,36 +750,33 @@ $(document).ready(function () {
                       dataType: "json",
                       success: function (impresoras) {
 
-
                         impresoras.forEach(function (impresora) {
-
                           nombreImpresora = impresora.nombre;
-
                         });
 
-                        // URL del servicio de impresión
-                        var url = `http://localhost:8080/url?urlPdf=${encodeURIComponent(urlPDF)}&impresora=${encodeURIComponent(nombreImpresora)}`;
+                        // Asegúrate de codificar las partes de la URL
+                        var url = `http://127.0.0.1:5000/print/${encodeURIComponent(nombreImpresora)}/${encodeURIComponent(urlPDF)}`;
 
                         fetch(url)
                           .then(respuesta => {
                             if (respuesta.ok) {
-                              $estado.textContent = "Impreso correctamente";
+                              respuesta.json().then(mensaje => {
+                                console.log("Impresión exitosa: ", mensaje);
+                              });
                             } else {
                               respuesta.json().then(mensaje => {
                                 $estado.textContent = "Error imprimiendo: " + mensaje.message;
-                                console.log("Error: ", mensaje);
+
                               });
                             }
                           })
                           .catch(error => {
                             $estado.textContent = "Error haciendo petición: " + error.message;
-                            console.log("Error: ", error);
+
                           });
-
-
                       },
-
                     });
+
 
                   },
                   error: function (error) {
