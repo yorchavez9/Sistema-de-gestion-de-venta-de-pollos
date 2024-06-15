@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2024 a las 22:38:37
+-- Tiempo de generación: 15-06-2024 a las 23:10:22
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -138,23 +138,6 @@ CREATE TABLE `detalle_egreso` (
   `cantidad_kg` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `detalle_egreso`
---
-
-INSERT INTO `detalle_egreso` (`id_detalle_egreso`, `id_egreso`, `id_producto`, `precio_compra`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
-(131, 134, 73, 7.60, 8.00, 234, 500.00),
-(132, 135, 70, 6.70, 8.90, 45, 79.00),
-(133, 136, 67, 10.00, 12.00, 12, 12.00),
-(134, 137, 64, 7.00, 10.00, 1, 1.00),
-(135, 138, 61, 5.90, 7.20, 67, 106.00),
-(136, 139, 58, 6.80, 8.60, 12, 24.00),
-(137, 140, 55, 7.10, 8.70, 1, 1.00),
-(138, 141, 67, 7.00, 9.00, 12, 12.00),
-(139, 142, 64, 11.00, 15.00, 12, 12.00),
-(140, 143, 55, 7.00, 10.00, 11, 22.00),
-(141, 144, 64, 12.00, 12.00, 12, 12.00);
-
 -- --------------------------------------------------------
 
 --
@@ -169,33 +152,6 @@ CREATE TABLE `detalle_venta` (
   `cantidad_u` int(11) DEFAULT NULL,
   `cantidad_kg` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `detalle_venta`
---
-
-INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `precio_venta`, `cantidad_u`, `cantidad_kg`) VALUES
-(125, 109, 73, 8.00, 7, 9.00),
-(126, 110, 73, 8.00, 6, 9.00),
-(127, 110, 70, 7.90, 6, 10.00),
-(128, 111, 61, 7.00, 12, 24.00),
-(129, 112, 64, 9.90, 10, 22.00),
-(130, 113, 73, 8.00, 1, 2.00),
-(131, 114, 73, 8.00, 1, 2.00),
-(132, 115, 64, 10.00, 2, 5.00),
-(133, 115, 61, 7.00, 4, 9.00),
-(134, 115, 67, 12.00, 8, 11.00),
-(135, 116, 73, 7.80, 5, 9.00),
-(136, 117, 70, 8.00, 12, 26.00),
-(137, 118, 64, 15.00, 23, 23.00),
-(138, 119, 67, 9.00, 12, 12.00),
-(139, 120, 64, 11.90, 5, 14.00),
-(140, 121, 67, 9.00, 2, 2.00),
-(141, 122, 67, 9.00, 2, 2.00),
-(142, 123, 61, 7.00, 2, 2.00),
-(143, 124, 64, 12.00, 5, 10.00),
-(144, 125, 70, 8.00, 12, 15.00),
-(145, 125, 67, 9.00, 11, 17.00);
 
 -- --------------------------------------------------------
 
@@ -257,7 +213,7 @@ CREATE TABLE `impresora` (
 --
 
 INSERT INTO `impresora` (`id_impresora`, `nombre`, `ip_impresora`, `fecha`) VALUES
-(5, 'EPSON L310 Series', '192.168.1.50', '2024-06-10');
+(5, 'EPSON-L310-Series', '192.168.1.50', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -343,13 +299,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo_producto`, `nombre_producto`, `precio_producto`, `stock_producto`, `fecha_vencimiento`, `descripcion_producto`, `imagen_producto`, `estado_producto`, `fecha_producto`) VALUES
-(55, 31, 'P001', 'Pollo B1', 10.00, 72, '2024-06-15', 'Pollos frescos traidos desde la granja', '../vistas/img/productos/202406110035253642.jpeg', 1, '2024-06-10 17:35:25'),
-(58, 31, 'P002', 'Pollo B2', 8.00, 92, '2024-06-17', '', '../vistas/img/productos/202406110036082931.jpeg', 1, '2024-06-10 17:36:08'),
-(61, 31, 'P003', 'Pollo b3', 7.00, 106, '2024-06-20', '', '../vistas/img/productos/202406110036403242.jpeg', 1, '2024-06-10 17:36:40'),
-(64, 32, 'P004', 'Pavita', 12.00, 58, '2024-06-19', '', '../vistas/img/productos/202406110037141928.jpeg', 1, '2024-06-10 17:37:14'),
-(67, 33, 'P005', 'Bonito', 9.00, 1223, '2024-06-25', '', '../vistas/img/productos/202406110037549163.jpeg', 1, '2024-06-10 17:37:54'),
-(70, 33, 'P006', 'Curbina', 8.00, 249, '2024-06-20', 'Cubina desde el mar caribe', '../vistas/img/productos/202406110038395045.jpeg', 1, '2024-06-10 17:38:39'),
-(73, 33, 'P007', 'Jurel', 8.00, 431, '2024-06-11', 'Jurel fresco ', '../vistas/img/productos/202406110039446444.jpeg', 1, '2024-06-10 17:39:44');
+(129, 31, 'P001', 'Producto ', 0.00, 123, '2024-06-19', 'Descripcion ', '../vistas/img/productos/202406152243236388.png', 1, '2024-06-15 15:43:23');
 
 -- --------------------------------------------------------
 
@@ -499,7 +449,10 @@ INSERT INTO `ventas` (`id_venta`, `id_persona`, `id_usuario`, `fecha_venta`, `ti
 (122, 1, 124, '2024-06-12', 'ticket', 'T0014', '0014', 0.00, 18.00, 18.00, 18.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:23:40'),
 (123, 1, 124, '2024-06-12', 'ticket', 'T0015', '0015', 0.00, 14.00, 14.00, 14.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:27:37'),
 (124, 1, 124, '2024-06-12', 'ticket', 'T0016', '0016', 0.00, 120.00, 120.00, 120.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:30:35'),
-(125, 103, 124, '2024-06-12', 'ticket', 'T0017', '0017', 0.00, 273.00, 273.00, 273.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:32:27');
+(125, 103, 124, '2024-06-12', 'ticket', 'T0017', '0017', 0.00, 273.00, 273.00, 273.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 13:32:27'),
+(126, 1, 124, '2024-06-12', 'ticket', 'T0018', '0018', 0.00, 24.00, 24.00, 24.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-12 16:41:02'),
+(127, 1, 124, '2024-06-13', 'ticket', 'T0019', '0019', 0.00, 35.00, 35.00, 35.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-13 17:10:48'),
+(128, 1, 124, '2024-06-14', 'ticket', 'T0020', '0020', 0.00, 36.00, 36.00, 36.00, 0.00, 'contado', 'completado', 'efectivo', '2024-06-14 10:22:46');
 
 --
 -- Índices para tablas volcadas
@@ -582,7 +535,6 @@ ALTER TABLE `personas`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
-  ADD UNIQUE KEY `codigo_producto` (`codigo_producto`),
   ADD KEY `id_categoria` (`id_categoria`);
 
 --
@@ -659,7 +611,7 @@ ALTER TABLE `detalle_egreso`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
@@ -689,7 +641,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_documentos`
@@ -719,7 +671,7 @@ ALTER TABLE `vacaciones`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- Restricciones para tablas volcadas
