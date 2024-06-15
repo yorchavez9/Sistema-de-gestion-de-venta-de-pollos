@@ -24,7 +24,7 @@
     <script src="vistas/js/script-proveedor.js" type="module"></script>
     <script src="vistas/js/cliente.js" type="module"></script>
     <script src="vistas/js/categoria.js" type="module"></script>
-    <script src="vistas/js/productos.js" type="module"></script>
+    <script src="vistas/js/productos.js"></script>
     <script src="vistas/js/codigo-barra.js" type="module"></script>
     <script src="vistas/js/egreso.js" type="module"></script>
     <script src="vistas/js/lista-egreso.js" type="module"></script>

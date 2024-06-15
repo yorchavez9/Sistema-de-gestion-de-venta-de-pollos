@@ -1,4 +1,82 @@
 $(document).ready(function () {
+
+  /* ===========================
+  MOSTRANDO PRODUCTO
+  =========================== */
+  function mostrarProductos() {
+    $.ajax({
+      url: "ajax/Producto.ajax.php",
+      type: "GET",
+      dataType: "json",
+      success: function (productos) {
+
+        console.log(productos);
+
+        var tbody = $("#data_productos");
+
+        tbody.empty();
+
+        productos.forEach(function (producto, index) {
+
+          producto.imagen_producto = producto.imagen_producto.substring(3);
+
+
+          var fila = `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${producto.codigo_producto}</td>
+                            <td class="text-center">
+                                <a href="javascript:void(0);" class="product-img">
+                                    <img src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
+                                </a>
+                            </td>
+                            <td>${producto.nombre_categoria}</td>
+                            <td>${producto.nombre_producto}</td>
+                            <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
+                            <td>${producto.fecha_vencimiento}</td>
+
+                            <td>
+                              ${producto.estado_producto != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="0">Activado</button>'
+              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="1">Desactivado</button>'}
+                            </td>
+                            
+                            <td class="text-center">
+                                <a href="#" class="me-3 btnEditarProducto" idProducto="${producto.id_producto}" data-bs-toggle="modal" data-bs-target="#modalEditarProducto">
+                                    <i class="text-warning fas fa-edit fa-lg"></i>
+                                </a>
+                                <a href="#" class="me-3 btnVerProducto" idProducto="${producto.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
+                                    <i class="text-primary fa fa-eye fa-lg"></i>
+                                </a>
+                                <a href="#" class="me-3 confirm-text btnDeleteProducto" idProducto="${producto.id_producto}" imagenProducto="${producto.imagen_producto}">
+                                    <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
+                                </a>
+                            </td>
+                        </tr>`;
+
+          function getButtonStyles(stock) {
+            if (stock > 20) {
+              return "background-color: #28C76F; color: white; border: none;"; // Verde
+            } else if (stock >= 10 && stock <= 20) {
+              return "background-color: #FF9F43; color: white; border: none;"; // Naranja
+            } else {
+              return "background-color: #FF4D4D; color: white; border: none;"; // Rojo
+            }
+          }
+
+
+
+          // Agregar la fila al tbody
+          tbody.append(fila);
+        });
+        // Inicializar DataTables después de cargar los datos
+        $('#tabla_productos').DataTable();
+      },
+      error: function (xhr, status, error) {
+        console.error("Error al recuperar los usuarios:", error.mensaje);
+      },
+    });
+  }
+
   /* =====================================
   VISTA PREVIA DE IMAGEN PRODUCTO
   ===================================== */
@@ -89,17 +167,17 @@ $(document).ready(function () {
   /* ===========================================
   GUARDAR PRODUCTO
   =========================================== */
-  $("#btn_guardar_producto").click(function () {
+  $("#btn_save_producto").click(function () {
 
     var isValid = true;
 
-    var id_categoria_P = $("#id_categoria_P").val();
-    var codigo_producto = $("#codigo_producto").val();
-    var nombre_producto = $("#nombre_producto").val();
-    var stock_producto = $("#stock_producto").val();
-    var fecha_vencimiento = $("#fecha_vencimiento").val();
-    var descripcion_producto = $("#descripcion_producto").val();
-    var imagen_producto = $("#imagen_producto").get(0).files[0];
+    let id_categoria_P = $("#id_categoria_P").val();
+    let codigo_producto = $("#codigo_producto").val();
+    let nombre_producto = $("#nombre_producto").val();
+    let stock_producto = $("#stock_producto").val();
+    let fecha_vencimiento = $("#fecha_vencimiento").val();
+    let descripcion_producto = $("#descripcion_producto").val();
+    let imagen_producto = $("#imagen_producto").get(0).files[0];
 
 
 
@@ -146,7 +224,8 @@ $(document).ready(function () {
 
     // Si el formulario es válido, envíalo
     if (isValid) {
-      var datos = new FormData();
+
+      let  datos = new FormData();
       datos.append("id_categoria_P", id_categoria_P);
       datos.append("codigo_producto", codigo_producto);
       datos.append("nombre_producto", nombre_producto);
@@ -203,80 +282,6 @@ $(document).ready(function () {
 
     }
   });
-
-  /* ===========================
-  MOSTRANDO PRODUCTO
-  =========================== */
-  function mostrarProductos() {
-    $.ajax({
-      url: "ajax/Producto.ajax.php",
-      type: "GET",
-      dataType: "json",
-      success: function (productos) {
-        var tbody = $("#data_productos");
-
-        tbody.empty();
-
-        productos.forEach(function (producto, index) {
-
-          producto.imagen_producto = producto.imagen_producto.substring(3);
-
-
-          var fila = `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${producto.codigo_producto}</td>
-                            <td class="text-center">
-                                <a href="javascript:void(0);" class="product-img">
-                                    <img src="${producto.imagen_producto}" alt="${producto.imagen_producto}">
-                                </a>
-                            </td>
-                            <td>${producto.nombre_categoria}</td>
-                            <td>${producto.nombre_producto}</td>
-                            <td class="text-center"><button type="button" class="btn btn-sm" style="${getButtonStyles(producto.stock_producto)}">${producto.stock_producto}</button></td>
-                            <td>${producto.fecha_vencimiento}</td>
-
-                            <td>
-                              ${producto.estado_producto != 0 ? '<button class="btn bg-lightgreen badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="0">Activado</button>'
-              : '<button class="btn bg-lightred badges btn-sm rounded btnActivar" idProducto="' + producto.id_producto + '" estadoProducto="1">Desactivado</button>'}
-                            </td>
-                            
-                            <td class="text-center">
-                                <a href="#" class="me-3 btnEditarProducto" idProducto="${producto.id_producto}" data-bs-toggle="modal" data-bs-target="#modalEditarProducto">
-                                    <i class="text-warning fas fa-edit fa-lg"></i>
-                                </a>
-                                <a href="#" class="me-3 btnVerProducto" idProducto="${producto.id_producto}" data-bs-toggle="modal" data-bs-target="#modalVerProducto">
-                                    <i class="text-primary fa fa-eye fa-lg"></i>
-                                </a>
-                                <a href="#" class="me-3 confirm-text btnEliminarProducto" idProducto="${producto.id_producto}" imagenProducto="${producto.imagen_producto}">
-                                    <i class="fa fa-trash fa-lg" style="color: #FF4D4D"></i>
-                                </a>
-                            </td>
-                        </tr>`;
-
-          function getButtonStyles(stock) {
-            if (stock > 20) {
-              return "background-color: #28C76F; color: white; border: none;"; // Verde
-            } else if (stock >= 10 && stock <= 20) {
-              return "background-color: #FF9F43; color: white; border: none;"; // Naranja
-            } else {
-              return "background-color: #FF4D4D; color: white; border: none;"; // Rojo
-            }
-          }
-
-
-
-          // Agregar la fila al tbody
-          tbody.append(fila);
-        });
-        // Inicializar DataTables después de cargar los datos
-        $('#tabla_productos').DataTable();
-      },
-      error: function (xhr, status, error) {
-        console.error("Error al recuperar los usuarios:", error.mensaje);
-      },
-    });
-  }
 
   /*=============================================
   ACTIVAR PRODUCTO
@@ -564,16 +569,17 @@ $(document).ready(function () {
   /*=============================================
     ELIMINAR PRODUCTO
     =============================================*/
-  $("#tabla_productos").on("click", ".btnEliminarProducto", function (e) {
+  $("#tabla_productos").on("click", ".btnDeleteProducto", function (e) {
 
     e.preventDefault();
 
-    var idProductoDelete = $(this).attr("idProducto");
-    var imagenProductoDelete = $(this).attr("imagenProducto");
-    var deleteRutaImagenProducto = "../" + imagenProductoDelete;
+    let idProductoDelete = $(this).attr("idProducto");
+    let imagenProductoDelete = $(this).attr("imagenProducto");
+    let deleteRutaImagenProducto = "../" + imagenProductoDelete;
 
 
-    var datos = new FormData();
+    let datos = new FormData();
+
     datos.append("idProductoDelete", idProductoDelete);
     datos.append("deleteRutaImagenProducto", deleteRutaImagenProducto);
 
@@ -587,7 +593,9 @@ $(document).ready(function () {
       cancelButtonText: "Cancelar",
       confirmButtonText: "Si, borrar!",
     }).then(function (result) {
+
       if (result.value) {
+
         $.ajax({
           url: "ajax/Producto.ajax.php",
           method: "POST",
@@ -596,7 +604,12 @@ $(document).ready(function () {
           contentType: false,
           processData: false,
           success: function (respuesta) {
-            var res = JSON.parse(respuesta);
+
+            console.log(respuesta);
+
+            mostrarProductos();
+
+            let res = JSON.parse(respuesta);
 
             if (res === "ok") {
 
@@ -634,12 +647,6 @@ $(document).ready(function () {
 
     $("#formEditUsuario")[0].reset();
   });
-
-  /* =====================================
-  MSOTRANDO DATOS
-  ===================================== */
-
-  mostrarProductos();
 
 
 
@@ -845,6 +852,11 @@ $(document).ready(function () {
   }
   
 
+  /* =====================================
+  MSOTRANDO DATOS
+  ===================================== */
+
+  mostrarProductos();
 
   
 

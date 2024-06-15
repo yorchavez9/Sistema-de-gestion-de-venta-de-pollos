@@ -179,7 +179,7 @@
                 </div>
 
                 <div class="text-end mx-4 mb-2">
-                    <button type="button" id="btn_guardar_producto" class="btn btn-primary mx-2">Guardar</button>
+                    <button type="button" id="btn_save_producto" class="btn btn-primary mx-2">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>
