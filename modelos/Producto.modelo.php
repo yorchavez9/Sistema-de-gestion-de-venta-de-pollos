@@ -40,34 +40,33 @@ class ModeloProducto{
 	MOSTRAR PRODUCTOS NUEVOS
 	=============================================*/
 
-	static public function mdlMostrarProductoNuevos($tablaC, $tablaP, $item, $valor){
+	static public function mdlMostrarProductoNuevos($tablaC, $tablaP, $item, $valor) {
 
-		if($item != null){
-
+		if ($item != null) {
+	
 			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria WHERE $item = :$item");
-
+	
 			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
-
+	
 			$stmt -> execute();
-
+	
 			return $stmt -> fetch();
-
-		}else{
-
-
-			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria WHERE p.fecha_producto >= CURDATE() - INTERVAL 10 DAY");
-
+	
+		} else {
+	
+			// Ajuste de la consulta para obtener los 5 productos más recientes
+			$stmt = Conexion::conectar()->prepare("SELECT * from $tablaC as c inner join $tablaP as p on c.id_categoria = p.id_categoria ORDER BY p.fecha_producto DESC LIMIT 5");
+	
 			$stmt -> execute();
-
+	
 			return $stmt -> fetchAll();
-
+	
 		}
-		
-
-
+	
 		$stmt = null;
-
+	
 	}
+	
 
 	/*=============================================
 	MOSTRAR PRODUCTOS STOCK
