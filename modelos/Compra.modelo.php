@@ -298,7 +298,7 @@ class ModeloCompra{
 		
 		$stmt = Conexion::conectar()->prepare("UPDATE $tblProducto SET precio_producto = :precio, stock_producto = stock_producto + :cantidad WHERE id_producto = :id_producto");
 	
-		$stmt->bindParam(":precio", $precio, PDO::PARAM_INT);
+		$stmt->bindParam(":precio", $precio, PDO::PARAM_STR);
 		$stmt->bindParam(":cantidad", $cantidad, PDO::PARAM_INT);
 		$stmt->bindParam(":id_producto", $idProducto, PDO::PARAM_INT);
 	
