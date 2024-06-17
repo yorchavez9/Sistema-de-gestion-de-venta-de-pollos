@@ -70,4 +70,37 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 ¡Espero que este sistema pueda mejorar y optimizar tu negocio de venta de pollos! 🐔💼
 
 ---
+
+## 🖼️ Imágenes
+
+### Tecnologías
+![Tecnologías](capturas/tecnologias.png)
+
+### Panel de Control
+![Panel de Control](capturas/01.png)
+
+### Personas
+![Personas](capturas/03.png)
+
+### Inventario
+![Inventario](capturas/06.png)
+
+### Compras
+![Compras](capturas/10.png)
+
+### Ventas
+![Ventas](capturas/14.png)
+
+### Trabajadores
+![Trabajadores](capturas/17.png)
+
+### Reportes
+![Reportes](capturas/20.png)
+
+### Ticket
+![Ajustes](capturas/22.png)
+
+
+
+---
 Desarrollado con ❤️ por [Tu Nombre].
