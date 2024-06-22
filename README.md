@@ -62,8 +62,8 @@ Implementar este sistema en tu negocio de venta de pollos te proporcionará:
 ## 📞 Contacto
 
 Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes en contactarme:
-- **WhatsApp**: +1234567890
-- **Email**: ventas@sistemadepollos.com
+- **WhatsApp**: [Escribir](https://wa.link/e4e27c)
+- **Email**: djjmygm160399@gmail.com
 - **Facebook**: [Sistema de Pollos](https://facebook.com/sistemadepollos)
 - **Instagram**: [@sistemadepollos](https://instagram.com/sistemadepollos)
 
@@ -109,6 +109,9 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 
 ### Ticket
 ![Ajustes](capturas/22.png)
+
+### Base de datos
+![BD](capturas/23.png)
 
 
 
