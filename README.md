@@ -73,6 +73,8 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 
 ## DEMO
 
+- **URL**: [Sistema de Pollos](https://apuuraysis.com/)
+
 - **Usuario**: Admin
 - **Contraseña**: Admin123$
 
