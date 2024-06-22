@@ -86,6 +86,9 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 ### Tecnologías
 ![Tecnologías](capturas/tecnologias.png)
 
+### Login
+![Inicio de sesión](capturas/00.png)
+
 ### Panel de Control
 ![Panel de Control](capturas/01.png)
 
