@@ -71,6 +71,14 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 
 ---
 
+## DEMO
+
+- **Usuario**: Admin
+- **Contraseña**: Admin123$
+
+
+---
+
 ## 🖼️ Imágenes
 
 ### Tecnologías
@@ -103,4 +111,4 @@ Si estás interesado en adquirir el sistema o tienes alguna pregunta, no dudes e
 
 
 ---
-Desarrollado con ❤️ por [Tu Nombre].
+Desarrollado con ❤️ por Apuuray.

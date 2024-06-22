@@ -121,7 +121,7 @@
                         <!-- INGRESO DE DEL CODIGO  -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="codigo" class="form-label">Ingrese el código del producto (<span class="text-danger">*</span>)</label>
+                                <label for="codigo" class="form-label">Código del producto (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="codigo_producto" placeholder="Ingrese el código del producto">
                                 <small id="error_codigo_p"></small>
                             </div>
@@ -136,7 +136,7 @@
                         <!-- INGRESO DE NOMBRE  -->
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="direccion" class="form-label">Ingrese el nombre del producto (<span class="text-danger">*</span>)</label>
+                                <label for="direccion" class="form-label">Nombre del producto (<span class="text-danger">*</span>)</label>
                                 <input type="text" id="nombre_producto" placeholder="Ingrese el nombre del producto">
                                 <small id="error_nombre_p"></small>
                             </div>
@@ -146,7 +146,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="stock" class="form-label">Stock (<span class="text-danger">*</span>)</label>
-                                <input type="number" id="stock_producto" value="0" class="form-control">
+                                <input type="number" id="stock_producto" value="0" min="0" class="form-control">
                                 <small id="error_stock_p"></small>
                             </div>
 
@@ -155,7 +155,7 @@
                         <!-- INGRESO DE FECHA DE VENCIMIENTO -->
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="fecha_vencimiento" class="form-label">Ingrese la fecha de vencimiento</label>
+                                <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento</label>
                                 <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control">
                                 <small id="error_fecha_vencimiento_p"></small>
                             </div>
@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="descripcion_producto" class="form-label"> Ingrese la descripción</label>
+                        <label for="descripcion_producto" class="form-label">Descripción</label>
                         <textarea name="descripcion_producto" id="descripcion_producto" cols="30" rows="10" placeholder="Ingrese la descripción del producto"></textarea>
                     </div>
 
