@@ -208,18 +208,25 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
+
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
+
             $("#nuevoUsuario")[0].reset();
+
             $(".vistaPreviaImagenUsuario").attr("src", "");
+            
             $("#modalNuevoUsuario").modal("hide");
+
             Swal.fire({
               title: "¡Correcto!",
               text: "El usuario ha sido guardado",
               icon: "success",
             });
+
             mostrarUsuarios();
+
           } else {
             console.error("La carga y guardado de la imagen ha fallado.");
           }

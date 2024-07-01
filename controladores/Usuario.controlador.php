@@ -143,7 +143,9 @@ class ControladorUsuarios
 		if ($respuesta == "ok") {
 
 			echo json_encode("ok");
+
 		} else {
+			
 			echo json_encode("error");
 		}
 	}
