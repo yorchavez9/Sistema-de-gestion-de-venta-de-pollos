@@ -239,6 +239,7 @@ $(document).ready(function () {
   MOSTRANDO USUARIOS
   =========================== */
   function mostrarUsuarios() {
+
     $.ajax({
       url: "ajax/Usuario.ajax.php",
       type: "GET",
@@ -292,6 +293,7 @@ $(document).ready(function () {
 
           // Agregar la fila al tbody
           tbody.append(fila);
+          
         });
 
         // Inicializar DataTables después de cargar los datos
@@ -610,6 +612,7 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
+          
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
