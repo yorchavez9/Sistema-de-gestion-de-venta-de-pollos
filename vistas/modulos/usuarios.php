@@ -183,6 +183,7 @@
                         <input type="file" class="form-control" id="imagen_usuario" class="">
                         <div class="text-center mt-3">
                             <img src="" class="vistaPreviaImagenUsuario img img-fluid rounded-circle" width="250" alt="">
+                            <small id="errorImagenUsuario"></small>
                         </div>
                     </div>
 

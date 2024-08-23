@@ -91,7 +91,6 @@ $(document).ready(function () {
   =========================================== */
 
   $("#guardar_usuario").click(function () {
-
     var isValid = true;
 
     var nombre = $("#nombre_usuario").val();
@@ -112,13 +111,11 @@ $(document).ready(function () {
 
     var data_roles = JSON.stringify(roles);
 
-
     // Validar el nombre de usuario
     if (nombre == "") {
       $("#errorNombreUsuario")
         .html("Por favor, ingrese el nombre completo")
         .addClass("text-danger");
-
       isValid = false;
     } else {
       $("#errorNombreUsuario").html("").removeClass("text-danger");
@@ -194,11 +191,20 @@ $(document).ready(function () {
       $("#errorContrasena").html("").removeClass("text-danger");
     }
 
+    // Validar la imagen
+    if (!imagen) {
+      $("#errorImagenUsuario")
+        .html("Por favor, selecciona una imagen")
+        .addClass("text-danger");
+      isValid = false;
+    } else {
+      $("#errorImagenUsuario").html("").removeClass("text-danger");
+    }
+
     // Si el formulario es válido, envíalo
     if (isValid) {
-
       var datos = new FormData();
-      
+
       datos.append("nombre", nombre);
       datos.append("tipoDocumento", tipoDocumento);
       datos.append("numeroDocumento", numeroDocumento);
@@ -218,17 +224,13 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
-
           console.log(respuesta);
 
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
-
             $("#nuevoUsuario")[0].reset();
-
             $(".vistaPreviaImagenUsuario").attr("src", "");
-            
             $("#modalNuevoUsuario").modal("hide");
 
             Swal.fire({
@@ -238,7 +240,6 @@ $(document).ready(function () {
             });
 
             mostrarUsuarios();
-
           } else {
             console.error("La carga y guardado de la imagen ha fallado.");
           }
@@ -246,6 +247,7 @@ $(document).ready(function () {
       });
     }
   });
+
 
   /* ===========================
   MOSTRANDO USUARIOS
@@ -305,12 +307,12 @@ $(document).ready(function () {
 
           // Agregar la fila al tbody
           tbody.append(fila);
-          
+
         });
 
         // Inicializar DataTables después de cargar los datos
         $('#tabla_usuarios').DataTable();
-        
+
       },
       error: function (xhr, status, error) {
         console.error("Error al recuperar los usuarios:", error);
@@ -624,7 +626,7 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
-          
+
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
@@ -778,7 +780,7 @@ $(document).ready(function () {
         });
 
         // Inicializar DataTables después de cargar los datos
-        
+
         $('#tabla_reporte_usuarios').DataTable();
 
       },
