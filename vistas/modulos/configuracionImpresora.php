@@ -132,7 +132,7 @@
 
 
                     <!-- ID DE LA IMPRESORA -->
-                    <input type="text" id="id_impresora_edit">
+                    <input type="hidden" id="id_impresora_edit">
 
                     <!-- INGRESO NOMBRE DE LA TIENDA -->
                     <div class="form-group">

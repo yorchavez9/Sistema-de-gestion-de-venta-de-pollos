@@ -1,5 +1,7 @@
 <?php
 
+/* CONTROLADORES */
+
 require_once "controladores/Plantilla.controlador.php";
 
 require_once "controladores/Usuario.controlador.php";
@@ -18,7 +20,7 @@ require_once "controladores/Vacaciones.controlador.php";
 require_once "controladores/Configuracion.ticket.controlador.php";
 require_once "controladores/Impresora.controlador.php";
 
-
+/* MODELOS */
 
 require_once "modelos/Usuario.modelo.php";
 require_once "modelos/Tipo.documento.modelo.php";

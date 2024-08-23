@@ -76,7 +76,9 @@
                 <h5 class="modal-title">Crear nuevo usuario</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
+
             <form enctype="multipart/form-data" id="nuevoUsuario">
+                
                 <div class="modal-body">
 
                     <!-- INGRESO DE NOMBRE -->
@@ -91,9 +93,13 @@
                         <div class="col-md-6">
                             <label class="form-label">Selecione el tipo de documento (<span class="text-danger">*</span>)</label>
                             <?php
+
                             $item = null;
+
                             $valor = null;
+
                             $tiposDocumentos = ControladorTipoDocumento::ctrMostrarTipoDocumento($item, $valor);
+
                             ?>
                             <select class="select" id="id_doc">
                                 <option disabled selected>Seleccione</option>
@@ -188,6 +194,7 @@
                             <input type="checkbox" class="data_rol mx-2 " id="rol_administrador" value="administrador"><small>Administrador</small>
                             <input type="checkbox" class="data_rol mx-2 " id="rol_cajero" value="cajero"><small>Cajero</small>
                             <input type="checkbox" class="data_rol mx-2 " id="rol_ayudante" value="ayudante"><small>Ayudante</small>
+                            <!-- <input type="checkbox" class="data_rol mx-2 " id="rol_prueba" value="prueba"><small>Prueba</small> -->
                         </div>
                     </div>
 

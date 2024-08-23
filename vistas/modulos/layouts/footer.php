@@ -4,8 +4,6 @@
 
     <script src="vistas/dist/assets/js/jquery.slimscroll.min.js"></script>
 
-
-
     <script src="vistas/dist/assets/js/bootstrap.bundle.min.js"></script>
     <script src="vistas/dist/assets/plugins/select2/js/select2.min.js"></script>
 

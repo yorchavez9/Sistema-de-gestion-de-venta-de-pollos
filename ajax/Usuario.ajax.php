@@ -123,6 +123,7 @@ elseif (isset($_POST["validarUsuario"])) {
 elseif (isset($_POST["nombre"])) {
 
     $crearUsuario = new ControladorUsuarios();
+    
     $crearUsuario->ctrCrearUsuario();
 
 }
@@ -181,4 +182,3 @@ else{
 
 
 ?>
-

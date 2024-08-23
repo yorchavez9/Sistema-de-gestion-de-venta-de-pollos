@@ -53,7 +53,7 @@ $(document).ready(function () {
       responsive: { 0: { items: 2 }, 768: { items: 4 }, 1170: { items: 8 } },
     });
   }
-  
+
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -66,13 +66,19 @@ $(document).ready(function () {
   $("#imgInp").change(function () {
     readURL(this);
   });
- 
+
   setTimeout(function () {
+
     $("#global-loader");
+
     setTimeout(function () {
+
       $("#global-loader").fadeOut("slow");
+
     }, 100);
+    
   }, 500);
+
   if ($(".datetimepicker").length > 0) {
     $(".datetimepicker").datetimepicker({
       format: "DD-MM-YYYY",
@@ -84,6 +90,7 @@ $(document).ready(function () {
       },
     });
   }
+
   if ($(".toggle-password").length > 0) {
     $(document).on("click", ".toggle-password", function () {
       $(this).toggleClass("fa-eye fa-eye-slash");
@@ -248,7 +255,7 @@ $(document).ready(function () {
     return false;
   });
 
-  
+
   if (localStorage.getItem("screenModeNightTokenState") == "night") {
     setTimeout(function () {
       $("body").removeClass("mini-sidebar");
@@ -538,10 +545,10 @@ $(document).ready(function () {
         .removeClass("active");
       $(
         '.tabs_container .tab_content[data-tab="' +
-          $theTab +
-          '"], ul.tabs li[id="' +
-          $theTab +
-          '"]'
+        $theTab +
+        '"], ul.tabs li[id="' +
+        $theTab +
+        '"]'
       ).addClass("active");
     }
   });

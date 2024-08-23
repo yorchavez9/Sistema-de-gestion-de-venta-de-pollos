@@ -68,7 +68,6 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 <?php
 } else {
     include "modulos/login.php";
-
 }
 ?>
 

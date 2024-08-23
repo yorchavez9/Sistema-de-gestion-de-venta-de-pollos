@@ -43,12 +43,15 @@ $(document).ready(function () {
    VALIDANDO IMAGEN DEL USUARIO
   ===================================== */
   $("#imagen_usuario").change(function () {
+
     var imagen = $(this).get(0).files[0];
 
     if (imagen) {
+
       var maxSize = 5 * 1024 * 1024;
 
       if (imagen.size > maxSize) {
+
         Swal.fire({
           title: "¡Error!",
           text: "El tamaño de la imagen es demasiado grande. Por favor, seleccione una imagen más pequeña.",
@@ -63,6 +66,7 @@ $(document).ready(function () {
       var allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
 
       if (allowedTypes.indexOf(imagen.type) === -1) {
+
         Swal.fire({
           title: "¡Error!",
           text: "El tipo de archivo seleccionado no es válido. Por favor, seleccione una imagen en formato JPEG, PNG, GIF o JPG.",
@@ -75,13 +79,17 @@ $(document).ready(function () {
       }
 
     } else {
+
       alert("Por favor, seleccione una imagen.");
+
     }
+
   });
 
   /* ===========================================
   GUARDAR USUARIO
   =========================================== */
+
   $("#guardar_usuario").click(function () {
 
     var isValid = true;
@@ -188,7 +196,9 @@ $(document).ready(function () {
 
     // Si el formulario es válido, envíalo
     if (isValid) {
+
       var datos = new FormData();
+      
       datos.append("nombre", nombre);
       datos.append("tipoDocumento", tipoDocumento);
       datos.append("numeroDocumento", numeroDocumento);
@@ -208,6 +218,8 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
+
+          console.log(respuesta);
 
           var res = JSON.parse(respuesta);
 
@@ -239,6 +251,7 @@ $(document).ready(function () {
   MOSTRANDO USUARIOS
   =========================== */
   function mostrarUsuarios() {
+
     $.ajax({
       url: "ajax/Usuario.ajax.php",
       type: "GET",
@@ -292,6 +305,7 @@ $(document).ready(function () {
 
           // Agregar la fila al tbody
           tbody.append(fila);
+          
         });
 
         // Inicializar DataTables después de cargar los datos
@@ -610,6 +624,7 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (respuesta) {
+          
           var res = JSON.parse(respuesta);
 
           if (res === "ok") {
